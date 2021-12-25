@@ -7,7 +7,7 @@ import Home from './features/home';
 import Header from './header/header';
 import {GlobalMessage, GlobalMessageContext} from './shared/GlobalMessageContext';
 import GlobalMessageDisplay from './shared/GlobalMessageDisplay';
-import YourBooks from './features/yourBooks/myBooksList';
+import YourBooks from './features/yourBooks/yourBooksList';
 import Library from './features/library/library';
 import AuthorList from './features/authors/author-list';
 

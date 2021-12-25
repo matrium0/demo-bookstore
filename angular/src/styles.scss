@@ -3,42 +3,46 @@ $enable-shadows: true;
 $enable-button-pointers: true;
 
 $warning: #c39007;
-@import '~@angular/material/theming';
-@include mat-core();
 
-$mat-primary-scheme: (
-    100: #f7f3ff,
-    500: #979797,
-    700: #000,
-    contrast: (
-        100: rgba(0, 0, 0, 0.87),
-        500: #ffffff,
-        700: #ffffff,
-    )
-);
-$mat-accent-scheme: (
-    100: #30bb00,
-    500: #167f00,
-    700: #00490f,
-    contrast: (
-        100: rgba(0, 0, 0, 0.87),
-        500: rgba(255, 255, 255, 0.87),
-        700: #ffffff,
-    )
-);
-$mat-primary-palette: mat-palette($mat-primary-scheme);
-$mat-accent-palette: mat-palette($mat-accent-scheme);
+//@use '@angular/material' as mat;
 
-$app-light-theme: mat-light-theme($mat-primary-palette, $mat-accent-palette);
-
-@include angular-material-theme($app-light-theme);
-
-$custom-typography: mat-typography-config(
-    $font-family: 'Calibri'
-);
+//@use '~@angular/material' as mat;
+//@import '~@angular/material/theming';
+//@include mat-core();
+//
+//$mat-primary-scheme: (
+//    100: #f7f3ff,
+//    500: #979797,
+//    700: #000,
+//    contrast: (
+//        100: rgba(0, 0, 0, 0.87),
+//        500: #ffffff,
+//        700: #ffffff,
+//    )
+//);
+//$mat-accent-scheme: (
+//    100: #30bb00,
+//    500: #167f00,
+//    700: #00490f,
+//    contrast: (
+//        100: rgba(0, 0, 0, 0.87),
+//        500: rgba(255, 255, 255, 0.87),
+//        700: #ffffff,
+//    )
+//);
+//$mat-primary-palette: mat-palette($mat-primary-scheme);
+//$mat-accent-palette: mat-palette($mat-accent-scheme);
+//
+//$app-light-theme: mat-light-theme($mat-primary-palette, $mat-accent-palette);
+//
+//@include angular-material-theme($app-light-theme);
+//
+//$custom-typography: mat-typography-config(
+//    $font-family: 'Calibri'
+//);
 $input-placeholder-color: rgba(0, 0, 0, .42);
 
-@include angular-material-typography($custom-typography);
+//@include angular-material-typography($custom-typography);
 @import '../node_modules/bootstrap/scss/bootstrap';
 @import '~@swimlane/ngx-datatable/index.css';
 @import '~@swimlane/ngx-datatable/themes/material.css';
@@ -307,3 +311,6 @@ ngx-datatable .sort-btn {
   min-height: 37px;
 }
 
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
