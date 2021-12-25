@@ -1,0 +1,57 @@
+$enable-gradients: true;
+$enable-shadows: true;
+$enable-button-pointers: true;
+
+$warning: #c39007;
+@import "~bootstrap/scss/bootstrap";
+
+@font-face {
+  font-family: 'Black Chancery';
+  src: local('Black Chancery'), url(./assets/BLKCHCRY.woff) format('woff');
+}
+
+.h1, h1 {
+  font-family: 'Black Chancery', cursive;
+  font-weight: bold;
+}
+
+
+body {
+  margin: 0;
+}
+
+.square {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 50px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 50px;
+}
+
+.square:focus {
+  outline: none;
+}
+
+.kbd-navigation .square:focus {
+  background: #ddd;
+}
+
+.game {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-info {
+  margin-left: 20px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
