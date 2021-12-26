@@ -5,14 +5,17 @@ import {RouterModule} from '@angular/router';
 import {MatDividerModule} from '@angular/material/divider';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import { GlobalMessageComponent } from './global-message/global-message.component';
 
 
 @NgModule({
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    GlobalMessageComponent
   ],
   exports: [
-    HeaderComponent
+    HeaderComponent,
+    GlobalMessageComponent
   ],
   imports: [
     CommonModule,

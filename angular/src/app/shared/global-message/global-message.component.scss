@@ -1,0 +1,43 @@
+.alert {
+  margin-bottom: 0
+}
+
+.global-messages {
+  font-size: 1.2rem;
+  font-weight: bold;
+  position: fixed;
+  left: 5%;
+  right: 5%;
+  top: 70px;
+  opacity: 0.9;
+  z-index: 99999999;
+  pointer-events: none;
+
+  i {
+    pointer-events: all;
+    cursor: pointer;
+  }
+
+  @media (min-width: 992px) {
+    left: auto;
+    right: 10%;
+    max-width: 65%;
+  }
+  @media (min-width: 1200px) {
+    max-width: 50%;
+  }
+}
+
+.small-message {
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+.global-messages .alert {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.alert {
+  margin-bottom: 0;
+}

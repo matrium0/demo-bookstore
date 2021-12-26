@@ -9,7 +9,7 @@ const Home = () => {
     console.log("settingy dummy message");
     //TODO add default values for optional fields
     //TODO use undefined instead of null so that no value has to be set
-    globalMessageContext.setMessage({message: "a bright new message", severity: "info"})
+    globalMessageContext.setMessage({message: "a bright new message of medium length", severity: "info"})
   }
 
   function clearMessage() {
