@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-light shadow p-0">
-  <a routerLink="/" class="navbar-brand d-flex align-items-center ms-3 me-0">
+  <a routerLink="/" class="navbar-brand d-flex align-items-center ms-0 ms-md-3 me-0">
     <img src="/assets/demo-bookstore-gold-48px.png" class="logo-image" alt="logo">
     <img src="/assets/angular-gold-18px.png" class="logo-image-appendix-small" alt="logo appendix">
   </a>
@@ -29,8 +29,8 @@
           Authors
         </a>
       </li>
-      <li class="d-md-none mb-3 logout-link-mobile">
-        <button (click)="handleLogoutClick()" class="my-2 btn btn-link link-dark fs-5 text-decoration-none">log
+      <li class="d-md-none mb-2 logout-link-mobile">
+        <button (click)="handleLogoutClick()" class="btn btn-link link-dark ms-2 fs-5 text-decoration-none">log
           out <span class="fw-bold">"{{(userService.authentication$ | async)}}"</span></button>
       </li>
     </ul>

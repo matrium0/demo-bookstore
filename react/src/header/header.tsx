@@ -24,7 +24,7 @@ const Header = () => {
           <span className="navbar-toggler-icon"/>
         </button>
         <div id="navbarNav" className={"navbar-collapse justify-content-between align-items-center " + (menuCollapsed ? "d-none" : "")}>
-          <ul className="navbar-nav w-100 ms-0 ms-lg-2 align-items-center">
+          <ul className="navbar-nav w-100 ms-0 ms-lg-2">
             <li className="nav-item">
               <NavLink to="/" className="nav-link">
                 Home
@@ -53,7 +53,7 @@ const Header = () => {
             {applicationContext.user &&
                 <>
                   <li className="d-md-none mb-3 logout-link-mobile">
-                    <button onClick={() => handleLogoutClick()} className="my-2 btn btn-link link-dark fs-5 text-decoration-none">log
+                    <button onClick={() => handleLogoutClick()} className="btn btn-link link-dark fs-5 text-decoration-none">log
                       out <span className="fw-bold">"{applicationContext.user}"</span></button>
                   </li>
                   <div className="d-none d-md-block ms-md-auto me-3">

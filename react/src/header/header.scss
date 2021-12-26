@@ -14,8 +14,12 @@ nav {
   margin-left: 10px;
   font-weight: bold;
   font-size: 1.2rem;
-  padding-bottom: 0;
   padding-top: 0;
+}
+
+.nav-item{
+  display: flex;
+  align-items: center;
 }
 
 @include media-breakpoint-up(md) {
@@ -32,6 +36,9 @@ nav {
 }
 
 @include media-breakpoint-up(lg) {
+  .nav-link {
+    padding-bottom: 0;
+  }
   .navbar-expand-md .navbar-nav .nav-link {
     padding-right: 1rem;
     padding-left: 1rem;
@@ -49,7 +56,6 @@ nav {
 }
 
 .logout-link-mobile {
-  text-align: center;
   width: 100%;
   border-top: 3px solid gray;
   margin-top: 5px;
