@@ -1,10 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-light shadow p-0">
   <a routerLink="/" class="navbar-brand d-flex align-items-center ms-3 me-0">
-    <img src="/assets/demo%20logo.png" class="logo-image d-none d-lg-inline" alt="logo">
-    <div class="d-flex flex-column justify-content-center ms-0 ms-lg-4">
-      <div class="title main-highlight-color">Tour of Heroes</div>
-      <div class="subtitle">Angular demonstration</div>
-    </div>
+    <img src="/assets/demo-bookstore-gold-48px.png" class="logo-image d-none d-lg-inline" alt="logo">
+    <img src="/assets/angular-gold-18px.png" class="logo-image-appendix-small" alt="logo appendix">
   </a>
   <button class="navbar-toggler m-2" (click)="isMenuCollapsed=!isMenuCollapsed" type="button" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -13,31 +10,46 @@
        (click)="isMenuCollapsed=true" [hidden]="isMenuCollapsed">
     <ul class="navbar-nav w-100 ms-0 ms-lg-2">
       <li class="nav-item">
-        <a routerLink="/dashboard" routerLinkActive="active" class="nav-link">
-          Dashboard
+        <a routerLink="/home" routerLinkActive="active" class="nav-link">
+          Home
         </a>
       </li>
       <li class="nav-item">
-        <a routerLink="/heroes" routerLinkActive="active" class="nav-link">
-          Heroes
+        <a routerLink="/your-books" routerLinkActive="active" class="nav-link">
+          Your Books
         </a>
       </li>
       <li class="nav-item">
-        <a routerLink="/abilities" routerLinkActive="active" class="nav-link">
-          Abilities
+        <a routerLink="/library" routerLinkActive="active" class="nav-link">
+          Library
         </a>
       </li>
       <li class="nav-item">
-        <a routerLink="/quiz" routerLinkActive="active" class="nav-link">
-          Quizzes
+        <a routerLink="/authors" routerLinkActive="active" class="nav-link">
+          Authors
         </a>
       </li>
-      <!--      <mat-divider class="d-block d-md-none"></mat-divider>-->
-      <!--      <div *ngIf="(userService.authentication$ | async ) as userWrapper" (click)="userService.logout()"-->
-      <!--           class="logout-link ms-md-auto me-3 d-flex align-items-center">-->
-      <!--        <span class="d-inline d-md-none d-xl-inline"><span class="d-inline d-md-none"> logout</span> {{userWrapper.user?.username}}</span>-->
-      <!--        <i matTooltip="log out" class="fa fa-sign-out-alt fa-lg ms-2" aria-hidden="true"></i>-->
-      <!--      </div>-->
+      <mat-divider class="d-block d-md-none"></mat-divider>
+      <li class="d-md-none mb-3 logout-link-mobile">
+        <button (click)="handleLogoutClick()" class="my-2 btn btn-link link-dark fs-5 text-decoration-none">log
+        out <span class="fw-bold">"{{(userService.authentication$ | async)}}</span></button>
+      </li>
+      <div class="d-none d-md-block ms-md-auto me-3">
+        <i class="fa fa-user-circle fa-2x"></i>
+<!--        <div id="dropdown-basic-button" title={<FontAwesomeIcon icon={faUserCircle} size={'2x'}/>}>-->
+          <div class="d-flex flex-column align-items-center fs-4 mx-3">
+            <div>logged in as</div>
+            <div class="fw-bold">"{{(userService.authentication$ | async)}}"</div>
+            <button class="btn btn-secondary my-2">log out</button>
+          </div>
+<!--        </div>-->
+      </div>
+      
+<!--      <div *ngIf="(userService.authentication$ | async ) as userWrapper" (click)="userService.logout()"-->
+<!--           class="logout-link ms-md-auto me-3 d-flex align-items-center">-->
+<!--        <span class="d-inline d-md-none d-xl-inline"><span class="d-inline d-md-none"> logout</span> {{userWrapper.user?.username}}</span>-->
+<!--        <i matTooltip="log out" class="fa fa-sign-out-alt fa-lg ms-2" aria-hidden="true"></i>-->
+<!--      </div>-->
     </ul>
   </div>
 </nav>

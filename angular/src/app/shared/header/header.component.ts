@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {UserService} from '../../core/user.service';
 
 @Component({
   selector: 'app-header',
@@ -8,10 +9,13 @@ import {Component, OnInit} from '@angular/core';
 export class HeaderComponent implements OnInit {
   isMenuCollapsed = true;
 
-  constructor() {
+  constructor(public userService: UserService) {
   }
 
   ngOnInit(): void {
   }
 
+  handleLogoutClick() {
+
+  }
 }
