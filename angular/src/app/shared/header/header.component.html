@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light shadow p-0">
   <a routerLink="/" class="navbar-brand d-flex align-items-center ms-3 me-0">
-    <img src="/assets/demo-bookstore-gold-48px.png" class="logo-image d-none d-lg-inline" alt="logo">
+    <img src="/assets/demo-bookstore-gold-48px.png" class="logo-image" alt="logo">
     <img src="/assets/angular-gold-18px.png" class="logo-image-appendix-small" alt="logo appendix">
   </a>
   <button class="navbar-toggler m-2" (click)="isMenuCollapsed=!isMenuCollapsed" type="button" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,60 +29,43 @@
           Authors
         </a>
       </li>
+      <li class="d-md-none mb-3 logout-link-mobile">
+        <button (click)="handleLogoutClick()" class="my-2 btn btn-link link-dark fs-5 text-decoration-none">log
+          out <span class="fw-bold">"{{(userService.authentication$ | async)}}"</span></button>
+      </li>
     </ul>
-
-    <div class="btn-group" dropdown>
-<!--      //TODO menu-->
-      <fa-icon (click)="userMenuButton.click()" [icon]="iconUserCircle" size="2x" class="cursor-pointer"></fa-icon>
-      <i (click)="userMenuButton.click()" class="fa fa-user-circle fa-2x"></i>
-      <button #userMenuButton id="button-basic" dropdownToggle type="button" class="dropdown-toggle"
-              aria-controls="dropdown-basic">
-        Button dropdown <span class="caret"></span>
-      </button>
-      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
-          role="menu" aria-labelledby="button-basic">
-        <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
-        <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
-        <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
-        <li class="divider dropdown-divider"></li>
-        <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a>
-        </li>
-      </ul>
-    </div>
-<!--      <mat-divider class="d-block d-md-none"></mat-divider>-->
-<!--    <button id="button-custom-html" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"-->
-<!--            aria-controls="dropdown-custom-html">-->
-<!--      Button dropdown <span class="caret"></span>-->
-<!--    </button>-->
-<!--    <ul id="dropdown-custom-html" *dropdownMenu class="dropdown-menu"-->
-<!--        role="menu" aria-labelledby="button-custom-html">-->
-<!--      <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>-->
-<!--      <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>-->
-<!--      <li role="menuitem"><a class="dropdown-item" href="#"><span class="badge badge-secondary bg-secondary">Some HTML here</span></a></li>-->
-<!--    </ul>-->
+    <div class="btn-group me-3 d-none d-lg-block" dropdown>
+      <div id="button-basic" dropdownToggle class="cursor-pointer" type="button" aria-controls="dropdown-basic">
+        <fa-icon [icon]="iconUserCircle"></fa-icon>
+      </div>
+      <div id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right"
+           role="menu" aria-labelledby="button-basic">
+        <div class="d-flex flex-column align-items-center fs-4 mx-3">
+          <div>logged in as</div>
+          <div class="fw-bold">"{{(userService.authentication$ | async)}}"</div>
+          <button (click)="handleLogoutClick()" class="btn btn-secondary my-2">log out</button>
         </div>
+      </div>
+    </div>
+  </div>
 
 
-<!--        <li class="d-md-none mb-3 logout-link-mobile">-->
-<!--          <button (click)="handleLogoutClick()" class="my-2 btn btn-link link-dark fs-5 text-decoration-none">log-->
-<!--            out <span class="fw-bold">"{{(userService.authentication$ | async)}}</span></button>-->
-<!--        </li>-->
-<!--        <div class="d-none d-md-block ms-md-auto me-3">-->
-<!--          <i class="fa fa-user-circle fa-2x"></i>-->
-<!--          &lt;!&ndash;        <div id="dropdown-basic-button" title={<FontAwesomeIcon icon={faUserCircle} size={'2x'}/>}>&ndash;&gt;-->
-<!--          <div class="d-flex flex-column align-items-center fs-4 mx-3">-->
-<!--            <div>logged in as</div>-->
-<!--            <div class="fw-bold">"{{(userService.authentication$ | async)}}"</div>-->
-<!--            <button class="btn btn-secondary my-2">log out</button>-->
-<!--          </div>-->
-<!--          &lt;!&ndash;        </div>&ndash;&gt;-->
-<!--        </div>-->
+  <!--        <li class="d-md-none mb-3 logout-link-mobile">-->
+  <!--          <button (click)="handleLogoutClick()" class="my-2 btn btn-link link-dark fs-5 text-decoration-none">log-->
+  <!--            out <span class="fw-bold">"{{(userService.authentication$ | async)}}</span></button>-->
+  <!--        </li>-->
+  <!--        <div class="d-none d-md-block ms-md-auto me-3">-->
+  <!--          <i class="fa fa-user-circle fa-2x"></i>-->
+  <!--          &lt;!&ndash;        <div id="dropdown-basic-button" title={<FontAwesomeIcon icon={faUserCircle} size={'2x'}/>}>&ndash;&gt;-->
 
-        <!--      <div *ngIf="(userService.authentication$ | async ) as userWrapper" (click)="userService.logout()"-->
-        <!--           class="logout-link ms-md-auto me-3 d-flex align-items-center">-->
-        <!--        <span class="d-inline d-md-none d-xl-inline"><span class="d-inline d-md-none"> logout</span> {{userWrapper.user?.username}}</span>-->
-        <!--        <i matTooltip="log out" class="fa fa-sign-out-alt fa-lg ms-2" aria-hidden="true"></i>-->
-        <!--      </div>-->
-<!--      </ul>-->
-<!--  </div>-->
+  <!--          &lt;!&ndash;        </div>&ndash;&gt;-->
+  <!--        </div>-->
+
+  <!--      <div *ngIf="(userService.authentication$ | async ) as userWrapper" (click)="userService.logout()"-->
+  <!--           class="logout-link ms-md-auto me-3 d-flex align-items-center">-->
+  <!--        <span class="d-inline d-md-none d-xl-inline"><span class="d-inline d-md-none"> logout</span> {{userWrapper.user?.username}}</span>-->
+  <!--        <i matTooltip="log out" class="fa fa-sign-out-alt fa-lg ms-2" aria-hidden="true"></i>-->
+  <!--      </div>-->
+  <!--      </ul>-->
+  <!--  </div>-->
 </nav>

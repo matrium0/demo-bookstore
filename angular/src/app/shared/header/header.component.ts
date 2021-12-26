@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../core/user.service';
-import {faUserCircle} from '@fortawesome/free-regular-svg-icons';
+import {faUserCircle} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
