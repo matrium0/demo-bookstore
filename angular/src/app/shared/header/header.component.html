@@ -32,7 +32,10 @@
     </ul>
 
     <div class="btn-group" dropdown>
-      <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+<!--      //TODO menu-->
+      <fa-icon (click)="userMenuButton.click()" [icon]="iconUserCircle" size="2x" class="cursor-pointer"></fa-icon>
+      <i (click)="userMenuButton.click()" class="fa fa-user-circle fa-2x"></i>
+      <button #userMenuButton id="button-basic" dropdownToggle type="button" class="dropdown-toggle"
               aria-controls="dropdown-basic">
         Button dropdown <span class="caret"></span>
       </button>

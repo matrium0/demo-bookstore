@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../core/user.service';
+import {faUserCircle} from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -7,6 +8,7 @@ import {UserService} from '../../core/user.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  iconUserCircle = faUserCircle;
   isMenuCollapsed = true;
 
   constructor(public userService: UserService) {
