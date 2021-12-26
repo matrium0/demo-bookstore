@@ -20,7 +20,7 @@ import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
     BrowserAnimationsModule,
     SharedModule,
     CoreModule,
-    // BsDropdownModule.forRoot()
+
   ],
   providers: [],
   bootstrap: [AppComponent]

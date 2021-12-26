@@ -10,6 +10,7 @@ export class GlobalMessageService {
   private timeout?: number;
 
   clearAlertMessage(): void {
+    console.log("clearAlertMessage");
     this.message$.next(null);
   }
 
