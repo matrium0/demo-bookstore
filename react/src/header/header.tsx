@@ -23,7 +23,7 @@ const Header = () => {
                 aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"/>
         </button>
-        <div id="navbarNav" className={"navbar-collapse justify-content-between align-items-center " + (menuCollapsed ? "d-none" : "")}>
+        <div id="navbarNav" className={"navbar-collapse justify-content-between align-items-center mt-2 " + (menuCollapsed ? "d-none" : "")}>
           <ul className="navbar-nav w-100 ms-0 ms-lg-2">
             <li className="nav-item">
               <NavLink to="/" className="nav-link">
@@ -52,7 +52,7 @@ const Header = () => {
             </li>
             {applicationContext.user &&
                 <>
-                  <li className="d-md-none mb-3 logout-link-mobile">
+                  <li className="d-md-none mb-2 logout-link-mobile">
                     <button onClick={() => handleLogoutClick()} className="btn btn-link link-dark fs-5 text-decoration-none">log
                       out <span className="fw-bold">"{applicationContext.user}"</span></button>
                   </li>
