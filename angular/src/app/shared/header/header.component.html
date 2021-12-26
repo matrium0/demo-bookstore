@@ -6,7 +6,7 @@
   <button class="navbar-toggler m-2" (click)="isMenuCollapsed=!isMenuCollapsed" type="button" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div id="navbarNav" class="navbar-collapse justify-content-between align-items-center"
+  <div id="navbarNav" class="navbar-collapse justify-content-between align-items-center mt-1"
        (click)="isMenuCollapsed=true" [hidden]="isMenuCollapsed">
     <ul class="navbar-nav w-100 ms-0 ms-lg-2">
       <li class="nav-item">
@@ -30,7 +30,7 @@
         </a>
       </li>
       <li class="d-md-none mb-2 logout-link-mobile">
-        <button (click)="handleLogoutClick()" class="btn btn-link link-dark ms-2 fs-5 text-decoration-none">log
+        <button (click)="handleLogoutClick()" class="btn btn-link link-dark fs-5 text-decoration-none">log
           out <span class="fw-bold">"{{(userService.authentication$ | async)}}"</span></button>
       </li>
     </ul>
