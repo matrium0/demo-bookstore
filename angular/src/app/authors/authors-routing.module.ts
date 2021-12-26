@@ -3,7 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {AuthorListComponent} from './author-list/author-list.component';
 
 const routes: Routes = [
-  {path: "/", component: AuthorListComponent}
+  {path: "", component: AuthorListComponent}
 ];
 
 @NgModule({

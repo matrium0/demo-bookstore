@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './header/header.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {HeaderComponent} from './header/header.component';
 import {RouterModule} from '@angular/router';
 import {MatDividerModule} from '@angular/material/divider';
-
+import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 
 
 @NgModule({
@@ -16,7 +16,9 @@ import {MatDividerModule} from '@angular/material/divider';
   imports: [
     CommonModule,
     RouterModule,
-    MatDividerModule
+    MatDividerModule,
+    BsDropdownModule,
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+}

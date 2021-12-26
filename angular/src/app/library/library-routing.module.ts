@@ -3,7 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {LibraryComponent} from './library/library.component';
 
 const routes: Routes = [
-  {path: "/", component: LibraryComponent}
+  {path: "", component: LibraryComponent}
 ];
 
 @NgModule({
