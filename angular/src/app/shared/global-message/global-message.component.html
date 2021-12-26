@@ -1,4 +1,3 @@
-<p>global-message works!</p>
 <div class="global-messages">
   <div *ngIf="globalMessageService.message$ | async as mess">
     <div role="alert" class="alert alert-{{ mess.type }} d-flex justify-content-between align-items-center">

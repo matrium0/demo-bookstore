@@ -51,13 +51,16 @@ $input-placeholder-color: rgba(0, 0, 0, .42);
 @import '~quill/dist/quill.snow.css';
 @import '~cropperjs/dist/cropper.css';
 
+* {
+  font-family: Calibri, sans-serif;
+}
+
 html, body {
   height: 100%;
 }
 
 body {
   margin: 0;
-  font-family: Calibri, sans-serif;
 }
 
 h1, h2, h3, h4, h5, .h1, .h2, .h3, .h5, .h5 {
