@@ -3,8 +3,11 @@ interface Author extends Entity {
     firstname: string;
     lastname: string;
     isPenName: boolean;
-    birthDate: Date;
-    birthLocation: string;
+    gender: "MALE" | "FEMALE" | "NON-BINARY";
+    birthdate: Date;
+    placeOfBirth: string;
+    dateOfDeath: Date | null;
+    placeOfDeath: string | null;
     website: string;
     note: string;
 }

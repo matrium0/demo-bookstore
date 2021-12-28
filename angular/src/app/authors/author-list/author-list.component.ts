@@ -1,6 +1,6 @@
-import {Component, HostListener, OnInit} from '@angular/core';
-import Author from '../../../../../shared/author/Author';
-import {findAll} from '../../../../../shared/author/AuthorMockService';
+import {Component, OnInit} from '@angular/core';
+import Author from '../../../../../mock-backend/author/Author';
+import {findAll} from '../../../../../mock-backend/author/AuthorMockService';
 import {GlobalMessageService} from '../../core/global-message.service';
 import {Sort} from '@angular/material/sort';
 
@@ -11,7 +11,6 @@ import {Sort} from '@angular/material/sort';
 })
 export class AuthorListComponent implements OnInit {
   authors?: Author[];
-
 
   constructor(private globalMessageService: GlobalMessageService) {
   }
