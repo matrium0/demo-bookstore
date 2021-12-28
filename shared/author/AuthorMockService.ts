@@ -1,7 +1,10 @@
 import Author from './Author';
 
-const initialAuthors: Author[] = [
+export const logfromlib = (message: string) => console.log(message);
+
+const initialData: Author[] = [
   {
+    id: 1,
     firstname: "Brandon",
     lastname: "Sanderson",
     isPenName: false,
@@ -13,3 +16,32 @@ const initialAuthors: Author[] = [
         "He created Sanderson's Laws of Magic and popularized the terms \"hard and soft magic systems\". In 2008, Sanderson started a podcast with author Dan Wells and cartoonist Howard Tayler called Writing Excuses, involving topics about creating genre writing and webcomics."
   }
 ];
+
+let data = [...initialData];
+
+export function createOrUpdate(newElement: Author): Author {
+  let existingElement = data.filter(a => a.id === newElement.id);
+
+  if (existingElement?.length === 1) {
+    let foundIndex = data.indexOf(existingElement[0]);
+    newElement.id = Math.max(...data.map(e => e.id)) + 1;
+    data[foundIndex] = newElement;
+  } else {
+    data.push(newElement);
+  }
+  return newElement;
+}
+
+// TODO DUPLICATE
+
+export function findAll(): Author[] {
+  return data;
+}
+
+export function findById(id: number): Author {
+  return data.filter(a => a.id === id)[0];
+}
+
+export function remove(id: number)  {
+  data = data.filter(elem => elem.id !== id);
+}

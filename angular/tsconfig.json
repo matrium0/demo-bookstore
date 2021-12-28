@@ -23,6 +23,13 @@
       "dom"
     ]
   },
+  "references": [
+    {
+      //TODO check this settings
+      "path": "../shared",
+      // add 'prepend' if you want to include the referenced project in your output file
+    }
+  ],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,

@@ -1,4 +1,6 @@
-interface Author {
+import {Entity} from './Entity';
+
+interface Author extends Entity{
   firstname: string;
   lastname: string;
   isPenName: boolean;
