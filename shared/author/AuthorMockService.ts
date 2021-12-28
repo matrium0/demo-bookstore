@@ -1,6 +1,5 @@
+import {EMPTY, Observable, of} from 'rxjs';
 import Author from './Author';
-
-export const logfromlib = (message: string) => console.log(message);
 
 const initialData: Author[] = [
   {
@@ -32,16 +31,15 @@ export function createOrUpdate(newElement: Author): Author {
   return newElement;
 }
 
-// TODO DUPLICATE
-
-export function findAll(): Author[] {
-  return data;
+export function findAll(): Observable<Author[]> {
+  return of(data);
 }
 
-export function findById(id: number): Author {
-  return data.filter(a => a.id === id)[0];
+export function findById(id: number): Observable<Author> {
+  return of(data.filter(a => a.id === id)[0]);
 }
 
-export function remove(id: number)  {
+export function remove(id: number): Observable<never> {
   data = data.filter(elem => elem.id !== id);
+  return EMPTY;
 }

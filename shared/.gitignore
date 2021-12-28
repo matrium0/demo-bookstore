@@ -1,0 +1,16 @@
+/dist
+/tmp
+/out-tsc
+/bazel-out
+/node_modules
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
