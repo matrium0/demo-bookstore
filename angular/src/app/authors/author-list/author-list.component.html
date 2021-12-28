@@ -1,4 +1,7 @@
-<p>author-list works!</p>
-
-
-{{authors | json}}
+<div class="m-3">
+  <h1>Authors</h1>
+  <div *ngIf="!authors">
+    TODO SHOW SPINNER
+  </div>
+  <app-author-table *ngIf="authors" [authors]="authors"></app-author-table>
+</div>

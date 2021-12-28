@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -7,7 +7,11 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {SharedModule} from './shared/shared.module';
 import {CoreModule} from './core/core.module';
-import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
+import {registerLocaleData} from '@angular/common';
+import localeDeAt from '@angular/common/locales/de-AT';
+import localeDeAtExtra from '@angular/common/locales/extra/de-AT';
+
+registerLocaleData(localeDeAt, 'de-AT', localeDeAtExtra);
 
 @NgModule({
   declarations: [
@@ -22,7 +26,9 @@ import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
     CoreModule,
 
   ],
-  providers: [],
+  providers: [
+    {provide: LOCALE_ID, useValue: 'de-AT'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
