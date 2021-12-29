@@ -5,17 +5,21 @@ import {RouterModule} from '@angular/router';
 import {MatDividerModule} from '@angular/material/divider';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import { GlobalMessageComponent } from './global-message/global-message.component';
+import {GlobalMessageComponent} from './global-message/global-message.component';
+import {GenderIconComponent} from './gender-icon/gender-icon.component';
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    GlobalMessageComponent
+    GlobalMessageComponent,
+    GenderIconComponent
   ],
   exports: [
     HeaderComponent,
-    GlobalMessageComponent
+    GlobalMessageComponent,
+    GenderIconComponent,
+    FontAwesomeModule
   ],
   imports: [
     CommonModule,

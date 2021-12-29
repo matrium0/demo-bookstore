@@ -7,9 +7,9 @@ interface Author extends Entity {
   gender: "MALE" | "FEMALE" | "NON-BINARY";
   birthdate: Date;
   placeOfBirth: string;
-  dateOfDeath: Date | null;
-  placeOfDeath: string | null;
-  website: string;
+  dateOfDeath?: Date;
+  placeOfDeath?: string;
+  website?: string;
 
   note: string
 

@@ -6,6 +6,7 @@ import { AuthorListComponent } from './author-list/author-list.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import { AuthorTableComponent } from './author-table/author-table.component';
+import {SharedModule} from '../shared/shared.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { AuthorTableComponent } from './author-table/author-table.component';
     CommonModule,
     AuthorsRoutingModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    SharedModule
   ]
 })
 export class AuthorsModule { }

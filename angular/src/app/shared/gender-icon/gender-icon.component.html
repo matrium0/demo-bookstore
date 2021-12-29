@@ -1,0 +1,12 @@
+<div *ngIf="gender === 'MALE'" class="d-flex align-items-center">
+  <fa-icon [icon]="iconFaMars" [size]="size"></fa-icon>
+  <span *ngIf="showLabel" class="ms-2">Male</span>
+</div>
+<div *ngIf="gender === 'FEMALE'" class="d-flex align-items-center">
+  <fa-icon [icon]="iconFaVenus" [size]="size"></fa-icon>
+  <span *ngIf="showLabel" class="ms-2">Female</span>
+</div>
+<div *ngIf="gender === 'NON_BINARY'" class="d-flex align-items-center">
+  <fa-icon [icon]="iconFaTransgenderAlt" [size]="size"></fa-icon>
+  <span *ngIf="showLabel" class="ms-2">Non-binary</span>
+</div>

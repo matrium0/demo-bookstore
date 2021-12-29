@@ -43,6 +43,8 @@ export class AuthorTableComponent implements OnInit {
       return;
     }
 
+    console.log("sortData", sort);
+
     this.sortedAuthors = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
@@ -51,8 +53,9 @@ export class AuthorTableComponent implements OnInit {
         case 'lastname':
           return this.compare(a.lastname, b.lastname, isAsc);
         case 'isPenName':
-          return this.compare(a.isPenName, b.isPenName, isAsc);
+          return this.booleanCompare(a.isPenName, b.isPenName, isAsc);
         case 'birthdate':
+        case 'birthdateWithPlace':
           return this.compare(a.birthdate, b.birthdate, isAsc);
         case 'gender':
           return this.compare(a.gender, b.gender, isAsc);
@@ -67,7 +70,7 @@ export class AuthorTableComponent implements OnInit {
     });
   }
 
-  compare(a: number | string | Date | boolean | null, b: number | string | Date | boolean | null, isAsc: boolean) {
+  compare(a: number | string | Date | boolean | null | undefined, b: number | string | Date | boolean | null | undefined, isAsc: boolean) {
     if (!a) {
       return -1;
     }
@@ -75,5 +78,10 @@ export class AuthorTableComponent implements OnInit {
       return 1;
     }
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  booleanCompare(a: boolean, b: boolean, isAsc: boolean) {
+    console.log("booleanCompare", a, b, isAsc);
+    return (Number(a) - Number(b)) * (isAsc ? -1 : 1);
   }
 }
