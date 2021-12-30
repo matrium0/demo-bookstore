@@ -1,5 +1,4 @@
 import {ChangeDetectionStrategy, Component, HostListener, Input, OnInit} from '@angular/core';
-import Author from '../../../../../mock-backend/author/Author';
 import {Sort} from '@angular/material/sort';
 import {EnrichedAuthor} from '../author-util';
 
@@ -10,12 +9,15 @@ import {EnrichedAuthor} from '../author-util';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AuthorTableComponent implements OnInit {
+  showAllDetails = false;
 
   @HostListener('window:resize', ['$event'])
   getScreenSize() {
     if (window.innerWidth >= 800) {
+      this.showAllDetails = true;
       this.displayedColumns = this.columnsLargeScreens;
     } else {
+      this.showAllDetails = false;
       this.displayedColumns = this.columns;
     }
   }
@@ -24,8 +26,8 @@ export class AuthorTableComponent implements OnInit {
   authors: EnrichedAuthor[] = [];
   sortedAuthors: EnrichedAuthor[] = [];
 
-  columns: string[] = ['firstname', 'lastname', 'birthdate'];
-  columnsLargeScreens: string[] = ['firstname', 'lastname', 'isPenName', 'birthdateWithPlace', 'gender', 'age', 'dateOfDeath'];
+  columns: string[] = ['firstname', 'lastname', 'gender', 'birthdate'];
+  columnsLargeScreens: string[] = ['firstname', 'lastname', 'gender', 'isPenName', 'birthdateWithPlace', 'age', 'dateOfDeath'];
   displayedColumns: string[] = [];
 
   constructor() {
@@ -62,11 +64,8 @@ export class AuthorTableComponent implements OnInit {
           return this.compare(a.birthdate, b.birthdate, isAsc);
         case 'gender':
           return this.compare(a.gender, b.gender, isAsc);
-          //TODO calculate age after loading
-          // case 'age':
-          //   return this.compare(a.age, b.age, isAsc);
         case 'dateOfDeath':
-          console.log(a.dateOfDeath + "  " + b.dateOfDeath);
+          console.log(a.dateOfDeath + "  " + b.dateOfDeath, this.compare(a.dateOfDeath, b.dateOfDeath, isAsc));
           return this.compare(a.dateOfDeath, b.dateOfDeath, isAsc);
         default:
           return 0;
@@ -75,17 +74,20 @@ export class AuthorTableComponent implements OnInit {
   }
 
   compare(a: number | string | Date | boolean | null | undefined, b: number | string | Date | boolean | null | undefined, isAsc: boolean) {
+    const directionMultiplier = (isAsc ? 1 : -1);
+    if (a === b) {
+      return 0;
+    }
     if (!a) {
-      return -1;
+      return -1 * directionMultiplier;
     }
     if (!b) {
-      return 1;
+      return 1 * directionMultiplier;
     }
-    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+    return (a < b ? -1 : 1) * directionMultiplier;
   }
 
   booleanCompare(a: boolean, b: boolean, isAsc: boolean) {
-    console.log("booleanCompare", a, b, isAsc);
     return (Number(a) - Number(b)) * (isAsc ? -1 : 1);
   }
 }
