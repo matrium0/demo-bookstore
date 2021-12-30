@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
 })
 export class AuthorListComponent implements OnInit {
   authors?: EnrichedAuthor[];
-  filteredAuthors?: EnrichedAuthor[] = [];
+  filteredAuthors?: EnrichedAuthor[];
 
   constructor(private globalMessageService: GlobalMessageService, private router: Router) {
   }
@@ -27,6 +27,12 @@ export class AuthorListComponent implements OnInit {
         console.log("findAll", authors);
         this.authors = authors.map(a => enrichWithCalculatedFields(a));
         this.filteredAuthors = this.authors;
+
+        //TODO remove
+        this.filteredAuthors.push(...this.authors);
+        this.filteredAuthors.push(...this.authors);
+        this.filteredAuthors.push(...this.authors);
+        this.filteredAuthors.push(...this.authors);
       },
       error: (error) => {
         this.globalMessageService.setAlertMessage("danger", "Unable to load Authors: ", error);

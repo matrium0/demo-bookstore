@@ -1,4 +1,4 @@
-import {EMPTY, Observable, of} from 'rxjs';
+import {delay, EMPTY, Observable, of} from 'rxjs';
 import Author from './Author';
 
 const initialData: Author[] = [
@@ -67,7 +67,7 @@ export function createOrUpdate(newElement: Author): Author {
 }
 
 export function findAll(): Observable<Author[]> {
-  return of(data);
+  return of(data).pipe(delay(500));
 }
 
 export function findById(id: number): Observable<Author> {
