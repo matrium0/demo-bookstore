@@ -3,6 +3,7 @@ import Author from '../../../../../mock-backend/author/Author';
 import {findAll} from '../../../../../mock-backend/author/AuthorMockService';
 import {GlobalMessageService} from '../../core/global-message.service';
 import {EnrichedAuthor, enrichWithCalculatedFields} from '../author-util';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-author-list',
@@ -13,7 +14,7 @@ export class AuthorListComponent implements OnInit {
   authors?: EnrichedAuthor[];
   filteredAuthors?: EnrichedAuthor[] = [];
 
-  constructor(private globalMessageService: GlobalMessageService) {
+  constructor(private globalMessageService: GlobalMessageService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -42,4 +43,13 @@ export class AuthorListComponent implements OnInit {
     );
   }
 
+  onAuthorSelected(author: EnrichedAuthor) {
+    console.log("onAuthorSelected", author);
+    this.router.navigate(["/author/edit/" + author.id]);
+  }
+
+  navigateToNewAuthor() {
+    console.log("navigateToNewAuthor");
+    this.router.navigate(["/author/edit/new"]);
+  }
 }

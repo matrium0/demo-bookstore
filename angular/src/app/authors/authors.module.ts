@@ -10,12 +10,14 @@ import {SharedModule} from '../shared/shared.module';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
+import { AuthorEditComponent } from './author-edit/author-edit.component';
 
 
 @NgModule({
   declarations: [
     AuthorListComponent,
-    AuthorTableComponent
+    AuthorTableComponent,
+    AuthorEditComponent
   ],
   imports: [
     CommonModule,

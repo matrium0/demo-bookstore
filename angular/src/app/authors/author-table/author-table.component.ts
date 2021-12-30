@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, HostListener, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {Sort} from '@angular/material/sort';
 import {EnrichedAuthor} from '../author-util';
 import {booleanCompare, compare, dateCompare} from '../../shared/util/sort-utility';
@@ -31,13 +31,16 @@ export class AuthorTableComponent implements OnInit {
   columnsLargeScreens: string[] = ['firstname', 'lastname', 'gender', 'isPenName', 'birthdateWithPlace', 'age', 'dateOfDeath'];
   displayedColumns: string[] = [];
 
+  @Output()
+  select = new EventEmitter<EnrichedAuthor>();
+
   @Input()
   set authors(authors: EnrichedAuthor[]) {
     this._authors = authors;
     this.sortData(this.sort);
   }
 
-  get authors(){
+  get authors() {
     return this._authors;
   }
 
@@ -47,6 +50,10 @@ export class AuthorTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.getScreenSize();
+  }
+
+  onAuthorSelect(author: EnrichedAuthor) {
+    this.select.next(author);
   }
 
   sortData(sort: Sort) {
