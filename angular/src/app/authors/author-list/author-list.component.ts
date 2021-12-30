@@ -3,6 +3,7 @@ import Author from '../../../../../mock-backend/author/Author';
 import {findAll} from '../../../../../mock-backend/author/AuthorMockService';
 import {GlobalMessageService} from '../../core/global-message.service';
 import {Sort} from '@angular/material/sort';
+import {EnrichedAuthor, enrichWithCalculatedFields} from '../author-util';
 
 @Component({
   selector: 'app-author-list',
@@ -10,7 +11,7 @@ import {Sort} from '@angular/material/sort';
   styleUrls: ['./author-list.component.scss']
 })
 export class AuthorListComponent implements OnInit {
-  authors?: Author[];
+  authors?: EnrichedAuthor[];
 
   constructor(private globalMessageService: GlobalMessageService) {
   }
@@ -23,7 +24,7 @@ export class AuthorListComponent implements OnInit {
     findAll().subscribe({
       next: (authors: Author[]) => {
         console.log("findAll", authors);
-        this.authors = authors;
+        this.authors = authors.map(a => enrichWithCalculatedFields(a));
       },
       error: (error) => {
         this.globalMessageService.setAlertMessage("danger", "Unable to load Authors: ", error);

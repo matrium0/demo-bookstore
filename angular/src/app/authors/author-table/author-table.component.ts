@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, HostListener, Input, OnInit} from '@angular/core';
 import Author from '../../../../../mock-backend/author/Author';
 import {Sort} from '@angular/material/sort';
+import {EnrichedAuthor} from '../author-util';
 
 @Component({
   selector: 'app-author-table',
@@ -20,8 +21,8 @@ export class AuthorTableComponent implements OnInit {
   }
 
   @Input()
-  authors: Author[] = [];
-  sortedAuthors: Author[] = [];
+  authors: EnrichedAuthor[] = [];
+  sortedAuthors: EnrichedAuthor[] = [];
 
   columns: string[] = ['firstname', 'lastname', 'birthdate'];
   columnsLargeScreens: string[] = ['firstname', 'lastname', 'isPenName', 'birthdateWithPlace', 'gender', 'age', 'dateOfDeath'];
@@ -48,6 +49,8 @@ export class AuthorTableComponent implements OnInit {
     this.sortedAuthors = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
+        case 'age':
+          return this.compare(a.age, b.age, isAsc);
         case 'firstname':
           return this.compare(a.firstname, b.firstname, isAsc);
         case 'lastname':
@@ -63,6 +66,7 @@ export class AuthorTableComponent implements OnInit {
           // case 'age':
           //   return this.compare(a.age, b.age, isAsc);
         case 'dateOfDeath':
+          console.log(a.dateOfDeath + "  " + b.dateOfDeath);
           return this.compare(a.dateOfDeath, b.dateOfDeath, isAsc);
         default:
           return 0;
