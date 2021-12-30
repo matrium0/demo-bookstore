@@ -1,0 +1,25 @@
+.overlay-base {
+  min-height: calc(100vh - 155px);
+  background: transparent;
+  transition: background 0.4s linear;
+}
+
+.overlay-base.overlay-backdrop {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.icon-wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.fa-spinner {
+  z-index: 10000;
+}

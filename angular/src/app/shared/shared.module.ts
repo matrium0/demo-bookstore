@@ -7,19 +7,22 @@ import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {GlobalMessageComponent} from './global-message/global-message.component';
 import {GenderIconComponent} from './gender-icon/gender-icon.component';
+import {LoadingIndicatorOverlayWrapperComponent} from './loading-indicator-overlay-wrapper/loading-indicator-overlay-wrapper.component';
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
     GlobalMessageComponent,
-    GenderIconComponent
+    GenderIconComponent,
+    LoadingIndicatorOverlayWrapperComponent
   ],
   exports: [
     HeaderComponent,
     GlobalMessageComponent,
     GenderIconComponent,
-    FontAwesomeModule
+    FontAwesomeModule,
+    LoadingIndicatorOverlayWrapperComponent
   ],
   imports: [
     CommonModule,

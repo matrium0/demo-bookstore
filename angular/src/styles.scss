@@ -93,6 +93,10 @@ h3, .h3 {
   }
 }
 
+.mat-table {
+  background: transparent;
+}
+
 .btn-warning {
   color: white;
 }
@@ -217,6 +221,11 @@ ngx-datatable .sort-btn {
   cursor: pointer;
 }
 
+.fa-spin {
+  -webkit-animation: fa-spin 2s linear infinite;
+  animation: fa-spin 2s linear infinite;
+}
+
 .big-spinner {
   font-size: 4em;
   margin-top: 30px;
@@ -337,6 +346,6 @@ body {
   margin-bottom: -1.25em;
 }
 
-.standalone-form-field .mat-form-field-infix{
+.standalone-form-field .mat-form-field-infix {
   width: auto;
 }

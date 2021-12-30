@@ -12,13 +12,10 @@
       <fa-icon icon="plus"></fa-icon>
       add author
     </button>
-
-  </div>
-  <!--  //TODO SPINNER-->
-  <div *ngIf="!authors">
-    TODO SHOW SPINNER
   </div>
   <div style="border-top: 2px solid gray;">
-    <app-author-table *ngIf="filteredAuthors" [authors]="filteredAuthors" (select)="onAuthorSelected($event)"></app-author-table>
+    <app-loading-indicator-overlay-wrapper [showOverlay]="true" spinnerSize="6x">
+      <app-author-table *ngIf="filteredAuthors" [authors]="filteredAuthors" (select)="onAuthorSelected($event)"></app-author-table>
+    </app-loading-indicator-overlay-wrapper>
   </div>
 </div>

@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {FaIconLibrary, FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {faCheck, faPlus, faTimes} from '@fortawesome/free-solid-svg-icons';
+import {faCheck, faPlus, faSpinner, faTimes} from '@fortawesome/free-solid-svg-icons';
 
 
 @NgModule({
@@ -19,5 +19,6 @@ export class CoreModule {
     faIconLibrary.addIcons(faTimes);
     faIconLibrary.addIcons(faPlus);
     faIconLibrary.addIcons(faCheck);
+    faIconLibrary.addIcons(faSpinner);
   }
 }
