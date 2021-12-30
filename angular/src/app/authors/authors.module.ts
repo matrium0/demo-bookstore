@@ -7,6 +7,9 @@ import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import { AuthorTableComponent } from './author-table/author-table.component';
 import {SharedModule} from '../shared/shared.module';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
 
 
 @NgModule({
@@ -19,7 +22,10 @@ import {SharedModule} from '../shared/shared.module';
     AuthorsRoutingModule,
     MatTableModule,
     MatSortModule,
-    SharedModule
+    SharedModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule
   ]
 })
 export class AuthorsModule { }

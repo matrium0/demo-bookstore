@@ -192,6 +192,11 @@ mat-checkbox .mat-checkbox-inner-container {
 
 .btn {
   font-family: Verdana, serif;
+  font-weight: bold;
+}
+
+.selectable-table .mat-row:hover {
+  background-color: #ffd200;
 }
 
 .datatable-header-cell-label {
@@ -326,4 +331,12 @@ html, body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.input-remove-bottom-margin {
+  margin-bottom: -1.25em;
+}
+
+.standalone-form-field .mat-form-field-infix{
+  width: auto;
 }
