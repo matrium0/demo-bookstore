@@ -9,7 +9,6 @@ import {EnrichedAuthor} from '../author-util';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AuthorTableComponent implements OnInit {
-  showAllDetails = false;
 
   @HostListener('window:resize', ['$event'])
   getScreenSize() {
@@ -22,31 +21,37 @@ export class AuthorTableComponent implements OnInit {
     }
   }
 
-  @Input()
-  authors: EnrichedAuthor[] = [];
+  _authors: EnrichedAuthor[] = [];
   sortedAuthors: EnrichedAuthor[] = [];
+  showAllDetails = false;
+  private sort: Sort;
 
   columns: string[] = ['firstname', 'lastname', 'birthdate'];
   columnsLargeScreens: string[] = ['firstname', 'lastname', 'gender', 'isPenName', 'birthdateWithPlace', 'age', 'dateOfDeath'];
   displayedColumns: string[] = [];
 
+  @Input()
+  set authors(authors: EnrichedAuthor[]) {
+    this._authors = authors;
+    this.sortData(this.sort);
+  }
+
   constructor() {
+    this.sort = {active: "lastname", direction: "asc"}; // default sort
   }
 
   ngOnInit(): void {
     this.getScreenSize();
-    console.log("constructor", this.authors);
-    this.sortedAuthors = this.authors;
   }
 
   sortData(sort: Sort) {
-    const data = this.authors.slice();
+    this.sort = sort;
+    const data = this._authors.slice();
     if (!sort.active || sort.direction === '') {
       this.sortedAuthors = data;
       return;
     }
 
-    console.log("sortData", sort);
 
     this.sortedAuthors = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
@@ -65,7 +70,6 @@ export class AuthorTableComponent implements OnInit {
         case 'gender':
           return this.compare(a.gender, b.gender, isAsc);
         case 'dateOfDeath':
-          console.log(a.dateOfDeath + "  " + b.dateOfDeath, this.compare(a.dateOfDeath, b.dateOfDeath, isAsc));
           return this.compare(a.dateOfDeath, b.dateOfDeath, isAsc);
         default:
           return 0;
@@ -73,6 +77,7 @@ export class AuthorTableComponent implements OnInit {
     });
   }
 
+  //TODO extract better utility methods methods
   compare(a: number | string | Date | boolean | null | undefined, b: number | string | Date | boolean | null | undefined, isAsc: boolean) {
     const directionMultiplier = (isAsc ? 1 : -1);
     if (a === b) {
