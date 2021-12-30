@@ -26,7 +26,7 @@ export class AuthorTableComponent implements OnInit {
   authors: EnrichedAuthor[] = [];
   sortedAuthors: EnrichedAuthor[] = [];
 
-  columns: string[] = ['firstname', 'lastname', 'gender', 'birthdate'];
+  columns: string[] = ['firstname', 'lastname', 'birthdate'];
   columnsLargeScreens: string[] = ['firstname', 'lastname', 'gender', 'isPenName', 'birthdateWithPlace', 'age', 'dateOfDeath'];
   displayedColumns: string[] = [];
 
