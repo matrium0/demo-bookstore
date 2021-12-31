@@ -24,7 +24,7 @@ export class AuthorEditComponent implements OnInit {
             // author = new Author();
 
           }else{
-            this.loadAuthor(id);
+            this.loadAuthor(Number(id));
           }
         }
     )
