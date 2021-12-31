@@ -105,6 +105,20 @@ h3, .h3 {
   background: transparent;
 }
 
+.table-header {
+  height: 40px !important;
+}
+
+.mat-header-cell {
+  font-weight: bold;
+  font-size: 0.9rem
+}
+
+
+.table-row {
+  height: 50px !important;
+}
+
 .btn-warning {
   color: white;
 }

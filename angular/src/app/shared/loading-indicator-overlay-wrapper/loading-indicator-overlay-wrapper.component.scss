@@ -1,4 +1,5 @@
 .overlay-base {
+  //TODO find a way to do both: full screen loading indicator for padges, AND small area indicators
   min-height: calc(100vh - 190px);
   background: transparent;
   transition: background 0.4s linear;
