@@ -22,11 +22,33 @@
             <mat-error>input required</mat-error>
           </mat-form-field>
 
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Birthdate</mat-label>
+            <input matInput placeholder="Birthdate" formControlName="birthdate" required>
+            <mat-error>input required</mat-error>
+          </mat-form-field>
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Place of birth</mat-label>
+            <input matInput placeholder="Place of birth" formControlName="placeOfBirth" required>
+            <mat-error>input required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Date of death</mat-label>
+            <input matInput placeholder="Date of death" formControlName="dateOfDeath" required>
+            <mat-error>input required</mat-error>
+          </mat-form-field>
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Place of death</mat-label>
+            <input matInput placeholder="Place of death" formControlName="placeOfDeath" required>
+            <mat-error>input required</mat-error>
+          </mat-form-field>
+
           <div class="row mb-4 align-items-center gender-input-row">
             <div class="col-auto">
               <span class="ms-2">Gender <span class="required-asterisk">*</span></span>
             </div>
-            <div class="col-auto ps-3">
+            <div class="col-auto ps-2f">
               <mat-button-toggle-group formControlName="gender">
                 <mat-button-toggle value="MALE" class="d-flex align-items-center justify-content-center">
                   <app-gender-icon gender="MALE" [showLabel]="true"></app-gender-icon>
@@ -50,7 +72,6 @@
               <mat-checkbox id="penName" formControlName="penName"></mat-checkbox>
             </div>
           </div>
-
         </div>
       </div>
     </app-loading-indicator-overlay-wrapper>
