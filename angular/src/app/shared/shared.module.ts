@@ -8,6 +8,8 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {GlobalMessageComponent} from './global-message/global-message.component';
 import {GenderIconComponent} from './gender-icon/gender-icon.component';
 import {LoadingIndicatorOverlayWrapperComponent} from './loading-indicator-overlay-wrapper/loading-indicator-overlay-wrapper.component';
+import {ReactiveValidationDisplayComponent} from './reactive-validation-display/reactive-validation-display.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 
 @NgModule({
@@ -15,14 +17,16 @@ import {LoadingIndicatorOverlayWrapperComponent} from './loading-indicator-overl
     HeaderComponent,
     GlobalMessageComponent,
     GenderIconComponent,
-    LoadingIndicatorOverlayWrapperComponent
+    LoadingIndicatorOverlayWrapperComponent,
+    ReactiveValidationDisplayComponent
   ],
   exports: [
     HeaderComponent,
     GlobalMessageComponent,
     GenderIconComponent,
     FontAwesomeModule,
-    LoadingIndicatorOverlayWrapperComponent
+    LoadingIndicatorOverlayWrapperComponent,
+    ReactiveValidationDisplayComponent
   ],
   imports: [
     CommonModule,
@@ -30,6 +34,7 @@ import {LoadingIndicatorOverlayWrapperComponent} from './loading-indicator-overl
     MatDividerModule,
     BsDropdownModule,
     FontAwesomeModule,
+    MatFormFieldModule,
   ]
 })
 export class SharedModule {

@@ -2,17 +2,56 @@
   <div class="d-flex align-items-center justify-content-between flex-wrap">
     <div class="d-flex align-items-baseline m-3 mb-0">
       <h1 class="pt-2 pb-3">Author {{author?.firstname}} {{author?.lastname}}</h1>
-
     </div>
   </div>
 
-  <div style="border-top: 2px solid gray;">
-    content
-    <br />
-    <br />
-    <br />
-    todo
-    <br />
-  </div>
+  <div [formGroup]="formGroup" style="border-top: 2px solid gray;">
+    <app-loading-indicator-overlay-wrapper [showOverlay]="!author" spinnerSize="6x">
+      <div *ngIf="author" class="row">
+        <div class="col-lg-6 m-4 mt-2">
+          <h2 class="mb-2">Personal Data</h2>
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Firstname</mat-label>
+            <input matInput placeholder="Firstname" formControlName="firstname" required>
+            <mat-error>input required</mat-error>
+          </mat-form-field>
 
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Lastname</mat-label>
+            <input matInput placeholder="Lastname" formControlName="lastname" required>
+            <mat-error>input required</mat-error>
+          </mat-form-field>
+
+          <div class="row mb-4 align-items-center gender-input-row">
+            <div class="col-auto">
+              <span class="ms-2">Gender <span class="required-asterisk">*</span></span>
+            </div>
+            <div class="col-auto ps-3">
+              <mat-button-toggle-group formControlName="gender">
+                <mat-button-toggle value="MALE" class="d-flex align-items-center justify-content-center">
+                  <app-gender-icon gender="MALE" [showLabel]="true"></app-gender-icon>
+                </mat-button-toggle>
+                <mat-button-toggle value="FEMALE" class="d-flex align-items-center justify-content-center">
+                  <app-gender-icon gender="FEMALE" [showLabel]="true"></app-gender-icon>
+                </mat-button-toggle>
+                <mat-button-toggle value="NON_BINARY" class="d-flex align-items-center justify-content-center">
+                  <app-gender-icon gender="NON_BINARY" [showLabel]="true"></app-gender-icon>
+                </mat-button-toggle>
+              </mat-button-toggle-group>
+            </div>
+            <app-reactive-validation-display [control]="formGroup?.get('gender')" class="ms-3 ms-lg-0"></app-reactive-validation-display>
+          </div>
+
+          <div class="row mb-4 mb-lg-0 align-items-center">
+            <div class="col-auto">
+              <label for="secretIdentity" class="ms-2">Secret Identity</label>
+            </div>
+            <div class="col-auto">
+              <mat-checkbox id="secretIdentity" formControlName="secretIdentity"></mat-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+    </app-loading-indicator-overlay-wrapper>
+  </div>
 </div>

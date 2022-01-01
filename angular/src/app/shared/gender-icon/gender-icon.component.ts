@@ -8,7 +8,7 @@ import {SizeProp} from '@fortawesome/fontawesome-svg-core';
   styleUrls: ['./gender-icon.component.scss']
 })
 export class GenderIconComponent {
-  @Input() gender?: string
+  @Input() gender?: "MALE" | "FEMALE" | "NON_BINARY";
   @Input() showLabel = false;
   @Input() size: SizeProp = "2x";
 

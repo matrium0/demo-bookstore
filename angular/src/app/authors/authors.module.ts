@@ -11,6 +11,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import { AuthorEditComponent } from './author-edit/author-edit.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -27,7 +30,10 @@ import { AuthorEditComponent } from './author-edit/author-edit.component';
     SharedModule,
     MatFormFieldModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    ReactiveFormsModule,
+    MatButtonToggleModule,
+    MatCheckboxModule
   ]
 })
 export class AuthorsModule { }

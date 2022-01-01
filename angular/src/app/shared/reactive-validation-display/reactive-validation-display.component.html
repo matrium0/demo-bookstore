@@ -1,0 +1,12 @@
+<ng-container *ngIf="control?.invalid && (control?.dirty || control?.touched)">
+  <mat-error *ngIf="control?.errors?.['required']" class="mat-error-style">input required!</mat-error>
+  <mat-error *ngIf="!control?.errors?.['required'] && control?.errors?.['minlength']" class="mat-error-style">
+    length is below minimum
+  </mat-error>
+  <mat-error *ngIf="!control?.errors?.['required'] && control?.errors?.['maxlength']" class="mat-error-style">
+    length is above maximumg
+  </mat-error>
+  <mat-error *ngIf="!control?.errors?.['required'] && control?.errors?.['pattern']" class="mat-error-style">
+    Invalid format
+  </mat-error>
+</ng-container>

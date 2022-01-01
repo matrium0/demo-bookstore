@@ -114,6 +114,13 @@ h3, .h3 {
   font-size: 0.9rem
 }
 
+mat-button-toggle-group {
+  flex-wrap: wrap;
+}
+
+//.gender-input-row app-gender-icon > div > fa-icon {
+//  line-height: 22px;
+//}
 
 .table-row {
   height: 50px !important;
@@ -298,42 +305,8 @@ ngx-datatable .sort-btn {
   border-bottom-right-radius: 0.25rem;
 }
 
-.mat-form-field-appearance-outline .mat-form-field-infix {
-  padding: 0.5em 0 0.7em 0;
-}
-
-.mat-form-field-subscript-wrapper {
-  margin-top: 2px;
-}
-
-.custom-radio-wrapper {
-  width: 35px;
-  height: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  margin-right: 10px;
-}
-
-.custom-radio-selected {
-  border: 1px solid black;
-  border-radius: 5px;
-}
-
-.hero-image-wrapper {
-  width: 245px;
-  height: 280px;
-}
-
 .fa-user-circle {
   font-size: 2.5rem;
-}
-
-.hero-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .mat-tooltip {
@@ -352,11 +325,6 @@ ngx-datatable .sort-btn {
 
 .general-data .row {
   min-height: 37px;
-}
-
-
-html, body {
-  height: 100%;
 }
 
 body {
