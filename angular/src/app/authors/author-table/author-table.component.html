@@ -1,11 +1,11 @@
 <table *ngIf="sortedAuthors" [dataSource]="sortedAuthors" mat-table class="selectable-table w-100"
        matSort (matSortChange)="sortData($event)" matSortActive="lastname" matSortDirection="asc" [matSortDisableClear]="true">
   <ng-container matColumnDef="firstname">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header=""> FIRSTNAME</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="">FIRSTNAME</th>
     <td mat-cell *matCellDef="let element"> {{element.firstname}} </td>
   </ng-container>
   <ng-container matColumnDef="lastname">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header=""> LASTNAME</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="">LASTNAME</th>
     <td mat-cell *matCellDef="let element"> {{element.lastname}} </td>
   </ng-container>
   <ng-container matColumnDef="isPenName">
@@ -25,11 +25,11 @@
     <td mat-cell *matCellDef="let element"> {{element.age}} </td>
   </ng-container>
   <ng-container matColumnDef="birthdate">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header=""> BIRTHDATE</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="">BIRTHDATE</th>
     <td mat-cell *matCellDef="let element"> {{element.birthdate | date }} </td>
   </ng-container>
   <ng-container matColumnDef="birthdateWithPlace">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header=""> BIRTHDATE</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="">BIRTHDATE</th>
     <td mat-cell *matCellDef="let element"> {{element.birthdate | date }}, {{element.placeOfBirth}} </td>
   </ng-container>
   <ng-container matColumnDef="dateOfDeath">

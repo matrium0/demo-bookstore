@@ -8,7 +8,7 @@
   <div [formGroup]="formGroup" style="border-top: 2px solid gray;">
     <app-loading-indicator-overlay-wrapper [showOverlay]="!author" spinnerSize="6x">
       <div *ngIf="author" class="row">
-        <div class="col-lg-6 m-4 mt-2">
+        <div class="col-lg-6 m-3">
           <h2 class="mb-2">Personal Data</h2>
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>Firstname</mat-label>
@@ -44,12 +44,13 @@
 
           <div class="row mb-4 mb-lg-0 align-items-center">
             <div class="col-auto">
-              <label for="secretIdentity" class="ms-2">Secret Identity</label>
+              <label for="penName" class="ms-2">Pen name</label>
             </div>
             <div class="col-auto">
-              <mat-checkbox id="secretIdentity" formControlName="secretIdentity"></mat-checkbox>
+              <mat-checkbox id="penName" formControlName="penName"></mat-checkbox>
             </div>
           </div>
+
         </div>
       </div>
     </app-loading-indicator-overlay-wrapper>

@@ -1,0 +1,11 @@
+.gender-label {
+  display: inline;
+
+  @media (max-width: 500px) {
+    display: none;
+  }
+}
+
+fa-icon {
+  line-height: 20px;
+}

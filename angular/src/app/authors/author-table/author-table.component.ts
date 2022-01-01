@@ -13,12 +13,15 @@ export class AuthorTableComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   getScreenSize() {
-    if (window.innerWidth >= 800) {
+    if (window.innerWidth >= 992) {
       this.showAllDetails = true;
-      this.displayedColumns = this.columnsLargeScreens;
+      this.displayedColumns = ['firstname', 'lastname', 'gender', 'isPenName', 'birthdateWithPlace', 'age', 'dateOfDeath'];
+    } else if (window.innerWidth >= 576) {
+      this.showAllDetails = true;
+      this.displayedColumns = ['firstname', 'lastname', 'birthdate', 'gender'];
     } else {
       this.showAllDetails = false;
-      this.displayedColumns = this.columns;
+      this.displayedColumns = ['firstname', 'lastname'];
     }
   }
 
@@ -27,8 +30,6 @@ export class AuthorTableComponent implements OnInit {
   showAllDetails = false;
   private sort: Sort;
 
-  columns: string[] = ['firstname', 'lastname', 'birthdate'];
-  columnsLargeScreens: string[] = ['firstname', 'lastname', 'gender', 'isPenName', 'birthdateWithPlace', 'age', 'dateOfDeath'];
   displayedColumns: string[] = [];
 
   @Output()
