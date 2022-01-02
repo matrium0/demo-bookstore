@@ -12,14 +12,14 @@ import {DateTime} from 'luxon';
   styleUrls: ['./author-edit.component.scss']
 })
 export class AuthorEditComponent implements OnInit {
-  author?: Author;
+  isLoading = false;
 
   formGroup = new FormGroup({
     id: new FormControl(null),
     firstname: new FormControl(null, Validators.required),
     lastname: new FormControl(null, Validators.required),
     gender: new FormControl(null, Validators.required),
-    penName: new FormControl(null, Validators.required),
+    penName: new FormControl(false, Validators.required),
     birthdate: new FormControl(null, Validators.required),
     placeOfBirth: new FormControl(null),
     dateOfDeath: new FormControl(null),
@@ -35,9 +35,6 @@ export class AuthorEditComponent implements OnInit {
         params => {
           const id = params['id'];
           if (id === "new") {
-            //TODO create new author
-            // author = new Author();
-
           } else {
             this.loadAuthor(Number(id));
           }
@@ -46,9 +43,10 @@ export class AuthorEditComponent implements OnInit {
   }
 
   loadAuthor(id: number) {
+    this.isLoading = true;
     findById(id).subscribe({
       next: (author: Author) => {
-        this.author = author;
+        this.isLoading = false;
         this.formGroup.patchValue(author);
         //workaround for framework bug https://github.com/angular/material/issues/12118
         this.formGroup.patchValue({birthdate: DateTime.fromJSDate(author.birthdate.toJSDate())});
@@ -59,6 +57,7 @@ export class AuthorEditComponent implements OnInit {
       error: (error) => {
         this.globalMessageService.setAlertMessage("danger", "Unable to load Authors: ", error);
         console.log("error occured");
+        this.isLoading = false;
       }
     });
   }
@@ -75,13 +74,14 @@ export class AuthorEditComponent implements OnInit {
       createOrUpdate(this.formGroup.getRawValue()).subscribe(
           (author: Author) => {
             console.log('createOrUpdate SUCCESS', author);
-            this.router.navigate(['/authors']).then();
+            this.router.navigate(['/author']).then();
             this.globalMessageService.setAlertMessage("success", "Hero saved!");
           }, (error: any) => {
             console.log("saveHero ERROR", error);
             this.globalMessageService.setAlertMessage("danger", "Hero saving failed", error);
           });
     } else {
+      console.log('formgroup is not valid', this.formGroup);
       this.formGroup.markAllAsTouched();
     }
   }

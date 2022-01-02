@@ -1,12 +1,12 @@
 <div class="app-col mat-elevation-z8">
   <div class="d-flex align-items-center justify-content-between flex-wrap">
     <div class="d-flex align-items-baseline m-3 mb-0">
-      <h1 class="pt-2 pb-3">Author {{author?.firstname}} {{author?.lastname}}</h1>
+      <h1 class="pt-2 pb-3">Author {{formGroup.get('firstname')?.value}} {{formGroup.get('lastname')?.value}}</h1>
     </div>
   </div>
 
   <div [formGroup]="formGroup" style="border-top: 2px solid gray;">
-    <app-loading-indicator-overlay-wrapper [showOverlay]="!author" spinnerSize="6x">
+    <app-loading-indicator-overlay-wrapper [showOverlay]="isLoading" spinnerSize="6x">
       <div class="col-lg-6 mx-3">
         <h2 class="mb-2 pt-2">Personal Data</h2>
         <mat-form-field class="w-100" appearance="outline">
@@ -43,7 +43,7 @@
         </mat-form-field>
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>Place of death</mat-label>
-          <input matInput placeholder="Place of death" formControlName="placeOfDeath" required>
+          <input matInput placeholder="Place of death" formControlName="placeOfDeath">
           <mat-error>input required</mat-error>
         </mat-form-field>
 
@@ -64,7 +64,7 @@
               </mat-button-toggle>
             </mat-button-toggle-group>
           </div>
-          <app-reactive-validation-display [control]="formGroup?.get('gender')" class="ms-3 ms-lg-0"></app-reactive-validation-display>
+          <app-reactive-validation-display [control]="formGroup?.get('gender')" class="gender-error-label"></app-reactive-validation-display>
         </div>
         <div class="row mb-4 mb-lg-0 align-items-center">
           <div class="col-auto">
@@ -80,8 +80,8 @@
           <button (click)="navigateBack()" class="btn btn-secondary btn-lg">
             cancel
           </button>
-          <button (click)="saveAndNavigateToMasterPage()" class="btn btn-success btn-lg">
-            save hero
+          <button (click)="saveAndNavigateToMasterPage()" class="btn btn-success btn-lg px-4">
+            save
           </button>
         </div>
       </div>

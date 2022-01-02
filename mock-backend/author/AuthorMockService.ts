@@ -72,7 +72,7 @@ export function findAll(): Observable<Author[]> {
 }
 
 export function findById(id: number): Observable<Author> {
-  return of(data.filter(a => a.id === id)[0]);
+  return of(data.filter(a => a.id === id)[0]).pipe(delay(500));
 }
 
 export function remove(id: number): Observable<never> {

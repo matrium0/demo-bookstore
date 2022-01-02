@@ -11,8 +11,10 @@ import {registerLocaleData} from '@angular/common';
 import localeDeAt from '@angular/common/locales/de-AT';
 import localeDeAtExtra from '@angular/common/locales/extra/de-AT';
 import {MatLuxonDateModule} from '@angular/material-luxon-adapter';
+import {MAT_DATE_FORMATS} from '@angular/material/core';
 
 registerLocaleData(localeDeAt, 'de-AT', localeDeAtExtra);
+const dateFormat = 'dd.LL.yyyy';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,20 @@ registerLocaleData(localeDeAt, 'de-AT', localeDeAtExtra);
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'de-AT'},
+    {
+      provide: MAT_DATE_FORMATS,
+      useValue: {
+        parse: {
+          dateInput: 'd.L.yyyy',
+        },
+        display: {
+          dateInput: 'dd.LL.yyyy',
+          monthYearLabel: 'LLLL yyyy',
+          dateA11yLabel: 'cccc.LLLL.yyyy',
+          monthYearA11yLabel: 'LLLL yyyy',
+        },
+      },
+    },
   ],
   bootstrap: [AppComponent]
 })
