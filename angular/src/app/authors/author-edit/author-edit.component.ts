@@ -21,10 +21,10 @@ export class AuthorEditComponent implements OnInit {
     gender: new FormControl(null, Validators.required),
     penName: new FormControl(null, Validators.required),
     birthdate: new FormControl(null, Validators.required),
-    placeOfBirth: new FormControl(),
-    dateOfDeath: new FormControl(),
-    placeOfDeath: new FormControl(),
-    website: new FormControl(),
+    placeOfBirth: new FormControl(null),
+    dateOfDeath: new FormControl(null),
+    placeOfDeath: new FormControl(null),
+    website: new FormControl(null),
   });
 
   constructor(private activatedRoute: ActivatedRoute, private globalMessageService: GlobalMessageService, private router: Router) {
@@ -43,7 +43,6 @@ export class AuthorEditComponent implements OnInit {
           }
         }
     )
-
   }
 
   loadAuthor(id: number) {

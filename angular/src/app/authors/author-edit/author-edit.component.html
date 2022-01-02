@@ -7,73 +7,71 @@
 
   <div [formGroup]="formGroup" style="border-top: 2px solid gray;">
     <app-loading-indicator-overlay-wrapper [showOverlay]="!author" spinnerSize="6x">
-      <div *ngIf="author" class="row">
-        <div class="col-lg-6 m-3">
-          <h2 class="mb-2">Personal Data</h2>
-          <mat-form-field class="w-100" appearance="outline">
-            <mat-label>Firstname</mat-label>
-            <input matInput placeholder="Firstname" formControlName="firstname" required>
-            <mat-error>input required</mat-error>
-          </mat-form-field>
+      <div class="col-lg-6 mx-3">
+        <h2 class="mb-2 pt-2">Personal Data</h2>
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Firstname</mat-label>
+          <input matInput placeholder="Firstname" formControlName="firstname" required>
+          <mat-error>input required</mat-error>
+        </mat-form-field>
 
-          <mat-form-field class="w-100" appearance="outline">
-            <mat-label>Lastname</mat-label>
-            <input matInput placeholder="Lastname" formControlName="lastname" required>
-            <mat-error>input required</mat-error>
-          </mat-form-field>
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Lastname</mat-label>
+          <input matInput placeholder="Lastname" formControlName="lastname" required>
+          <mat-error>input required</mat-error>
+        </mat-form-field>
 
-          <mat-form-field class="w-100" appearance="outline">
-            <mat-label>Birthdate</mat-label>
-            <input matInput [matDatepicker]="birthdatePicker" formControlName="birthdate">
-            <mat-datepicker-toggle matSuffix [for]="birthdatePicker"></mat-datepicker-toggle>
-            <mat-datepicker #birthdatePicker></mat-datepicker>
-            <mat-error>input required</mat-error>
-          </mat-form-field>
-          <mat-form-field class="w-100" appearance="outline">
-            <mat-label>Place of birth</mat-label>
-            <input matInput placeholder="Place of birth" formControlName="placeOfBirth" required>
-            <mat-error>input required</mat-error>
-          </mat-form-field>
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Birthdate</mat-label>
+          <input matInput [matDatepicker]="birthdatePicker" formControlName="birthdate">
+          <mat-datepicker-toggle matSuffix [for]="birthdatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #birthdatePicker></mat-datepicker>
+          <mat-error>input required</mat-error>
+        </mat-form-field>
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Place of birth</mat-label>
+          <input matInput placeholder="Place of birth" formControlName="placeOfBirth" required>
+          <mat-error>input required</mat-error>
+        </mat-form-field>
 
-          <mat-form-field class="w-100" appearance="outline">
-            <mat-label>Date of death</mat-label>
-            <input matInput [matDatepicker]="dateOfDeathPicker" formControlName="dateOfDeath">
-            <mat-datepicker-toggle matSuffix [for]="dateOfDeathPicker"></mat-datepicker-toggle>
-            <mat-datepicker #dateOfDeathPicker></mat-datepicker>
-            <mat-error>input required</mat-error>
-          </mat-form-field>
-          <mat-form-field class="w-100" appearance="outline">
-            <mat-label>Place of death</mat-label>
-            <input matInput placeholder="Place of death" formControlName="placeOfDeath" required>
-            <mat-error>input required</mat-error>
-          </mat-form-field>
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Date of death</mat-label>
+          <input matInput [matDatepicker]="dateOfDeathPicker" formControlName="dateOfDeath">
+          <mat-datepicker-toggle matSuffix [for]="dateOfDeathPicker"></mat-datepicker-toggle>
+          <mat-datepicker #dateOfDeathPicker></mat-datepicker>
+          <mat-error>input required</mat-error>
+        </mat-form-field>
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Place of death</mat-label>
+          <input matInput placeholder="Place of death" formControlName="placeOfDeath" required>
+          <mat-error>input required</mat-error>
+        </mat-form-field>
 
-          <div class="row mb-4 align-items-center gender-input-row">
-            <div class="col-auto">
-              <span class="ms-2">Gender <span class="required-asterisk">*</span></span>
-            </div>
-            <div class="col-auto ps-2f">
-              <mat-button-toggle-group formControlName="gender">
-                <mat-button-toggle value="MALE" class="d-flex align-items-center justify-content-center">
-                  <app-gender-icon gender="MALE" [showLabel]="true"></app-gender-icon>
-                </mat-button-toggle>
-                <mat-button-toggle value="FEMALE" class="d-flex align-items-center justify-content-center">
-                  <app-gender-icon gender="FEMALE" [showLabel]="true"></app-gender-icon>
-                </mat-button-toggle>
-                <mat-button-toggle value="NON_BINARY" class="d-flex align-items-center justify-content-center">
-                  <app-gender-icon gender="NON_BINARY" [showLabel]="true"></app-gender-icon>
-                </mat-button-toggle>
-              </mat-button-toggle-group>
-            </div>
-            <app-reactive-validation-display [control]="formGroup?.get('gender')" class="ms-3 ms-lg-0"></app-reactive-validation-display>
+        <div class="row mb-4 align-items-center gender-input-row">
+          <div class="col-auto">
+            <span class="ms-2">Gender <span class="required-asterisk">*</span></span>
           </div>
-          <div class="row mb-4 mb-lg-0 align-items-center">
-            <div class="col-auto">
-              <label for="penName" class="ms-2">Pen name</label>
-            </div>
-            <div class="col-auto">
-              <mat-checkbox id="penName" formControlName="penName"></mat-checkbox>
-            </div>
+          <div class="col-auto ps-2f">
+            <mat-button-toggle-group formControlName="gender">
+              <mat-button-toggle value="MALE" class="d-flex align-items-center justify-content-center">
+                <app-gender-icon gender="MALE" [showLabel]="true"></app-gender-icon>
+              </mat-button-toggle>
+              <mat-button-toggle value="FEMALE" class="d-flex align-items-center justify-content-center">
+                <app-gender-icon gender="FEMALE" [showLabel]="true"></app-gender-icon>
+              </mat-button-toggle>
+              <mat-button-toggle value="NON_BINARY" class="d-flex align-items-center justify-content-center">
+                <app-gender-icon gender="NON_BINARY" [showLabel]="true"></app-gender-icon>
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+          <app-reactive-validation-display [control]="formGroup?.get('gender')" class="ms-3 ms-lg-0"></app-reactive-validation-display>
+        </div>
+        <div class="row mb-4 mb-lg-0 align-items-center">
+          <div class="col-auto">
+            <label for="penName" class="ms-2">Pen name</label>
+          </div>
+          <div class="col-auto">
+            <mat-checkbox id="penName" formControlName="penName"></mat-checkbox>
           </div>
         </div>
       </div>
