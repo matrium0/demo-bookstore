@@ -25,6 +25,7 @@ export class AuthorEditComponent implements OnInit {
     dateOfDeath: new FormControl(null),
     placeOfDeath: new FormControl(null),
     website: new FormControl(null),
+    note: new FormControl(null),
   });
 
   constructor(private activatedRoute: ActivatedRoute, private globalMessageService: GlobalMessageService, private router: Router) {

@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {FaIconLibrary, FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {faCheck, faPlus, faSpinner, faTimes} from '@fortawesome/free-solid-svg-icons';
+import {QuillModule} from 'ngx-quill';
 
 
 @NgModule({
@@ -10,7 +11,17 @@ import {faCheck, faPlus, faSpinner, faTimes} from '@fortawesome/free-solid-svg-i
   imports: [
     CommonModule,
     BsDropdownModule.forRoot(),
-    FontAwesomeModule
+    FontAwesomeModule,
+    QuillModule.forRoot({
+      modules: {
+        toolbar: [
+
+          ['bold', 'italic', 'underline'],
+          [{'list': 'ordered'}, {'list': 'bullet'}],
+          [{'header': [1, 2, 3, 4, 5, 6, false]}],
+        ],
+      },
+    }),
   ]
 })
 export class CoreModule {

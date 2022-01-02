@@ -15,6 +15,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {QuillModule} from 'ngx-quill';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MatButtonToggleModule,
     MatCheckboxModule,
     MatDatepickerModule,
+    QuillModule,
   ]
 })
 export class AuthorsModule {
