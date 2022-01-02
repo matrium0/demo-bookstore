@@ -75,7 +75,7 @@ export class AuthorTableComponent implements OnInit {
         case 'lastname':
           return compare(a.lastname, b.lastname, isAsc);
         case 'isPenName':
-          return booleanCompare(a.isPenName, b.isPenName, isAsc);
+          return booleanCompare(a.penName, b.penName, isAsc);
         case 'birthdate':
         case 'birthdateWithPlace':
           return dateCompare(a.birthdate, b.birthdate, isAsc);

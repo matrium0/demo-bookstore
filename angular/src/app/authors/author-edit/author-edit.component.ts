@@ -4,6 +4,7 @@ import {findById} from '../../../../../mock-backend/author/AuthorMockService';
 import {ActivatedRoute} from '@angular/router';
 import {GlobalMessageService} from '../../core/global-message.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {DateTime} from 'luxon';
 
 @Component({
   selector: 'app-author-edit',
@@ -48,9 +49,13 @@ export class AuthorEditComponent implements OnInit {
   loadAuthor(id: number) {
     findById(id).subscribe({
       next: (author: Author) => {
-        console.log("findById", author);
         this.author = author;
         this.formGroup.patchValue(author);
+        //workaround for framework bug https://github.com/angular/material/issues/12118
+        this.formGroup.patchValue({birthdate: DateTime.fromJSDate(author.birthdate.toJSDate())});
+        if (author.dateOfDeath) {
+          this.formGroup.patchValue({dateOfDeath: DateTime.fromJSDate(author.dateOfDeath.toJSDate())});
+        }
       },
       error: (error) => {
         this.globalMessageService.setAlertMessage("danger", "Unable to load Authors: ", error);
@@ -58,5 +63,4 @@ export class AuthorEditComponent implements OnInit {
       }
     });
   }
-
 }

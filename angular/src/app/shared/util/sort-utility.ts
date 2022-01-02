@@ -1,3 +1,5 @@
+import {DateTime} from 'luxon';
+
 export function compare(a: number | string | null, b: number | string | null, isAsc: boolean) {
   const directionMultiplier = (isAsc ? 1 : -1);
   if (!a) {
@@ -9,7 +11,7 @@ export function compare(a: number | string | null, b: number | string | null, is
   return (a < b ? -1 : 1) * directionMultiplier;
 }
 
-export function dateCompare(a: Date | undefined, b: Date | undefined, isAsc: boolean) {
+export function dateCompare(a: DateTime | undefined, b: DateTime | undefined, isAsc: boolean) {
   const directionMultiplier = (isAsc ? 1 : -1);
   if (!a) {
     return -1 * directionMultiplier;
@@ -17,6 +19,7 @@ export function dateCompare(a: Date | undefined, b: Date | undefined, isAsc: boo
   if (!b) {
     return 1 * directionMultiplier;
   }
+  //TODO fix for DateTime
   return (Number(a) - Number(b)) * directionMultiplier;
 }
 

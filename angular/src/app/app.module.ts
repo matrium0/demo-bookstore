@@ -10,6 +10,7 @@ import {CoreModule} from './core/core.module';
 import {registerLocaleData} from '@angular/common';
 import localeDeAt from '@angular/common/locales/de-AT';
 import localeDeAtExtra from '@angular/common/locales/extra/de-AT';
+import {MatLuxonDateModule} from '@angular/material-luxon-adapter';
 
 registerLocaleData(localeDeAt, 'de-AT', localeDeAtExtra);
 
@@ -24,12 +25,17 @@ registerLocaleData(localeDeAt, 'de-AT', localeDeAtExtra);
     BrowserAnimationsModule,
     SharedModule,
     CoreModule,
+    MatLuxonDateModule
+    //TODO check module
+    // MatNativeDateModule,
+    // MatDateFnsModule
 
   ],
   providers: [
-    {provide: LOCALE_ID, useValue: 'de-AT'}
+    {provide: LOCALE_ID, useValue: 'de-AT'},
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
+
 }

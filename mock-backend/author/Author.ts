@@ -1,16 +1,16 @@
 import {Entity} from './Entity';
+import {DateTime} from 'luxon';
 
 interface Author extends Entity {
   firstname: string;
   lastname: string;
-  isPenName: boolean;
+  penName: boolean;
   gender: "MALE" | "FEMALE" | "NON-BINARY";
-  birthdate: Date;
+  birthdate: DateTime;
   placeOfBirth: string;
-  dateOfDeath?: Date;
+  dateOfDeath?: DateTime;
   placeOfDeath?: string;
   website?: string;
-
   note: string
 
   //TODO other field ideas
