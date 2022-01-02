@@ -19,8 +19,7 @@ export function dateCompare(a: DateTime | undefined, b: DateTime | undefined, is
   if (!b) {
     return 1 * directionMultiplier;
   }
-  //TODO fix for DateTime
-  return (Number(a) - Number(b)) * directionMultiplier;
+  return (a.toMillis() - b.toMillis()) * directionMultiplier;
 }
 
 export function booleanCompare(a: boolean, b: boolean, isAsc: boolean) {

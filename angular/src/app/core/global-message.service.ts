@@ -27,8 +27,7 @@ export class GlobalMessageService {
 
     const currentAlertMessage: AlertMessage = {type, message, detail};
     const timeoutInMillis = type === 'danger' || type === 'warning' ? 8000 : 4000;
-    //TODO add again
-    // this.timeout = window.setTimeout(() => this.clearAlertMessage(), timeoutInMillis);
+    this.timeout = window.setTimeout(() => this.clearAlertMessage(), timeoutInMillis);
     this.message$.next(currentAlertMessage);
   }
 

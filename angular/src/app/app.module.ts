@@ -26,10 +26,6 @@ registerLocaleData(localeDeAt, 'de-AT', localeDeAtExtra);
     SharedModule,
     CoreModule,
     MatLuxonDateModule
-    //TODO check module
-    // MatNativeDateModule,
-    // MatDateFnsModule
-
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'de-AT'},
