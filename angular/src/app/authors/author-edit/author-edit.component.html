@@ -67,7 +67,6 @@
             </div>
             <app-reactive-validation-display [control]="formGroup?.get('gender')" class="ms-3 ms-lg-0"></app-reactive-validation-display>
           </div>
-
           <div class="row mb-4 mb-lg-0 align-items-center">
             <div class="col-auto">
               <label for="penName" class="ms-2">Pen name</label>
@@ -76,6 +75,16 @@
               <mat-checkbox id="penName" formControlName="penName"></mat-checkbox>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-12 px-4 mb-3 d-flex align-items-center justify-content-between ">
+          <button (click)="navigateBack()" class="btn btn-secondary btn-lg">
+            cancel
+          </button>
+          <button (click)="saveAndNavigateToMasterPage()" class="btn btn-success btn-lg">
+            save hero
+          </button>
         </div>
       </div>
     </app-loading-indicator-overlay-wrapper>

@@ -54,7 +54,7 @@ const initialData: Author[] = [
 
 let data = [...initialData];
 
-export function createOrUpdate(newElement: Author): Author {
+export function createOrUpdate(newElement: Author): Observable<Author> {
   let existingElement = data.filter(a => a.id === newElement.id);
 
   if (existingElement?.length === 1) {
@@ -64,7 +64,7 @@ export function createOrUpdate(newElement: Author): Author {
   } else {
     data.push(newElement);
   }
-  return newElement;
+  return of(newElement);
 }
 
 export function findAll(): Observable<Author[]> {

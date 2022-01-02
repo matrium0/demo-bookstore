@@ -118,9 +118,10 @@ mat-button-toggle-group {
   flex-wrap: wrap;
 }
 
-//.gender-input-row app-gender-icon > div > fa-icon {
-//  line-height: 22px;
-//}
+.mat-form-field-small-paddings .mat-form-field-infix {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
 
 .table-row {
   height: 50px !important;

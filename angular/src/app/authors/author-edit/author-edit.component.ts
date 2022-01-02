@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import Author from '../../../../../mock-backend/author/Author';
-import {findById} from '../../../../../mock-backend/author/AuthorMockService';
-import {ActivatedRoute} from '@angular/router';
+import {createOrUpdate, findById} from '../../../../../mock-backend/author/AuthorMockService';
+import {ActivatedRoute, Router} from '@angular/router';
 import {GlobalMessageService} from '../../core/global-message.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DateTime} from 'luxon';
@@ -27,7 +27,7 @@ export class AuthorEditComponent implements OnInit {
     website: new FormControl(),
   });
 
-  constructor(private activatedRoute: ActivatedRoute, private globalMessageService: GlobalMessageService) {
+  constructor(private activatedRoute: ActivatedRoute, private globalMessageService: GlobalMessageService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -62,5 +62,28 @@ export class AuthorEditComponent implements OnInit {
         console.log("error occured");
       }
     });
+  }
+
+  navigateBack() {
+    history.back();
+  }
+
+  saveAndNavigateToMasterPage() {
+    console.log("saveAndNavigateToMasterPage");
+
+    if (this.formGroup.valid) {
+      console.log('save', this.formGroup.value);
+      createOrUpdate(this.formGroup.getRawValue()).subscribe(
+          (author: Author) => {
+            console.log('createOrUpdate SUCCESS', author);
+            this.router.navigate(['/authors']).then();
+            this.globalMessageService.setAlertMessage("success", "Hero saved!");
+          }, (error: any) => {
+            console.log("saveHero ERROR", error);
+            this.globalMessageService.setAlertMessage("danger", "Hero saving failed", error);
+          });
+    } else {
+      this.formGroup.markAllAsTouched();
+    }
   }
 }
