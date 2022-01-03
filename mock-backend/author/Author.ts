@@ -12,6 +12,7 @@ interface Author extends Entity {
   placeOfDeath?: string;
   website?: string;
   note: string
+  foto: Blob;
 
   //TODO other field ideas
   // genres

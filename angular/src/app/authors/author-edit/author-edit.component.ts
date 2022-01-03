@@ -29,6 +29,7 @@ export class AuthorEditComponent implements OnInit {
     placeOfDeath: new FormControl(null),
     website: new FormControl(null),
     note: new FormControl(null),
+    foto: new FormControl(null),
   });
   public imageUrl?: SafeUrl;
 
@@ -52,16 +53,17 @@ export class AuthorEditComponent implements OnInit {
     this.isLoading = true;
     findById(id).subscribe({
       next: (author: Author) => {
+        console.log("loadAuthor SUCCESS", author);
         this.isLoading = false;
         this.formGroup.patchValue(author);
-        //workaround for framework bug https://github.com/angular/material/issues/12118
+        //TODO come back and check for fixes - this is just a workaround for a framework bug
         this.formGroup.patchValue({birthdate: DateTime.fromJSDate(author.birthdate.toJSDate())});
         if (author.dateOfDeath) {
           this.formGroup.patchValue({dateOfDeath: DateTime.fromJSDate(author.dateOfDeath.toJSDate())});
         }
 
         // TODO set image here:
-        // this.imageUrl = this.createImageUrlFromBlob(imageBlob);
+        this.imageUrl = this.createImageUrlFromBlob(author.foto);
       },
       error: (error) => {
         this.globalMessageService.setAlertMessage("danger", "Unable to load Authors: ", error);
@@ -103,15 +105,20 @@ export class AuthorEditComponent implements OnInit {
           if (imageBlob) {
             console.log("image chosen", imageBlob);
 
+
             //TODO display and save image
             // this.setImage(imageBlob);
+
             this.imageUrl = this.createImageUrlFromBlob(imageBlob);
+            this.formGroup.patchValue({foto: imageBlob})
+            console.log("this.imageUrl ", this.imageUrl);
             // if (this.formGroup.get("id")?.value) {
             //   this.displaySaveReminder = true;
             // }
           }
         });
   }
+
   public createImageUrlFromBlob(image: Blob): SafeUrl {
     const objectURL = URL.createObjectURL(image);
     return this.domSanitizer.bypassSecurityTrustUrl(objectURL);

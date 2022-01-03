@@ -10,7 +10,7 @@ import {CoreModule} from './core/core.module';
 import {registerLocaleData} from '@angular/common';
 import localeDeAt from '@angular/common/locales/de-AT';
 import localeDeAtExtra from '@angular/common/locales/extra/de-AT';
-import {MatLuxonDateModule} from '@angular/material-luxon-adapter';
+import {MAT_LUXON_DATE_ADAPTER_OPTIONS, MatLuxonDateModule} from '@angular/material-luxon-adapter';
 import {MAT_DATE_FORMATS} from '@angular/material/core';
 
 registerLocaleData(localeDeAt, 'de-AT', localeDeAtExtra);
@@ -30,6 +30,10 @@ registerLocaleData(localeDeAt, 'de-AT', localeDeAtExtra);
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'de-AT'},
+    {
+      provide: MAT_LUXON_DATE_ADAPTER_OPTIONS,
+      useValue: {firstDayOfWeek: 1},
+    },
     {
       provide: MAT_DATE_FORMATS,
       useValue: {
