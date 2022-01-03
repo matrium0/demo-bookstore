@@ -16,12 +16,15 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {QuillModule} from 'ngx-quill';
+import {ImageCropperDialogComponent} from './image-cropper-dialog/image-cropper-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
     AuthorListComponent,
     AuthorTableComponent,
-    AuthorEditComponent
+    AuthorEditComponent,
+    ImageCropperDialogComponent
   ],
   imports: [
     CommonModule,
@@ -37,8 +40,8 @@ import {QuillModule} from 'ngx-quill';
     MatCheckboxModule,
     MatDatepickerModule,
     QuillModule,
+    MatDialogModule
   ]
 })
 export class AuthorsModule {
 }
-

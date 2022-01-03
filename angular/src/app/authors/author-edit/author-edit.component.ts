@@ -5,6 +5,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {GlobalMessageService} from '../../core/global-message.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DateTime} from 'luxon';
+import {ImageCropperDialogComponent} from '../image-cropper-dialog/image-cropper-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
+import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-author-edit',
@@ -27,8 +30,10 @@ export class AuthorEditComponent implements OnInit {
     website: new FormControl(null),
     note: new FormControl(null),
   });
+  public imageUrl?: SafeUrl;
 
-  constructor(private activatedRoute: ActivatedRoute, private globalMessageService: GlobalMessageService, private router: Router) {
+  constructor(private activatedRoute: ActivatedRoute, private globalMessageService: GlobalMessageService, private router: Router,
+              private matDialog: MatDialog, private domSanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
@@ -85,5 +90,27 @@ export class AuthorEditComponent implements OnInit {
       console.log('formgroup is not valid', this.formGroup);
       this.formGroup.markAllAsTouched();
     }
+  }
+
+  openFotoUploadDialog(): void {
+    this.matDialog
+        .open(ImageCropperDialogComponent, {height: "550px"})
+        .afterClosed()
+        .subscribe((imageBlob: Blob) => {
+          if (imageBlob) {
+            console.log("image chosen", imageBlob);
+
+            //TODO display and save image
+            // this.setImage(imageBlob);
+            this.imageUrl = this.createImageUrlFromBlob(imageBlob);
+            // if (this.formGroup.get("id")?.value) {
+            //   this.displaySaveReminder = true;
+            // }
+          }
+        });
+  }
+  public createImageUrlFromBlob(image: Blob): SafeUrl {
+    const objectURL = URL.createObjectURL(image);
+    return this.domSanitizer.bypassSecurityTrustUrl(objectURL);
   }
 }
