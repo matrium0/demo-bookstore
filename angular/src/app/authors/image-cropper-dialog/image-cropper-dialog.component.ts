@@ -58,19 +58,13 @@ export class ImageCropperDialogComponent {
       const file = fileList[0];
       this.feedback = '';
 
-      if (file.size > 4000000) {
-        console.log('file is to big, cancelling');
-        this.feedback = 'Fehler! Die Datei darf nicht über 4MB haben!';
-        return;
-      }
-
       if (file) {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = (ev: any) => {
-          if (ev.target.result.length > 20000000) {
+          if (ev.target.result.length > 5000000) {
             console.log('file is to big, cancelling');
-            this.feedback = 'Fehler! Die Datei ist zu groß!';
+            this.feedback = 'Fehler! Die Datei darf nicht über 4MB haben';
             return;
           }
           this.imageUrl = ev.target.result;

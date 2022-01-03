@@ -80,6 +80,7 @@
           <h2 class="mt-lg-0 mb-2">Notes</h2>
           <quill-editor [sanitize]="true" formControlName="note"></quill-editor>
           <h2 class="mt-3">Foto</h2>
+<!--          //TODO style and implement-->
           <img *ngIf="imageUrl" [src]="imageUrl" class="hero-image" alt="Foto of the Author">
           <a (click)="openFotoUploadDialog()" class="change-foto-link" role="button">{{formGroup.get('id')?.value ? 'change foto' : 'upload foto'}}</a>
         </div>

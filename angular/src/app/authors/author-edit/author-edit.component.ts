@@ -59,6 +59,9 @@ export class AuthorEditComponent implements OnInit {
         if (author.dateOfDeath) {
           this.formGroup.patchValue({dateOfDeath: DateTime.fromJSDate(author.dateOfDeath.toJSDate())});
         }
+
+        // TODO set image here:
+        // this.imageUrl = this.createImageUrlFromBlob(imageBlob);
       },
       error: (error) => {
         this.globalMessageService.setAlertMessage("danger", "Unable to load Authors: ", error);

@@ -14,7 +14,6 @@ import {MatLuxonDateModule} from '@angular/material-luxon-adapter';
 import {MAT_DATE_FORMATS} from '@angular/material/core';
 
 registerLocaleData(localeDeAt, 'de-AT', localeDeAtExtra);
-const dateFormat = 'dd.LL.yyyy';
 
 @NgModule({
   declarations: [
@@ -27,7 +26,7 @@ const dateFormat = 'dd.LL.yyyy';
     BrowserAnimationsModule,
     SharedModule,
     CoreModule,
-    MatLuxonDateModule
+    MatLuxonDateModule //TODO move to core module?
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'de-AT'},
