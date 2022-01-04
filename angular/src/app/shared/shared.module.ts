@@ -10,6 +10,8 @@ import {GenderIconComponent} from './gender-icon/gender-icon.component';
 import {LoadingIndicatorOverlayWrapperComponent} from './loading-indicator-overlay-wrapper/loading-indicator-overlay-wrapper.component';
 import {ReactiveValidationDisplayComponent} from './reactive-validation-display/reactive-validation-display.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {ConfirmationDirective} from './confirmation-dialog/confirmation.directive';
+import {ConfirmationDialogComponent} from './confirmation-dialog/confirmation-dialog.component';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     GlobalMessageComponent,
     GenderIconComponent,
     LoadingIndicatorOverlayWrapperComponent,
-    ReactiveValidationDisplayComponent
+    ReactiveValidationDisplayComponent,
+    ConfirmationDialogComponent,
+    ConfirmationDirective
   ],
   exports: [
     HeaderComponent,
@@ -26,7 +30,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     GenderIconComponent,
     FontAwesomeModule,
     LoadingIndicatorOverlayWrapperComponent,
-    ReactiveValidationDisplayComponent
+    ReactiveValidationDisplayComponent,
+    ConfirmationDialogComponent,
+    ConfirmationDirective
   ],
   imports: [
     CommonModule,

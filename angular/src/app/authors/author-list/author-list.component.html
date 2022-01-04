@@ -1,17 +1,17 @@
 <div class="app-col mat-elevation-z8">
-  <div class="d-flex align-items-center justify-content-between flex-wrap">
-    <div class="d-flex align-items-baseline m-3 mb-0">
-      <h1 class="pt-2 pb-3">Authors</h1>
-      <mat-form-field appearance="outline" class="ms-2 ms-lg-5 input-remove-bottom-margin flex-shrink-1 standalone-form-field mat-form-field-small-paddings">
-        <mat-label>Filter</mat-label>
-        <input #searchTerm (keyup)="filter(searchTerm.value)" matInput placeholder="type to filter">
-        <mat-icon matSuffix>filter_alt</mat-icon>
-      </mat-form-field>
+  <div class="p-2 ms-lg-3">
+    <div class="d-flex align-items-center justify-content-between flex-wrap">
+      <div class="d-flex align-items-center">
+          <h1>Authors</h1>
+          <div class="input-group ms-3">
+            <input #searchTerm (keyup)="filter(searchTerm.value)" autofocus class="form-control" placeholder="type to filter" aria-label="Filter">
+            <span class="input-group-text"><mat-icon matSuffix>filter_alt</mat-icon></span>
+          </div>
+      </div>
+      <button (click)="navigateToNewAuthor()" class="btn btn-success btn-lg me-2 me-lg-4">
+        add author
+      </button>
     </div>
-    <button (click)="navigateToNewAuthor()" class="btn btn-success btn-lg mx-auto mx-lg-3 ms-lg-0 mb-2 mb-md-0">
-      <fa-icon icon="plus"></fa-icon>
-      add author
-    </button>
   </div>
   <div style="border-top: 2px solid gray;">
     <app-loading-indicator-overlay-wrapper [showOverlay]="!filteredAuthors" spinnerSize="6x">

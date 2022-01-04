@@ -1,7 +1,13 @@
 <div class="app-col mat-elevation-z8">
-  <div class="d-flex align-items-center justify-content-between flex-wrap">
-    <div class="d-flex align-items-baseline m-3 mb-0">
-      <h1 class="pt-2 pb-3">Author {{formGroup.get('firstname')?.value}} {{formGroup.get('lastname')?.value}}</h1>
+  <div class="p-2 ms-lg-3">
+    <div class="d-flex align-items-center justify-content-between flex-wrap" style="height: 48px;">
+      <h1 *ngIf="formGroup.get('id')?.value"><span class="d-none d-lg-inline h1">Author </span>{{formGroup.get('firstname')?.value}} {{formGroup.get('lastname')?.value}}</h1>
+      <h1 *ngIf="!formGroup.get('id')?.value">New Author</h1>
+      <button *ngIf="formGroup.get('id')?.value" class="btn btn-danger btn-lg me-2 me-lg-4"
+              appConfirmation confirmTitle="Delete Author" confirmButtonText="delete" confirmButtonType="danger"
+              confirmMessage="Are you sure that you want to delete <strong>{{formGroup.get('firstname')?.value}} {{formGroup.get('lastname')?.value}}</strong>?<br />This cannot be undone!"
+      >delete
+      </button>
     </div>
   </div>
 
