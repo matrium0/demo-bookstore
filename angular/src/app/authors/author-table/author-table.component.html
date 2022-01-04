@@ -8,10 +8,10 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header="">LASTNAME</th>
     <td mat-cell *matCellDef="let element"> {{element.lastname}} </td>
   </ng-container>
-  <ng-container matColumnDef="isPenName">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header=""> PEN NAME</th>
+  <ng-container matColumnDef="penName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="">PEN NAME</th>
     <td mat-cell *matCellDef="let element">
-      <fa-icon *ngIf="element.isPenName" icon="check" size="lg"></fa-icon>
+      <fa-icon *ngIf="element.penName" icon="check" size="lg"></fa-icon>
     </td>
   </ng-container>
   <ng-container matColumnDef="gender">

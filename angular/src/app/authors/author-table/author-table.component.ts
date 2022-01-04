@@ -15,7 +15,7 @@ export class AuthorTableComponent implements OnInit {
   getScreenSize() {
     if (window.innerWidth >= 992) {
       this.showAllDetails = true;
-      this.displayedColumns = ['firstname', 'lastname', 'gender', 'isPenName', 'birthdateWithPlace', 'age', 'dateOfDeath'];
+      this.displayedColumns = ['firstname', 'lastname', 'gender', 'penName', 'birthdateWithPlace', 'age', 'dateOfDeath'];
     } else if (window.innerWidth >= 576) {
       this.showAllDetails = true;
       this.displayedColumns = ['firstname', 'lastname', 'birthdate', 'gender'];
@@ -74,7 +74,7 @@ export class AuthorTableComponent implements OnInit {
           return compare(a.firstname, b.firstname, isAsc);
         case 'lastname':
           return compare(a.lastname, b.lastname, isAsc);
-        case 'isPenName':
+        case 'penName':
           return booleanCompare(a.penName, b.penName, isAsc);
         case 'birthdate':
         case 'birthdateWithPlace':

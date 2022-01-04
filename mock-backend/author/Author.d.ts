@@ -2,7 +2,7 @@ import { Entity } from './Entity';
 interface Author extends Entity {
     firstname: string;
     lastname: string;
-    isPenName: boolean;
+    penName: boolean;
     gender: "MALE" | "FEMALE" | "NON-BINARY";
     birthdate: Date;
     placeOfBirth: string;
