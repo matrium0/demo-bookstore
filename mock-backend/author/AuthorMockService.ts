@@ -1,5 +1,5 @@
 import {DateTime} from 'luxon';
-import {delay, EMPTY, Observable, of} from 'rxjs';
+import {delay, Observable, of} from 'rxjs';
 import Author from './Author';
 import dataURItoBlob from './DefaultAuthorFoto';
 
@@ -59,7 +59,7 @@ const initialData: Author[] = [
 
 let data = [...initialData];
 
-export function createOrUpdate(newElement: Author): Observable<Author> {
+export function createOrUpdateAuthor(newElement: Author): Observable<Author> {
   let existingElement = data.filter(a => a.id === newElement.id);
 
   if (existingElement?.length === 1) {
@@ -72,15 +72,15 @@ export function createOrUpdate(newElement: Author): Observable<Author> {
   return of(newElement);
 }
 
-export function findAll(): Observable<Author[]> {
+export function findAllAuthors(): Observable<Author[]> {
   return of(data).pipe(delay(500));
 }
 
-export function findById(id: number): Observable<Author> {
+export function findAuthorById(id: number): Observable<Author> {
   return of(data.filter(a => a.id === id)[0]).pipe(delay(500));
 }
 
-export function remove(id: number): Observable<never> {
+export function deleteAuthor(id: number): Observable<void> {
   data = data.filter(elem => elem.id !== id);
-  return EMPTY;
+  return of(void 0);
 }

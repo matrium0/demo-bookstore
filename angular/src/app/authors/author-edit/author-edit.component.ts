@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import Author from '../../../../../mock-backend/author/Author';
-import {createOrUpdate, findById} from '../../../../../mock-backend/author/AuthorMockService';
+import {createOrUpdateAuthor, deleteAuthor, findAuthorById} from '../../../../../mock-backend/author/AuthorMockService';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GlobalMessageService} from '../../core/global-message.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -31,7 +31,7 @@ export class AuthorEditComponent implements OnInit {
     note: new FormControl(null),
     foto: new FormControl(null, Validators.required),
   });
-  public imageUrl?: SafeUrl;
+  imageUrl?: SafeUrl;
   displaySaveReminder = false;
 
   constructor(private activatedRoute: ActivatedRoute, private globalMessageService: GlobalMessageService, private router: Router,
@@ -43,6 +43,7 @@ export class AuthorEditComponent implements OnInit {
         params => {
           const id = params['id'];
           if (id === "new") {
+            this.isLoading = false;
           } else {
             this.loadAuthor(Number(id));
           }
@@ -52,7 +53,7 @@ export class AuthorEditComponent implements OnInit {
 
   loadAuthor(id: number) {
     this.isLoading = true;
-    findById(id).subscribe({
+    findAuthorById(id).subscribe({
       next: (author: Author) => {
         console.log("loadAuthor SUCCESS", author);
         this.isLoading = false;
@@ -62,8 +63,6 @@ export class AuthorEditComponent implements OnInit {
         if (author.dateOfDeath) {
           this.formGroup.patchValue({dateOfDeath: DateTime.fromJSDate(author.dateOfDeath.toJSDate())});
         }
-
-        // TODO set image here:
         this.imageUrl = this.createImageUrlFromBlob(author.foto);
       },
       error: (error) => {
@@ -83,11 +82,11 @@ export class AuthorEditComponent implements OnInit {
 
     if (this.formGroup.valid) {
       console.log('save', this.formGroup.value);
-      createOrUpdate(this.formGroup.getRawValue()).subscribe(
+      createOrUpdateAuthor(this.formGroup.getRawValue()).subscribe(
           (author: Author) => {
-            console.log('createOrUpdate SUCCESS', author);
+            console.log('createOrUpdateAuthor SUCCESS', author);
             this.router.navigate(['/author']).then();
-            this.globalMessageService.setAlertMessage("success", "Hero saved!");
+            this.globalMessageService.setAlertMessage("info", "Hero saved!");
           }, (error: any) => {
             console.log("saveHero ERROR", error);
             this.globalMessageService.setAlertMessage("danger", "Hero saving failed", error);
@@ -105,11 +104,6 @@ export class AuthorEditComponent implements OnInit {
         .subscribe((imageBlob: Blob) => {
           if (imageBlob) {
             console.log("image chosen", imageBlob);
-
-
-            //TODO display and save image
-            // this.setImage(imageBlob);
-
             this.imageUrl = this.createImageUrlFromBlob(imageBlob);
             this.formGroup.patchValue({foto: imageBlob})
             console.log("this.imageUrl ", this.imageUrl);
@@ -123,5 +117,27 @@ export class AuthorEditComponent implements OnInit {
   public createImageUrlFromBlob(image: Blob): SafeUrl {
     const objectURL = URL.createObjectURL(image);
     return this.domSanitizer.bypassSecurityTrustUrl(objectURL);
+  }
+
+  get fullname() {
+    return this.formGroup.get("firstname")?.value + " " + this.formGroup.get("lastname")?.value;
+  }
+
+  deleteAuthor() {
+    console.log("deleteAuthor");
+    deleteAuthor(Number(this.formGroup.get("id")?.value)).subscribe({
+          next: () => {
+            console.log("deleteAuthor SUCCESS");
+            this.router.navigate(["/author"])
+            this.globalMessageService.setAlertMessage("info", "Successfully deleted " + this.fullname);
+          },
+          error: (error) => {
+            console.log("deleteAuthor ERROR", error);
+            this.globalMessageService.setAlertMessage("danger", "Unable to delete Author: ", error);
+          }
+
+        }
+    );
+
   }
 }

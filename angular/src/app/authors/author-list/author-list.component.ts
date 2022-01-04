@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import Author from '../../../../../mock-backend/author/Author';
-import {findAll} from '../../../../../mock-backend/author/AuthorMockService';
+import {findAllAuthors} from '../../../../../mock-backend/author/AuthorMockService';
 import {GlobalMessageService} from '../../core/global-message.service';
 import {EnrichedAuthor, enrichWithCalculatedFields} from '../author-util';
 import {Router} from '@angular/router';
@@ -22,7 +22,7 @@ export class AuthorListComponent implements OnInit {
   }
 
   loadAllAuthors() {
-    findAll().subscribe({
+    findAllAuthors().subscribe({
       next: (authors: Author[]) => {
         console.log("findAll", authors);
         this.authors = authors.map(a => enrichWithCalculatedFields(a));
