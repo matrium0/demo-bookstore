@@ -64,9 +64,9 @@ export function createOrUpdate(newElement: Author): Observable<Author> {
 
   if (existingElement?.length === 1) {
     let foundIndex = data.indexOf(existingElement[0]);
-    newElement.id = Math.max(...data.map(e => e.id)) + 1;
     data[foundIndex] = newElement;
   } else {
+    newElement.id = Math.max(...data.map(e => e.id)) + 1;
     data.push(newElement);
   }
   return of(newElement);

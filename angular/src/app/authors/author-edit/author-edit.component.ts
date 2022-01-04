@@ -29,9 +29,10 @@ export class AuthorEditComponent implements OnInit {
     placeOfDeath: new FormControl(null),
     website: new FormControl(null),
     note: new FormControl(null),
-    foto: new FormControl(null),
+    foto: new FormControl(null, Validators.required),
   });
   public imageUrl?: SafeUrl;
+  displaySaveReminder = false;
 
   constructor(private activatedRoute: ActivatedRoute, private globalMessageService: GlobalMessageService, private router: Router,
               private matDialog: MatDialog, private domSanitizer: DomSanitizer) {
@@ -112,9 +113,9 @@ export class AuthorEditComponent implements OnInit {
             this.imageUrl = this.createImageUrlFromBlob(imageBlob);
             this.formGroup.patchValue({foto: imageBlob})
             console.log("this.imageUrl ", this.imageUrl);
-            // if (this.formGroup.get("id")?.value) {
-            //   this.displaySaveReminder = true;
-            // }
+            if (this.formGroup.get("id")?.value) {
+              this.displaySaveReminder = true;
+            }
           }
         });
   }

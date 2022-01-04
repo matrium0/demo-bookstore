@@ -4,45 +4,8 @@ $enable-button-pointers: true;
 
 $warning: #c39007;
 
-//@use '@angular/material' as mat;
-
-//@use '~@angular/material' as mat;
-//@import '~@angular/material/theming';
-//@include mat-core();
-//
-//$mat-primary-scheme: (
-//    100: #f7f3ff,
-//    500: #979797,
-//    700: #000,
-//    contrast: (
-//        100: rgba(0, 0, 0, 0.87),
-//        500: #ffffff,
-//        700: #ffffff,
-//    )
-//);
-//$mat-accent-scheme: (
-//    100: #30bb00,
-//    500: #167f00,
-//    700: #00490f,
-//    contrast: (
-//        100: rgba(0, 0, 0, 0.87),
-//        500: rgba(255, 255, 255, 0.87),
-//        700: #ffffff,
-//    )
-//);
-//$mat-primary-palette: mat-palette($mat-primary-scheme);
-//$mat-accent-palette: mat-palette($mat-accent-scheme);
-//
-//$app-light-theme: mat-light-theme($mat-primary-palette, $mat-accent-palette);
-//
-//@include angular-material-theme($app-light-theme);
-//
-//$custom-typography: mat-typography-config(
-//    $font-family: 'Calibri'
-//);
 $input-placeholder-color: rgba(0, 0, 0, .42);
 
-//@include angular-material-typography($custom-typography);
 @import '../node_modules/bootstrap/scss/bootstrap';
 @import '~@swimlane/ngx-datatable/index.css';
 @import '~@swimlane/ngx-datatable/themes/material.css';
@@ -57,9 +20,6 @@ $input-placeholder-color: rgba(0, 0, 0, .42);
 
 html, body {
   height: 100%;
-}
-
-body {
   margin: 0;
 }
 
@@ -131,48 +91,6 @@ mat-button-toggle-group {
   color: white;
 }
 
-.responsive-label {
-  font-size: 1rem;
-  line-height: 0.3rem;
-
-  @media (min-width: 992px) {
-    font-size: 1.2rem;
-    line-height: initial;
-  }
-}
-
-.responsive-input-wrapper {
-  font-size: 1.4rem;
-  padding-left: 20px;
-
-  @media (min-width: 992px) {
-    font-size: 1.2rem;
-  }
-}
-
-
-label, .label {
-  font-size: 1rem;
-
-  @media (min-width: 992px) {
-    font-size: 1.2rem;
-  }
-}
-
-.form-wrapper {
-  font-size: 1.2rem;
-}
-
-.note {
-  font-size: 1.1rem;
-}
-
-.ability-list {
-  @media (min-width: 992px) {
-    min-height: 200px;
-  }
-}
-
 .required-asterisk {
   font-weight: bold;
   color: #770000;
@@ -190,12 +108,21 @@ label, .label {
   color: #a500ff;
 }
 
+.author-foto-wrapper {
+  min-height: 50px;
+}
+
 .author-foto-img {
-  min-width: 245px;
-  min-height: 280px;
   width: 100%;
   height: 100%;
   object-fit: fill;
+}
+
+.author-foto-change-link {
+  position: absolute;
+  bottom: 10%;
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
 .fa-question-circle {
@@ -229,42 +156,13 @@ mat-checkbox .mat-checkbox-inner-container {
   background-color: #ffd200;
 }
 
-.datatable-header-cell-label {
-  font-weight: bold;
-  font-size: 0.8rem;
-}
-
-ngx-datatable .sort-btn {
-  font-size: 1.2rem;
-}
-
-.ngx-datatable.material, .ngx-datatable.material .datatable-header .datatable-header-cell {
-  background-color: inherit;
-}
-
-
-.clickable-datatable .datatable-body-row:hover {
+.selectable-table .mat-row:hover {
   cursor: pointer;
 }
 
 .fa-spin {
   -webkit-animation: fa-spin 2s linear infinite;
   animation: fa-spin 2s linear infinite;
-}
-
-.big-spinner {
-  font-size: 4em;
-  margin-top: 30px;
-  margin-left: 50px;
-  animation: fa-spin 2s infinite linear;
-}
-
-.btn .fa-angle-left {
-  margin-top: 6px;
-}
-
-.background-inherit {
-  background-color: inherit;
 }
 
 .cursor-pointer {
@@ -300,33 +198,6 @@ ngx-datatable .sort-btn {
   height: 200px;
   border-bottom-left-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
-}
-
-.fa-user-circle {
-  font-size: 2.5rem;
-}
-
-.mat-tooltip {
-  font-size: 16px !important;
-}
-
-.mat-button-toggle-appearance-standard {
-  border: 3px solid transparent;
-  background: transparent;
-}
-
-.mat-button-toggle-checked.mat-button-toggle-appearance-standard {
-  background-color: #eaeaea;
-  border: 3px solid #5e5e5e !important;
-}
-
-.general-data .row {
-  min-height: 37px;
-}
-
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .input-remove-bottom-margin {
