@@ -45,7 +45,7 @@ export class AuthorListComponent implements OnInit {
 
   onAuthorSelected(author: EnrichedAuthor) {
     console.log("onAuthorSelected", author);
-    this.router.navigate(["/author/edit/" + author.id]);
+    this.router.navigate(["/author/" + author.id]);
   }
 
   navigateToNewAuthor() {

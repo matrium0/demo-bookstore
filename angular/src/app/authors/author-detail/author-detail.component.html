@@ -1,0 +1,28 @@
+<div class="app-col mat-elevation-z8">
+  <div class="p-2 ms-lg-3">
+    <div class="d-flex align-items-center justify-content-between flex-wrap" style="min-height: 48px;">
+      <h1 *ngIf="!isLoading">Author {{fullname}}</h1>
+    </div>
+  </div>
+
+  <div style="border-top: 2px solid gray;">
+    <app-loading-indicator-overlay-wrapper [showOverlay]="isLoading" spinnerSize="6x">
+      <div class="row mx-3 gx-0 gx-lg-5">
+        bottom
+        <div class="m-5 p-5">
+          test
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-12 px-4 px-lg-5 mb-3 d-flex align-items-center justify-content-between ">
+          <button (click)="navigateToMasterPage()" class="btn btn-secondary btn-lg">
+            &nbsp;back&nbsp;
+          </button>
+          <button (click)="navigateToEditPage()" class="btn btn-warning btn-lg px-4">
+            &nbsp;edit&nbsp;
+          </button>
+        </div>
+      </div>
+    </app-loading-indicator-overlay-wrapper>
+  </div>
+</div>

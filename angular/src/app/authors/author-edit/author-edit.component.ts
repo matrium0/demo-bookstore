@@ -66,8 +66,8 @@ export class AuthorEditComponent implements OnInit {
         this.imageUrl = this.createImageUrlFromBlob(author.foto);
       },
       error: (error) => {
-        this.globalMessageService.setAlertMessage("danger", "Unable to load Authors: ", error);
-        console.log("error occured");
+        this.globalMessageService.setAlertMessage("danger", "Unable to load Author: ", error);
+        console.log("loadAuthor ERROR", error);
         this.isLoading = false;
       }
     });
@@ -77,15 +77,15 @@ export class AuthorEditComponent implements OnInit {
     history.back();
   }
 
-  saveAndNavigateToMasterPage() {
-    console.log("saveAndNavigateToMasterPage");
+  saveAndNavigateToDetailPage() {
+    console.log("saveAndNavigateToDetailPage");
 
     if (this.formGroup.valid) {
       console.log('save', this.formGroup.value);
       createOrUpdateAuthor(this.formGroup.getRawValue()).subscribe(
           (author: Author) => {
             console.log('createOrUpdateAuthor SUCCESS', author);
-            this.router.navigate(['/author']).then();
+            this.router.navigate(['/author/' + author.id]).then();
             this.globalMessageService.setAlertMessage("info", "Hero saved!");
           }, (error: any) => {
             console.log("saveHero ERROR", error);
