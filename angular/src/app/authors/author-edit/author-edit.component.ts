@@ -8,6 +8,7 @@ import {DateTime} from 'luxon';
 import {ImageCropperDialogComponent} from '../image-cropper-dialog/image-cropper-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
+import {AuthorService} from '../author.service';
 
 @Component({
   selector: 'app-author-edit',
@@ -35,7 +36,7 @@ export class AuthorEditComponent implements OnInit {
   displaySaveReminder = false;
 
   constructor(private activatedRoute: ActivatedRoute, private globalMessageService: GlobalMessageService, private router: Router,
-              private matDialog: MatDialog, private domSanitizer: DomSanitizer) {
+              private matDialog: MatDialog, private domSanitizer: DomSanitizer, private authorService: AuthorService) {
   }
 
   ngOnInit(): void {
@@ -63,7 +64,7 @@ export class AuthorEditComponent implements OnInit {
         if (author.dateOfDeath) {
           this.formGroup.patchValue({dateOfDeath: DateTime.fromJSDate(author.dateOfDeath.toJSDate())});
         }
-        this.imageUrl = this.createImageUrlFromBlob(author.foto);
+        this.imageUrl = this.authorService.createImageUrlFromBlob(author.foto);
       },
       error: (error) => {
         this.globalMessageService.setAlertMessage("danger", "Unable to load Author: ", error);
@@ -104,7 +105,7 @@ export class AuthorEditComponent implements OnInit {
         .subscribe((imageBlob: Blob) => {
           if (imageBlob) {
             console.log("image chosen", imageBlob);
-            this.imageUrl = this.createImageUrlFromBlob(imageBlob);
+            this.imageUrl = this.authorService.createImageUrlFromBlob(imageBlob);
             this.formGroup.patchValue({foto: imageBlob})
             console.log("this.imageUrl ", this.imageUrl);
             if (this.formGroup.get("id")?.value) {
@@ -112,11 +113,6 @@ export class AuthorEditComponent implements OnInit {
             }
           }
         });
-  }
-
-  public createImageUrlFromBlob(image: Blob): SafeUrl {
-    const objectURL = URL.createObjectURL(image);
-    return this.domSanitizer.bypassSecurityTrustUrl(objectURL);
   }
 
   get fullname() {

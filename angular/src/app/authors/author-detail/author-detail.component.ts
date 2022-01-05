@@ -3,6 +3,9 @@ import Author from '../../../../../mock-backend/author/Author';
 import {ActivatedRoute, Router} from '@angular/router';
 import {findAuthorById} from '../../../../../mock-backend/author/AuthorMockService';
 import {GlobalMessageService} from '../../core/global-message.service';
+import {EnrichedAuthor, enrichWithCalculatedFields} from '../author-util';
+import {AuthorService} from '../author.service';
+import {SafeUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-author-detail',
@@ -12,9 +15,11 @@ import {GlobalMessageService} from '../../core/global-message.service';
 export class AuthorDetailComponent implements OnInit {
   isLoading = false;
   authorId?: number;
-  author?: Author;
+  author?: EnrichedAuthor;
+  imageUrl?: SafeUrl;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private globalMessageService: GlobalMessageService) {
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private globalMessageService: GlobalMessageService,
+              private authorService: AuthorService) {
   }
 
   ngOnInit(): void {
@@ -25,7 +30,6 @@ export class AuthorDetailComponent implements OnInit {
   }
 
   get fullname() {
-    console.log(this.author);
     return this.author?.firstname + " " + this.author?.lastname;
   }
 
@@ -37,9 +41,8 @@ export class AuthorDetailComponent implements OnInit {
       next: (author: Author) => {
         console.log("loadAuthor SUCCESS", author);
         this.isLoading = false;
-        this.author = author;
-        //TODO load image
-        // this.imageUrl = this.createImageUrlFromBlob(author.foto);
+        this.author = enrichWithCalculatedFields(author);
+        this.imageUrl = this.authorService.createImageUrlFromBlob(author.foto);
       },
       error: (error) => {
         this.globalMessageService.setAlertMessage("danger", "Unable to load Author: ", error);
