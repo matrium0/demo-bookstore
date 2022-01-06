@@ -12,6 +12,10 @@ import localeDeAt from '@angular/common/locales/de-AT';
 import localeDeAtExtra from '@angular/common/locales/extra/de-AT';
 import {MAT_LUXON_DATE_ADAPTER_OPTIONS, MatLuxonDateModule} from '@angular/material-luxon-adapter';
 import {MAT_DATE_FORMATS} from '@angular/material/core';
+import {StoreModule} from '@ngrx/store';
+import {EffectsModule} from '@ngrx/effects';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {environment} from '../environments/environment';
 
 registerLocaleData(localeDeAt, 'de-AT', localeDeAtExtra);
 
@@ -26,7 +30,12 @@ registerLocaleData(localeDeAt, 'de-AT', localeDeAtExtra);
     BrowserAnimationsModule,
     SharedModule,
     CoreModule,
-    MatLuxonDateModule //TODO move to core module?
+    MatLuxonDateModule, //TODO move to core module?
+    StoreModule.forRoot([]),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({
+      logOnly: environment.production,
+    }),
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'de-AT'},
