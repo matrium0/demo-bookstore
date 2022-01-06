@@ -6,7 +6,7 @@ import {LibraryComponent} from './library/library.component';
 import {SharedModule} from '../shared/shared.module';
 import {EffectsModule} from '@ngrx/effects';
 import {StoreModule} from '@ngrx/store';
-import * as library from "../.store/library.store";
+import * as library from "../.store/library.reducers";
 import {LibraryEffects} from '../.store/library.effects';
 
 

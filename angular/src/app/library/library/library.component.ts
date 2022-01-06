@@ -1,7 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
-import {AppState, authorsListPageLoading, librarySelector, LibraryState, loadingSelector} from '../../.store/library.store';
+import Author from '../../../../../mock-backend/author/Author';
+import {authorsListPageLoading} from '../../.store/library.actions';
+import {LibraryState} from '../../.store/library.reducers';
+import {authorsSelector, librarySelector, loadingSelector} from '../../.store/library.selectors';
 
 @Component({
   selector: 'app-library',
@@ -10,27 +13,20 @@ import {AppState, authorsListPageLoading, librarySelector, LibraryState, loading
 })
 export class LibraryComponent implements OnInit {
   loading$?: Observable<boolean>;
+  authors$?: Observable<Author[]>;
 
   constructor(private store: Store<LibraryState>) {
   }
 
   ngOnInit(): void {
-    this.loading$ = this.store.select(loadingSelector); //TODO
+    this.loading$ = this.store.select(loadingSelector);
+    this.authors$ = this.store.select(authorsSelector);
 
     this.store.select(librarySelector).subscribe(
         libraryState => {
           console.log("librarystate change to ", libraryState);
         }
     )
-
-
-
-    // console.log("this.loading", this.loading$);
-    // // this.loading$.subscribe(
-    // //     (loading) => {
-    // //       console.log("subscribe fired , loading was changed to ", loading);
-    // //     }
-    // // )
     this.store.dispatch(authorsListPageLoading());
   }
 

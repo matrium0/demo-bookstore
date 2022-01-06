@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import Author from '../../../../../mock-backend/author/Author';
+  import {Component, OnInit} from '@angular/core';
+  import Author from '../../../../../mock-backend/author/Author';
 import {ActivatedRoute, Router} from '@angular/router';
 import {findAuthorById} from '../../../../../mock-backend/author/AuthorMockService';
 import {GlobalMessageService} from '../../core/global-message.service';

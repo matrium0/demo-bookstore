@@ -1,4 +1,24 @@
-<p>library works!</p>
+<div class="app-col mat-elevation-z8">
+  <div class="p-2 ms-lg-3">
+    <div class="d-flex align-items-center justify-content-between flex-wrap" style="min-height: 48px;">
+      <h1>Library</h1>
+    </div>
+  </div>
+
+  <div style="border-top: 2px solid gray;">
+    <div class="row justify-content-center">
+
+      <div class="col-6">
 
 
-loading: {{loading$ | async}}
+      loading: {{loading$ | async}}
+
+      <br/>
+      <br/>
+
+      {{(authors$ | async)?.length }} Authors loaded!
+      </div>
+
+    </div>
+  </div>
+</div>

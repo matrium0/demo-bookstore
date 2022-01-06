@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {catchError, EMPTY, map, mergeMap} from 'rxjs';
-import {authorsListPageLoading, authorsLoaded} from './library.store';
 import {findAllAuthors} from '../../../../mock-backend/author/AuthorMockService';
+import {authorsListPageLoading, authorsLoaded} from './library.actions';
 
 // @ts-ignore
 @Injectable()

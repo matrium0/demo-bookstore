@@ -1,5 +1,6 @@
-import {createAction, createFeatureSelector, createReducer, createSelector, on, props} from '@ngrx/store';
+import {createReducer, on} from '@ngrx/store';
 import Author from '../../../../mock-backend/author/Author';
+import {authorsListPageLoading, authorsLoaded} from './library.actions';
 
 export interface AppState {
   library: LibraryState
@@ -10,7 +11,6 @@ export interface LibraryState {
   authors: Author[]
 }
 
-
 const initialState: AppState = {
   library: {
     loading: false,
@@ -18,18 +18,7 @@ const initialState: AppState = {
   }
 }
 
-export const authorsListPageLoading = createAction(
-    '[Author List] Loading'
-);
-
-export const authorsLoaded = createAction(
-    '[Author API] Authors Loaded',
-    props<{ authors: Author[] }>()
-);
-
-
 export const projectFeatureKey = "library";
-
 
 export const reducer = createReducer(
     initialState.library,
@@ -37,10 +26,4 @@ export const reducer = createReducer(
     on(authorsLoaded, (state: LibraryState, action) => ({...state, authors: action.authors, loading: true}))
 );
 
-export const librarySelector = createFeatureSelector<LibraryState>('library');
 
-
-export const loadingSelector = createSelector(
-    librarySelector,
-    (state: LibraryState) => state.loading
-);
