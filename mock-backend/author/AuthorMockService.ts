@@ -77,7 +77,7 @@ export function findAllAuthors(): Observable<Author[]> {
 }
 
 export function findAuthorById(id: number): Observable<Author> {
-  return of(data.filter(a => a.id === id)[0]).pipe(delay(500));
+  return of(data.filter(a => a.id === id)[0]).pipe(delay(5000));
 }
 
 export function deleteAuthor(id: number): Observable<void> {

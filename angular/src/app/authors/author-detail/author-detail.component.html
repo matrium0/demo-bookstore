@@ -1,14 +1,14 @@
 <div class="app-col mat-elevation-z8">
   <div class="p-2 ms-lg-3">
     <div class="d-flex align-items-center justify-content-between flex-wrap" style="min-height: 48px;">
-      <h1 *ngIf="!isLoading">Author {{fullname}}</h1>
+      <h1>Author <span *ngIf="!isLoading" class="h1">{{fullname}}</span></h1>
     </div>
   </div>
 
   <div style="border-top: 2px solid gray;">
     <app-loading-indicator-overlay-wrapper [showOverlay]="isLoading" spinnerSize="6x">
-      <div class="row mx-3 gx-0 gx-lg-5">
-        <div class="col">
+      <div class="row mx-3 gx-0 gx-lg-5" style="min-height: 250px;">
+        <div *ngIf="author" class="col">
           <div class="d-flex align-items-center flex-wrap">
             <div class="fullname-label">{{fullname}} <span *ngIf="author?.penName" class="ml-3 text-muted">(pen name)</span></div>
           </div>
