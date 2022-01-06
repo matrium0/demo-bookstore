@@ -7,9 +7,6 @@ $warning: #c39007;
 $input-placeholder-color: rgba(0, 0, 0, .42);
 
 @import '../node_modules/bootstrap/scss/bootstrap';
-@import '~@swimlane/ngx-datatable/index.css';
-@import '~@swimlane/ngx-datatable/themes/material.css';
-@import '~@swimlane/ngx-datatable/assets/icons.css';
 @import '~quill/dist/quill.core.css';
 @import '~quill/dist/quill.snow.css';
 @import '~cropperjs/dist/cropper.css';
