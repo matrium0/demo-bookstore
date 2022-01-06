@@ -6,8 +6,8 @@ import {LibraryComponent} from './library/library.component';
 import {SharedModule} from '../shared/shared.module';
 import {EffectsModule} from '@ngrx/effects';
 import {StoreModule} from '@ngrx/store';
-import * as library from "../reducers/library.store";
-import {LibraryEffects} from "../reducers/library.store";
+import * as library from "../.store/library.store";
+import {LibraryEffects} from '../.store/library.effects';
 
 
 @NgModule({
@@ -17,7 +17,7 @@ import {LibraryEffects} from "../reducers/library.store";
   imports: [
     CommonModule,
     SharedModule,
-    // EffectsModule.forFeature([LibraryEffects]), //TODO add effects
+    EffectsModule.forFeature( [LibraryEffects]),
     StoreModule.forFeature(library.projectFeatureKey, library.reducer),
     LibraryRoutingModule
   ]

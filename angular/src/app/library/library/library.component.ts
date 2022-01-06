@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
-import {AppState, authorsListPageLoading, librarySelector, loadingSelector} from '../../reducers/library.store';
+import {AppState, authorsListPageLoading, librarySelector, LibraryState, loadingSelector} from '../../.store/library.store';
 
 @Component({
   selector: 'app-library',
@@ -11,20 +11,19 @@ import {AppState, authorsListPageLoading, librarySelector, loadingSelector} from
 export class LibraryComponent implements OnInit {
   loading$?: Observable<boolean>;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<LibraryState>) {
   }
 
   ngOnInit(): void {
-    // this.loading$ = this.store.select("loading"); //TODO
-
     this.loading$ = this.store.select(loadingSelector); //TODO
-
 
     this.store.select(librarySelector).subscribe(
         libraryState => {
           console.log("librarystate change to ", libraryState);
         }
     )
+
+
 
     // console.log("this.loading", this.loading$);
     // // this.loading$.subscribe(

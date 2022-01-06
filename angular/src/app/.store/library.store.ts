@@ -32,9 +32,9 @@ export const projectFeatureKey = "library";
 
 
 export const reducer = createReducer(
-    initialState,
-    on(authorsListPageLoading, (state: AppState) => ({...state, loading: true})),
-    on(authorsLoaded, (state: AppState, action) => ({...state, authors: action.authors, loading: true}))
+    initialState.library,
+    on(authorsListPageLoading, (state: LibraryState) => ({...state, loading: true})),
+    on(authorsLoaded, (state: LibraryState, action) => ({...state, authors: action.authors, loading: true}))
 );
 
 export const librarySelector = createFeatureSelector<LibraryState>('library');
@@ -44,12 +44,3 @@ export const loadingSelector = createSelector(
     librarySelector,
     (state: LibraryState) => state.loading
 );
-
-// export const loadingSelector = createFeatureSelector<AppState, FeatureState>(featureKey);
-// export const loadingSelector = createSelector(
-//     librarySelector,
-//     (loading: boolean) => loading
-// );
-
-export const LibraryEffects: any = "todo change"; //TODO add effects
-
