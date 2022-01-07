@@ -1,6 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { SafeHtml } from '@angular/platform-browser';
+import {Component, Inject} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {SafeHtml} from '@angular/platform-browser';
 
 export interface ConfirmDialogData {
   confirmTitle: string;
@@ -11,17 +11,16 @@ export interface ConfirmDialogData {
 }
 
 @Component({
-  selector: 'bb-confirmation-dialog',
+  selector: 'app-confirmation-dialog',
   templateUrl: './confirmation-dialog.component.html',
   styleUrls: ['./confirmation-dialog.component.scss'],
 })
-export class ConfirmationDialogComponent implements OnInit {
+export class ConfirmationDialogComponent {
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogData,
-    public dialogRef: MatDialogRef<ConfirmationDialogComponent>
-  ) {}
-
-  ngOnInit(): void {}
+      @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogData,
+      public dialogRef: MatDialogRef<ConfirmationDialogComponent>
+  ) {
+  }
 
   dismissDialog(): void {
     this.dialogRef.close();

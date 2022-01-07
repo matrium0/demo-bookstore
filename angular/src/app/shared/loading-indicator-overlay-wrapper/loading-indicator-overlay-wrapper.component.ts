@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {SizeProp} from '@fortawesome/fontawesome-svg-core';
 
 @Component({
@@ -6,10 +6,8 @@ import {SizeProp} from '@fortawesome/fontawesome-svg-core';
   templateUrl: './loading-indicator-overlay-wrapper.component.html',
   styleUrls: ['./loading-indicator-overlay-wrapper.component.scss'],
 })
-export class LoadingIndicatorOverlayWrapperComponent implements OnInit {
+export class LoadingIndicatorOverlayWrapperComponent {
   @Input() showOverlay = false;
   @Input() spinnerSize: SizeProp = "3x";
 
-  ngOnInit(): void {
-  }
 }

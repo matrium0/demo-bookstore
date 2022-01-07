@@ -33,7 +33,7 @@ export class AuthorTableComponent implements OnInit {
   displayedColumns: string[] = [];
 
   @Output()
-  select = new EventEmitter<EnrichedAuthor>();
+  selectAuthor = new EventEmitter<EnrichedAuthor>();
 
   @Input()
   set authors(authors: EnrichedAuthor[]) {
@@ -54,7 +54,7 @@ export class AuthorTableComponent implements OnInit {
   }
 
   onAuthorSelect(author: EnrichedAuthor) {
-    this.select.next(author);
+    this.selectAuthor.next(author);
   }
 
   sortData(sort: Sort) {

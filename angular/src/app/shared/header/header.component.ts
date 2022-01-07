@@ -1,20 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {UserService} from '../../core/user.service';
+import {Component} from '@angular/core';
 import {faUserCircle} from '@fortawesome/free-solid-svg-icons';
+import {UserService} from '@core/user.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   iconUserCircle = faUserCircle;
   isMenuCollapsed = true;
 
   constructor(public userService: UserService) {
-  }
-
-  ngOnInit(): void {
   }
 
   handleLogoutClick() {

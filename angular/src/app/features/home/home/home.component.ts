@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {GlobalMessageService} from '@core/global-message.service';
 
 @Component({
@@ -6,14 +6,12 @@ import {GlobalMessageService} from '@core/global-message.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
-  constructor(private globalMessageService: GlobalMessageService) { }
-
-  ngOnInit(): void {
+  constructor(private globalMessageService: GlobalMessageService) {
   }
 
-  generateDemoMessage(){
+  generateDemoMessage() {
     this.globalMessageService.setAlertMessage("info", "a bright new message of medium length");
   }
 

@@ -16,7 +16,7 @@
   <div style="border-top: 2px solid gray;">
     <app-loading-indicator-overlay-wrapper [showOverlay]="!filteredAuthors" spinnerSize="6x">
       <div class="table-wrapper">
-        <app-author-table *ngIf="filteredAuthors" [authors]="filteredAuthors" (select)="onAuthorSelected($event)"></app-author-table>
+        <app-author-table *ngIf="filteredAuthors" [authors]="filteredAuthors" (selectAuthor)="onAuthorSelected($event)"></app-author-table>
       </div>
     </app-loading-indicator-overlay-wrapper>
   </div>
