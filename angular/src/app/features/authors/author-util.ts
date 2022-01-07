@@ -1,4 +1,4 @@
-import Author from "../../../../mock-backend/author/Author";
+import Author from "@mock-backend/author/Author";
 import {DateTime} from 'luxon';
 
 export function enrichWithCalculatedFields(original: Author): EnrichedAuthor {
