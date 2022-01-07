@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import Author from '../../../../../mock-backend/author/Author';
+import Author from '@mock-backend/author/Author';
 import {ActivatedRoute, Router} from '@angular/router';
-import {findAuthorById} from '../../../../../mock-backend/author/AuthorMockService';
-import {GlobalMessageService} from '../../core/global-message.service';
+import {findAuthorById} from '@mock-backend/author/AuthorMockService';
 import {EnrichedAuthor, enrichWithCalculatedFields} from '../author-util';
 import {AuthorService} from '../author.service';
 import {SafeUrl} from '@angular/platform-browser';
+import {GlobalMessageService} from '@core/global-message.service';
 
 @Component({
   selector: 'app-author-detail',

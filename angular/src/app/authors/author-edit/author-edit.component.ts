@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import Author from '../../../../../mock-backend/author/Author';
-import {createOrUpdateAuthor, deleteAuthor, findAuthorById} from '../../../../../mock-backend/author/AuthorMockService';
+import {createOrUpdateAuthor, deleteAuthor, findAuthorById} from '@mock-backend/author/AuthorMockService';
 import {ActivatedRoute, Router} from '@angular/router';
-import {GlobalMessageService} from '../../core/global-message.service';
+import {GlobalMessageService} from '@core/global-message.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DateTime} from 'luxon';
 import {ImageCropperDialogComponent} from '../image-cropper-dialog/image-cropper-dialog.component';

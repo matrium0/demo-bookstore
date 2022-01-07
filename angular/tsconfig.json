@@ -21,33 +21,30 @@
     "lib": [
       "es2020",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@environment": [
+        "./src/environments/environment.ts"
+      ],
+      "@app/*": [
+        "./src/app/*"
+      ],
+      "@shared/*": [
+        "./src/app/shared/*"
+      ],
+      "@core/*": [
+        "src/app/core/*"
+      ],
+      "@mock-backend/*": [
+        "../mock-backend/*"
+      ]
+    }
   },
   "references": [
     {
       "path": "../mock-backend"
     }
   ],
-  "paths": {
-    "@environment": [
-      "./src/environments/environment.ts"
-    ],
-    "@app/*": [
-      "./src/app/*"
-    ],
-    "@shared/*": [
-      "./src/app/shared/*"
-    ],
-    "@features/*": [
-      "./src/app/features/*"
-    ],
-    "@core/*": [
-      "./src/app/core/*"
-    ],
-    "@mock-backend/*": [
-      "../mock-backend/*"
-    ]
-  },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,

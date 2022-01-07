@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {Sort} from '@angular/material/sort';
 import {EnrichedAuthor} from '../author-util';
-import {booleanCompare, compare, dateCompare} from '../../shared/util/sort-utility';
+import {booleanCompare, compare, dateCompare} from '@shared/util/sort-utility';
 
 @Component({
   selector: 'app-author-table',
