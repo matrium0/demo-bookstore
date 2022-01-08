@@ -5,6 +5,7 @@ import {SafeHtml} from '@angular/platform-browser';
 export interface ConfirmDialogData {
   confirmTitle: string;
   confirmMessageSafeHtml: SafeHtml;
+  hideConfirmButton: boolean;
   confirmButtonText: string;
   confirmButtonType: string;
   cancelButtonText: string;

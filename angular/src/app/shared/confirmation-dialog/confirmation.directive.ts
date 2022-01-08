@@ -10,6 +10,7 @@ export class ConfirmationDirective implements OnInit {
   @Input() confirmTitle!: string;
   @Input() confirmMessage!: string;
 
+  @Input() hideConfirmButton = false;
   @Input() confirmButtonText = 'ok';
   @Input() confirmButtonType = 'secondary';
 
@@ -34,6 +35,7 @@ export class ConfirmationDirective implements OnInit {
     const data: ConfirmDialogData = {
       confirmTitle: this.confirmTitle,
       confirmMessageSafeHtml: this.domSanitizer.bypassSecurityTrustHtml(this.confirmMessage),
+      hideConfirmButton: this.hideConfirmButton,
       confirmButtonText: this.confirmButtonText,
       confirmButtonType: this.confirmButtonType,
       cancelButtonText: this.cancelButtonText,

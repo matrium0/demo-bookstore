@@ -42,11 +42,11 @@ export function createOrUpdateBook(newElement: Book): Observable<Book> {
 }
 
 export function findAllBooks(): Observable<Book[]> {
-  return of(data).pipe(delay(1000));
+  return of(data).pipe(delay(300));
 }
 
 export function findBookById(id: number): Observable<Book> {
-  return of(data.filter(a => a.id === id)[0]).pipe(delay(1000));
+  return of(data.filter(a => a.id === id)[0]).pipe(delay(300));
 }
 
 export function deleteBook(id: number): Observable<void> {
