@@ -12,7 +12,7 @@ const routes: Routes = [
     path: 'your-books', loadChildren: () => import('./features/your-books/your-books.module').then((m) => m.YourBooksModule),
   },
   {
-    path: 'library', loadChildren: () => import('./library/library.module').then((m) => m.LibraryModule),
+    path: 'library', loadChildren: () => import('./features/library/library.module').then((m) => m.LibraryModule),
   },
   {
     path: 'author', loadChildren: () => import('./features/authors/authors.module').then((m) => m.AuthorsModule),
