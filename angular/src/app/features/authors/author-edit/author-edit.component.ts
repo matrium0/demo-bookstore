@@ -8,7 +8,7 @@ import {DateTime} from 'luxon';
 import {ImageCropperDialogComponent} from '../image-cropper-dialog/image-cropper-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
-import {AuthorService} from '../author.service';
+import {ImageService} from '../image.service';
 
 @Component({
   selector: 'app-author-edit',
@@ -36,7 +36,7 @@ export class AuthorEditComponent implements OnInit {
   displaySaveReminder = false;
 
   constructor(private activatedRoute: ActivatedRoute, private globalMessageService: GlobalMessageService, private router: Router,
-              private matDialog: MatDialog, private domSanitizer: DomSanitizer, private authorService: AuthorService) {
+              private matDialog: MatDialog, private domSanitizer: DomSanitizer, private authorService: ImageService) {
   }
 
   ngOnInit(): void {

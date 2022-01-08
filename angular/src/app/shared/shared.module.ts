@@ -34,7 +34,8 @@ import { BookCardComponent } from './book-card/book-card.component';
     LoadingIndicatorOverlayWrapperComponent,
     ReactiveValidationDisplayComponent,
     ConfirmationDialogComponent,
-    ConfirmationDirective
+    ConfirmationDirective,
+    BookCardComponent
   ],
   imports: [
     CommonModule,

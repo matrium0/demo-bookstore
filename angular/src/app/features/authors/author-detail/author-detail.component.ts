@@ -3,7 +3,7 @@ import Author from '@mock-backend/author/Author';
 import {ActivatedRoute, Router} from '@angular/router';
 import {findAuthorById} from '@mock-backend/author/author-mock-data';
 import {EnrichedAuthor, enrichWithCalculatedFields} from '../author-util';
-import {AuthorService} from '../author.service';
+import {ImageService} from '../image.service';
 import {SafeUrl} from '@angular/platform-browser';
 import {GlobalMessageService} from '@core/global-message.service';
 
@@ -19,7 +19,7 @@ export class AuthorDetailComponent implements OnInit {
   imageUrl?: SafeUrl;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private globalMessageService: GlobalMessageService,
-              private authorService: AuthorService) {
+              private authorService: ImageService) {
   }
 
   ngOnInit(): void {

@@ -1,1 +1,15 @@
-<p>book-card works!</p>
+<div class="book-card mat-elevation-z8 d-flex flex-column align-items-center">
+  <div class="book-foto-wrapper">
+    <img [src]="imageUrl" class="book-image" alt="Foto of the Author">
+  </div>
+  <div class="title">{{book?.title}}</div>
+  <div class="subtitle">{{book?.subtitle}}</div>
+  <div *ngIf="book?.series" class="series">Book {{book?.numberWithinSeries}} of <span class="series-highlight">{{book?.series}}</span></div>
+  <div class="first-published">first published {{book?.firstPublished?.toFormat("dd.LL.yyyy")}}</div>
+
+  <div class="mt-2 author">by <a routerLink="/author/{{book?.authorId}}">{{book?.authorFullName}}</a></div>
+
+</div>
+
+
+
