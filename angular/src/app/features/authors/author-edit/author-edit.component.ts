@@ -36,7 +36,7 @@ export class AuthorEditComponent implements OnInit {
   displaySaveReminder = false;
 
   constructor(private activatedRoute: ActivatedRoute, private globalMessageService: GlobalMessageService, private router: Router,
-              private matDialog: MatDialog, private domSanitizer: DomSanitizer, private authorService: ImageService) {
+              private matDialog: MatDialog, private domSanitizer: DomSanitizer, private imageService: ImageService) {
   }
 
   ngOnInit(): void {
@@ -64,7 +64,7 @@ export class AuthorEditComponent implements OnInit {
         if (author.dateOfDeath) {
           this.formGroup.patchValue({dateOfDeath: DateTime.fromJSDate(author.dateOfDeath.toJSDate())});
         }
-        this.imageUrl = this.authorService.createImageUrlFromBlob(author.foto);
+        this.imageUrl = this.imageService.createImageUrlFromBlob(author.foto);
       },
       error: (error) => {
         this.globalMessageService.setAlertMessage("danger", "Unable to load Author: ", error);
@@ -105,7 +105,7 @@ export class AuthorEditComponent implements OnInit {
         .subscribe((imageBlob: Blob) => {
           if (imageBlob) {
             console.log("image chosen", imageBlob);
-            this.imageUrl = this.authorService.createImageUrlFromBlob(imageBlob);
+            this.imageUrl = this.imageService.createImageUrlFromBlob(imageBlob);
             this.formGroup.patchValue({foto: imageBlob})
             console.log("this.imageUrl ", this.imageUrl);
             if (this.formGroup.get("id")?.value) {

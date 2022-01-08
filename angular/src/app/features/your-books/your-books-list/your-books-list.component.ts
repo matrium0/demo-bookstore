@@ -4,6 +4,7 @@ import {Book} from '@mock-backend/book/Book';
 import {findAllBooks} from '@mock-backend/book/book-mock-data';
 import {MatDialog} from '@angular/material/dialog';
 import {BookDetailDialogWrapperComponent} from '@shared/book-detail-dialog-wrapper/book-detail-dialog-wrapper.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-your-books-list',
@@ -15,7 +16,7 @@ export class YourBooksListComponent implements OnInit {
   books$?: Observable<Book[]>
   filteredBooks$?: Observable<Book[]>
 
-  constructor(private matDialog: MatDialog) {
+  constructor(private matDialog: MatDialog, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -40,6 +41,11 @@ export class YourBooksListComponent implements OnInit {
   openBookDetail(book: Book) {
     this.matDialog.open(BookDetailDialogWrapperComponent, {
       data: {book},
+      maxHeight: "70vh"
+    }).afterClosed().subscribe((result) => {
+      if (result?.openEditPage) {
+        this.router.navigate(["/library/edit", book.id]);
+      }
     });
   }
 }

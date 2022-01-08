@@ -1,5 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Book} from '@mock-backend/book/Book';
+import {ImageService} from '@app/features/authors/image.service';
+import {SafeUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-book-detail',
@@ -10,15 +12,23 @@ export class BookDetailComponent implements OnInit {
 
   @Input()
   book?: Book;
+  imageUrl?: SafeUrl;
 
-  constructor() { }
+  @Output()
+  openBookEditPage =new EventEmitter<void>();
+
+  constructor(private imageService: ImageService) {
+  }
 
   ngOnInit(): void {
     if (!this.book) {
       throw new Error("BookDetailComponent requires Input() parameter \"book\" to be set");
     }
-    console.log("ngoninit");
+    this.imageUrl = this.imageService.createImageUrlFromBlob(this.book.image);
   }
 
 
+  navigateToBookEditPage() {
+    this.openBookEditPage.next();
+  }
 }
