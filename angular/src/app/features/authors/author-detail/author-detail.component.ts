@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import Author from '@mock-backend/author/Author';
 import {ActivatedRoute, Router} from '@angular/router';
-import {findAuthorById} from '@mock-backend/author/AuthorMockService';
+import {findAuthorById} from '@mock-backend/author/author-mock-data';
 import {EnrichedAuthor, enrichWithCalculatedFields} from '../author-util';
 import {AuthorService} from '../author.service';
 import {SafeUrl} from '@angular/platform-browser';

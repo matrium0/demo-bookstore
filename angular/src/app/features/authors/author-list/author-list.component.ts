@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import Author from '@mock-backend/author/Author';
-import {findAllAuthors} from '@mock-backend/author/AuthorMockService';
+import {findAllAuthors} from '@mock-backend/author/author-mock-data';
 import {GlobalMessageService} from '@core/global-message.service';
 import {EnrichedAuthor, enrichWithCalculatedFields} from '../author-util';
 import {Router} from '@angular/router';
