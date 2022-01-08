@@ -13,6 +13,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {ConfirmationDirective} from './confirmation-dialog/confirmation.directive';
 import {ConfirmationDialogComponent} from './confirmation-dialog/confirmation-dialog.component';
 import { BookCardComponent } from './book-card/book-card.component';
+import { BookDetailComponent } from './book-detail/book-detail.component';
+import { BookDetailDialogWrapperComponent } from './book-detail-dialog-wrapper/book-detail-dialog-wrapper.component';
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import { BookCardComponent } from './book-card/book-card.component';
     ReactiveValidationDisplayComponent,
     ConfirmationDialogComponent,
     ConfirmationDirective,
-    BookCardComponent
+    BookCardComponent,
+    BookDetailComponent,
+    BookDetailDialogWrapperComponent
   ],
   exports: [
     HeaderComponent,

@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {BehaviorSubject, combineLatest, map, Observable} from 'rxjs';
 import {Book} from '@mock-backend/book/Book';
 import {findAllBooks} from '@mock-backend/book/book-mock-data';
+import {MatDialog} from '@angular/material/dialog';
+import {BookDetailDialogWrapperComponent} from '@shared/book-detail-dialog-wrapper/book-detail-dialog-wrapper.component';
 
 @Component({
   selector: 'app-your-books-list',
@@ -11,9 +13,9 @@ import {findAllBooks} from '@mock-backend/book/book-mock-data';
 export class YourBooksListComponent implements OnInit {
   filterByName$ = new BehaviorSubject("");
   books$?: Observable<Book[]>
-  filteredBooks$?: Observable<Book[]> //TODO change to Book array
+  filteredBooks$?: Observable<Book[]>
 
-  constructor() {
+  constructor(private matDialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -35,7 +37,9 @@ export class YourBooksListComponent implements OnInit {
 
   }
 
-  openBookDetail() {
-    
+  openBookDetail(book: Book) {
+    this.matDialog.open(BookDetailDialogWrapperComponent, {
+      data: {book},
+    });
   }
 }
