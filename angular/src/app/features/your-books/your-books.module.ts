@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { YourBooksRoutingModule } from './your-books-routing.module';
 import { YourBooksListComponent } from './your-books-list/your-books-list.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {SharedModule} from '@shared/shared.module';
 
 
 @NgModule({
@@ -11,7 +14,10 @@ import { YourBooksListComponent } from './your-books-list/your-books-list.compon
   ],
   imports: [
     CommonModule,
-    YourBooksRoutingModule
+    YourBooksRoutingModule,
+    MatIconModule,
+    MatFormFieldModule,
+    SharedModule
   ]
 })
 export class YourBooksModule { }

@@ -1,1 +1,33 @@
-<p>your-books-list works!</p>
+<div class="app-col mat-elevation-z8">
+  <div class="p-2 ms-lg-3">
+    <div class="d-flex align-items-center justify-content-between flex-wrap">
+      <div class="d-flex align-items-center">
+        <h1>Your Books</h1>
+        <div class="input-group ms-2 ms-lg-5">
+          <input #searchTerm (keyup)="filter(searchTerm.value)" autofocus class="form-control" placeholder="type to filter" aria-label="Filter">
+          <span class="input-group-text"><mat-icon matSuffix></mat-icon></span>
+        </div>
+      </div>
+      <button (click)="navigateToNewBook()" class="btn btn-success btn-lg me-2 me-lg-4 mt-2 mt-lg-0">
+        add book
+      </button>
+    </div>
+  </div>
+  <div style="border-top: 2px solid gray;">
+    //TODO book list
+<!--    todo change to filterdlist-->
+    {{filteredBooks$ | async |json }}
+    <app-loading-indicator-overlay-wrapper [showOverlay]="(filteredBooks$ | async) === null" spinnerSize="6x">
+
+      <div class="row mx-1 mx-lg-2" style="min-height: 400px;">
+          <div *ngFor="let book of (filteredBooks$ | async)" class="col book-card">
+            {{book.title}}
+        </div>
+      </div>
+
+      <!--      <div class="table-wrapper">-->
+<!--        <app-author-table *ngIf="filteredAuthors" [authors]="filteredAuthors" (selectAuthor)="onAuthorSelected($event)"></app-author-table>-->
+<!--      </div>-->
+    </app-loading-indicator-overlay-wrapper>
+  </div>
+</div>
