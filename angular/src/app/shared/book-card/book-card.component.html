@@ -1,12 +1,12 @@
-<div class="book-card mat-elevation-z8 d-flex flex-column align-items-center py-1">
+<div class="book-card mat-elevation-z8 h-100 d-flex flex-column align-items-center position-relative py-1">
   <div class="book-foto-wrapper">
     <img [src]="imageUrl" class="book-image" alt="Foto of the Author">
   </div>
   <div *ngIf="book?.series" class="series">Book {{book?.numberWithinSeries}} of
-    <a appConfirmation confirmTitle="{{book?.series}}" cancelButtonText="go back" [hideConfirmButton]="true"
+    <div appConfirmation confirmTitle="{{book?.series}}" cancelButtonText="go back" [hideConfirmButton]="true"
        confirmMessage="Got me :)<br /><br />In a <u>real application</u> this could display the series with all it's books.<br/>This feature is not part of the demo though and therefore <strong>not implemented</strong> - sorry!"
        class="btn-link cursor-pointer"
-    >{{book?.series}}</a>
+    >{{book?.series}}</div>
   </div>
   <div class="title">{{book?.title}}</div>
   <div class="subtitle">{{book?.subtitle}}</div>
@@ -14,6 +14,7 @@
   <div class="mt-2 author">by <a routerLink="/author/{{book?.authorId}}">{{book?.authorFullName}}</a></div>
   <div class="first-published">first published {{book?.firstPublished?.toFormat("dd.LL.yyyy")}}</div>
 
+  <div (click)="openDetails()" class="show-details-link btn-link">open details</div>
 </div>
 
 

@@ -16,9 +16,9 @@
   <div style="border-top: 2px solid gray;">
     <app-loading-indicator-overlay-wrapper [showOverlay]="(filteredBooks$ | async) === null" spinnerSize="6x">
 
-      <div class="row mx-1 mx-lg-2" style="min-height: 400px;">
-        <div *ngFor="let book of (filteredBooks$ | async)" class="col-md-3 col-lg-2 mt-4">
-          <app-book-card [book]="book"></app-book-card>
+      <div class="row mx-1 mx-lg-2" style="min-height: 300px;">
+        <div *ngFor="let book of (filteredBooks$ | async)" class="col-auto g-4 book-card-wrap" >
+          <app-book-card [book]="book" (openDetail)="openBookDetail()"></app-book-card>
         </div>
       </div>
     </app-loading-indicator-overlay-wrapper>

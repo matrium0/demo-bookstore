@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Book} from '@mock-backend/book/Book';
 import {ImageService} from '@app/features/authors/image.service';
 import {SafeUrl} from '@angular/platform-browser';
@@ -15,6 +15,9 @@ export class BookCardComponent implements OnInit {
   book?: Book;
   imageUrl?: SafeUrl;
 
+  @Output()
+  openDetail = new EventEmitter<Book>();
+
   constructor(private imageService: ImageService) {
   }
 
@@ -25,4 +28,7 @@ export class BookCardComponent implements OnInit {
     this.imageUrl = this.imageService.createImageUrlFromBlob(this.book?.image);
   }
 
+  openDetails() {
+    this.openDetail.next(this.book!);
+  }
 }

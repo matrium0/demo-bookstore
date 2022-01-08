@@ -34,4 +34,8 @@ export class YourBooksListComponent implements OnInit {
   navigateToNewBook() {
 
   }
+
+  openBookDetail() {
+    
+  }
 }
