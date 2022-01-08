@@ -203,3 +203,20 @@ mat-checkbox .mat-checkbox-inner-container {
   background: #d7d7d7;
   border: 1px solid black !important;
 }
+
+.author-foto-img {
+  width: 272px;
+  //width: 100%;
+  //object-fit: contain;
+  //position: absolute;
+  //width: 100%;
+  //height: 100%;
+  //background-size: contain;
+}
+
+.author-foto-change-link {
+  position: absolute;
+  bottom: 5%;
+  font-weight: bold;
+  font-size: 1.2rem;
+}

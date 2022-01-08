@@ -8,17 +8,5 @@
 
 .author-foto-wrapper {
   min-height: 50px;
-}
-
-.author-foto-img {
-  width: 100%;
-  height: 100%;
-  object-fit: fill;
-}
-
-.author-foto-change-link {
-  position: absolute;
-  bottom: 5%;
-  font-weight: bold;
-  font-size: 1.2rem;
+  overflow: hidden;
 }
