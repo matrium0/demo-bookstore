@@ -1,6 +1,6 @@
 <div class="d-flex align-items-center justify-content-between dialog-content">
   <h1 class="card-title">{{ data.confirmTitle }}</h1>
-  <i class="fa fa-times fa-lg" (click)="dismissDialog()"></i>
+  <fa-icon (click)="dismissDialog()" icon="times" size="2x" class="dismiss-dialog"></fa-icon>
 </div>
 <div class="row mt-3">
   <div class="col dialog-content" [innerHTML]="data.confirmMessageSafeHtml"></div>

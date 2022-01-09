@@ -25,4 +25,8 @@ export class BookDetailDialogWrapperComponent implements OnInit {
   openBookEditPage() {
     this.matDialogRef.close({openEditPage: true})
   }
+
+  dismissDialog() {
+    this.matDialogRef.close();
+  }
 }

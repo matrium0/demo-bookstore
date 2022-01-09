@@ -1,1 +1,4 @@
-<app-book-detail [book]="book" (openBookEditPage)="openBookEditPage()"></app-book-detail>
+<div class="position-relative">
+  <fa-icon (click)="dismissDialog()" icon="times" size="2x" class="dismiss-dialog"></fa-icon>
+  <app-book-detail [book]="book" (openBookEditPage)="openBookEditPage()"></app-book-detail>
+</div>

@@ -31,4 +31,5 @@ export class BookDetailComponent implements OnInit {
   navigateToBookEditPage() {
     this.openBookEditPage.next();
   }
+
 }

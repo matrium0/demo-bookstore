@@ -41,7 +41,8 @@ export class YourBooksListComponent implements OnInit {
   openBookDetail(book: Book) {
     this.matDialog.open(BookDetailDialogWrapperComponent, {
       data: {book},
-      maxHeight: "70vh"
+      maxHeight: "70vh",
+      maxWidth: "900px"
     }).afterClosed().subscribe((result) => {
       if (result?.openEditPage) {
         this.router.navigate(["/library/edit", book.id]);
