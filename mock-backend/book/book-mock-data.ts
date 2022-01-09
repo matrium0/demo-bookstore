@@ -26,7 +26,7 @@ const initialData: Book[] = [
   }]
 
 
-let data = [...initialData, ...initialData, ...initialData, ...initialData, ...initialData];
+let data = [...initialData, ...initialData, ...initialData, ...initialData, ...initialData, ...initialData, ...initialData, ...initialData];
 
 export function createOrUpdateBook(newElement: Book): Observable<Book> {
   let existingElement = data.filter(a => a.id === newElement.id);
