@@ -1,12 +1,13 @@
 import {Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {deleteBook, findBookById} from '@mock-backend/book/book-mock-data';
-import {ActivatedRoute} from '@angular/router';
+import {createOrUpdateBook, deleteBook, findBookById} from '@mock-backend/book/book-mock-data';
+import {ActivatedRoute, Router} from '@angular/router';
 import {GlobalMessageService} from '@core/global-message.service';
 import {DateTime} from 'luxon';
 import {Book} from '@mock-backend/book/Book';
 import {ImageService} from '@app/features/authors/image.service';
 import {SafeUrl} from '@angular/platform-browser';
+import {ImageCropperDialogComponent} from '@app/features/authors/image-cropper-dialog/image-cropper-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 
 @Component({
@@ -33,9 +34,10 @@ export class BookEditComponent {
         image: new FormControl(null, Validators.required),
       }
   );
+  displaySaveReminder = false;
 
   constructor(private activatedRoute: ActivatedRoute, private globalMessageService: GlobalMessageService,
-              private imageService: ImageService) {
+              private imageService: ImageService, private router: Router, private matDialog: MatDialog) {
     this.activatedRoute.params.subscribe(
         params => {
           const id = params['id'];
@@ -78,6 +80,58 @@ export class BookEditComponent {
 
   deleteBook() {
     console.log("deleteBook");
-    deleteBook(this.id)
+    deleteBook(Number(this.id)).subscribe({
+          next: () => {
+            console.log("deleteBook SUCCESS");
+            this.router.navigate(["/library"])
+            this.globalMessageService.setAlertMessage("info", "Successfully deleted " + this.title);
+          },
+          error: (error) => {
+            console.log("deleteBook ERROR", error);
+            this.globalMessageService.setAlertMessage("danger", "Unable to delete Book: ", error);
+          }
+        }
+    );
+  }
+
+  navigateBack() {
+    history.back();
+  }
+
+  saveAndNavigateBack() {
+    console.log("saveAndNavigateToDetailPage");
+
+    if (this.formGroup.valid) {
+      console.log('save', this.formGroup.value);
+      createOrUpdateBook(this.formGroup.getRawValue()).subscribe(
+          (book: Book) => {
+            console.log('createOrUpdateBook SUCCESS', book);
+            history.back();
+            this.globalMessageService.setAlertMessage("info", "Book saved!");
+          }, (error: any) => {
+            console.log("createOrUpdateBook ERROR", error);
+            this.globalMessageService.setAlertMessage("danger", "Book saving failed", error);
+          });
+    } else {
+      console.log('formgroup is not valid', this.formGroup);
+      this.formGroup.markAllAsTouched();
+    }
+  }
+
+  openFotoUploadDialog() {
+    this.matDialog
+        .open(ImageCropperDialogComponent, {height: "550px"})
+        .afterClosed()
+        .subscribe((imageBlob: Blob) => {
+          if (imageBlob) {
+            console.log("image chosen", imageBlob);
+            this.imageUrl = this.imageService.createImageUrlFromBlob(imageBlob);
+            this.formGroup.patchValue({image: imageBlob})
+            console.log("this.imageUrl ", this.imageUrl);
+            if (this.formGroup.get("id")?.value) {
+              this.displaySaveReminder = true;
+            }
+          }
+        });
   }
 }

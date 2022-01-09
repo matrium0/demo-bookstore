@@ -20,11 +20,14 @@ export class YourBooksListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("YourBooksListComponent ngOnInit");
     this.books$ = findAllBooks();
+
     this.filteredBooks$ = combineLatest([this.filterByName$, this.books$]).pipe(
         map((combination) => {
           const filterTerm = combination[0];
           const books = combination[1];
+          console.log("filtering by \"" + filterTerm + "\"", books.length);
           return books.filter(b => b.title.includes(filterTerm));
         }),
     );
