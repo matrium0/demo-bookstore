@@ -13,7 +13,6 @@ import {Router} from '@angular/router';
 })
 export class YourBooksListComponent implements OnInit {
   filterByName$ = new BehaviorSubject("");
-  books$?: Observable<Book[]>
   filteredBooks$?: Observable<Book[]>
 
   constructor(private matDialog: MatDialog, private router: Router) {
@@ -21,9 +20,8 @@ export class YourBooksListComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("YourBooksListComponent ngOnInit");
-    this.books$ = findAllBooks();
 
-    this.filteredBooks$ = combineLatest([this.filterByName$, this.books$]).pipe(
+    this.filteredBooks$ = combineLatest([this.filterByName$, findAllBooks()]).pipe(
         map((combination) => {
           const filterTerm = combination[0];
           const books = combination[1];

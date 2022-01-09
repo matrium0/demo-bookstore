@@ -1,1 +1,26 @@
-<p>library works!</p>
+<div class="app-col mat-elevation-z8">
+  <div class="p-2 ms-lg-3">
+    <div class="d-flex align-items-center justify-content-between flex-wrap">
+      <div class="d-flex align-items-center">
+        <h1>Library</h1>
+        <div class="input-group ms-2 ms-lg-5">
+          <input #searchTerm (keyup)="filter(searchTerm.value)" autofocus class="form-control" placeholder="type to filter" aria-label="Filter">
+          <span class="input-group-text"><mat-icon>filter_alt</mat-icon></span>
+        </div>
+      </div>
+      <button (click)="navigateToNewBook()" class="btn btn-success btn-lg me-2 me-lg-4 mt-2 mt-lg-0">
+        add book
+      </button>
+    </div>
+  </div>
+  <div *ngIf="{filteredBooks: (filteredBooks$ | async)} as obs" style="border-top: 2px solid gray;">
+    <app-loading-indicator-overlay-wrapper [showOverlay]="!obs.filteredBooks" spinnerSize="6x">
+
+      <div class="row mx-1 mx-lg-2 justify-content-around pb-4" style="min-height: 300px;">
+        <div *ngFor="let book of obs.filteredBooks" class="col-auto g-4 book-card-wrap">
+          <app-book-card [book]="book" (openDetail)="openBookDetail($event)"></app-book-card>
+        </div>
+      </div>
+    </app-loading-indicator-overlay-wrapper>
+  </div>
+</div>
