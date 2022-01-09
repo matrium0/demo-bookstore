@@ -18,7 +18,7 @@
 
       <div class="row mx-1 mx-lg-2 justify-content-around pb-4" style="min-height: 300px;">
         <div *ngFor="let book of obs.filteredBooks" class="col-auto g-4 book-card-wrap">
-          <app-book-card [book]="book" (openDetail)="openBookDetail($event)"></app-book-card>
+          <app-book-card [book]="book" (openDetail)="openBookDetail($event)" (statusChanged)="handleStatusChanged($event)"></app-book-card>
         </div>
       </div>
     </app-loading-indicator-overlay-wrapper>

@@ -1,7 +1,15 @@
-import {UserBookAssignment} from './user-book-assignment-status';
+import {UserBookAssignment, UserBookAssignmentStatus} from './user-book-assignment-status';
 
 export function findUserBookAssignmentsForUser(username: string): UserBookAssignment[] {
   return data.filter(d => d.username === username);
+}
+
+export function updateStatus(username: string, bookId: number, status: UserBookAssignmentStatus): void {
+  let assignment = data.find(d => d.username === username && d.bookId === bookId);
+  if (assignment) {
+    console.log("updating assignment", assignment, status);
+    assignment.status = status;
+  }
 }
 
 const initialData: UserBookAssignment[] = [{

@@ -1,5 +1,5 @@
 <div class="btn-group mb-3">
-  <button *ngIf="status ==='default'" type="button" class="btn btn-secondary btn-sm btn-main">want to read</button>
+  <button *ngIf="status ==='default'" (click)="changeStatus('want to read')" type="button" class="btn btn-secondary btn-sm btn-main">want to read</button>
 
   <div *ngIf="status !=='default'" type="button" class="already-chosen-button d-flex align-items-center justify-content-center">
     <span class="ms-2">{{status}}</span>
@@ -12,8 +12,9 @@
     <span class="visually-hidden">Toggle Dropdown</span>
   </button>
   <ul class="dropdown-menu " [class.d-block]="isMenuCollapsed">
-    <li><a class="dropdown-item" (click)="changeStatus('want to read')">want to read</a></li>
-    <li><a class="dropdown-item" (click)="changeStatus('read')">read</a></li>
-    <li><a class="dropdown-item" (click)="changeStatus('currently reading')">currently leading</a></li>
+    <li *ngIf="status !== 'want to read'"><a class="dropdown-item" (click)="changeStatus('want to read')">want to read</a></li>
+    <li *ngIf="status !== 'read'"><a class="dropdown-item" (click)="changeStatus('read')">read</a></li>
+    <li *ngIf="status !== 'currently reading'"><a class="dropdown-item" (click)="changeStatus('currently reading')">currently leading</a></li>
+    <li *ngIf="status !== 'default'"><a class="dropdown-item" (click)="changeStatus('default')">not interested</a></li>
   </ul>
 </div>

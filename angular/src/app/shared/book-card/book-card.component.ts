@@ -1,8 +1,9 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Book} from '@mock-backend/book/Book';
 import {ImageService} from '@app/features/authors/image.service';
 import {SafeUrl} from '@angular/platform-browser';
 import {EnrichedBook} from '@core/book-utils';
+import {UserBookAssignmentStatus} from '@mock-backend/user/user-book-assignment-status';
+import {Book} from '@mock-backend/book/Book';
 
 @Component({
   selector: 'app-book-card',
@@ -18,6 +19,8 @@ export class BookCardComponent implements OnInit {
 
   @Output()
   openDetail = new EventEmitter<EnrichedBook>();
+  @Output()
+  statusChanged = new EventEmitter<{ book: Book, status: UserBookAssignmentStatus }>();
 
   constructor(private imageService: ImageService) {
   }
@@ -31,5 +34,11 @@ export class BookCardComponent implements OnInit {
 
   openDetails() {
     this.openDetail.next(this.book!);
+  }
+
+  statusChange(status: UserBookAssignmentStatus) {
+    console.log("bookcrad statuschanged");
+    this.book!.assignmentStatus = status;
+    this.statusChanged.next({book: this.book!, status});
   }
 }
