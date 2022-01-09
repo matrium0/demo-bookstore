@@ -7,13 +7,16 @@
 .title {
   font-weight: bold;
   font-size: 1.5rem;
+  text-align: center;
+  line-height: 1.4rem;
 }
 
 .subtitle {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
+  text-align: center;
 }
 
-.series{
+.series {
   font-size: 0.9rem;
 }
 
@@ -26,7 +29,7 @@
   font-size: 0.8rem
 }
 
-.show-details-link{
+.show-details-link {
   position: absolute;
-  bottom: 5px;
+  bottom: 3px;
 }
