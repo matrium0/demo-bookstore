@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {UserBookAssignmentStatus} from '@mock-backend/user/user-book-assignment-status';
 
-type status = "want to read" | "read" | "currently reading";
 
 @Component({
   selector: 'app-is-in-library-marker',
@@ -10,13 +10,18 @@ type status = "want to read" | "read" | "currently reading";
 export class IsInLibraryMarkerComponent implements OnInit {
   isMenuCollapsed = false;
 
+  @Input() status?: UserBookAssignmentStatus;
 
-  constructor() { }
+  @Output() statusChange = new EventEmitter<UserBookAssignmentStatus>();
 
   ngOnInit(): void {
+    if (!this.status) {
+      throw new Error("IsInLibraryMarkerComponent rewuires currentStatus to be set");
+    }
   }
 
-  changeStatus(read: string) {
+  changeStatus(status: UserBookAssignmentStatus) {
     this.isMenuCollapsed = false;
+    this.statusChange.next(status)
   }
 }
