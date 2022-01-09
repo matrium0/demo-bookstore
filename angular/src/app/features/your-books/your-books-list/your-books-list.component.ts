@@ -23,10 +23,10 @@ export class YourBooksListComponent implements OnInit {
 
     this.filteredBooks$ = combineLatest([this.filterByName$, findAllBooks()]).pipe(
         map((combination) => {
-          const filterTerm = combination[0];
+          const filterTerm = combination[0].toLowerCase();
           const books = combination[1];
           console.log("filtering by \"" + filterTerm + "\"", books.length);
-          return books.filter(b => b.title.includes(filterTerm));
+          return books.filter(b => b.title.toLocaleLowerCase().includes(filterTerm));
         }),
     );
   }
