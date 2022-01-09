@@ -11,6 +11,36 @@ import {
   shiningCover
 } from '../author/default-fotos';
 
+export function createOrUpdateBook(newElement: Book): Observable<Book> {
+  let existingElement = data.filter(a => a.id === newElement.id);
+
+  if (existingElement?.length === 1) {
+    let foundIndex = data.indexOf(existingElement[0]);
+    data[foundIndex] = newElement;
+  } else {
+    newElement.id = Math.max(...data.map(e => e.id)) + 1;
+    data.push(newElement);
+  }
+  return of(newElement);
+}
+
+export function findAllBooks(): Observable<Book[]> {
+  return of(data).pipe(delay(300));
+}
+
+export function findBooksOfAuthor(id: number): Observable<Book[]> {
+  return of(data.filter(a => a.authorId === id)).pipe(delay(2000));
+}
+
+export function findBookById(id: number): Observable<Book> {
+  return of(data.filter(a => a.id === id)[0]).pipe(delay(300));
+}
+
+export function deleteBook(id: number): Observable<void> {
+  data = data.filter(elem => elem.id !== id);
+  return of(void 0);
+}
+
 const initialData: Book[] = [
   {
     id: 1,
@@ -143,32 +173,4 @@ const initialData: Book[] = [
     image: getDefaultBookCover()
   }
 ];
-
-
 let data = [...initialData];
-
-export function createOrUpdateBook(newElement: Book): Observable<Book> {
-  let existingElement = data.filter(a => a.id === newElement.id);
-
-  if (existingElement?.length === 1) {
-    let foundIndex = data.indexOf(existingElement[0]);
-    data[foundIndex] = newElement;
-  } else {
-    newElement.id = Math.max(...data.map(e => e.id)) + 1;
-    data.push(newElement);
-  }
-  return of(newElement);
-}
-
-export function findAllBooks(): Observable<Book[]> {
-  return of(data).pipe(delay(300));
-}
-
-export function findBookById(id: number): Observable<Book> {
-  return of(data.filter(a => a.id === id)[0]).pipe(delay(300));
-}
-
-export function deleteBook(id: number): Observable<void> {
-  data = data.filter(elem => elem.id !== id);
-  return of(void 0);
-}

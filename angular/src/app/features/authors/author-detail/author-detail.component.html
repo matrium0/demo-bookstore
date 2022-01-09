@@ -30,11 +30,11 @@
           </div>
           <div class="mt-4">
             <h2>Books written by {{fullname}}</h2>
-            <ul>
-              <li><a routerLink="/heroes/detail/12345TODO">TODO: Book 1</a></li>
-              <li><a routerLink="/heroes/detail/12345TODO">This is going to be </a></li>
-              <li><a routerLink="/heroes/detail/12345TODO">A list of all Books</a></li>
-              <li><a routerLink="/heroes/detail/12345TODO">Written by the author {{fullname}}</a></li>
+            <div *ngIf="isBooksLoading" class="ms-5 mt-3">
+            <fa-icon icon="spinner" size="3x" [classes]="['fa-spin']"></fa-icon>
+            </div>
+            <ul *ngIf="!isBooksLoading" >
+              <li *ngFor="let book of books"><a routerLink="/book/detail/{{book.id}}">{{book.title}}</a></li>
             </ul>
           </div>
         </div>

@@ -6,6 +6,8 @@ import {EnrichedAuthor, enrichWithCalculatedFields} from '../author-util';
 import {ImageService} from '../image.service';
 import {SafeUrl} from '@angular/platform-browser';
 import {GlobalMessageService} from '@core/global-message.service';
+import {Book} from '@mock-backend/book/Book';
+import {findBooksOfAuthor} from '@mock-backend/book/book-mock-data';
 
 @Component({
   selector: 'app-author-detail',
@@ -14,9 +16,11 @@ import {GlobalMessageService} from '@core/global-message.service';
 })
 export class AuthorDetailComponent implements OnInit {
   isLoading = false;
+  isBooksLoading = false;
   authorId?: number;
   author?: EnrichedAuthor;
   imageUrl?: SafeUrl;
+  books?: Book[];
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private globalMessageService: GlobalMessageService,
               private authorService: ImageService) {
@@ -24,8 +28,10 @@ export class AuthorDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
-      console.log("params", params, params["id"]);
-      this.loadAuthor(Number(params["id"]));
+      const authorId = params["id"];
+      console.log("params", params, authorId);
+      this.loadAuthor(Number(authorId));
+      this.loadBooksForAuthor(Number(authorId));
     });
   }
 
@@ -48,6 +54,22 @@ export class AuthorDetailComponent implements OnInit {
         this.globalMessageService.setAlertMessage("danger", "Unable to load Author: ", error);
         console.log("loadAuthor ERROR", error);
         this.isLoading = false;
+      }
+    });
+  }
+
+  loadBooksForAuthor(id: number){
+    this.isBooksLoading = true;
+    findBooksOfAuthor(id).subscribe({
+      next: (books: Book[]) => {
+        console.log("loadBooksForAuthor SUCCESS", books);
+        this.isBooksLoading = false;
+        this.books = books;
+      },
+      error: (error) => {
+        this.globalMessageService.setAlertMessage("danger", "Unable to load Books of Author: ", error);
+        console.log("loadBooksForAuthor ERROR", error);
+        this.isBooksLoading = false;
       }
     });
   }
