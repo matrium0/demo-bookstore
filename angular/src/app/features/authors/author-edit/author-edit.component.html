@@ -2,9 +2,9 @@
   <div class="p-2 ms-lg-3">
     <div class="d-flex align-items-center justify-content-between flex-wrap" style="min-height: 48px;">
       <h1 *ngIf="!isLoading && !formGroup.get('id')?.value">New Author</h1>
-      <h1>
-        <span class="d-none d-lg-inline h1">Author </span>
-        <span *ngIf="!isLoading && formGroup.get('id')?.value" class="h1">{{fullname}}</span>
+      <h1 *ngIf="!isLoading && formGroup.get('id')?.value">
+        <span class="d-none d-lg-inline h1">Author: </span>
+        <span  class="h1">{{fullname}}</span>
       </h1>
       <button *ngIf="formGroup.get('id')?.value" (confirm)="deleteAuthor()" class="btn btn-danger btn-lg me-2 me-lg-4"
               appConfirmation confirmTitle="Delete Author" confirmButtonText="delete" confirmButtonType="danger"

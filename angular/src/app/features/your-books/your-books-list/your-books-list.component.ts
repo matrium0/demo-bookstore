@@ -35,7 +35,7 @@ export class YourBooksListComponent implements OnInit {
   }
 
   navigateToNewBook() {
-
+    this.router.navigate(["/library/edit/new"]);
   }
 
   openBookDetail(book: Book) {
