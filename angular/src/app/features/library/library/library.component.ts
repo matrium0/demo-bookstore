@@ -6,6 +6,8 @@ import {BehaviorSubject, combineLatest, map, Observable} from 'rxjs';
 import {BookDetailDialogWrapperComponent} from '@shared/book-detail-dialog-wrapper/book-detail-dialog-wrapper.component';
 import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
+import {enrichBookWithUserAssignments, EnrichedBook} from '@core/book-utils';
+import {UserService} from '@core/user.service';
 
 @Component({
   selector: 'app-library',
@@ -14,10 +16,11 @@ import {Router} from '@angular/router';
 })
 export class LibraryComponent implements OnInit {
   filterByName$ = new BehaviorSubject("");
-  books$?: Observable<Book[]>
-  filteredBooks$?: Observable<Book[]>
+  books$?: Observable<EnrichedBook[]>
+  filteredBooks$?: Observable<EnrichedBook[]>
 
-  constructor(private globalMessageService: GlobalMessageService, private matDialog: MatDialog, private router: Router) {
+  constructor(private globalMessageService: GlobalMessageService, private matDialog: MatDialog,
+              private router: Router, private userService: UserService) {
   }
 
 
@@ -27,7 +30,7 @@ export class LibraryComponent implements OnInit {
     this.filteredBooks$ = combineLatest([this.filterByName$, findAllBooks()]).pipe(
         map((combination) => {
           const filterTerm = combination[0].toLowerCase();
-          const allBooks = combination[1];
+          const allBooks = combination[1].map(b => enrichBookWithUserAssignments(b, this.userService.authentication$.getValue()));
           console.log("filtering by \"" + filterTerm + "\"", allBooks.length);
           return allBooks.filter(b => b.title.toLocaleLowerCase().includes(filterTerm));
         }),

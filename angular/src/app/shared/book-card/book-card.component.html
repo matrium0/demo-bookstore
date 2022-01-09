@@ -14,7 +14,7 @@
   <div class="author">by <a routerLink="/author/{{book?.authorId}}">{{book?.authorFullName}}</a></div>
   <div class="first-published">first published {{book?.firstPublished?.toFormat("dd.LL.yyyy")}}</div>
 
-  <app-is-in-library-marker status="default" class="isinlibrary-button"></app-is-in-library-marker>
+  <app-is-in-library-marker [status]="book?.assignmentStatus" class="isinlibrary-button"></app-is-in-library-marker>
   <div (click)="openDetails()" class="show-details-link btn-link cursor-pointer">open details</div>
 </div>
 

@@ -5,6 +5,8 @@ import {findAllBooks} from '@mock-backend/book/book-mock-data';
 import {MatDialog} from '@angular/material/dialog';
 import {BookDetailDialogWrapperComponent} from '@shared/book-detail-dialog-wrapper/book-detail-dialog-wrapper.component';
 import {Router} from '@angular/router';
+import {enrichBookWithUserAssignments, EnrichedBook} from '@core/book-utils';
+import {UserService} from '@core/user.service';
 
 @Component({
   selector: 'app-your-books-list',
@@ -13,9 +15,9 @@ import {Router} from '@angular/router';
 })
 export class YourBooksListComponent implements OnInit {
   filterByName$ = new BehaviorSubject("");
-  filteredBooks$?: Observable<Book[]>
+  filteredBooks$?: Observable<EnrichedBook[]>
 
-  constructor(private matDialog: MatDialog, private router: Router) {
+  constructor(private matDialog: MatDialog, private router: Router, private userService: UserService) {
   }
 
   ngOnInit(): void {
@@ -24,7 +26,9 @@ export class YourBooksListComponent implements OnInit {
     this.filteredBooks$ = combineLatest([this.filterByName$, findAllBooks()]).pipe(
         map((combination) => {
           const filterTerm = combination[0].toLowerCase();
-          const books = combination[1];
+          const books = combination[1].map(b => enrichBookWithUserAssignments(b, this.userService.authentication$.getValue()));
+
+          console.log(books);
           console.log("filtering by \"" + filterTerm + "\"", books.length);
           return books.filter(b => b.title.toLocaleLowerCase().includes(filterTerm));
         }),

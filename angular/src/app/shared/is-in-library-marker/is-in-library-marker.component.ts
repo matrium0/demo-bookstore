@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UserBookAssignmentStatus} from '@mock-backend/user/user-book-assignment-status';
+import {faBookmark, faBookReader, faCheck} from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -13,6 +14,10 @@ export class IsInLibraryMarkerComponent implements OnInit {
   @Input() status?: UserBookAssignmentStatus;
 
   @Output() statusChange = new EventEmitter<UserBookAssignmentStatus>();
+
+  iconBookmark = faBookmark;
+  iconBookReader = faBookReader;
+  iconCheck = faCheck;
 
   ngOnInit(): void {
     if (!this.status) {

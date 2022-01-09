@@ -1,5 +1,13 @@
 <div class="btn-group mb-3">
-  <button (click)="changeStatus('want to read')" type="button" class="btn btn-secondary btn-sm btn-main">want to read</button>
+  <button *ngIf="status ==='default'" type="button" class="btn btn-secondary btn-sm btn-main">want to read</button>
+
+  <div *ngIf="status !=='default'" type="button" class="already-chosen-button d-flex align-items-center justify-content-center">
+    <span class="ms-2">{{status}}</span>
+    <fa-icon *ngIf="status === 'want to read'" [icon]="iconBookmark" class="mx-2 icon-want-to-read"></fa-icon>
+    <fa-icon *ngIf="status === 'currently reading'" [icon]="iconBookReader" class="mx-2 icon-currently-reading"></fa-icon>
+    <fa-icon *ngIf="status === 'read'" [icon]="iconCheck" class="mx-2 icon-read"></fa-icon>
+  </div>
+
   <button (click)="isMenuCollapsed=!isMenuCollapsed" type="button" class="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="visually-hidden">Toggle Dropdown</span>
   </button>

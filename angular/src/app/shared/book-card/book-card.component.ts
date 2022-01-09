@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output}
 import {Book} from '@mock-backend/book/Book';
 import {ImageService} from '@app/features/authors/image.service';
 import {SafeUrl} from '@angular/platform-browser';
+import {EnrichedBook} from '@core/book-utils';
 
 @Component({
   selector: 'app-book-card',
@@ -12,11 +13,11 @@ import {SafeUrl} from '@angular/platform-browser';
 export class BookCardComponent implements OnInit {
 
   @Input()
-  book?: Book;
+  book?: EnrichedBook;
   imageUrl?: SafeUrl;
 
   @Output()
-  openDetail = new EventEmitter<Book>();
+  openDetail = new EventEmitter<EnrichedBook>();
 
   constructor(private imageService: ImageService) {
   }

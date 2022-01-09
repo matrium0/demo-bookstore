@@ -1,8 +1,7 @@
-import {delay, Observable, of} from 'rxjs';
 import {UserBookAssignment} from './user-book-assignment-status';
 
-export function findUserBookAssignmentsForUser(username: string): Observable<UserBookAssignment[]> {
-  return of(data).pipe(delay(300));
+export function findUserBookAssignmentsForUser(username: string): UserBookAssignment[] {
+  return data.filter(d => d.username === username);
 }
 
 const initialData: UserBookAssignment[] = [{
