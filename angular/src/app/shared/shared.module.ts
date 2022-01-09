@@ -15,6 +15,7 @@ import {ConfirmationDialogComponent} from './confirmation-dialog/confirmation-di
 import { BookCardComponent } from './book-card/book-card.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { BookDetailDialogWrapperComponent } from './book-detail-dialog-wrapper/book-detail-dialog-wrapper.component';
+import { IsInLibraryMarkerComponent } from './is-in-library-marker/is-in-library-marker.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { BookDetailDialogWrapperComponent } from './book-detail-dialog-wrapper/b
     ConfirmationDirective,
     BookCardComponent,
     BookDetailComponent,
-    BookDetailDialogWrapperComponent
+    BookDetailDialogWrapperComponent,
+    IsInLibraryMarkerComponent
   ],
   exports: [
     HeaderComponent,
