@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {createOrUpdateBook, deleteBook, findBookById} from '@mock-backend/book/book-mock-data';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -9,15 +9,21 @@ import {ImageService} from '@app/features/authors/image.service';
 import {SafeUrl} from '@angular/platform-browser';
 import {ImageCropperDialogComponent} from '@app/features/authors/image-cropper-dialog/image-cropper-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import Author from '@mock-backend/author/Author';
+import {findAllAuthors} from '@mock-backend/author/author-mock-data';
+import {Observable} from 'rxjs';
+import {enrichBookWithUserAssignments} from '@core/book-utils';
+import {UserService} from '@core/user.service';
 
 @Component({
   selector: 'app-book-edit',
   templateUrl: './book-edit.component.html',
   styleUrls: ['./book-edit.component.scss']
 })
-export class BookEditComponent {
+export class BookEditComponent implements OnInit {
   isLoading = false;
   imageUrl?: SafeUrl;
+  authors$?: Observable<Author[]>;
   formGroup = new FormGroup({
         id: new FormControl(null, Validators.required),
         title: new FormControl(null, Validators.required),
@@ -37,7 +43,7 @@ export class BookEditComponent {
   displaySaveReminder = false;
 
   constructor(private activatedRoute: ActivatedRoute, private globalMessageService: GlobalMessageService,
-              private imageService: ImageService, private router: Router, private matDialog: MatDialog) {
+              private imageService: ImageService, private router: Router, private matDialog: MatDialog, private userService: UserService) {
     this.activatedRoute.params.subscribe(
         params => {
           const id = params['id'];
@@ -48,6 +54,10 @@ export class BookEditComponent {
           }
         }
     )
+  }
+
+  ngOnInit(): void {
+    this.authors$ = findAllAuthors();
   }
 
   get id() {
@@ -64,10 +74,12 @@ export class BookEditComponent {
       next: (book: Book) => {
         console.log("loadAuthor SUCCESS", book);
         this.isLoading = false;
+        book = enrichBookWithUserAssignments(book, this.userService.authentication$.getValue())
         this.formGroup.patchValue(book);
         //TODO come back and check for fixes - this is just a workaround for a framework bug
         this.formGroup.patchValue({firstPublished: DateTime.fromJSDate(book.firstPublished.toJSDate())});
         this.imageUrl = this.imageService.createImageUrlFromBlob(book.image);
+
       },
       error: (error) => {
         this.globalMessageService.setAlertMessage("danger", "Unable to load Author: ", error);
@@ -134,4 +146,21 @@ export class BookEditComponent {
           }
         });
   }
+
+  clearInputIfNoAuthorWasSelected($event: FocusEvent, allAuthors?: Author[] | null) {
+    const inputElement = $event.target as HTMLInputElement;
+    const newAuthorId = inputElement.value;
+    console.log("clearInputIfNoAuthorWasSelected", newAuthorId);
+    const index = allAuthors?.map(a => a.id.toString()).indexOf(newAuthorId);
+    if (index === -1) {
+      console.log("no author was selected, clearing the input");
+      this.formGroup.controls['authorId'].setValue(null);
+      this.formGroup.controls['authorFullName'].setValue(null);
+    } else {
+      const selectedAuthor = allAuthors![index!];
+      this.formGroup.controls['authorId'].setValue(selectedAuthor.id);
+      this.formGroup.controls['authorFullName'].setValue(selectedAuthor.firstname + " " + selectedAuthor.lastname);
+    }
+  }
+
 }

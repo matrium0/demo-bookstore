@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Book} from '@mock-backend/book/Book';
+import {EnrichedBook} from '@core/book-utils';
 
 @Component({
   selector: 'app-book-detail-dialog-wrapper',
@@ -8,10 +9,10 @@ import {Book} from '@mock-backend/book/Book';
   styleUrls: ['./book-detail-dialog-wrapper.component.scss']
 })
 export class BookDetailDialogWrapperComponent implements OnInit {
-  book?: Book;
+  book?: EnrichedBook;
 
   constructor(private matDialogRef: MatDialogRef<BookDetailDialogWrapperComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: { book: Book }) {
+              @Inject(MAT_DIALOG_DATA) public data: { book: EnrichedBook }) {
   }
 
   ngOnInit(): void {

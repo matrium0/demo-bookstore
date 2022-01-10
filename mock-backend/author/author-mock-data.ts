@@ -98,3 +98,8 @@ export function deleteAuthor(id: number): Observable<void> {
   data = data.filter(elem => elem.id !== id);
   return of(void 0);
 }
+
+export function getAuthorFullName(id: number): string {
+  const author = data.filter(a => a.id === id)[0];
+  return author.firstname + " " + author.lastname;
+}

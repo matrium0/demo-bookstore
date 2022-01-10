@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Book} from '@mock-backend/book/Book';
 import {ImageService} from '@app/features/authors/image.service';
 import {SafeUrl} from '@angular/platform-browser';
+import {EnrichedBook} from '@core/book-utils';
 
 @Component({
   selector: 'app-book-detail',
@@ -11,7 +12,7 @@ import {SafeUrl} from '@angular/platform-browser';
 export class BookDetailComponent implements OnInit {
 
   @Input()
-  book?: Book;
+  book?: EnrichedBook;
   imageUrl?: SafeUrl;
 
   @Output()

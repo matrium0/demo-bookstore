@@ -9,7 +9,6 @@ export interface Book {
   numberWithinSeries?: number,
   genre: string,
 
-  authorFullName: string,
   authorId: number,
 
   description: string,

@@ -24,15 +24,26 @@
             <input matInput placeholder="Title" formControlName="title" required>
             <mat-error>input required</mat-error>
           </mat-form-field>
-
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>Subtitle</mat-label>
             <input matInput placeholder="Subtitle" formControlName="subtitle">
             <mat-error>input required</mat-error>
           </mat-form-field>
 
+          <mat-form-field *ngIf="{authors: authors$ | async} as obs" class="example-full-width w-100" appearance="outline">
+            <mat-label>Author</mat-label>
+            <input (blur)="clearInputIfNoAuthorWasSelected($event, obs?.authors)" [matAutocomplete]="authorAutocomplete" formControlName="authorFullName"
+                   placeholder="Author auswählen" aria-label="Author" matInput>
+            <mat-autocomplete #authorAutocomplete="matAutocomplete">
+              <mat-option *ngFor="let author of obs?.authors" [value]="author.id">
+                {{author.firstname}} {{author.lastname}}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error>input required</mat-error>
+          </mat-form-field>
+
           <mat-form-field class="w-100" appearance="outline">
-            <mat-label>Birthdate</mat-label>
+            <mat-label>First published</mat-label>
             <input matInput [matDatepicker]="firstPublishedPicker" formControlName="firstPublished">
             <mat-datepicker-toggle matSuffix [for]="firstPublishedPicker"></mat-datepicker-toggle>
             <mat-datepicker #firstPublishedPicker></mat-datepicker>

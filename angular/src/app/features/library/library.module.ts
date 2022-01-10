@@ -12,6 +12,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {QuillModule} from 'ngx-quill';
 import {MatIconModule} from '@angular/material/icon';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatInputModule,
     MatDatepickerModule,
     QuillModule,
-    MatIconModule
+    MatIconModule,
+    MatAutocompleteModule
   ]
 })
 export class LibraryModule {
