@@ -149,9 +149,8 @@ export class BookEditComponent implements OnInit {
 
   clearInputIfNoAuthorWasSelected($event: FocusEvent, allAuthors?: Author[] | null) {
     const inputElement = $event.target as HTMLInputElement;
-    const newAuthorId = inputElement.value;
-    console.log("clearInputIfNoAuthorWasSelected", newAuthorId);
-    const index = allAuthors?.map(a => a.id.toString()).indexOf(newAuthorId);
+    const newAuthorFullname = inputElement.value;
+    const index = allAuthors?.map(a => a.firstname + " " + a.lastname).indexOf(newAuthorFullname);
     if (index === -1) {
       console.log("no author was selected, clearing the input");
       this.formGroup.controls['authorId'].setValue(null);
@@ -159,7 +158,6 @@ export class BookEditComponent implements OnInit {
     } else {
       const selectedAuthor = allAuthors![index!];
       this.formGroup.controls['authorId'].setValue(selectedAuthor.id);
-      this.formGroup.controls['authorFullName'].setValue(selectedAuthor.firstname + " " + selectedAuthor.lastname);
     }
   }
 

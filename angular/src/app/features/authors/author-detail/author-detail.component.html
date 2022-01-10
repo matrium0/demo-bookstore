@@ -37,7 +37,7 @@
               No books from {{fullname}} saved - you can add some in the <a routerLink="/library"> Library</a>
             </div>
             <ul *ngIf="!isBooksLoading">
-              <li *ngFor="let book of books"><a routerLink="/book/detail/{{book.id}}">{{book.title}}</a></li>
+              <li *ngFor="let book of books"><a routerLink="/library/edit/{{book.id}}">{{book.title}}</a></li>
             </ul>
           </div>
         </div>

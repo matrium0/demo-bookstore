@@ -35,7 +35,7 @@
             <input (blur)="clearInputIfNoAuthorWasSelected($event, obs?.authors)" [matAutocomplete]="authorAutocomplete" formControlName="authorFullName"
                    placeholder="Author auswählen" aria-label="Author" matInput>
             <mat-autocomplete #authorAutocomplete="matAutocomplete">
-              <mat-option *ngFor="let author of obs?.authors" [value]="author.id">
+              <mat-option *ngFor="let author of obs?.authors" value="{{author.firstname}} {{author.lastname}}">
                 {{author.firstname}} {{author.lastname}}
               </mat-option>
             </mat-autocomplete>
