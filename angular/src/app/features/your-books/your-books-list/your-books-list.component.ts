@@ -7,6 +7,8 @@ import {BookDetailDialogWrapperComponent} from '@shared/book-detail-dialog-wrapp
 import {Router} from '@angular/router';
 import {enrichBookWithUserAssignments, EnrichedBook} from '@core/book-utils';
 import {UserService} from '@core/user.service';
+import {UserBookAssignmentStatus} from '@mock-backend/user/user-book-assignment-status';
+import {updateStatus} from '@mock-backend/user/user-book-assignment-mockservice';
 
 @Component({
   selector: 'app-your-books-list',
@@ -53,5 +55,10 @@ export class YourBooksListComponent implements OnInit {
         this.router.navigate(["/library/edit", book.id]);
       }
     });
+  }
+
+  handleStatusChanged(event: { book: Book, status: UserBookAssignmentStatus }) {
+    console.log("LibraryComponent: statusChanged received", event);
+    updateStatus(this.userService.authentication$.getValue(), event.book.id, event.status);
   }
 }
