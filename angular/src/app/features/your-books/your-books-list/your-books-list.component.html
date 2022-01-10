@@ -8,9 +8,10 @@
           <span class="input-group-text"><mat-icon>filter_alt</mat-icon></span>
         </div>
       </div>
-      <button (click)="navigateToNewBook()" class="btn btn-success btn-lg me-2 me-lg-4 mt-2 mt-lg-0">
-        add book
-      </button>
+      <div class="ms-2 me-4 add-more-books-label">
+        <fa-icon icon="info" ></fa-icon>
+        You can find more books in the <a routerLink="/library"> Library</a>
+      </div>
     </div>
   </div>
   <!--  // This little trick ensures that the *ngIf always returns true and therefore the content inside is rendered-->

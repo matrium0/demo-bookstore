@@ -6,7 +6,6 @@ export function findUserBookAssignmentsForUser(username: string): UserBookAssign
 
 export function updateStatus(username: string, bookId: number, status: UserBookAssignmentStatus): void {
   let assignment = data.find(d => d.username === username && d.bookId === bookId);
-  console.log("updating updateStatus", username, bookId, status);
   if (assignment) {
     console.log("updating updateStatus SUCCESS", assignment, status);
     assignment.status = status;

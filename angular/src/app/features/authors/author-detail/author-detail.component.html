@@ -25,15 +25,18 @@
           </ng-container>
         </div>
         <div class="col-md-4 d-flex flex-column align-items-center justify-content-start">
-          <div class="author-foto-wrapper">
+          <div class="foto-wrapper">
             <img *ngIf="imageUrl" [src]="imageUrl" class="author-foto-img" alt="Foto of the Author">
           </div>
           <div class="mt-4">
             <h2>Books written by {{fullname}}</h2>
             <div *ngIf="isBooksLoading" class="ms-5 mt-3">
-            <fa-icon icon="spinner" size="3x" [classes]="['fa-spin']"></fa-icon>
+              <fa-icon icon="spinner" size="3x" [classes]="['fa-spin']"></fa-icon>
             </div>
-            <ul *ngIf="!isBooksLoading" >
+            <div *ngIf="!isBooksLoading && books?.length === 0" class="ms-4">
+              No books from {{fullname}} saved - you can add some in the <a routerLink="/library"> Library</a>
+            </div>
+            <ul *ngIf="!isBooksLoading">
               <li *ngFor="let book of books"><a routerLink="/book/detail/{{book.id}}">{{book.title}}</a></li>
             </ul>
           </div>

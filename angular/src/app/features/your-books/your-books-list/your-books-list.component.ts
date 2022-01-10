@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BehaviorSubject, combineLatest, map, Observable} from 'rxjs';
 import {Book} from '@mock-backend/book/Book';
-import {findAllBooks} from '@mock-backend/book/book-mock-data';
+import {findBooksForUser} from '@mock-backend/book/book-mock-data';
 import {MatDialog} from '@angular/material/dialog';
 import {BookDetailDialogWrapperComponent} from '@shared/book-detail-dialog-wrapper/book-detail-dialog-wrapper.component';
 import {Router} from '@angular/router';
@@ -23,15 +23,12 @@ export class YourBooksListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("YourBooksListComponent ngOnInit");
-
-    this.filteredBooks$ = combineLatest([this.filterByName$, findAllBooks()]).pipe(
+    this.filteredBooks$ = combineLatest([this.filterByName$, findBooksForUser(this.userService.authentication$.getValue())]).pipe(
         map((combination) => {
           const filterTerm = combination[0].toLowerCase();
           const books = combination[1].map(b => enrichBookWithUserAssignments(b, this.userService.authentication$.getValue()));
 
           console.log(books);
-          console.log("filtering by \"" + filterTerm + "\"", books.length);
           return books.filter(b => b.title.toLocaleLowerCase().includes(filterTerm));
         }),
     );
@@ -39,10 +36,6 @@ export class YourBooksListComponent implements OnInit {
 
   filter(term: string) {
     this.filterByName$.next(term);
-  }
-
-  navigateToNewBook() {
-    this.router.navigate(["/library/edit/new"]);
   }
 
   openBookDetail(book: Book) {
@@ -58,7 +51,6 @@ export class YourBooksListComponent implements OnInit {
   }
 
   handleStatusChanged(event: { book: Book, status: UserBookAssignmentStatus }) {
-    console.log("LibraryComponent: statusChanged received", event);
     updateStatus(this.userService.authentication$.getValue(), event.book.id, event.status);
   }
 }

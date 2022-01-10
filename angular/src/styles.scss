@@ -114,7 +114,7 @@ mat-button-toggle-group {
   color: #a500ff;
 }
 
-.fa-question-circle {
+.fa-info, .fa-question-circle {
   color: #2b95e0;
   margin-left: 4px;
 }
@@ -196,7 +196,7 @@ mat-checkbox .mat-checkbox-inner-container {
 }
 
 .mat-button-toggle-appearance-standard {
-  border: 1px solid rgba(0,0,0,.12) !important;
+  border: 1px solid rgba(0, 0, 0, .12) !important;
 }
 
 .mat-button-toggle-appearance-standard.mat-button-toggle-checked {
@@ -224,4 +224,9 @@ mat-checkbox .mat-checkbox-inner-container {
 .book-card-wrap {
   width: 272px;
   min-height: 310px;
+}
+
+.foto-wrapper {
+  min-height: 50px;
+  overflow: hidden;
 }

@@ -66,7 +66,7 @@
             <div *ngIf="displaySaveReminder" class="text-danger fw-bold">You changed the image - don't forget to save!</div>
             <app-reactive-validation-display [control]="formGroup?.get('image')"></app-reactive-validation-display>
           </div>
-          <div class="author-foto-wrapper col-sm-7 col-md-6 col-lg-5 col-xl-4 position-relative d-flex flex-column justify-content-center align-items-center">
+          <div class="foto-wrapper col-sm-7 col-md-6 col-lg-5 col-xl-4 position-relative d-flex flex-column justify-content-center align-items-center">
             <img *ngIf="imageUrl" [src]="imageUrl" class="author-foto-img" alt="Foto of the Author">
             <a (click)="openFotoUploadDialog()" class="author-foto-change-link" role="button">{{formGroup.get('id')?.value ? 'change foto' : 'upload foto'}}</a>
           </div>

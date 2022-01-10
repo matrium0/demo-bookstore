@@ -2,7 +2,7 @@ import {LOCALE_ID, NgModule} from '@angular/core';
 import {CommonModule, registerLocaleData} from '@angular/common';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {FaIconLibrary, FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {faCheck, faPlus, faSpinner, faTimes} from '@fortawesome/free-solid-svg-icons';
+import {faCheck, faInfo, faPlus, faSpinner, faTimes} from '@fortawesome/free-solid-svg-icons';
 import {QuillModule} from 'ngx-quill';
 import {MAT_LUXON_DATE_ADAPTER_OPTIONS, MatLuxonDateModule} from '@angular/material-luxon-adapter';
 import {MAT_DATE_FORMATS} from '@angular/material/core';
@@ -56,5 +56,6 @@ export class CoreModule {
     faIconLibrary.addIcons(faPlus);
     faIconLibrary.addIcons(faCheck);
     faIconLibrary.addIcons(faSpinner);
+    faIconLibrary.addIcons(faInfo);
   }
 }

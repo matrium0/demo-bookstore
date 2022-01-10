@@ -10,6 +10,7 @@ import {
   mistbornCover3,
   shiningCover
 } from '../author/default-fotos';
+import {findUserBookAssignmentsForUser} from '../user/user-book-assignment-mockservice';
 
 export function createOrUpdateBook(newElement: Book): Observable<Book> {
   let existingElement = data.filter(a => a.id === newElement.id);
@@ -22,6 +23,11 @@ export function createOrUpdateBook(newElement: Book): Observable<Book> {
     data.push(newElement);
   }
   return of(newElement);
+}
+
+export function findBooksForUser(username: string): Observable<Book[]> {
+  let assignments = findUserBookAssignmentsForUser(username).map(ass => ass.bookId);
+  return of(data.filter(b => assignments.indexOf(b.id) !== -1)).pipe(delay(300));
 }
 
 export function findAllBooks(): Observable<Book[]> {
