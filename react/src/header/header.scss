@@ -24,8 +24,10 @@ nav {
 
 @include media-breakpoint-up(md) {
   .navbar-expand-md .navbar-nav .nav-link {
-    padding-right: 0.25rem;
-    padding-left: 0.25rem;
+    margin-right: 0;
+    margin-left: 1.5rem;
+    padding-right: 0.5rem !important;
+    padding-left:  0.5rem !important;
   }
 
   .nav-link.active {
