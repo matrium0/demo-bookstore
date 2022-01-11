@@ -9,7 +9,9 @@ import {Router} from '@angular/router';
 import {enrichBookWithUserAssignments, EnrichedBook} from '@core/book-utils';
 import {UserService} from '@core/user.service';
 import {UserBookAssignmentStatus} from '@mock-backend/user/user-book-assignment-status';
-import {updateStatus} from '@mock-backend/user/user-book-assignment-mockservice';
+import {findUserBookAssignmentsForUser, updateStatus} from '@mock-backend/user/user-book-assignment-mockservice';
+
+type ShowAllSelectTypes = "HIDE_YOUR_BOOKS" | "SHOW_ALL";
 
 @Component({
   selector: 'app-library',
@@ -17,8 +19,9 @@ import {updateStatus} from '@mock-backend/user/user-book-assignment-mockservice'
   styleUrls: ['./library.component.scss']
 })
 export class LibraryComponent implements OnInit {
+
   filterByName$ = new BehaviorSubject("");
-  books$?: Observable<EnrichedBook[]>
+  showAllSelectFilter$ = new BehaviorSubject<ShowAllSelectTypes>("HIDE_YOUR_BOOKS");
   filteredBooks$?: Observable<EnrichedBook[]>
 
   constructor(private globalMessageService: GlobalMessageService, private matDialog: MatDialog,
@@ -29,11 +32,16 @@ export class LibraryComponent implements OnInit {
   ngOnInit(): void {
     console.log("LibraryComponent ngOnInit");
 
-    this.filteredBooks$ = combineLatest([this.filterByName$, findAllBooks()]).pipe(
+    this.filteredBooks$ = combineLatest([this.filterByName$, this.showAllSelectFilter$, findAllBooks()]).pipe(
         map((combination) => {
           const filterTerm = combination[0].toLowerCase();
-          const allBooks = combination[1].map(b => enrichBookWithUserAssignments(b, this.userService.authentication$.getValue()));
-          console.log("filtering by \"" + filterTerm + "\"", allBooks.length);
+          const showAllSelectFilter = combination[1];
+          let allBooks = combination[2].map(b => enrichBookWithUserAssignments(b, this.userService.authentication$.getValue()));
+          console.log("filtering by \"" + filterTerm + "\"", showAllSelectFilter, allBooks.length);
+          if (showAllSelectFilter === 'HIDE_YOUR_BOOKS') {
+            allBooks = allBooks.filter(book => !(findUserBookAssignmentsForUser(this.userService.authentication$.getValue()).map(b => b.bookId).includes(book.id)))
+          }
+
           return allBooks.filter(b => b.title.toLocaleLowerCase().includes(filterTerm));
         }),
     );
@@ -62,5 +70,10 @@ export class LibraryComponent implements OnInit {
   handleStatusChanged(event: { book: Book, status: UserBookAssignmentStatus }) {
     console.log("LibraryComponent: statusChanged received", event);
     updateStatus(this.userService.authentication$.getValue(), event.book.id, event.status);
+  }
+
+  handleSelectAllChange(value: string) {
+    const selectAllChange = value as ShowAllSelectTypes;
+    this.showAllSelectFilter$.next(selectAllChange);
   }
 }
