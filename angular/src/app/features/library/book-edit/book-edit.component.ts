@@ -72,7 +72,7 @@ export class BookEditComponent implements OnInit {
     this.isLoading = true;
     findBookById(id).subscribe({
       next: (book: Book) => {
-        console.log("loadAuthor SUCCESS", book);
+        console.log("loadBook SUCCESS", book);
         this.isLoading = false;
         book = enrichBookWithUserAssignments(book, this.userService.authentication$.getValue())
         this.formGroup.patchValue(book);
@@ -82,8 +82,8 @@ export class BookEditComponent implements OnInit {
 
       },
       error: (error) => {
-        this.globalMessageService.setAlertMessage("danger", "Unable to load Author: ", error);
-        console.log("loadAuthor ERROR", error);
+        this.globalMessageService.setAlertMessage("danger", "Unable to load Book: ", error);
+        console.log("loadBook ERROR", error);
         this.isLoading = false;
       }
     });
@@ -119,7 +119,7 @@ export class BookEditComponent implements OnInit {
           (book: Book) => {
             console.log('createOrUpdateBook SUCCESS', book);
             history.back();
-            this.globalMessageService.setAlertMessage("info", "Book saved!");
+            this.globalMessageService.setAlertMessage("info", "Book added to Library!");
           }, (error: any) => {
             console.log("createOrUpdateBook ERROR", error);
             this.globalMessageService.setAlertMessage("danger", "Book saving failed", error);

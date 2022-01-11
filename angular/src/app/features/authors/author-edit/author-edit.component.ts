@@ -87,10 +87,10 @@ export class AuthorEditComponent implements OnInit {
           (author: Author) => {
             console.log('createOrUpdateAuthor SUCCESS', author);
             this.router.navigate(['/author/' + author.id]).then();
-            this.globalMessageService.setAlertMessage("info", "Hero saved!");
+            this.globalMessageService.setAlertMessage("info", "Author saved!");
           }, (error: any) => {
             console.log("saveHero ERROR", error);
-            this.globalMessageService.setAlertMessage("danger", "Hero saving failed", error);
+            this.globalMessageService.setAlertMessage("danger", "Author saving failed", error);
           });
     } else {
       console.log('formgroup is not valid', this.formGroup);
