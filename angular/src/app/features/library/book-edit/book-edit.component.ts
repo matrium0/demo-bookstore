@@ -25,7 +25,7 @@ export class BookEditComponent implements OnInit {
   imageUrl?: SafeUrl;
   authors$?: Observable<Author[]>;
   formGroup = new FormGroup({
-        id: new FormControl(null, Validators.required),
+        id: new FormControl(null),
         title: new FormControl(null, Validators.required),
         subtitle: new FormControl(null),
         firstPublished: new FormControl(null, Validators.required),
