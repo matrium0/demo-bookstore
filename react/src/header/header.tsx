@@ -14,7 +14,7 @@ const Header = () => {
   const [menuCollapsed, setMenuCollapsed] = useState(true);
 
   return (
-      <nav className="navbar navbar-expand-md navbar-light shadow p-0">
+      <header className="navbar navbar-expand-md navbar-light shadow p-0">
         <NavLink to="/" className="navbar-brand d-flex align-items-center ms-0 ms-md-3 me-0">
           <img src={logo} className="logo-image" alt="logo"/>
           <img src={logoAppendixSmall} className="logo-image-appendix-small" alt="logo appendix"/>
@@ -69,7 +69,7 @@ const Header = () => {
             }
           </ul>
         </div>
-      </nav>
+      </header>
   );
 };
 
