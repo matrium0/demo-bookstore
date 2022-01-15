@@ -8,6 +8,7 @@ import {SafeUrl} from '@angular/platform-browser';
 import {GlobalMessageService} from '@core/global-message.service';
 import {Book} from '@mock-backend/book/Book';
 import {findBooksOfAuthor} from '@mock-backend/book/book-mock-data';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-author-detail',
@@ -50,7 +51,7 @@ export class AuthorDetailComponent implements OnInit {
         this.author = enrichWithCalculatedFields(author);
         this.imageUrl = this.authorService.createImageUrlFromBlob(author.foto);
       },
-      error: (error) => {
+      error: (error: HttpErrorResponse) => {
         this.globalMessageService.setAlertMessage("danger", "Unable to load Author: ", error);
         console.log("loadAuthor ERROR", error);
         this.isLoading = false;
@@ -66,7 +67,7 @@ export class AuthorDetailComponent implements OnInit {
         this.isBooksLoading = false;
         this.books = books;
       },
-      error: (error) => {
+      error: (error: HttpErrorResponse) => {
         this.globalMessageService.setAlertMessage("danger", "Unable to load Books of Author: ", error);
         console.log("loadBooksForAuthor ERROR", error);
         this.isBooksLoading = false;

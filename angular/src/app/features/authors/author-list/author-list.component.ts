@@ -4,6 +4,7 @@ import {findAllAuthors} from '@mock-backend/author/author-mock-data';
 import {GlobalMessageService} from '@core/global-message.service';
 import {EnrichedAuthor, enrichWithCalculatedFields} from '../author-util';
 import {Router} from '@angular/router';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-author-list',
@@ -28,7 +29,7 @@ export class AuthorListComponent implements OnInit {
         this.authors = authors.map(a => enrichWithCalculatedFields(a));
         this.filteredAuthors = this.authors;
       },
-      error: (error) => {
+      error: (error: HttpErrorResponse) => {
         this.globalMessageService.setAlertMessage("danger", "Unable to load Authors: ", error);
         console.log("error occured");
       }

@@ -24,12 +24,12 @@ export class YourBooksListComponent implements OnInit {
 
   ngOnInit(): void {
     this.filteredBooks$ = combineLatest([this.filterByName$, findBooksForUser(this.userService.authentication$.getValue())]).pipe(
-        map((combination) => {
+        map((combination: any) => {
           const filterTerm = combination[0].toLowerCase();
-          const books = combination[1].map(b => enrichBookWithUserAssignments(b, this.userService.authentication$.getValue()));
+          const books = combination[1].map((b: Book) => enrichBookWithUserAssignments(b, this.userService.authentication$.getValue()));
 
           console.log(books);
-          return books.filter(b => b.title.toLocaleLowerCase().includes(filterTerm));
+          return books.filter((b: EnrichedBook) => b.title.toLocaleLowerCase().includes(filterTerm));
         }),
     );
   }

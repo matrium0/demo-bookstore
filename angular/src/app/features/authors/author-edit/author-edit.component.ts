@@ -9,6 +9,7 @@ import {ImageCropperDialogComponent} from '../image-cropper-dialog/image-cropper
 import {MatDialog} from '@angular/material/dialog';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {ImageService} from '../image.service';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-author-edit',
@@ -66,7 +67,7 @@ export class AuthorEditComponent implements OnInit {
         }
         this.imageUrl = this.imageService.createImageUrlFromBlob(author.foto);
       },
-      error: (error) => {
+      error: (error: HttpErrorResponse) => {
         this.globalMessageService.setAlertMessage("danger", "Unable to load Author: ", error);
         console.log("loadAuthor ERROR", error);
         this.isLoading = false;
@@ -127,7 +128,7 @@ export class AuthorEditComponent implements OnInit {
             this.router.navigate(["/author"])
             this.globalMessageService.setAlertMessage("info", "Successfully deleted " + this.fullname);
           },
-          error: (error) => {
+          error: (error: HttpErrorResponse) => {
             console.log("deleteAuthor ERROR", error);
             this.globalMessageService.setAlertMessage("danger", "Unable to delete Author: ", error);
           }

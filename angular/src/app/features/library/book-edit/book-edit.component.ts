@@ -14,6 +14,7 @@ import {findAllAuthors} from '@mock-backend/author/author-mock-data';
 import {Observable} from 'rxjs';
 import {enrichBookWithUserAssignments} from '@core/book-utils';
 import {UserService} from '@core/user.service';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-book-edit',
@@ -81,7 +82,7 @@ export class BookEditComponent implements OnInit {
         this.imageUrl = this.imageService.createImageUrlFromBlob(book.image);
 
       },
-      error: (error) => {
+      error: (error: HttpErrorResponse) => {
         this.globalMessageService.setAlertMessage("danger", "Unable to load Book: ", error);
         console.log("loadBook ERROR", error);
         this.isLoading = false;
@@ -98,7 +99,7 @@ export class BookEditComponent implements OnInit {
             this.router.navigate(["/library"])
             this.globalMessageService.setAlertMessage("info", "Successfully deleted " + this.title);
           },
-          error: (error) => {
+          error: (error: HttpErrorResponse) => {
             console.log("deleteBook ERROR", error);
             this.globalMessageService.setAlertMessage("danger", "Unable to delete Book: ", error);
           }
