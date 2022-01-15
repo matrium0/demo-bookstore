@@ -4,6 +4,7 @@ import {SafeUrl} from '@angular/platform-browser';
 import {EnrichedBook} from '@core/book-utils';
 import {UserBookAssignmentStatus} from '@mock-backend/user/user-book-assignment-status';
 import {Book} from '@mock-backend/book/Book';
+import {GlobalMessageService} from '@core/global-message.service';
 
 @Component({
   selector: 'app-book-card',
@@ -22,7 +23,7 @@ export class BookCardComponent implements OnInit {
   @Output()
   statusChanged = new EventEmitter<{ book: Book, status: UserBookAssignmentStatus }>();
 
-  constructor(private imageService: ImageService) {
+  constructor(private imageService: ImageService, private globalMessageService: GlobalMessageService) {
   }
 
   ngOnInit(): void {
@@ -37,8 +38,12 @@ export class BookCardComponent implements OnInit {
   }
 
   statusChange(status: UserBookAssignmentStatus) {
-    console.log("bookcrad statuschanged");
+    const originalStatus = this.book?.assignmentStatus;
     this.book!.assignmentStatus = status;
     this.statusChanged.next({book: this.book!, status});
+
+    if (originalStatus === "default") {
+      this.globalMessageService.setAlertMessage("info", "Book is added to \"Your Books\"")
+    }
   }
 }

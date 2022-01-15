@@ -16,7 +16,6 @@ export function updateStatus(username: string, bookId: number, status: UserBookA
       status
     });
   }
-
 }
 
 const initialData: UserBookAssignment[] = [{
