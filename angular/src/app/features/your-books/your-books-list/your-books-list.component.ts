@@ -29,7 +29,7 @@ export class YourBooksListComponent implements OnInit {
           const books = combination[1].map((b: Book) => enrichBookWithUserAssignments(b, this.userService.authentication$.getValue()));
 
           console.log(books);
-          return books.filter((b: EnrichedBook) => b.title.toLocaleLowerCase().includes(filterTerm));
+          return books.filter((b: EnrichedBook) => b.title.toLocaleLowerCase().includes(filterTerm) && b.assignmentStatus !== 'default');
         }),
     );
   }
