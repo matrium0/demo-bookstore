@@ -1,10 +1,25 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Paper} from '@mui/material';
 import {faFilter, faInfo} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {NavLink} from 'react-router-dom';
+import {findBooksForUser} from '@local/mock-backend/book/book-mock-data';
 
 const YourBooks = () => {
+  useEffect(() => {
+    // TODO use username from context
+    console.log("useEffect running - should never rerun, since the dependencies-array is empty - loading books");
+    findBooksForUser("your-username").subscribe(
+        {
+          next: (results: any) => {
+            console.log("findBooksForUser SUCCESS", results);
+          },
+          error: (error: any) => {
+            console.log("findBooksForUser ERROR", error);
+          }
+        });
+  }, []); // runs exactly once, because the deps array is empty, therefor it will never be re-evaluated#
+
   return (
       <div className="comp-wrapper">
         <Paper elevation={8} className="app-col">
