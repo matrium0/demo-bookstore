@@ -35,11 +35,6 @@ h1, h2, h3, h4, h5, .h1, .h2, .h3, .h5, .h5 {
   margin: 0;
 }
 
-.btn {
-  font-family: Verdana, serif;
-  font-weight: bold;
-}
-
 h1, .h1 {
   font-size: 1.75rem;
 
@@ -62,6 +57,11 @@ h3, .h3 {
   @media (max-width: 991px) {
     font-size: 1.1rem;
   }
+}
+
+.btn {
+  font-family: Verdana, serif;
+  font-weight: bold;
 }
 
 .fa-user-circle {

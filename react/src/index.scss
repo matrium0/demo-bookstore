@@ -5,16 +5,44 @@ $enable-button-pointers: true;
 $warning: #c39007;
 @import "~bootstrap/scss/bootstrap";
 
-@font-face {
-  font-family: 'Black Chancery';
-  src: local('Black Chancery'), url(./assets/BLKCHCRY.woff) format('woff');
-}
-
-.h1, h1 {
-  font-family: 'Black Chancery', cursive;
+h1, h2, h3, h4, h5, .h1, .h2, .h3, .h5, .h5 {
+  font-family: Verdana, sans-serif;
   font-weight: bold;
+  margin: 0;
 }
 
+h1, .h1 {
+  font-size: 1.75rem;
+
+  @media (max-width: 991px) {
+    font-size: 1.4rem;
+  }
+}
+
+h2, .h2 {
+  font-size: 1.4rem;
+
+  @media (max-width: 991px) {
+    font-size: 1.2rem;
+  }
+}
+
+h3, .h3 {
+  font-size: 1.2rem;
+
+  @media (max-width: 991px) {
+    font-size: 1.1rem;
+  }
+}
+
+.app-col {
+  @extend .col;
+  @extend .m-2;
+  @extend .mx-lg-4;
+  @extend .mt-lg-4;
+  @extend .mb-lg-4;
+  border-radius: 10px;
+}
 
 body {
   margin: 0;
