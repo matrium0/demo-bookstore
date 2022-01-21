@@ -41,11 +41,20 @@ h3, .h3 {
   @extend .mx-lg-4;
   @extend .mt-lg-4;
   @extend .mb-lg-4;
-  border-radius: 10px;
+  border-radius: 10px !important;
 }
 
 body {
   margin: 0;
+}
+
+.comp-wrapper {
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+.title-row {
+  min-height: 64px;
 }
 
 .square {
