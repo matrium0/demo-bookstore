@@ -2,13 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import Author from '@mock-backend/author/Author';
 import {ActivatedRoute, Router} from '@angular/router';
 import {findAuthorById} from '@mock-backend/author/author-mock-data';
-import {EnrichedAuthor, enrichWithCalculatedFields} from '../author-util';
+import {enrichWithCalculatedFields} from '@mock-backend/author/author-util';
 import {ImageService} from '../image.service';
 import {SafeUrl} from '@angular/platform-browser';
 import {GlobalMessageService} from '@core/global-message.service';
 import {Book} from '@mock-backend/book/Book';
 import {findBooksOfAuthor} from '@mock-backend/book/book-mock-data';
 import {HttpErrorResponse} from '@angular/common/http';
+import {EnrichedAuthor} from '@mock-backend/author/EnrichedAuthor';
 
 @Component({
   selector: 'app-author-detail',
@@ -59,7 +60,7 @@ export class AuthorDetailComponent implements OnInit {
     });
   }
 
-  loadBooksForAuthor(id: number){
+  loadBooksForAuthor(id: number) {
     this.isBooksLoading = true;
     findBooksOfAuthor(id).subscribe({
       next: (books: Book[]) => {

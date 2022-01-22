@@ -2,9 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import Author from '@mock-backend/author/Author';
 import {findAllAuthors} from '@mock-backend/author/author-mock-data';
 import {GlobalMessageService} from '@core/global-message.service';
-import {EnrichedAuthor, enrichWithCalculatedFields} from '../author-util';
+import {enrichWithCalculatedFields} from '@mock-backend/author/author-util';
 import {Router} from '@angular/router';
 import {HttpErrorResponse} from '@angular/common/http';
+import {EnrichedAuthor} from '@mock-backend/author/EnrichedAuthor';
 
 @Component({
   selector: 'app-author-list',

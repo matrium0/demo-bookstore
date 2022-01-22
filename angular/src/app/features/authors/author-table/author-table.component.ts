@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {Sort} from '@angular/material/sort';
-import {EnrichedAuthor} from '../author-util';
+import {EnrichedAuthor} from '@mock-backend/author/EnrichedAuthor';
 import {booleanCompare, compare, dateCompare} from '@shared/util/sort-utility';
 
 @Component({
