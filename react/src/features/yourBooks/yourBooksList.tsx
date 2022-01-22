@@ -4,12 +4,13 @@ import {faFilter, faInfo} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {NavLink} from 'react-router-dom';
 import {findBooksForUser} from '@local/mock-backend/book/book-mock-data';
+import ApplicationContext from '../../shared/ApplicationContext';
 
 const YourBooks = () => {
+  const applicationContext = React.useContext(ApplicationContext);
   useEffect(() => {
-    // TODO use username from context
     console.log("useEffect running - should never rerun, since the dependencies-array is empty - loading books");
-    findBooksForUser("your-username").subscribe(
+    findBooksForUser(applicationContext.user!).subscribe(
         {
           next: (results: any) => {
             console.log("findBooksForUser SUCCESS", results);

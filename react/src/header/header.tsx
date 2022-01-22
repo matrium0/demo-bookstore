@@ -13,6 +13,8 @@ const Header = () => {
 
   const [menuCollapsed, setMenuCollapsed] = useState(true);
 
+  console.log("Header rendering");
+
   return (
       <header className="navbar navbar-expand-md navbar-light shadow p-0">
         <NavLink to="/" className="navbar-brand d-flex align-items-center ms-0 ms-md-3 me-0">
