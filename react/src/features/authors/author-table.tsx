@@ -11,6 +11,7 @@ const AuthorTable = (props: AuthorTableProps) => {
 
   console.log("AuthorTable");
 
+  //TODO show spinner
   const tableHeaders = ['firstname', 'lastname', 'gender', 'penName', 'birthdateWithPlace', 'age', 'dateOfDeath']; //TODO make responsive
 
   return (

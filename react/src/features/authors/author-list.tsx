@@ -5,8 +5,14 @@ import {EnrichedAuthor} from '@local/mock-backend/author/EnrichedAuthor';
 import AuthorTable from './author-table';
 import {enrichWithCalculatedFields} from '@local/mock-backend/author/author-util';
 
-const defaultState: { authors: EnrichedAuthor[] } = {
-  authors: []
+interface AuthorListState {
+  authors: EnrichedAuthor[],
+  authorsLoading: boolean
+}
+
+const defaultState: AuthorListState = {
+  authors: [],
+  authorsLoading: false
 }
 
 function handleAuthorSelected(author: EnrichedAuthor) {
@@ -22,13 +28,14 @@ const AuthorList = () => {
 
   function loadAllAuthors() {
     console.log("loadAllAuthors");
+    setAuthorListState({authors: [], authorsLoading: true});
 
     findAllAuthors().subscribe(
         {
           next: (results: Author[]) => {
             console.log("findAllAuthors SUCCESS", results);
             const enrichedAuthors = results.map(a => enrichWithCalculatedFields(a));
-            setAuthorListState({authors: enrichedAuthors});
+            setAuthorListState({authors: enrichedAuthors, authorsLoading: false});
           },
           error: (error: any) => {
             console.log("findAllAuthors ERROR", error);

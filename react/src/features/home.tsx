@@ -24,6 +24,8 @@ const Home = () => {
           <div className="p-2 ms-lg-3 title-row d-flex align-items-center">
             <div className="d-flex align-items-center justify-content-between flex-wrap">
               <h1>Home</h1>
+              <button onClick={() => setDummyMessage()} className="mx-5 btn btn-primary">set dummy message</button>
+              <button onClick={() => clearMessage()} className="mx-5 btn btn-primary">clear message</button>
             </div>
           </div>
           <div className="pb-3" style={{borderTop: '2px solid gray'}}>
