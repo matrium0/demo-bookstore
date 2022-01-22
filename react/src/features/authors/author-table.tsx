@@ -1,24 +1,53 @@
 import React from 'react';
 import {EnrichedAuthor} from '@local/mock-backend/author/EnrichedAuthor';
 import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@mui/material';
+import {DataGrid} from '@mui/x-data-grid';
 
 interface AuthorTableProps {
   authors: EnrichedAuthor[];
   authorSelected: (author: EnrichedAuthor) => void;
 }
 
+// function descendingComparator(a: EnrichedAuthor, b:EnrichedAuthor, orderBy: keyof EnrichedAuthor) {
+//   if (!a || !b) {
+//     return 0;
+//   }
+//
+//   console.log(b[orderBy]);
+//
+//   if (b[orderBy] < a[orderBy]) {
+//     return -1;
+//   }
+//   if (b[orderBy] > a[orderBy]) {
+//     return 1;
+//   }
+//   return 0;
+// }
+
+
 const AuthorTable = (props: AuthorTableProps) => {
-
   console.log("AuthorTable");
-
+  const columns = [
+    {field: 'firstname', headerName: 'firstname'},
+    {field: 'lastname', headerName: 'lastname'},
+    {field: 'gender', headerName: 'gender'},
+    {field: 'penName', headerName: 'penName'},
+    {field: 'birthdateWithPlace', headerName: 'birthdateWithPlace'},
+    {field: 'age', headerName: 'age'},
+    {field: 'dateOfDeath', headerName: 'dateOfDeath'},];
   //TODO show spinner
   const tableHeaders = ['firstname', 'lastname', 'gender', 'penName', 'birthdateWithPlace', 'age', 'dateOfDeath']; //TODO make responsive
 
   return (
       <div>
         <div>Author Table Component</div>
+        <div>{props.authors.length}</div>
+        <div style={{ height: 400, width: '100%' }}>
+        <DataGrid rows={props.authors} columns={columns}/>
+        </div>
+        <div>tablecontainer</div>
         <TableContainer component={Paper}>
-          <Table sx={{minWidth: 650}} aria-label="simple table">
+          <Table sx={{minWidth: 650}} size="small" aria-label="simple table">
             <TableHead>
               <TableRow>
                 {tableHeaders.map(h => <TableCell key={h}>{h}</TableCell>)}
@@ -43,8 +72,6 @@ const AuthorTable = (props: AuthorTableProps) => {
             </TableBody>
           </Table>
         </TableContainer>
-
-
       </div>
   );
 };
