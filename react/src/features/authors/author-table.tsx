@@ -1,34 +1,18 @@
 import React from 'react';
 import {EnrichedAuthor} from '@local/mock-backend/author/EnrichedAuthor';
-import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel} from '@mui/material';
+import {Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel} from '@mui/material';
+import {visuallyHidden} from '@mui/utils';
 
 interface AuthorTableProps {
   authors: EnrichedAuthor[];
   authorSelected: (author: EnrichedAuthor) => void;
 }
 
-// function descendingComparator(a: EnrichedAuthor, b:EnrichedAuthor, orderBy: keyof EnrichedAuthor) {
-//   if (!a || !b) {
-//     return 0;
-//   }
-//
-//   console.log(b[orderBy]);
-//
-//   if (b[orderBy] < a[orderBy]) {
-//     return -1;
-//   }
-//   if (b[orderBy] > a[orderBy]) {
-//     return 1;
-//   }
-//   return 0;
-// }
-
-
 const AuthorTable = (props: AuthorTableProps) => {
-  const [order, setOrder] = React.useState('asc');
+  const [order, setOrder] = React.useState<"asc" | "desc">('asc');
   const [orderBy, setOrderBy] = React.useState('lastname');
 
-  const createSortHandler = (property: string) => (event: any) => { //TODO typing?
+  const createSortHandler = (property: string) => (event: any) => {
     handleRequestSort(event, property);
   };
 
@@ -46,24 +30,28 @@ const AuthorTable = (props: AuthorTableProps) => {
     {field: 'penName', headerName: 'Pen Name'},
     {field: 'birthdate', headerName: 'Birthdate'},
     {field: 'age', headerName: 'age'},
-    {field: 'dateOfDeath', headerName: 'dateOfDeath'}
+    {field: 'dateOfDeath', headerName: 'Date of Death'}
   ];
 
   //TODO show spinner
-  function descendingComparator(a: any, b: any, orderBy: string) {
-    if (b[orderBy] < a[orderBy]) {
+  function descendingComparator(a: any, b: any, field: string) {
+    if (!b[field] || b[field] < a[field]) {
       return -1;
     }
-    if (b[orderBy] > a[orderBy]) {
+    if (!a[field] || b[field] > a[field]) {
       return 1;
     }
     return 0;
   }
 
-  function getComparator(order: string, orderBy: string) { //real types
-    return order === 'desc'
-        ? (a: any, b: any) => descendingComparator(a, b, orderBy)
-        : (a: any, b: any) => -descendingComparator(a, b, orderBy);
+  function getComparator(direction: string, field: string) {
+    return direction === 'desc'
+        ? (a: any, b: any) => descendingComparator(a, b, field)
+        : (a: any, b: any) => -descendingComparator(a, b, field);
+  }
+
+  function getSortedByLabel(ord: string) {
+    return <span>{ord === 'desc' ? 'sorted descending' : 'sorted ascending'}</span>
   }
 
   return (
@@ -77,17 +65,14 @@ const AuthorTable = (props: AuthorTableProps) => {
               <TableRow>
                 {columns.map(h =>
                     <TableCell key={h.field}>
-                      <TableSortLabel
-                          active={orderBy === h.field}
-                          direction={'asc'}
-                          onClick={createSortHandler(h.field)}
-                      >
+                      <TableSortLabel active={orderBy === h.field} direction={order}
+                                      onClick={createSortHandler(h.field)}>
                         {h.headerName}
-                        {/*{orderBy === headCell.id ? (*/}
-                        {/*    <Box component="span" sx={visuallyHidden}>*/}
-                        {/*      {order === 'desc' ? 'sorted descending' : 'sorted ascending'}*/}
-                        {/*    </Box>*/}
-                        {/*) : null}*/}
+                        {orderBy === h.field ? (
+                            <Box component="span" sx={visuallyHidden}>
+                              {getSortedByLabel(order)}
+                            </Box>
+                        ) : null}
                       </TableSortLabel>
                     </TableCell>
                 )}
@@ -104,7 +89,6 @@ const AuthorTable = (props: AuthorTableProps) => {
                     <TableCell component="th" scope="row">{a.gender}</TableCell>
                     <TableCell component="th" scope="row">{String(a.penName)}</TableCell>
                     <TableCell component="th" scope="row">{a.birthdate?.toFormat("dd.LL.yyyy")}</TableCell>
-                    {/*/!*TODO birthdateWithPlace field?????*!/*/}
                     <TableCell component="th" scope="row">{a.age}</TableCell>
                     <TableCell component="th" scope="row">{a.dateOfDeath?.toFormat("dd.LL.yyyy")}</TableCell>
                   </TableRow>
@@ -113,8 +97,7 @@ const AuthorTable = (props: AuthorTableProps) => {
           </Table>
         </TableContainer>
       </div>
-  )
-      ;
+  );
 };
 
 export default AuthorTable;
