@@ -89,7 +89,7 @@ const AuthorTable = (props: AuthorTableProps) => {
                     <TableCell component="th" scope="row">{a.firstname}</TableCell>
                     <TableCell component="th" scope="row">{a.lastname}</TableCell>
                     <TableCell component="th" scope="row" sx={{display: ((width <= 800) ? "none" : "table-cell")}}><GenderDisplay
-                        gender={a.gender}/></TableCell>
+                        gender={a.gender!}/></TableCell>
                     <TableCell component="th" scope="row" sx={{display: ((width <= 800) ? "none" : "table-cell")}}>{a.penName ?
                         <FontAwesomeIcon icon={faCheck} size={'lg'}/> : ""}</TableCell>
                     <TableCell component="th" scope="row"

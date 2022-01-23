@@ -1,5 +1,5 @@
 import {useParams} from 'react-router-dom';
-import {Paper} from '@mui/material';
+import {Paper, TextField} from '@mui/material';
 import LoadingIndicatorWrapper from '../../shared/loading-indicator-wrapper';
 import React, {SyntheticEvent, useEffect, useState} from 'react';
 import Author from '@local/mock-backend/author/Author';
@@ -39,6 +39,7 @@ const AuthorEdit = () => {
     const target = event.target as HTMLInputElement;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
+    console.log("handleInputChange", name, value);
 
     setState({
       ...state, author: {...state.author, [name]: value},
@@ -59,6 +60,11 @@ const AuthorEdit = () => {
           <LoadingIndicatorWrapper loading={state.loading}>
             <div className="pb-3" style={{borderTop: "2px solid gray"}}>
               <div>AuthorEdit component with param: {id}</div>
+              <form>
+                <TextField name="firstname" label="Firstname" value={state.author.firstname} onChange={handleInputChange} variant="outlined" />
+                <TextField name="lastname" label="Lastname" value={state.author.lastname} onChange={handleInputChange} variant="outlined" />
+
+              </form>
             </div>
           </LoadingIndicatorWrapper>
         </Paper>

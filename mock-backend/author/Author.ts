@@ -16,9 +16,6 @@ class Author implements Entity {
   note?: string;
   genre?: string;
   foto?: Blob;
-
-  //TODO other field ideas
-  // genres
 }
 
 export default Author;
