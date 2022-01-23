@@ -82,7 +82,7 @@ export function createOrUpdateAuthor(newElement) {
     return of(newElement);
 }
 export function findAllAuthors() {
-    return of(data).pipe(delay(300));
+    return of(data).pipe(delay(1500));
 }
 export function findAuthorById(id) {
     return of(data.filter(a => a.id === id)[0]).pipe(delay(300));

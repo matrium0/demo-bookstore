@@ -48,6 +48,11 @@ body {
   margin: 0;
 }
 
+.btn {
+  font-weight: bold;
+  font-family: Verdana, sans-serif;
+}
+
 .comp-wrapper {
   margin-left: 12px;
   margin-right: 12px;
@@ -104,4 +109,31 @@ body {
 .fa-info, .fa-question-circle {
   color: #2b95e0;
   margin-right: 4px;
+}
+
+.overlay-base {
+  background: transparent;
+  transition: background 0.4s linear;
+}
+
+.overlay-base.overlay-backdrop {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  pointer-events: none;
+  min-height: 300px;
+  border-bottom-left-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+}
+
+.overlay-icon-wrapper {
+  position: absolute;
+  top: 250px;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.fa-spinner {
+  z-index: 10000;
 }

@@ -4,6 +4,10 @@ import Author from '@local/mock-backend/author/Author';
 import {EnrichedAuthor} from '@local/mock-backend/author/EnrichedAuthor';
 import AuthorTable from './author-table';
 import {enrichWithCalculatedFields} from '@local/mock-backend/author/author-util';
+import LoadingIndicatorWrapper from '../../shared/loading-indicator-wrapper';
+import {Paper} from '@mui/material';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faFilter} from '@fortawesome/free-solid-svg-icons';
 
 interface AuthorListState {
   authors: EnrichedAuthor[],
@@ -44,9 +48,28 @@ const AuthorList = () => {
   }
 
   return (
-      <div>
-        <h1>Author List</h1>
-        <AuthorTable authors={authorListState.authors} authorSelected={(author => handleAuthorSelected(author))}/>
+      <div className="comp-wrapper">
+        <Paper elevation={8} className="app-col">
+          <div className="p-2 ms-lg-3 title-row d-flex flex-wrap align-items-center justify-content-between">
+            <div className="d-flex align-items-center justify-content-between flex-wrap">
+              <div className="d-flex align-items-center">
+                <h1>Authors</h1>
+                <div className="input-group ms-2 ms-lg-5">
+                  <input className="form-control" placeholder="type to filter" aria-label="Filter"/>
+                  <span className="input-group-text"><FontAwesomeIcon icon={faFilter} size={'lg'}/></span>
+                </div>
+              </div>
+            </div>
+            <button className="btn btn-success btn-lg me-4">add Author</button>
+          </div>
+          <LoadingIndicatorWrapper loading={authorListState.authorsLoading}>
+            <div className="pb-3" style={{borderTop: "2px solid gray"}}>
+              <p className="mx-2 mx-lg-5 mt-0 mt-3 fs-5">
+                <AuthorTable authors={authorListState.authors} authorSelected={(author => handleAuthorSelected(author))}/>
+              </p>
+            </div>
+          </LoadingIndicatorWrapper>
+        </Paper>
       </div>
   );
 };

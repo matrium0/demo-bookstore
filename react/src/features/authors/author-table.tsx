@@ -55,48 +55,43 @@ const AuthorTable = (props: AuthorTableProps) => {
   }
 
   return (
-      <div>
-        <div>Author Table Component</div>
-        <div>{props.authors.length}</div>
-        <div>tablecontainer</div>
-        <TableContainer component={Paper}>
-          <Table sx={{minWidth: 650}} size="small" aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                {columns.map(h =>
-                    <TableCell key={h.field}>
-                      <TableSortLabel active={orderBy === h.field} direction={order}
-                                      onClick={createSortHandler(h.field)}>
-                        {h.headerName}
-                        {orderBy === h.field ? (
-                            <Box component="span" sx={visuallyHidden}>
-                              {getSortedByLabel(order)}
-                            </Box>
-                        ) : null}
-                      </TableSortLabel>
-                    </TableCell>
-                )}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {props.authors.slice().sort(getComparator(order, orderBy)).map((a: EnrichedAuthor) => (
-                  <TableRow
-                      key={a.id}
-                      sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                  >
-                    <TableCell component="th" scope="row">{a.firstname}</TableCell>
-                    <TableCell component="th" scope="row">{a.lastname}</TableCell>
-                    <TableCell component="th" scope="row">{a.gender}</TableCell>
-                    <TableCell component="th" scope="row">{String(a.penName)}</TableCell>
-                    <TableCell component="th" scope="row">{a.birthdate?.toFormat("dd.LL.yyyy")}</TableCell>
-                    <TableCell component="th" scope="row">{a.age}</TableCell>
-                    <TableCell component="th" scope="row">{a.dateOfDeath?.toFormat("dd.LL.yyyy")}</TableCell>
-                  </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div>
+      <TableContainer component={Paper}>
+        <Table sx={{minWidth: 650}} size="small" aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              {columns.map(h =>
+                  <TableCell key={h.field}>
+                    <TableSortLabel active={orderBy === h.field} direction={order}
+                                    onClick={createSortHandler(h.field)}>
+                      {h.headerName}
+                      {orderBy === h.field ? (
+                          <Box component="span" sx={visuallyHidden}>
+                            {getSortedByLabel(order)}
+                          </Box>
+                      ) : null}
+                    </TableSortLabel>
+                  </TableCell>
+              )}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {props.authors.slice().sort(getComparator(order, orderBy)).map((a: EnrichedAuthor) => (
+                <TableRow
+                    key={a.id}
+                    sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                >
+                  <TableCell component="th" scope="row">{a.firstname}</TableCell>
+                  <TableCell component="th" scope="row">{a.lastname}</TableCell>
+                  <TableCell component="th" scope="row">{a.gender}</TableCell>
+                  <TableCell component="th" scope="row">{String(a.penName)}</TableCell>
+                  <TableCell component="th" scope="row">{a.birthdate?.toFormat("dd.LL.yyyy")}</TableCell>
+                  <TableCell component="th" scope="row">{a.age}</TableCell>
+                  <TableCell component="th" scope="row">{a.dateOfDeath?.toFormat("dd.LL.yyyy")}</TableCell>
+                </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
   );
 };
 
