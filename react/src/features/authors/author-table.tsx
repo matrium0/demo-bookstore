@@ -79,6 +79,7 @@ const AuthorTable = (props: AuthorTableProps) => {
                   <TableRow
                       key={a.id}
                       sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                      className="selectable-table-row"
                   >
                     <TableCell component="th" scope="row">{a.firstname}</TableCell>
                     <TableCell component="th" scope="row">{a.lastname}</TableCell>

@@ -156,3 +156,8 @@ body {
   font-size: 0.9rem;
   color: rgba(0, 0, 0, .54) !important;
 }
+
+.selectable-table-row:hover {
+  background-color: #ffd200;
+  cursor: pointer;
+}
