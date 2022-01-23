@@ -14,7 +14,7 @@ interface AuthorTableProps {
 const AuthorTable = (props: AuthorTableProps) => {
   const [order, setOrder] = React.useState<"asc" | "desc">('asc');
   const [orderBy, setOrderBy] = React.useState('lastname');
-  const [width, height] = useWindowSize();
+  const [width] = useWindowSize();
 
   console.log("AuthorTable", props);
 
@@ -28,7 +28,6 @@ const AuthorTable = (props: AuthorTableProps) => {
     setOrderBy(property);
   };
 
-  //TODO responsive designs
   console.log("AuthorTable");
   const columns = [
     {field: 'firstname', headerName: 'FIRSTNAME', alwaysShow: true},
