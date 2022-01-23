@@ -43,8 +43,11 @@ const AuthorList = () => {
   }
 
   function handleAuthorSelected(author: EnrichedAuthor) {
-    console.log("handleAuthorSelected", author);
-    navigate("edit/4");
+    navigate("edit/" + author.id);
+  }
+
+  function navigateToNewAuthor() {
+    navigate("edit/new");
   }
 
   function loadAllAuthors() {
@@ -56,7 +59,6 @@ const AuthorList = () => {
           next: (results: Author[]) => {
             console.log("findAllAuthors SUCCESS", results);
             const enrichedAuthors = results.map(a => enrichWithCalculatedFields(a));
-            //TODO filter authors right away
             setAuthorListState({authors: enrichedAuthors, filteredAuthors: enrichedAuthors, authorsLoading: false});
           },
           error: (error: any) => {
@@ -78,7 +80,7 @@ const AuthorList = () => {
                 </div>
               </div>
             </div>
-            <button className="btn btn-success btn-lg me-4">add Author</button>
+            <button onClick={() => navigateToNewAuthor()} className="btn btn-success btn-lg me-4">add Author</button>
           </div>
           <LoadingIndicatorWrapper loading={authorListState.authorsLoading}>
             <div className="pb-3" style={{borderTop: "2px solid gray"}}>
