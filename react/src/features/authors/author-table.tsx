@@ -56,6 +56,10 @@ const AuthorTable = (props: AuthorTableProps) => {
         : (a: any, b: any) => -descendingComparator(a, b, field);
   }
 
+  function handleRowSelected(author: EnrichedAuthor) {
+    props.authorSelected(author);
+  }
+
   return (
       <>
         <TableContainer component={Paper}>
@@ -77,6 +81,7 @@ const AuthorTable = (props: AuthorTableProps) => {
             <TableBody>
               {props.authors.slice().sort(getComparator(order, orderBy)).map((a: EnrichedAuthor) => (
                   <TableRow
+                      onClick={() => handleRowSelected(a)}
                       key={a.id}
                       sx={{'&:last-child td, &:last-child th': {border: 0}}}
                       className="selectable-table-row"
