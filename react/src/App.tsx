@@ -10,6 +10,7 @@ import GlobalMessageDisplay from './shared/GlobalMessageDisplay';
 import YourBooks from './features/yourBooks/yourBooksList';
 import Library from './features/library/library';
 import AuthorList from './features/authors/author-list';
+import AuthorEdit from './features/authors/author-edit';
 
 function App() {
   console.log("App");
@@ -36,7 +37,10 @@ function App() {
               <Route path="/" element={<Home/>}/>
               <Route path="/your-books" element={<YourBooks/>}/>
               <Route path="/library" element={<Library/>}/>
-              <Route path="/authors" element={<AuthorList/>}/>
+              <Route path="/authors">
+                <Route path="" element={<AuthorList/>}/>
+                <Route path="edit/:id" element={<AuthorEdit/>}/>
+              </Route>
               <Route path="/ticTacToe" element={<TicTacToe/>}/>
             </Routes>
           </BrowserRouter>

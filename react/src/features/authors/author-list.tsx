@@ -8,6 +8,7 @@ import LoadingIndicatorWrapper from '../../shared/loading-indicator-wrapper';
 import {Paper} from '@mui/material';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faFilter} from '@fortawesome/free-solid-svg-icons';
+import {useNavigate} from 'react-router-dom';
 
 interface AuthorListState {
   authors: EnrichedAuthor[],
@@ -21,11 +22,9 @@ const defaultState: AuthorListState = {
   authorsLoading: false
 }
 
-function handleAuthorSelected(author: EnrichedAuthor) {
-  console.log("handleAuthorSelected", author);
-}
-
 const AuthorList = () => {
+
+  const navigate = useNavigate();
   const [authorListState, setAuthorListState] = useState(defaultState);
 
   useEffect(() => loadAllAuthors(), []);
@@ -43,6 +42,10 @@ const AuthorList = () => {
     })
   }
 
+  function handleAuthorSelected(author: EnrichedAuthor) {
+    console.log("handleAuthorSelected", author);
+    navigate("edit/4");
+  }
 
   function loadAllAuthors() {
     console.log("loadAllAuthors");
