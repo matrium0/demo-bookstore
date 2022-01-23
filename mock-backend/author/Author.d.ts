@@ -5,7 +5,7 @@ interface Author extends Entity {
     lastname: string;
     penName: boolean;
     fullRealName?: string;
-    gender: "MALE" | "FEMALE" | "NON-BINARY";
+    gender: "MALE" | "FEMALE" | "NON_BINARY";
     birthdate: DateTime;
     placeOfBirth: string;
     dateOfDeath?: DateTime;

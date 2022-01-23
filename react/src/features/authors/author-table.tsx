@@ -4,6 +4,7 @@ import {Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, Tabl
 import {visuallyHidden} from '@mui/utils';
 import {faCheck} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import GenderDisplay from '../../shared/GenderDisplay';
 
 interface AuthorTableProps {
   authors: EnrichedAuthor[];
@@ -24,15 +25,16 @@ const AuthorTable = (props: AuthorTableProps) => {
     setOrderBy(property);
   };
 
+  //TODO responsive designs
   console.log("AuthorTable");
   const columns = [
-    {field: 'firstname', headerName: 'Firstname'},
-    {field: 'lastname', headerName: 'Lastname'},
-    {field: 'gender', headerName: 'Gender'},
-    {field: 'penName', headerName: 'Pen Name'},
-    {field: 'birthdate', headerName: 'Birthdate'},
-    {field: 'age', headerName: 'age'},
-    {field: 'dateOfDeath', headerName: 'Date of Death'}
+    {field: 'firstname', headerName: 'FIRSTNAME'},
+    {field: 'lastname', headerName: 'LASTNAME'},
+    {field: 'gender', headerName: 'GENDER'},
+    {field: 'penName', headerName: 'PEN NAME'},
+    {field: 'birthdate', headerName: 'BIRTHDATE'},
+    {field: 'age', headerName: 'AGE'},
+    {field: 'dateOfDeath', headerName: 'DATE OF DEATH'}
   ];
 
   //TODO show spinner
@@ -84,11 +86,12 @@ const AuthorTable = (props: AuthorTableProps) => {
                 >
                   <TableCell component="th" scope="row">{a.firstname}</TableCell>
                   <TableCell component="th" scope="row">{a.lastname}</TableCell>
-                  <TableCell component="th" scope="row">{a.gender}</TableCell>
+                  <TableCell component="th" scope="row"><GenderDisplay gender={a.gender}/></TableCell>
                   <TableCell component="th" scope="row">{a.penName ? <FontAwesomeIcon icon={faCheck} size={'lg'}/> : ""}</TableCell>
-                  <TableCell component="th" scope="row">{a.birthdate?.toFormat("dd.LL.yyyy")}</TableCell>
+                  <TableCell component="th" scope="row">{a.birthdate?.toFormat("dd.LL.yyyy")} in {a.placeOfBirth}</TableCell>
                   <TableCell component="th" scope="row">{a.age}</TableCell>
-                  <TableCell component="th" scope="row">{a.dateOfDeath?.toFormat("dd.LL.yyyy")}</TableCell>
+                  <TableCell component="th"
+                             scope="row">{a.dateOfDeath ? (a.dateOfDeath?.toFormat("dd.LL.yyyy") + " in " + a.placeOfDeath) : ""}</TableCell>
                 </TableRow>
             ))}
           </TableBody>
