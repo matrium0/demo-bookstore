@@ -1,5 +1,5 @@
 interface Entity {
-  id: number
+  id?: number
 }
 
 export type {Entity};

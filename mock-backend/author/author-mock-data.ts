@@ -80,7 +80,7 @@ export function createOrUpdateAuthor(newElement: Author): Observable<Author> {
     let foundIndex = data.indexOf(existingElement[0]);
     data[foundIndex] = newElement;
   } else {
-    newElement.id = Math.max(...data.map(e => e.id)) + 1;
+    newElement.id = Math.max(...data.map(e => e.id!)) + 1;
     data.push(newElement);
   }
   return of(newElement);

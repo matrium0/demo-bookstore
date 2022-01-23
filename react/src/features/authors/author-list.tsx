@@ -19,14 +19,14 @@ interface AuthorListState {
 const defaultState: AuthorListState = {
   authors: [],
   filteredAuthors: [],
-  authorsLoading: false
+  authorsLoading: true
 }
 
 const AuthorList = () => {
 
   const navigate = useNavigate();
   const [authorListState, setAuthorListState] = useState(defaultState);
-
+ 
   useEffect(() => loadAllAuthors(), []);
 
   function handleFilterKeyup(event: SyntheticEvent) {

@@ -50,7 +50,7 @@ export class AuthorDetailComponent implements OnInit {
         console.log("loadAuthor SUCCESS", author);
         this.isLoading = false;
         this.author = enrichWithCalculatedFields(author);
-        this.imageUrl = this.authorService.createImageUrlFromBlob(author.foto);
+        this.imageUrl = this.authorService.createImageUrlFromBlob(author.foto!);
       },
       error: (error: HttpErrorResponse) => {
         this.globalMessageService.setAlertMessage("danger", "Unable to load Author: ", error);

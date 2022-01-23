@@ -1,24 +1,24 @@
 import {useParams} from 'react-router-dom';
 import {Paper} from '@mui/material';
 import LoadingIndicatorWrapper from '../../shared/loading-indicator-wrapper';
-import React, {useEffect, useState} from 'react';
+import React, {SyntheticEvent, useEffect, useState} from 'react';
 import Author from '@local/mock-backend/author/Author';
 import {findAuthorById} from '@local/mock-backend/author/author-mock-data';
 
 interface AuthorEditState {
   loading: boolean,
-  author?: Author
+  author: Author
 }
 
 const AuthorEdit = () => {
-  const [state, setState] = useState<AuthorEditState>({loading: false});
+  const [state, setState] = useState<AuthorEditState>({loading: true, author: {}});
   const {id} = useParams();
 
   useEffect(() => {
     function loadAuthor() {
       const authorId = Number(id);
       console.log("loadAuthor", authorId);
-      setState({loading: true});
+      setState({loading: true, author: {}});
 
       findAuthorById(authorId).subscribe(
           {
@@ -35,6 +35,15 @@ const AuthorEdit = () => {
     return loadAuthor();
   }, [id]);
 
+  function handleInputChange(event: SyntheticEvent) {
+    const target = event.target as HTMLInputElement;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    setState({
+      ...state, author: {...state.author, [name]: value},
+    });
+  }
 
   return (
       <div className="comp-wrapper">

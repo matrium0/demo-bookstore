@@ -61,11 +61,11 @@ export class AuthorEditComponent implements OnInit {
         this.isLoading = false;
         this.formGroup.patchValue(author);
         //TODO come back and check for fixes - this is just a workaround for a framework bug
-        this.formGroup.patchValue({birthdate: DateTime.fromJSDate(author.birthdate.toJSDate())});
+        this.formGroup.patchValue({birthdate: DateTime.fromJSDate(author.birthdate!.toJSDate())});
         if (author.dateOfDeath) {
           this.formGroup.patchValue({dateOfDeath: DateTime.fromJSDate(author.dateOfDeath.toJSDate())});
         }
-        this.imageUrl = this.imageService.createImageUrlFromBlob(author.foto);
+        this.imageUrl = this.imageService.createImageUrlFromBlob(author.foto!);
       },
       error: (error: HttpErrorResponse) => {
         this.globalMessageService.setAlertMessage("danger", "Unable to load Author: ", error);
