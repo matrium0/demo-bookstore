@@ -64,9 +64,7 @@ const AuthorList = () => {
           </div>
           <LoadingIndicatorWrapper loading={authorListState.authorsLoading}>
             <div className="pb-3" style={{borderTop: "2px solid gray"}}>
-              <p className="mx-2 mx-lg-5 mt-0 mt-3 fs-5">
-                <AuthorTable authors={authorListState.authors} authorSelected={(author => handleAuthorSelected(author))}/>
-              </p>
+              <AuthorTable authors={authorListState.authors} authorSelected={(author => handleAuthorSelected(author))}/>
             </div>
           </LoadingIndicatorWrapper>
         </Paper>

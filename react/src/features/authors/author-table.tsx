@@ -2,6 +2,8 @@ import React from 'react';
 import {EnrichedAuthor} from '@local/mock-backend/author/EnrichedAuthor';
 import {Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel} from '@mui/material';
 import {visuallyHidden} from '@mui/utils';
+import {faCheck} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 interface AuthorTableProps {
   authors: EnrichedAuthor[];
@@ -83,7 +85,7 @@ const AuthorTable = (props: AuthorTableProps) => {
                   <TableCell component="th" scope="row">{a.firstname}</TableCell>
                   <TableCell component="th" scope="row">{a.lastname}</TableCell>
                   <TableCell component="th" scope="row">{a.gender}</TableCell>
-                  <TableCell component="th" scope="row">{String(a.penName)}</TableCell>
+                  <TableCell component="th" scope="row">{a.penName ? <FontAwesomeIcon icon={faCheck} size={'lg'}/> : ""}</TableCell>
                   <TableCell component="th" scope="row">{a.birthdate?.toFormat("dd.LL.yyyy")}</TableCell>
                   <TableCell component="th" scope="row">{a.age}</TableCell>
                   <TableCell component="th" scope="row">{a.dateOfDeath?.toFormat("dd.LL.yyyy")}</TableCell>

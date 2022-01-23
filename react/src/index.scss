@@ -121,7 +121,8 @@ body {
   background: rgba(0, 0, 0, 0.3);
   z-index: 1000;
   pointer-events: none;
-  min-height: 300px;
+  //min-height: 300px;
+  min-height: calc(100vh - 200px);
   border-bottom-left-radius: 10px !important;
   border-bottom-right-radius: 10px !important;
 }
