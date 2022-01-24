@@ -6,7 +6,6 @@ import Author from '@local/mock-backend/author/Author';
 import {findAuthorById} from '@local/mock-backend/author/author-mock-data';
 import {DesktopDatePicker, LocalizationProvider} from '@mui/lab';
 import LuxonAdapter from "@date-io/luxon";
-import {DateTime} from 'luxon';
 
 interface AuthorEditState {
   loading: boolean,
@@ -114,8 +113,7 @@ const AuthorEdit = () => {
                                    required error={!!state.errors["placeOfBirth"]} helperText={state.errors["placeOfBirth"]}
                                    variant="outlined" className="w-100 mt-4"/>
 
-                        dateofdeath field is set: {state.author.dateOfDeath?.toFormat("dd.LL.yyyy")}
-                        <DesktopDatePicker value={state.author.dateOfDeath?.toJSDate()}
+                        <DesktopDatePicker value={state.author.dateOfDeath ? state.author.dateOfDeath.toJSDate() : null}
                                            onChange={(e) => changeStateField(false, "dateOfDeath", e)}
                                            mask="dd.LL.yyyy" inputFormat="dd.LL.yyyy"
                                            renderInput={(props) => (
