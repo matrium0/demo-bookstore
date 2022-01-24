@@ -1,3 +1,4 @@
+import 'react-quill/dist/quill.snow.css';
 import {useParams} from 'react-router-dom';
 import {Checkbox, Paper, TextField, ToggleButton, ToggleButtonGroup} from '@mui/material';
 import LoadingIndicatorWrapper from '../../shared/loading-indicator-wrapper';
@@ -7,6 +8,7 @@ import {findAuthorById} from '@local/mock-backend/author/author-mock-data';
 import {DatePicker, DesktopDatePicker, LocalizationProvider} from '@mui/lab';
 import LuxonAdapter from "@date-io/luxon";
 import GenderDisplay from '../../shared/GenderDisplay';
+import ReactQuill from 'react-quill';
 
 interface AuthorEditState {
   loading: boolean,
@@ -142,6 +144,18 @@ const AuthorEdit = () => {
                           <Checkbox id="pen-name" value={state.author.penName} onChange={handleInputChange}/>
                         </div>
                       </>
+                    </div>
+
+                    <div className="col-lg-6 pt-2">
+                      <h2 className="mt-lg-0 mb-2">Notes</h2>
+                      <ReactQuill value={state.author?.note} onChange={(value) => changeStateField(true, "note", value)}
+                                  theme="snow" modules={{
+                        toolbar: [
+                          ['bold', 'italic', 'underline'],
+                          [{'header': [1, 2, 3, 4, false]}],
+                        ]
+                      }                      }
+                      />
                     </div>
                   </div>
                 </div>
