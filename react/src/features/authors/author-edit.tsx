@@ -4,7 +4,7 @@ import LoadingIndicatorWrapper from '../../shared/loading-indicator-wrapper';
 import React, {SyntheticEvent, useEffect, useState} from 'react';
 import Author from '@local/mock-backend/author/Author';
 import {findAuthorById} from '@local/mock-backend/author/author-mock-data';
-import {DatePicker, DesktopDatePicker, LocalizationProvider} from '@mui/lab';
+import {DesktopDatePicker, LocalizationProvider} from '@mui/lab';
 import LuxonAdapter from "@date-io/luxon";
 
 interface AuthorEditState {
@@ -44,10 +44,17 @@ const AuthorEdit = () => {
     const target = event.target as HTMLInputElement;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
-    console.log("handleInputChange", name, value);
 
-    if (target.required && !value) {
+
+    changeStateField(target.required, name, value);
+  }
+
+  function changeStateField(required: boolean, name: string, value: any) {
+    console.log("changeStateField", name, value);
+
+    if ((required || name === "birthdate") && !value) {
       state.errors[name] = "Cannot be empty";
+      console.log("setting required error message");
     } else {
       state.errors[name] = null;
     }
@@ -55,6 +62,9 @@ const AuthorEdit = () => {
     setState({
       ...state, author: {...state.author, [name]: value},
     });
+
+    setTimeout(() =>
+        console.log(state), 500);
   }
 
   return (
@@ -81,22 +91,15 @@ const AuthorEdit = () => {
                                required error={!!state.errors["lastname"]} helperText={state.errors["lastname"]}
                                variant="outlined" className="w-100 mt-4"/>
                     <LocalizationProvider dateAdapter={LuxonAdapter}>
-                      <TextField name="birthdate" label="Birthdate" value={state.author.birthdate} onChange={handleInputChange}
-                                 required error={!!state.errors["birthdate"]} helperText={state.errors["birthdate"]}
-                                 variant="outlined" className="w-100 mt-4"/>
-
-
-                      {/*mask="dd.LL.yyyy"*/}
-                      <DatePicker
-                          value={state.author.birthdate}
-                          onChange={console.log}
-                          renderInput={(props) => (
-                              <TextField {...props} helperText="invalid mask" />
-                          )}
-                      />
-
-                      {/*<DesktopDatePicker value={state.author.birthdate} >*/}
-                      {/*</DesktopDatePicker>*/}
+                      <DesktopDatePicker value={state.author.birthdate?.toJSDate()} onChange={(e) => changeStateField(true, "birthdate", e)}
+                                         mask="dd.LL.yyyy" inputFormat="dd.LL.yyyy"
+                                         renderInput={(props) => (
+                                             <TextField {...props} required
+                                                        error={!!state.errors["birthdate"]}
+                                                        helperText={state.errors["birthdate"]}
+                                                        label="Birthdate" variant="outlined" className="w-100 mt-4"/>
+                                         )}>
+                      </DesktopDatePicker>
                     </LocalizationProvider>
                   </div>
                 </div>
