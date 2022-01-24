@@ -6,6 +6,7 @@ import Author from '@local/mock-backend/author/Author';
 import {findAuthorById} from '@local/mock-backend/author/author-mock-data';
 import {DesktopDatePicker, LocalizationProvider} from '@mui/lab';
 import LuxonAdapter from "@date-io/luxon";
+import {DateTime} from 'luxon';
 
 interface AuthorEditState {
   loading: boolean,
@@ -27,9 +28,13 @@ const AuthorEdit = () => {
 
       findAuthorById(authorId).subscribe(
           {
-            next: (results: Author) => {
-              console.log("findAuthorById SUCCESS", results);
-              setState({loading: false, author: results, errors: {}});
+            next: (a: Author) => {
+              console.log("findAuthorById SUCCESS", a);
+              if (!a.dateOfDeath) {
+                a.dateOfDeath = undefined;
+                // a.dateOfDeath = DateTime.local(2000,10,10);
+              }
+              setState({loading: false, author: a, errors: {}});
             },
             error: (error: any) => {
               console.log("findAuthorById ERROR", error);
@@ -45,7 +50,6 @@ const AuthorEdit = () => {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
-
     changeStateField(target.required, name, value);
   }
 
@@ -59,12 +63,16 @@ const AuthorEdit = () => {
       state.errors[name] = null;
     }
 
+    if (name === "dateOfDeath") {
+      console.log(name + ": " + value?.toFormat("dd.LL.yyyy"));
+    }
+
     setState({
       ...state, author: {...state.author, [name]: value},
     });
 
     setTimeout(() =>
-        console.log(state), 500);
+        console.log(state), 1000);
   }
 
   return (
@@ -91,15 +99,34 @@ const AuthorEdit = () => {
                                required error={!!state.errors["lastname"]} helperText={state.errors["lastname"]}
                                variant="outlined" className="w-100 mt-4"/>
                     <LocalizationProvider dateAdapter={LuxonAdapter}>
-                      <DesktopDatePicker value={state.author.birthdate?.toJSDate()} onChange={(e) => changeStateField(true, "birthdate", e)}
-                                         mask="dd.LL.yyyy" inputFormat="dd.LL.yyyy"
-                                         renderInput={(props) => (
-                                             <TextField {...props} required
-                                                        error={!!state.errors["birthdate"]}
-                                                        helperText={state.errors["birthdate"]}
-                                                        label="Birthdate" variant="outlined" className="w-100 mt-4"/>
-                                         )}>
-                      </DesktopDatePicker>
+                      <>
+                        <DesktopDatePicker value={state.author.birthdate?.toJSDate()}
+                                           onChange={(e) => changeStateField(true, "birthdate", e)}
+                                           mask="dd.LL.yyyy" inputFormat="dd.LL.yyyy"
+                                           renderInput={(props) => (
+                                               <TextField {...props} required
+                                                          error={!!state.errors["birthdate"]}
+                                                          helperText={state.errors["birthdate"]}
+                                                          label="Birthdate" variant="outlined" className="w-100 mt-4"/>
+                                           )}>
+                        </DesktopDatePicker>
+                        <TextField name="placeOfBirth" label="placeOfBirth" value={state.author.placeOfBirth} onChange={handleInputChange}
+                                   required error={!!state.errors["placeOfBirth"]} helperText={state.errors["placeOfBirth"]}
+                                   variant="outlined" className="w-100 mt-4"/>
+
+                        dateofdeath field is set: {state.author.dateOfDeath?.toFormat("dd.LL.yyyy")}
+                        <DesktopDatePicker value={state.author.dateOfDeath?.toJSDate()}
+                                           onChange={(e) => changeStateField(false, "dateOfDeath", e)}
+                                           mask="dd.LL.yyyy" inputFormat="dd.LL.yyyy"
+                                           renderInput={(props) => (
+                                               <TextField {...props}
+                                                          label="dateOfDeath" variant="outlined" className="w-100 mt-4"/>
+                                           )}>
+                        </DesktopDatePicker>
+                        <TextField name="placeOfDeath" label="placeOfDeath" value={state.author.placeOfDeath} onChange={handleInputChange}
+                                   error={!!state.errors["placeOfDeath"]} helperText={state.errors["placeOfDeath"]}
+                                   variant="outlined" className="w-100 mt-4"/>
+                      </>
                     </LocalizationProvider>
                   </div>
                 </div>
