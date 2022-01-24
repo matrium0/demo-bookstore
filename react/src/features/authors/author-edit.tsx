@@ -16,6 +16,7 @@ interface AuthorEditState {
   errors: {
     [key: string]: string | null
   }
+  imageUrl?: string
 }
 
 const AuthorEdit = () => {
@@ -32,11 +33,8 @@ const AuthorEdit = () => {
           {
             next: (a: Author) => {
               console.log("findAuthorById SUCCESS", a);
-              if (!a.dateOfDeath) {
-                a.dateOfDeath = undefined;
-                // a.dateOfDeath = DateTime.local(2000,10,10);
-              }
-              setState({loading: false, author: a, errors: {}});
+              const imageUrl = URL.createObjectURL(a.foto!);
+              setState({loading: false, author: a, errors: {}, imageUrl});
             },
             error: (error: any) => {
               console.log("findAuthorById ERROR", error);
@@ -75,6 +73,10 @@ const AuthorEdit = () => {
 
     setTimeout(() =>
         console.log(state), 1000);
+  }
+
+  function openFotoUploadDialog(){
+    console.log(openFotoUploadDialog);
   }
 
   return (
@@ -154,8 +156,20 @@ const AuthorEdit = () => {
                           ['bold', 'italic', 'underline'],
                           [{'header': [1, 2, 3, 4, false]}],
                         ]
-                      }                      }
+                      }}
                       />
+
+                      <div className="d-flex align-items-center mt-4 mt-lg-3">
+                        <h2 className="me-3">Foto</h2>
+                        <div className="text-danger fw-bold">You changed the foto - don't forget to save!</div>
+                        {/*TODO error handling*/}
+                        {/*<app-reactive-validation-display [control]="formGroup?.get('foto')"></app-reactive-validation-display>*/}
+                      </div>
+                      <div
+                          className="foto-wrapper col-sm-7 col-md-6 col-lg-5 col-xl-4 position-relative d-flex flex-column justify-content-center align-items-center">
+                        <img src={state?.imageUrl} className="author-foto-img" alt="Foto of the Author"/>
+                        <a onClick={openFotoUploadDialog} className="author-foto-change-link" role="button">{state.author.id ? 'change foto' : 'upload foto'}</a>
+                      </div>
                     </div>
                   </div>
                 </div>
