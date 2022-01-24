@@ -10,9 +10,9 @@ const GenderDisplay = (props: GenderDisplayProps) => {
 
   return (
       <>
-        {props.gender === "MALE" ? <><FontAwesomeIcon icon={faMars} size={'2x'}/> Male</> : ""}
-        {props.gender === "FEMALE" ? <><FontAwesomeIcon icon={faVenus} size={'2x'}/> Female</> : ""}
-        {props.gender === "NON_BINARY" ? <><FontAwesomeIcon icon={faTransgenderAlt} size={'2x'}/> Non-binary</> : ""}
+        {props.gender === "MALE" ? <><FontAwesomeIcon icon={faMars} size={'2x'} className="me-2"/> Male</> : ""}
+        {props.gender === "FEMALE" ? <><FontAwesomeIcon icon={faVenus} size={'2x'} className="me-2"/> Female</> : ""}
+        {props.gender === "NON_BINARY" ? <><FontAwesomeIcon icon={faTransgenderAlt} size={'2x'} className="me-2"/> Non-binary</> : ""}
       </>
   )
 }
