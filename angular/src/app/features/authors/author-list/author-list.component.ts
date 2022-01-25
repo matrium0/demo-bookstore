@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import Author from '@mock-backend/author/Author';
+import {Author}from '@mock-backend/author/Author';
 import {findAllAuthors} from '@mock-backend/author/author-mock-data';
 import {GlobalMessageService} from '@core/global-message.service';
 import {enrichWithCalculatedFields} from '@mock-backend/author/author-util';

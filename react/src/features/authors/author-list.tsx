@@ -1,6 +1,6 @@
 import React, {SyntheticEvent, useEffect, useState} from 'react';
 import {findAllAuthors} from '@local/mock-backend/author/author-mock-data';
-import Author from '@local/mock-backend/author/Author';
+import {Author}from '@local/mock-backend/author/Author';
 import {EnrichedAuthor} from '@local/mock-backend/author/EnrichedAuthor';
 import AuthorTable from './author-table';
 import {enrichWithCalculatedFields} from '@local/mock-backend/author/author-util';

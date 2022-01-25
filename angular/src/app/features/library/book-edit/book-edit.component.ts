@@ -9,7 +9,7 @@ import {ImageService} from '@app/features/authors/image.service';
 import {SafeUrl} from '@angular/platform-browser';
 import {ImageCropperDialogComponent} from '@app/features/authors/image-cropper-dialog/image-cropper-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
-import Author from '@mock-backend/author/Author';
+import {Author}from '@mock-backend/author/Author';
 import {findAllAuthors} from '@mock-backend/author/author-mock-data';
 import {Observable} from 'rxjs';
 import {enrichBookWithUserAssignments} from '@core/book-utils';

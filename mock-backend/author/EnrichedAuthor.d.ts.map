@@ -1,1 +1,1 @@
-{"version":3,"file":"EnrichedAuthor.d.ts","sourceRoot":"","sources":["EnrichedAuthor.ts"],"names":[],"mappings":"AAAA,OAAO,MAAM,MAAM,UAAU,CAAC;AAE9B,MAAM,WAAW,cAAe,SAAQ,MAAM;IAC5C,GAAG,EAAE,MAAM,CAAC;CACb"}
+{"version":3,"file":"EnrichedAuthor.d.ts","sourceRoot":"","sources":["EnrichedAuthor.ts"],"names":[],"mappings":"AAAA,OAAO,EAAC,MAAM,EAAC,MAAK,UAAU,CAAC;AAE/B,MAAM,WAAW,cAAe,SAAQ,MAAM;IAC5C,GAAG,EAAE,MAAM,CAAC;CACb"}

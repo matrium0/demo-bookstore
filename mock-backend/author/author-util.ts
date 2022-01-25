@@ -1,5 +1,5 @@
 import {DateTime} from 'luxon';
-import Author from './Author';
+import {Author}from './Author';
 import {EnrichedAuthor} from './EnrichedAuthor';
 
 export function enrichWithCalculatedFields(original: Author): EnrichedAuthor {

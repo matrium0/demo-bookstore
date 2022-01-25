@@ -15,10 +15,7 @@ import AuthorEdit from './features/authors/author-edit';
 function App() {
   console.log("App");
 
-  const [globalMessage, setGlobalMessage] = useState<GlobalMessage>({
-    message: "",
-    severity: "info"
-  });
+  const [globalMessage, setGlobalMessage] = useState<GlobalMessage>({message: "", severity: "info"});
 
   function handleSetGlobalMessage(globalMessage: GlobalMessage | null) {
     if (globalMessage) {
@@ -37,7 +34,7 @@ function App() {
             <Route path="/" element={<Home/>}/>
             <Route path="/your-books" element={<YourBooks/>}/>
             <Route path="/library" element={<Library/>}/>
-            <Route path="/authors">
+            <Route path="/author">
               <Route path="" element={<AuthorList/>}/>
               <Route path="edit/:id" element={<AuthorEdit/>}/>
             </Route>

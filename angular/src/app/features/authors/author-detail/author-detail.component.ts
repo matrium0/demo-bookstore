@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import Author from '@mock-backend/author/Author';
+import {Author}from '@mock-backend/author/Author';
 import {ActivatedRoute, Router} from '@angular/router';
 import {findAuthorById} from '@mock-backend/author/author-mock-data';
 import {enrichWithCalculatedFields} from '@mock-backend/author/author-util';

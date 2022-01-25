@@ -1,14 +1,16 @@
 import 'react-quill/dist/quill.snow.css';
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {Checkbox, Paper, TextField, ToggleButton, ToggleButtonGroup} from '@mui/material';
 import LoadingIndicatorWrapper from '../../shared/loading-indicator-wrapper';
 import React, {SyntheticEvent, useEffect, useState} from 'react';
-import Author from '@local/mock-backend/author/Author';
+import {Author} from '@local/mock-backend/author/Author';
 import {findAuthorById} from '@local/mock-backend/author/author-mock-data';
 import {DatePicker, DesktopDatePicker, LocalizationProvider} from '@mui/lab';
 import LuxonAdapter from "@date-io/luxon";
 import GenderDisplay from '../../shared/GenderDisplay';
 import ReactQuill from 'react-quill';
+import {GlobalMessage} from '../../shared/GlobalMessageContext';
+
 
 interface AuthorEditState {
   loading: boolean,
@@ -22,9 +24,18 @@ interface AuthorEditState {
 const AuthorEdit = () => {
   const [state, setState] = useState<AuthorEditState>({loading: true, author: {}, errors: {}});
   const {id} = useParams();
+  const navigate = useNavigate();
+  const [globalMessage_, setGlobalMessage] = useState<GlobalMessage>({message: "", severity: "info"});
 
   useEffect(() => {
+    console.log("useEffect");
+
     function loadAuthor() {
+      if (id === "new") {
+        setState({loading: false, author: {}, errors: {}});
+        return;
+      }
+
       const authorId = Number(id);
       console.log("loadAuthor", authorId);
       setState({loading: true, author: {}, errors: {}});
@@ -54,14 +65,9 @@ const AuthorEdit = () => {
   }
 
   function changeStateField(required: boolean, name: string, value: any) {
-    console.log("changeStateField", name, value);
+    console.log("changeStateField", required, name, value);
 
-    if ((required || name === "birthdate") && !value) {
-      state.errors[name] = "Cannot be empty";
-      console.log("setting required error message");
-    } else {
-      state.errors[name] = null;
-    }
+    validateFieldAndSetErrorIfNecessary(required, name, value);
 
     if (name === "dateOfDeath") {
       console.log(name + ": " + value?.toFormat("dd.LL.yyyy"));
@@ -75,8 +81,45 @@ const AuthorEdit = () => {
       console.log(state), 1000);
   }
 
+  function validateFieldAndSetErrorIfNecessary(required: boolean, name: string, value: any) {
+    if ((required || name === "birthdate") && !value) {
+      state.errors[name] = "Cannot be empty";
+      console.log("setting required error message");
+    } else {
+      state.errors[name] = null;
+    }
+    setState({
+      ...state
+    });
+  }
+
   function openFotoUploadDialog() {
     console.log(openFotoUploadDialog);
+  }
+
+  function navigateBackToAuthorList() {
+    console.log("navigateBackToAuthorList");
+    navigate("/author");
+  }
+
+  function saveAndNavigateToDetail() {
+    console.log("saveAndNavigateToDetail", state.author);
+
+    const requiredFields = ["firstname", "lastname", "gender", "birthdate", "placeOfBirth", "foto"];
+    for (const key of requiredFields) {
+      const isRequiredField = requiredFields.includes(key);
+      validateFieldAndSetErrorIfNecessary(isRequiredField, key, state.author[key as keyof Author]);
+    }
+
+    const errorPresent = Object.values(state.errors).some(v => v);
+
+    console.log(errorPresent);
+    console.log("result of validating all fields: ", state.errors);
+
+    if (!errorPresent) {
+      setGlobalMessage({message: "Author saved", severity: "success"});
+      navigate("/author");
+    }
   }
 
   return (
@@ -92,89 +135,95 @@ const AuthorEdit = () => {
             <button className="btn btn-danger btn-lg me-4">delete</button>
           </div>
           <LoadingIndicatorWrapper loading={state.loading}>
-            <form>
-              <div className="pb-3" style={{borderTop: "2px solid gray"}}>
-                <div className="row mx-3 gx-0 gx-lg-5">
-                  <div className="col-lg-6 pt-2">
-                    <h2 className="mb-2">Personal Data</h2>
-                    <TextField name="firstname" label="Firstname" value={state.author.firstname} onChange={handleInputChange}
-                               required error={!!state.errors["firstname"]} helperText={state.errors["firstname"]}
-                               variant="outlined" className="w-100"/>
-                    <TextField name="lastname" label="Lastname" value={state.author.lastname} onChange={handleInputChange}
-                               required error={!!state.errors["lastname"]} helperText={state.errors["lastname"]}
+            <div className="pb-3" style={{borderTop: "2px solid gray"}}>
+              <div className="row mx-3 gx-0 gx-lg-5">
+                <div className="col-lg-6 pt-2">
+                  <h2 className="mb-2">Personal Data</h2>
+                  <TextField name="firstname" label="Firstname" value={state.author.firstname} onChange={handleInputChange}
+                             required error={!!state.errors["firstname"]} helperText={state.errors["firstname"]}
+                             variant="outlined" className="w-100"/>
+                  <TextField name="lastname" label="Lastname" value={state.author.lastname} onChange={handleInputChange}
+                             required error={!!state.errors["lastname"]} helperText={state.errors["lastname"]}
+                             variant="outlined" className="w-100 mt-4"/>
+                  <>
+                    <DatePicker value={state.author.birthdate?.toJSDate()} onChange={(e) => changeStateField(true, "birthdate", e)}
+                                mask="dd.LL.yyyy" inputFormat="dd.LL.yyyy"
+                                renderInput={(props) => (
+                                  <TextField {...props} required label="Birthdate"
+                                             error={!!state.errors["birthdate"]} helperText={state.errors["birthdate"]}
+                                             variant="outlined" className="w-100 mt-4"/>
+                                )}>
+                    </DatePicker>
+                    <TextField name="placeOfBirth" label="Place of birth" value={state.author.placeOfBirth} onChange={handleInputChange}
+                               required error={!!state.errors["placeOfBirth"]} helperText={state.errors["placeOfBirth"]}
                                variant="outlined" className="w-100 mt-4"/>
-                    <>
-                      <DatePicker value={state.author.birthdate?.toJSDate()}
-                                  onChange={(e) => changeStateField(true, "birthdate", e)}
-                                  mask="dd.LL.yyyy" inputFormat="dd.LL.yyyy"
-                                  renderInput={(props) => (
-                                    <TextField {...props} required
-                                               error={!!state.errors["birthdate"]}
-                                               helperText={state.errors["birthdate"]}
-                                               label="Birthdate" variant="outlined" className="w-100 mt-4"/>
-                                  )}>
-                      </DatePicker>
-                      <TextField name="placeOfBirth" label="Place of birth" value={state.author.placeOfBirth} onChange={handleInputChange}
-                                 required error={!!state.errors["placeOfBirth"]} helperText={state.errors["placeOfBirth"]}
-                                 variant="outlined" className="w-100 mt-4"/>
 
-                      <DesktopDatePicker value={state.author.dateOfDeath ? state.author.dateOfDeath.toJSDate() : null}
-                                         onChange={(e) => changeStateField(false, "dateOfDeath", e)}
-                                         mask="dd.LL.yyyy" inputFormat="dd.LL.yyyy"
-                                         renderInput={(props) => (
-                                           <TextField {...props}
-                                                      label="Date of death" variant="outlined" className="w-100 mt-4"/>
-                                         )}>
-                      </DesktopDatePicker>
-                      <TextField name="placeOfDeath" label="Place of Death" value={state.author.placeOfDeath} onChange={handleInputChange}
-                                 error={!!state.errors["placeOfDeath"]} helperText={state.errors["placeOfDeath"]}
-                                 variant="outlined" className="w-100 mt-4"/>
+                    <DesktopDatePicker value={state.author.dateOfDeath ? state.author.dateOfDeath.toJSDate() : null}
+                                       onChange={(e) => changeStateField(false, "dateOfDeath", e)}
+                                       mask="dd.LL.yyyy" inputFormat="dd.LL.yyyy"
+                                       renderInput={(props) => (
+                                         <TextField {...props}
+                                                    label="Date of death" variant="outlined" className="w-100 mt-4"/>
+                                       )}>
+                    </DesktopDatePicker>
+                    <TextField name="placeOfDeath" label="Place of Death" value={state.author.placeOfDeath} onChange={handleInputChange}
+                               error={!!state.errors["placeOfDeath"]} helperText={state.errors["placeOfDeath"]}
+                               variant="outlined" className="w-100 mt-4"/>
 
-                      <div className="d-flex align-items-center mt-4">
-                        <label className="me-3">Gender</label>
-                        <ToggleButtonGroup value={state.author.gender} exclusive
-                                           onChange={(_$event, value) => changeStateField(true, "gender", value)}
-                        >
-                          <ToggleButton value="MALE"><GenderDisplay gender="MALE"/></ToggleButton>
-                          <ToggleButton value="FEMALE"><GenderDisplay gender="FEMALE"/></ToggleButton>
-                          <ToggleButton value="NON_BINARY"><GenderDisplay gender="NON_BINARY"/></ToggleButton>
-                        </ToggleButtonGroup>
-                      </div>
+                    <div className="d-flex align-items-center mt-4">
+                      <label className="me-3">Gender</label>
+                      <ToggleButtonGroup value={state.author.gender} exclusive
+                                         onChange={(_$event, value) => changeStateField(true, "gender", value)}
+                      >
+                        <ToggleButton value="MALE"><GenderDisplay gender="MALE"/></ToggleButton>
+                        <ToggleButton value="FEMALE"><GenderDisplay gender="FEMALE"/></ToggleButton>
+                        <ToggleButton value="NON_BINARY"><GenderDisplay gender="NON_BINARY"/></ToggleButton>
+                      </ToggleButtonGroup>
+                    </div>
 
-                      <div className="d-flex align-items-center mt-2">
-                        <label htmlFor="pen-name">Pen name</label>
-                        <Checkbox id="pen-name" value={state.author.penName} onChange={handleInputChange}/>
-                      </div>
-                    </>
+                    <div className="d-flex align-items-center mt-2">
+                      <label htmlFor="pen-name">Pen name</label>
+                      <Checkbox id="pen-name" value={state.author.penName} onChange={handleInputChange}/>
+                    </div>
+                  </>
+                </div>
+
+                <div className="col-lg-6 pt-2">
+                  <h2 className="mt-lg-0 mb-2">Notes</h2>
+                  <ReactQuill value={state.author?.note} onChange={(value) => changeStateField(true, "note", value)}
+                              theme="snow" modules={{
+                    toolbar: [
+                      ['bold', 'italic', 'underline'],
+                      [{'header': [1, 2, 3, 4, false]}],
+                    ]
+                  }}
+                  />
+
+                  <div className="d-flex align-items-center mt-4 mt-lg-3">
+                    <h2 className="me-3">Foto</h2>
+                    <div className="text-danger fw-bold">You changed the foto - don't forget to save!</div>
+                    {/*TODO error handling*/}
+                    {/*<app-reactive-validation-display [control]="formGroup?.get('foto')"></app-reactive-validation-display>*/}
                   </div>
-
-                  <div className="col-lg-6 pt-2">
-                    <h2 className="mt-lg-0 mb-2">Notes</h2>
-                    <ReactQuill value={state.author?.note} onChange={(value) => changeStateField(true, "note", value)}
-                                theme="snow" modules={{
-                      toolbar: [
-                        ['bold', 'italic', 'underline'],
-                        [{'header': [1, 2, 3, 4, false]}],
-                      ]
-                    }}
-                    />
-
-                    <div className="d-flex align-items-center mt-4 mt-lg-3">
-                      <h2 className="me-3">Foto</h2>
-                      <div className="text-danger fw-bold">You changed the foto - don't forget to save!</div>
-                      {/*TODO error handling*/}
-                      {/*<app-reactive-validation-display [control]="formGroup?.get('foto')"></app-reactive-validation-display>*/}
-                    </div>
-                    <div
-                      className="foto-wrapper col-sm-7 col-md-6 col-lg-5 col-xl-4 position-relative d-flex flex-column justify-content-center align-items-center">
-                      <img src={state?.imageUrl} className="author-foto-img" alt="Foto of the Author"/>
-                      <a onClick={openFotoUploadDialog} className="author-foto-change-link"
-                         role="button">{state.author.id ? 'change foto' : 'upload foto'}</a>
-                    </div>
+                  <div
+                    className="foto-wrapper col-sm-7 col-md-6 col-lg-5 col-xl-4 position-relative d-flex flex-column justify-content-center align-items-center">
+                    <img src={state?.imageUrl} className="author-foto-img" alt="Foto of the Author"/>
+                    <a onClick={openFotoUploadDialog} className="author-foto-change-link"
+                       role="button">{state.author.id ? 'change foto' : 'upload foto'}</a>
                   </div>
                 </div>
               </div>
-            </form>
+            </div>
+            <div className="row mt-3">
+              <div className="col-12 px-4 px-lg-5 mb-3 d-flex align-items-center justify-content-between ">
+                <button onClick={() => navigateBackToAuthorList()} className="btn btn-secondary btn-lg">
+                  cancel
+                </button>
+                <button onClick={() => saveAndNavigateToDetail()} className="btn btn-success btn-lg px-4">
+                  save
+                </button>
+              </div>
+            </div>
           </LoadingIndicatorWrapper>
         </Paper>
       </div>

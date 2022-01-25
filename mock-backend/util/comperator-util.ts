@@ -7,15 +7,15 @@ function compare(a: EnrichedAuthor, b: EnrichedAuthor, sortDirection: "asc" | "d
     case 'age':
       return compareFields(a.age, b.age, isAsc);
     case 'firstname':
-      return compareFields(a.firstname, b.firstname, isAsc);
+      return compareFields(a.firstname!, b.firstname!, isAsc);
     case 'lastname':
-      return compareFields(a.lastname, b.lastname, isAsc);
+      return compareFields(a.lastname!, b.lastname!, isAsc);
     case 'penName':
-      return booleanCompare(a.penName, b.penName, isAsc);
+      return booleanCompare(a.penName!, b.penName!, isAsc);
     case 'birthdate':
       return dateCompare(a.birthdate, b.birthdate, isAsc);
     case 'gender':
-      return compareFields(a.gender, b.gender, isAsc);
+      return compareFields(a.gender!, b.gender!, isAsc);
     case 'dateOfDeath':
       return dateCompare(a.dateOfDeath, b.dateOfDeath, isAsc);
     default:

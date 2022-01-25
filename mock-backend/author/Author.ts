@@ -1,7 +1,7 @@
 import {Entity} from './Entity';
 import {DateTime} from 'luxon';
 
-class Author implements Entity {
+export class Author implements Entity {
   id?: number;
   firstname?: string;
   lastname?: string;
@@ -17,5 +17,3 @@ class Author implements Entity {
   genre?: string;
   foto?: Blob;
 }
-
-export default Author;
