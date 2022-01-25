@@ -4,7 +4,7 @@ import {Checkbox, Paper, TextField, ToggleButton, ToggleButtonGroup} from '@mui/
 import LoadingIndicatorWrapper from '../../shared/loading-indicator-wrapper';
 import React, {SyntheticEvent, useEffect, useState} from 'react';
 import {Author} from '@local/mock-backend/author/Author';
-import {findAuthorById} from '@local/mock-backend/author/author-mock-data';
+import {createOrUpdateAuthor, findAuthorById} from '@local/mock-backend/author/author-mock-data';
 import {DatePicker, DesktopDatePicker, LocalizationProvider} from '@mui/lab';
 import LuxonAdapter from "@date-io/luxon";
 import GenderDisplay from '../../shared/GenderDisplay';
@@ -112,13 +112,20 @@ const AuthorEdit = () => {
     }
 
     const errorPresent = Object.values(state.errors).some(v => v);
-
-    console.log(errorPresent);
-    console.log("result of validating all fields: ", state.errors);
-
     if (!errorPresent) {
-      setGlobalMessage({message: "Author saved", severity: "success"});
-      navigate("/author");
+
+      createOrUpdateAuthor(state.author).subscribe(
+        {
+          next: (a: Author) => {
+            console.log("createOrUpdateAuthor SUCCESS", a);
+            setGlobalMessage({message: "Author saved", severity: "success"});
+            navigate("/author");
+          },
+          error: (error: any) => {
+            console.log("createOrUpdateAuthor ERROR", error);
+            setGlobalMessage({message: "Error saving Author", severity: "danger"});
+          }
+        });
     }
   }
 
