@@ -23,7 +23,7 @@ interface AuthorEditState {
 
 const defaultState: AuthorEditState = {
   loading: true, author: {
-    firstname: "a",
+    firstname: "",
     lastname: "",
     penName: false,
     gender: "MALE",
@@ -166,47 +166,47 @@ const AuthorEdit = () => {
                   <TextField name="lastname" label="Lastname" value={state.author.lastname} onChange={handleInputChange}
                              required error={!!state.errors["lastname"]} helperText={state.errors["lastname"]}
                              variant="outlined" className="w-100 mt-4"/>
-                  <>
-                    <DatePicker value={state.author.birthdate?.toJSDate()} onChange={(e) => changeStateField(true, "birthdate", e)}
-                                mask="dd.LL.yyyy" inputFormat="dd.LL.yyyy"
-                                renderInput={(props) => (
-                                  <TextField {...props} required label="Birthdate"
-                                             error={!!state.errors["birthdate"]} helperText={state.errors["birthdate"]}
-                                             variant="outlined" className="w-100 mt-4"/>
-                                )}>
-                    </DatePicker>
-                    <TextField name="placeOfBirth" label="Place of birth" value={state.author.placeOfBirth} onChange={handleInputChange}
-                               required error={!!state.errors["placeOfBirth"]} helperText={state.errors["placeOfBirth"]}
-                               variant="outlined" className="w-100 mt-4"/>
 
-                    <DesktopDatePicker value={state.author.dateOfDeath ? state.author.dateOfDeath.toJSDate() : null}
-                                       onChange={(e) => changeStateField(false, "dateOfDeath", e)}
-                                       mask="dd.LL.yyyy" inputFormat="dd.LL.yyyy"
-                                       renderInput={(props) => (
-                                         <TextField {...props}
-                                                    label="Date of death" variant="outlined" className="w-100 mt-4"/>
-                                       )}>
-                    </DesktopDatePicker>
-                    <TextField name="placeOfDeath" label="Place of Death" value={state.author.placeOfDeath || ""} onChange={handleInputChange}
-                               error={!!state.errors["placeOfDeath"]} helperText={state.errors["placeOfDeath"]}
-                               variant="outlined" className="w-100 mt-4"/>
+                  <DatePicker value={state.author.birthdate ? state.author.birthdate.toJSDate() : null}
+                              onChange={(e) => changeStateField(true, "birthdate", e)}
+                              mask="dd.LL.yyyy" inputFormat="dd.LL.yyyy"
+                              renderInput={(props) => (
+                                <TextField {...props} required label="Birthdate"
+                                           error={!!state.errors["birthdate"]} helperText={state.errors["birthdate"]}
+                                           variant="outlined" className="w-100 mt-4"/>
+                              )}>
+                  </DatePicker>
+                  <TextField name="placeOfBirth" label="Place of birth" value={state.author.placeOfBirth} onChange={handleInputChange}
+                             required error={!!state.errors["placeOfBirth"]} helperText={state.errors["placeOfBirth"]}
+                             variant="outlined" className="w-100 mt-4"/>
 
-                    <div className="d-flex align-items-center mt-4">
-                      <label className="me-3">Gender</label>
-                      <ToggleButtonGroup value={state.author.gender} exclusive
-                                         onChange={(_$event, value) => changeStateField(true, "gender", value)}
-                      >
-                        <ToggleButton value="MALE"><GenderDisplay gender="MALE"/></ToggleButton>
-                        <ToggleButton value="FEMALE"><GenderDisplay gender="FEMALE"/></ToggleButton>
-                        <ToggleButton value="NON_BINARY"><GenderDisplay gender="NON_BINARY"/></ToggleButton>
-                      </ToggleButtonGroup>
-                    </div>
+                  <DesktopDatePicker value={state.author.dateOfDeath ? state.author.dateOfDeath.toJSDate() : null}
+                                     onChange={(e) => changeStateField(false, "dateOfDeath", e)}
+                                     mask="dd.LL.yyyy" inputFormat="dd.LL.yyyy"
+                                     renderInput={(props) => (
+                                       <TextField {...props}
+                                                  label="Date of death" variant="outlined" className="w-100 mt-4"/>
+                                     )}>
+                  </DesktopDatePicker>
+                  <TextField name="placeOfDeath" label="Place of Death" value={state.author.placeOfDeath || ""} onChange={handleInputChange}
+                             error={!!state.errors["placeOfDeath"]} helperText={state.errors["placeOfDeath"]}
+                             variant="outlined" className="w-100 mt-4"/>
 
-                    <div className="d-flex align-items-center mt-2">
-                      <label htmlFor="pen-name">Pen name</label>
-                      <Checkbox id="pen-name" value={state.author.penName} onChange={handleInputChange}/>
-                    </div>
-                  </>
+                  <div className="d-flex align-items-center mt-4">
+                    <label className="me-3">Gender</label>
+                    <ToggleButtonGroup value={state.author.gender} exclusive
+                                       onChange={(_$event, value) => changeStateField(true, "gender", value)}
+                    >
+                      <ToggleButton value="MALE"><GenderDisplay gender="MALE"/></ToggleButton>
+                      <ToggleButton value="FEMALE"><GenderDisplay gender="FEMALE"/></ToggleButton>
+                      <ToggleButton value="NON_BINARY"><GenderDisplay gender="NON_BINARY"/></ToggleButton>
+                    </ToggleButtonGroup>
+                  </div>
+
+                  <div className="d-flex align-items-center mt-2">
+                    <label htmlFor="pen-name">Pen name</label>
+                    <Checkbox id="pen-name" value={state.author.penName} onChange={handleInputChange}/>
+                  </div>
                 </div>
 
                 <div className="col-lg-6 pt-2">
@@ -222,13 +222,14 @@ const AuthorEdit = () => {
 
                   <div className="d-flex align-items-center mt-4 mt-lg-3">
                     <h2 className="me-3">Foto</h2>
+                    {/*//TODO conditional show this  message*/}
                     <div className="text-danger fw-bold">You changed the foto - don't forget to save!</div>
                     {/*TODO error handling*/}
                     {/*<app-reactive-validation-display [control]="formGroup?.get('foto')"></app-reactive-validation-display>*/}
                   </div>
                   <div
                     className="foto-wrapper col-sm-7 col-md-6 col-lg-5 col-xl-4 position-relative d-flex flex-column justify-content-center align-items-center">
-                    <img src={state?.imageUrl} className="author-foto-img" alt="Foto of the Author"/>
+                    {state.imageUrl && <img src={state?.imageUrl} className="author-foto-img" alt="Foto of the Author"/>}
                     <a onClick={openFotoUploadDialog} className="author-foto-change-link"
                        role="button">{state.author.id ? 'change foto' : 'upload foto'}</a>
                   </div>
