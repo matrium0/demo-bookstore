@@ -21,8 +21,20 @@ interface AuthorEditState {
   imageUrl?: string
 }
 
+const defaultState: AuthorEditState = {
+  loading: true, author: {
+    firstname: "a",
+    lastname: "",
+    penName: false,
+    gender: "MALE",
+    placeOfBirth: "",
+    birthdate: undefined,
+    placeOfDeath: undefined,
+  }, errors: {}
+}
+
 const AuthorEdit = () => {
-  const [state, setState] = useState<AuthorEditState>({loading: true, author: {}, errors: {}});
+  const [state, setState] = useState<AuthorEditState>(defaultState);
   const {id} = useParams();
   const navigate = useNavigate();
   const [globalMessage_, setGlobalMessage] = useState<GlobalMessage>({message: "", severity: "info"});
@@ -32,13 +44,13 @@ const AuthorEdit = () => {
 
     function loadAuthor() {
       if (id === "new") {
-        setState({loading: false, author: {}, errors: {}});
+        setState({...defaultState, loading: false});
         return;
       }
 
       const authorId = Number(id);
       console.log("loadAuthor", authorId);
-      setState({loading: true, author: {}, errors: {}});
+      setState({...defaultState, loading: true, author: {}, errors: {}});
 
       findAuthorById(authorId).subscribe(
         {
@@ -57,6 +69,7 @@ const AuthorEdit = () => {
   }, [id]);
 
   function handleInputChange(event: SyntheticEvent) {
+    //TODO fix textarea bug (input jumps to start on type)
     const target = event.target as HTMLInputElement;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
@@ -82,6 +95,7 @@ const AuthorEdit = () => {
   }
 
   function validateFieldAndSetErrorIfNecessary(required: boolean, name: string, value: any) {
+    //TODO vdalidate dates and display error message
     if ((required || name === "birthdate") && !value) {
       state.errors[name] = "Cannot be empty";
       console.log("setting required error message");
@@ -173,7 +187,7 @@ const AuthorEdit = () => {
                                                     label="Date of death" variant="outlined" className="w-100 mt-4"/>
                                        )}>
                     </DesktopDatePicker>
-                    <TextField name="placeOfDeath" label="Place of Death" value={state.author.placeOfDeath} onChange={handleInputChange}
+                    <TextField name="placeOfDeath" label="Place of Death" value={state.author.placeOfDeath || ""} onChange={handleInputChange}
                                error={!!state.errors["placeOfDeath"]} helperText={state.errors["placeOfDeath"]}
                                variant="outlined" className="w-100 mt-4"/>
 
