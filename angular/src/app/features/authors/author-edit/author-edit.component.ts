@@ -42,14 +42,14 @@ export class AuthorEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(
-        params => {
-          const id = params['id'];
-          if (id === "new") {
-            this.isLoading = false;
-          } else {
-            this.loadAuthor(Number(id));
-          }
+      params => {
+        const id = params['id'];
+        if (id === "new") {
+          this.isLoading = false;
+        } else {
+          this.loadAuthor(Number(id));
         }
+      }
     )
   }
 
@@ -85,14 +85,14 @@ export class AuthorEditComponent implements OnInit {
     if (this.formGroup.valid) {
       console.log('save', this.formGroup.value);
       createOrUpdateAuthor(this.formGroup.getRawValue()).subscribe(
-          (author: Author) => {
-            console.log('createOrUpdateAuthor SUCCESS', author);
-            this.router.navigate(['/author/' + author.id]).then();
-            this.globalMessageService.setAlertMessage("info", "Author saved!");
-          }, (error: any) => {
-            console.log("saveHero ERROR", error);
-            this.globalMessageService.setAlertMessage("danger", "Author saving failed", error);
-          });
+        (author: Author) => {
+          console.log('createOrUpdateAuthor SUCCESS', author);
+          this.router.navigate(['/author/' + author.id]).then();
+          this.globalMessageService.setAlertMessage("info", "Author saved!");
+        }, (error: any) => {
+          console.log("saveHero ERROR", error);
+          this.globalMessageService.setAlertMessage("danger", "Author saving failed", error);
+        });
     } else {
       console.log('formgroup is not valid', this.formGroup);
       this.formGroup.markAllAsTouched();
@@ -101,19 +101,19 @@ export class AuthorEditComponent implements OnInit {
 
   openFotoUploadDialog(): void {
     this.matDialog
-        .open(ImageCropperDialogComponent, {height: "550px"})
-        .afterClosed()
-        .subscribe((imageBlob: Blob) => {
-          if (imageBlob) {
-            console.log("image chosen", imageBlob);
-            this.imageUrl = this.imageService.createImageUrlFromBlob(imageBlob);
-            this.formGroup.patchValue({foto: imageBlob})
-            console.log("this.imageUrl ", this.imageUrl);
-            if (this.formGroup.get("id")?.value) {
-              this.displaySaveReminder = true;
-            }
+      .open(ImageCropperDialogComponent, {height: "550px"})
+      .afterClosed()
+      .subscribe((imageBlob: Blob) => {
+        if (imageBlob) {
+          console.log("image chosen", imageBlob);
+          this.imageUrl = this.imageService.createImageUrlFromBlob(imageBlob);
+          this.formGroup.patchValue({foto: imageBlob})
+          console.log("this.imageUrl ", this.imageUrl);
+          if (this.formGroup.get("id")?.value) {
+            this.displaySaveReminder = true;
           }
-        });
+        }
+      });
   }
 
   get fullname() {
@@ -123,17 +123,17 @@ export class AuthorEditComponent implements OnInit {
   deleteAuthor() {
     console.log("deleteAuthor");
     deleteAuthor(Number(this.formGroup.get("id")?.value)).subscribe({
-          next: () => {
-            console.log("deleteAuthor SUCCESS");
-            this.router.navigate(["/author"])
-            this.globalMessageService.setAlertMessage("info", "Successfully deleted " + this.fullname);
-          },
-          error: (error: HttpErrorResponse) => {
-            console.log("deleteAuthor ERROR", error);
-            this.globalMessageService.setAlertMessage("danger", "Unable to delete Author: ", error);
-          }
-
+        next: () => {
+          console.log("deleteAuthor SUCCESS");
+          this.router.navigate(["/author"])
+          this.globalMessageService.setAlertMessage("info", "Successfully deleted " + this.fullname);
+        },
+        error: (error: HttpErrorResponse) => {
+          console.log("deleteAuthor ERROR", error);
+          this.globalMessageService.setAlertMessage("danger", "Unable to delete Author: ", error);
         }
+
+      }
     );
 
   }

@@ -12,10 +12,10 @@ import {ReactiveValidationDisplayComponent} from './reactive-validation-display/
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {ConfirmationDirective} from './confirmation-dialog/confirmation.directive';
 import {ConfirmationDialogComponent} from './confirmation-dialog/confirmation-dialog.component';
-import { BookCardComponent } from './book-card/book-card.component';
-import { BookDetailComponent } from './book-detail/book-detail.component';
-import { BookDetailDialogWrapperComponent } from './book-detail-dialog-wrapper/book-detail-dialog-wrapper.component';
-import { IsInLibraryMarkerComponent } from './is-in-library-marker/is-in-library-marker.component';
+import {BookCardComponent} from './book-card/book-card.component';
+import {BookDetailComponent} from './book-detail/book-detail.component';
+import {BookDetailDialogWrapperComponent} from './book-detail-dialog-wrapper/book-detail-dialog-wrapper.component';
+import {IsInLibraryMarkerComponent} from './is-in-library-marker/is-in-library-marker.component';
 
 
 @NgModule({

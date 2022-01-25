@@ -23,27 +23,27 @@ function GlobalMessageDisplay() {
   //TODO must also be provider??? (to close the message)
   // <GlobalMessageContext.Provider value={{message: null, messageDetail: null, severity: null}}>
   return (
-      <div className="global-messages">
-        {context.message?.length > 0 &&
-            <div role="alert"
-                 className={"alert alert-" + context.severity + " d-flex justify-content-between align-items-center"}>
-              <div className="d-flex flex-column">
-                <div>
-                  {context.message}
-                </div>
-                <div>
-                  {context.messageDetail &&
-                      <div className="small-message">
-                        {context.messageDetail}
-                      </div>
-                  }
-                </div>
-              </div>
-              <FontAwesomeIcon id="global-message-icon" onClick={() => closeMessage()} icon={faTimes} size={'lg'}
-                               className="ms-3 cursor-pointer"/>
+    <div className="global-messages">
+      {context.message?.length > 0 &&
+        <div role="alert"
+             className={"alert alert-" + context.severity + " d-flex justify-content-between align-items-center"}>
+          <div className="d-flex flex-column">
+            <div>
+              {context.message}
             </div>
-        }
-      </div>
+            <div>
+              {context.messageDetail &&
+                <div className="small-message">
+                  {context.messageDetail}
+                </div>
+              }
+            </div>
+          </div>
+          <FontAwesomeIcon id="global-message-icon" onClick={() => closeMessage()} icon={faTimes} size={'lg'}
+                           className="ms-3 cursor-pointer"/>
+        </div>
+      }
+    </div>
   );
 
   function closeMessage() {

@@ -61,14 +61,14 @@ export class GlobalMessageService {
     if (rootMessage.indexOf('propertyPath') !== -1) {
       // full array of hibernate-validator generated constraint violations
       message +=
-          rootMessage.substring(rootMessage.indexOf('propertyPath=') + 13, rootMessage.indexOf(', rootBeanClass')) + ' ';
+        rootMessage.substring(rootMessage.indexOf('propertyPath=') + 13, rootMessage.indexOf(', rootBeanClass')) + ' ';
     }
 
     if (rootMessage.indexOf('interpolatedMessage') !== -1) {
       // full array of hibernate-validator generated constraint violations
       message += rootMessage.substring(
-          rootMessage.indexOf(`interpolatedMessage='`) + 21,
-          rootMessage.indexOf(`', propertyPath`)
+        rootMessage.indexOf(`interpolatedMessage='`) + 21,
+        rootMessage.indexOf(`', propertyPath`)
       );
     }
 

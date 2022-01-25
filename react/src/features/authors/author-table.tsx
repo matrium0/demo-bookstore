@@ -52,8 +52,8 @@ const AuthorTable = (props: AuthorTableProps) => {
 
   function getComparator(direction: string, field: string) {
     return direction === 'desc'
-        ? (a: any, b: any) => descendingComparator(a, b, field)
-        : (a: any, b: any) => -descendingComparator(a, b, field);
+      ? (a: any, b: any) => descendingComparator(a, b, field)
+      : (a: any, b: any) => -descendingComparator(a, b, field);
   }
 
   function handleRowSelected(author: EnrichedAuthor) {
@@ -61,49 +61,49 @@ const AuthorTable = (props: AuthorTableProps) => {
   }
 
   return (
-      <>
-        <TableContainer component={Paper}>
-          <Table size="small" aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                {columns.map(h =>
-                    <TableCell key={h.field} sx={{display: ((!h.alwaysShow && width <= 800) ? "none" : "table-cell")}}>
-                      <TableSortLabel active={orderBy === h.field} direction={order}
-                                      onClick={createSortHandler(h.field)}>
-                        <Box component="span" sx={{display: "box"}}>
-                          {h.headerName}
-                        </Box>
-                      </TableSortLabel>
-                    </TableCell>
-                )}
+    <>
+      <TableContainer component={Paper}>
+        <Table size="small" aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              {columns.map(h =>
+                <TableCell key={h.field} sx={{display: ((!h.alwaysShow && width <= 800) ? "none" : "table-cell")}}>
+                  <TableSortLabel active={orderBy === h.field} direction={order}
+                                  onClick={createSortHandler(h.field)}>
+                    <Box component="span" sx={{display: "box"}}>
+                      {h.headerName}
+                    </Box>
+                  </TableSortLabel>
+                </TableCell>
+              )}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {props.authors.slice().sort(getComparator(order, orderBy)).map((a: EnrichedAuthor) => (
+              <TableRow
+                onClick={() => handleRowSelected(a)}
+                key={a.id}
+                sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                className="selectable-table-row"
+              >
+                <TableCell component="th" scope="row">{a.firstname}</TableCell>
+                <TableCell component="th" scope="row">{a.lastname}</TableCell>
+                <TableCell component="th" scope="row" sx={{display: ((width <= 800) ? "none" : "table-cell")}}><GenderDisplay
+                  gender={a.gender!}/></TableCell>
+                <TableCell component="th" scope="row" sx={{display: ((width <= 800) ? "none" : "table-cell")}}>{a.penName ?
+                  <FontAwesomeIcon icon={faCheck} size={'lg'}/> : ""}</TableCell>
+                <TableCell component="th" scope="row"
+                           sx={{display: ((width <= 800) ? "none" : "table-cell")}}>{a.birthdate?.toFormat("dd.LL.yyyy")} in {a.placeOfBirth}</TableCell>
+                <TableCell component="th" scope="row" sx={{display: ((width <= 800) ? "none" : "table-cell")}}>{a.age}</TableCell>
+                <TableCell component="th" scope="row" sx={{display: ((width <= 800) ? "none" : "table-cell")}}>
+                  {a.dateOfDeath ? (a.dateOfDeath?.toFormat("dd.LL.yyyy") + " in " + a.placeOfDeath) : ""}
+                </TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {props.authors.slice().sort(getComparator(order, orderBy)).map((a: EnrichedAuthor) => (
-                  <TableRow
-                      onClick={() => handleRowSelected(a)}
-                      key={a.id}
-                      sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                      className="selectable-table-row"
-                  >
-                    <TableCell component="th" scope="row">{a.firstname}</TableCell>
-                    <TableCell component="th" scope="row">{a.lastname}</TableCell>
-                    <TableCell component="th" scope="row" sx={{display: ((width <= 800) ? "none" : "table-cell")}}><GenderDisplay
-                        gender={a.gender!}/></TableCell>
-                    <TableCell component="th" scope="row" sx={{display: ((width <= 800) ? "none" : "table-cell")}}>{a.penName ?
-                        <FontAwesomeIcon icon={faCheck} size={'lg'}/> : ""}</TableCell>
-                    <TableCell component="th" scope="row"
-                               sx={{display: ((width <= 800) ? "none" : "table-cell")}}>{a.birthdate?.toFormat("dd.LL.yyyy")} in {a.placeOfBirth}</TableCell>
-                    <TableCell component="th" scope="row" sx={{display: ((width <= 800) ? "none" : "table-cell")}}>{a.age}</TableCell>
-                    <TableCell component="th" scope="row" sx={{display: ((width <= 800) ? "none" : "table-cell")}}>
-                      {a.dateOfDeath ? (a.dateOfDeath?.toFormat("dd.LL.yyyy") + " in " + a.placeOfDeath) : ""}
-                    </TableCell>
-                  </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 };
 

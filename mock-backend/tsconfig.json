@@ -4,11 +4,14 @@
     "module": "es2015",
     "declaration": true,
     "declarationMap": true,
-    // "outDir": "./",               
+    // "outDir": "./",
     "rootDir": ".",
     "composite": true,
     "strict": true,
     "moduleResolution": "node",
-    "lib": ["es2020", "dom"]
+    "lib": [
+      "es2020",
+      "dom"
+    ]
   }
 }

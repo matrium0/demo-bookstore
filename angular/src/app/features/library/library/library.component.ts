@@ -33,17 +33,17 @@ export class LibraryComponent implements OnInit {
     console.log("LibraryComponent ngOnInit");
 
     this.filteredBooks$ = combineLatest([this.filterByName$, this.showAllSelectFilter$, findAllBooks()]).pipe(
-        map((combination: any) => {
-          const filterTerm = combination[0].toLowerCase();
-          const showAllSelectFilter = combination[1];
-          let allBooks = combination[2].map((b: Book) => enrichBookWithUserAssignments(b, this.userService.authentication$.getValue()));
-          console.log("filtering by \"" + filterTerm + "\"", showAllSelectFilter, allBooks.length);
-          if (showAllSelectFilter === 'HIDE_YOUR_BOOKS') {
-            allBooks = allBooks.filter((book: EnrichedBook) => !(findUserBookAssignmentsForUser(this.userService.authentication$.getValue()).map(b => b.bookId).includes(book.id)))
-          }
+      map((combination: any) => {
+        const filterTerm = combination[0].toLowerCase();
+        const showAllSelectFilter = combination[1];
+        let allBooks = combination[2].map((b: Book) => enrichBookWithUserAssignments(b, this.userService.authentication$.getValue()));
+        console.log("filtering by \"" + filterTerm + "\"", showAllSelectFilter, allBooks.length);
+        if (showAllSelectFilter === 'HIDE_YOUR_BOOKS') {
+          allBooks = allBooks.filter((book: EnrichedBook) => !(findUserBookAssignmentsForUser(this.userService.authentication$.getValue()).map(b => b.bookId).includes(book.id)))
+        }
 
-          return allBooks.filter((b: EnrichedBook) => b.title.toLocaleLowerCase().includes(filterTerm));
-        }),
+        return allBooks.filter((b: EnrichedBook) => b.title.toLocaleLowerCase().includes(filterTerm));
+      }),
     );
   }
 

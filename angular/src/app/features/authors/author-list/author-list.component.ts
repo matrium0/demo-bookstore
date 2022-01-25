@@ -40,8 +40,8 @@ export class AuthorListComponent implements OnInit {
   filter(term: string) {
     console.log("filter", term);
     this.filteredAuthors = this.authors?.filter(a =>
-        (a.firstname + " " + a.lastname).toLocaleLowerCase().includes(term) ||
-        (a.lastname + " " + a.firstname).toLocaleLowerCase().includes(term)
+      (a.firstname + " " + a.lastname).toLocaleLowerCase().includes(term) ||
+      (a.lastname + " " + a.firstname).toLocaleLowerCase().includes(term)
     );
   }
 

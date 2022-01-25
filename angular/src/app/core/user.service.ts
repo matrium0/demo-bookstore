@@ -8,5 +8,6 @@ export class UserService {
 
   authentication$ = new BehaviorSubject("your-username");
 
-  constructor() { }
+  constructor() {
+  }
 }

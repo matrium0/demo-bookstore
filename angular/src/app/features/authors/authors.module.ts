@@ -18,7 +18,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {QuillModule} from 'ngx-quill';
 import {ImageCropperDialogComponent} from './image-cropper-dialog/image-cropper-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import { AuthorDetailComponent } from './author-detail/author-detail.component';
+import {AuthorDetailComponent} from './author-detail/author-detail.component';
 
 @NgModule({
   declarations: [

@@ -16,7 +16,7 @@ export class BookDetailComponent implements OnInit {
   imageUrl?: SafeUrl;
 
   @Output()
-  openBookEditPage =new EventEmitter<void>();
+  openBookEditPage = new EventEmitter<void>();
 
   constructor(private imageService: ImageService) {
   }

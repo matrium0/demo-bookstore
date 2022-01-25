@@ -26,34 +26,34 @@ export class BookEditComponent implements OnInit {
   imageUrl?: SafeUrl;
   authors$?: Observable<Author[]>;
   formGroup = new FormGroup({
-        id: new FormControl(null),
-        title: new FormControl(null, Validators.required),
-        subtitle: new FormControl(null),
-        firstPublished: new FormControl(null, Validators.required),
-        series: new FormControl(null),
-        numberWithinSeries: new FormControl(null),
-        genre: new FormControl(null, Validators.required),
+      id: new FormControl(null),
+      title: new FormControl(null, Validators.required),
+      subtitle: new FormControl(null),
+      firstPublished: new FormControl(null, Validators.required),
+      series: new FormControl(null),
+      numberWithinSeries: new FormControl(null),
+      genre: new FormControl(null, Validators.required),
 
-        authorFullName: new FormControl(null, Validators.required),
-        authorId: new FormControl(null, Validators.required),
+      authorFullName: new FormControl(null, Validators.required),
+      authorId: new FormControl(null, Validators.required),
 
-        description: new FormControl(null, Validators.required),
-        image: new FormControl(null, Validators.required),
-      }
+      description: new FormControl(null, Validators.required),
+      image: new FormControl(null, Validators.required),
+    }
   );
   displaySaveReminder = false;
 
   constructor(private activatedRoute: ActivatedRoute, private globalMessageService: GlobalMessageService,
               private imageService: ImageService, private router: Router, private matDialog: MatDialog, private userService: UserService) {
     this.activatedRoute.params.subscribe(
-        params => {
-          const id = params['id'];
-          if (id === "new") {
-            this.isLoading = false;
-          } else {
-            this.loadBook(Number(id));
-          }
+      params => {
+        const id = params['id'];
+        if (id === "new") {
+          this.isLoading = false;
+        } else {
+          this.loadBook(Number(id));
         }
+      }
     )
   }
 
@@ -94,16 +94,16 @@ export class BookEditComponent implements OnInit {
   deleteBook() {
     console.log("deleteBook");
     deleteBook(Number(this.id)).subscribe({
-          next: () => {
-            console.log("deleteBook SUCCESS");
-            this.router.navigate(["/library"])
-            this.globalMessageService.setAlertMessage("info", "Successfully deleted " + this.title);
-          },
-          error: (error: HttpErrorResponse) => {
-            console.log("deleteBook ERROR", error);
-            this.globalMessageService.setAlertMessage("danger", "Unable to delete Book: ", error);
-          }
+        next: () => {
+          console.log("deleteBook SUCCESS");
+          this.router.navigate(["/library"])
+          this.globalMessageService.setAlertMessage("info", "Successfully deleted " + this.title);
+        },
+        error: (error: HttpErrorResponse) => {
+          console.log("deleteBook ERROR", error);
+          this.globalMessageService.setAlertMessage("danger", "Unable to delete Book: ", error);
         }
+      }
     );
   }
 
@@ -117,14 +117,14 @@ export class BookEditComponent implements OnInit {
     if (this.formGroup.valid) {
       console.log('save', this.formGroup.value);
       createOrUpdateBook(this.formGroup.getRawValue()).subscribe(
-          (book: Book) => {
-            console.log('createOrUpdateBook SUCCESS', book);
-            history.back();
-            this.globalMessageService.setAlertMessage("info", "Book added to Library!");
-          }, (error: any) => {
-            console.log("createOrUpdateBook ERROR", error);
-            this.globalMessageService.setAlertMessage("danger", "Book saving failed", error);
-          });
+        (book: Book) => {
+          console.log('createOrUpdateBook SUCCESS', book);
+          history.back();
+          this.globalMessageService.setAlertMessage("info", "Book added to Library!");
+        }, (error: any) => {
+          console.log("createOrUpdateBook ERROR", error);
+          this.globalMessageService.setAlertMessage("danger", "Book saving failed", error);
+        });
     } else {
       console.log('formgroup is not valid', this.formGroup);
       this.formGroup.markAllAsTouched();
@@ -133,19 +133,19 @@ export class BookEditComponent implements OnInit {
 
   openFotoUploadDialog() {
     this.matDialog
-        .open(ImageCropperDialogComponent, {height: "550px"})
-        .afterClosed()
-        .subscribe((imageBlob: Blob) => {
-          if (imageBlob) {
-            console.log("image chosen", imageBlob);
-            this.imageUrl = this.imageService.createImageUrlFromBlob(imageBlob);
-            this.formGroup.patchValue({image: imageBlob})
-            console.log("this.imageUrl ", this.imageUrl);
-            if (this.formGroup.get("id")?.value) {
-              this.displaySaveReminder = true;
-            }
+      .open(ImageCropperDialogComponent, {height: "550px"})
+      .afterClosed()
+      .subscribe((imageBlob: Blob) => {
+        if (imageBlob) {
+          console.log("image chosen", imageBlob);
+          this.imageUrl = this.imageService.createImageUrlFromBlob(imageBlob);
+          this.formGroup.patchValue({image: imageBlob})
+          console.log("this.imageUrl ", this.imageUrl);
+          if (this.formGroup.get("id")?.value) {
+            this.displaySaveReminder = true;
           }
-        });
+        }
+      });
   }
 
   clearInputIfNoAuthorWasSelected($event: FocusEvent, allAuthors?: Author[] | null) {

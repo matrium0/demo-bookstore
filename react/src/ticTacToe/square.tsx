@@ -11,9 +11,9 @@ class Square extends React.Component<SquareProps> {
   render() {
     console.log("Square");
     return (
-        <button className="square" onClick={this.props.onClick}>
-          {this.props.displayCharacter}
-        </button>
+      <button className="square" onClick={this.props.onClick}>
+        {this.props.displayCharacter}
+      </button>
     );
   }
 }

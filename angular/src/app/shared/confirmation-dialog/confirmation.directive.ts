@@ -1,7 +1,7 @@
-import { Directive, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationDialogComponent, ConfirmDialogData } from './confirmation-dialog.component';
-import { DomSanitizer } from '@angular/platform-browser';
+import {Directive, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {ConfirmationDialogComponent, ConfirmDialogData} from './confirmation-dialog.component';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Directive({
   selector: '[appConfirmation]',
@@ -18,7 +18,8 @@ export class ConfirmationDirective implements OnInit {
 
   @Output() confirm: EventEmitter<void> = new EventEmitter();
 
-  constructor(private matDialog: MatDialog, private domSanitizer: DomSanitizer) {}
+  constructor(private matDialog: MatDialog, private domSanitizer: DomSanitizer) {
+  }
 
   @HostListener('click')
   togglePopover(): void {
@@ -41,7 +42,7 @@ export class ConfirmationDirective implements OnInit {
       cancelButtonText: this.cancelButtonText,
     };
     this.matDialog
-      .open(ConfirmationDialogComponent, { data, autoFocus: false })
+      .open(ConfirmationDialogComponent, {data, autoFocus: false})
       .afterClosed()
       .subscribe((result) => {
         if (result) {

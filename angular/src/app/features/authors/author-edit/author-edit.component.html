@@ -4,7 +4,7 @@
       <h1 *ngIf="!isLoading && !formGroup.get('id')?.value">New Author</h1>
       <h1 *ngIf="!isLoading && formGroup.get('id')?.value">
         <span class="d-none d-lg-inline h1">Author: </span>
-        <span  class="h1">{{fullname}}</span>
+        <span class="h1">{{fullname}}</span>
       </h1>
       <button *ngIf="formGroup.get('id')?.value" (confirm)="deleteAuthor()" class="btn btn-danger btn-lg me-2 me-lg-4"
               appConfirmation confirmTitle="Delete Author" confirmButtonText="delete" confirmButtonType="danger"

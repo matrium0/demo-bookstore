@@ -14,25 +14,25 @@ const TicTacToe = () => {
   console.log("TicTacToe", appState);
 
   return (
-      <div className="mt-5">
-        <div className="col-lg-6 d-flex flex-column justify-content-center align-items-center mt-4">
+    <div className="mt-5">
+      <div className="col-lg-6 d-flex flex-column justify-content-center align-items-center mt-4">
 
-          <GameBoard currentBoardState={appState.boardHistory[appState.boardHistory.length - 1]}
-                     squarePicked={(i: number) => handleSquarePicked(i)}
-          />
-          {errorMessage !== "" && <div className="text-danger">{errorMessage}</div>}
+        <GameBoard currentBoardState={appState.boardHistory[appState.boardHistory.length - 1]}
+                   squarePicked={(i: number) => handleSquarePicked(i)}
+        />
+        {errorMessage !== "" && <div className="text-danger">{errorMessage}</div>}
 
-          {appState.boardHistory.length > 1 && !appState.gameFinished &&
-              <button onClick={moveStateBack} className="mt-4 btn btn-primary">jump back</button>
-          }
-          <div style={{marginTop: 20}}>
-            Status: {appState.gameStatusMessage}
-          </div>
-          <div style={{marginTop: 20}}>
-            {appState.gameFinished && <button onClick={startNewGame} className="btn btn-primary">start new game</button>}
-          </div>
+        {appState.boardHistory.length > 1 && !appState.gameFinished &&
+          <button onClick={moveStateBack} className="mt-4 btn btn-primary">jump back</button>
+        }
+        <div style={{marginTop: 20}}>
+          Status: {appState.gameStatusMessage}
+        </div>
+        <div style={{marginTop: 20}}>
+          {appState.gameFinished && <button onClick={startNewGame} className="btn btn-primary">start new game</button>}
         </div>
       </div>
+    </div>
   );
 
   function startNewGame() {

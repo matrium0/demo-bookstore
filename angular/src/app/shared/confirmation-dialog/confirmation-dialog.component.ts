@@ -18,8 +18,8 @@ export interface ConfirmDialogData {
 })
 export class ConfirmationDialogComponent {
   constructor(
-      @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogData,
-      public dialogRef: MatDialogRef<ConfirmationDialogComponent>
+    @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogData,
+    public dialogRef: MatDialogRef<ConfirmationDialogComponent>
   ) {
   }
 

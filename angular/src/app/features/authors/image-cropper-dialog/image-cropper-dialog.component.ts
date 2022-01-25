@@ -29,8 +29,8 @@ export class ImageCropperDialogComponent {
   };
 
   constructor(
-      private changeDetectorRef: ChangeDetectorRef,
-      public dialogRef: MatDialogRef<ImageCropperDialogComponent>
+    private changeDetectorRef: ChangeDetectorRef,
+    public dialogRef: MatDialogRef<ImageCropperDialogComponent>
   ) {
   }
 
@@ -40,13 +40,13 @@ export class ImageCropperDialogComponent {
     const cropperHiddenElement: any = document.querySelector('.cropper-hidden');
     if (cropperHiddenElement) {
       cropperHiddenElement.cropper.getCroppedCanvas().toBlob(
-          (blob: Blob) => {
-            this.imageBlob = blob;
-            this.croppedImageReady = true;
-            this.changeDetectorRef.detectChanges();
-          },
-          'image/jpeg',
-          0.8
+        (blob: Blob) => {
+          this.imageBlob = blob;
+          this.croppedImageReady = true;
+          this.changeDetectorRef.detectChanges();
+        },
+        'image/jpeg',
+        0.8
       );
     }
   }

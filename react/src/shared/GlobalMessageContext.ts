@@ -11,11 +11,11 @@ interface GlobalMessageContextType extends GlobalMessage {
 }
 
 const GlobalMessageContext = React.createContext<GlobalMessageContextType>({
-      message: "irrelevant default",
-      severity: "info",
-      setMessage: (a) => {
-      }
+    message: "irrelevant default",
+    severity: "info",
+    setMessage: (a) => {
     }
+  }
 );
 
 export {GlobalMessageContext};
