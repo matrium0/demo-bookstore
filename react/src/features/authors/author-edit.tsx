@@ -10,6 +10,7 @@ import LuxonAdapter from "@date-io/luxon";
 import GenderDisplay from '../../shared/GenderDisplay';
 import ReactQuill from 'react-quill';
 import {GlobalMessage} from '../../shared/GlobalMessageContext';
+import UploadImageDialog from './upload-image-dialog';
 
 
 interface AuthorEditState {
@@ -18,11 +19,13 @@ interface AuthorEditState {
   errors: {
     [key: string]: string | null
   }
-  imageUrl?: string
+  imageUrl?: string,
+  showImageUploadDialog: boolean
 }
 
 const defaultState: AuthorEditState = {
-  loading: true, author: {
+  loading: true,
+  author: {
     firstname: "",
     lastname: "",
     penName: false,
@@ -30,7 +33,9 @@ const defaultState: AuthorEditState = {
     placeOfBirth: "",
     birthdate: undefined,
     placeOfDeath: undefined,
-  }, errors: {}
+  },
+  errors: {},
+  showImageUploadDialog: false //TODO change back to false
 }
 
 const AuthorEdit = () => {
@@ -57,7 +62,7 @@ const AuthorEdit = () => {
           next: (a: Author) => {
             console.log("findAuthorById SUCCESS", a);
             const imageUrl = URL.createObjectURL(a.foto!);
-            setState({loading: false, author: a, errors: {}, imageUrl});
+            setState({loading: false, author: a, errors: {}, showImageUploadDialog: false, imageUrl});
           },
           error: (error: any) => {
             console.log("findAuthorById ERROR", error);
@@ -109,6 +114,7 @@ const AuthorEdit = () => {
 
   function openFotoUploadDialog() {
     console.log(openFotoUploadDialog);
+    setState({...state, showImageUploadDialog: true});
   }
 
   function navigateBackToAuthorList() {
@@ -143,15 +149,21 @@ const AuthorEdit = () => {
     }
   }
 
+  function handleImageAcceptedInDialog(image: Blob | null) {
+    console.log("handleImageAcceptedInDialog", image);
+    setState({...state, showImageUploadDialog: false});
+  }
+
   return (
     <LocalizationProvider dateAdapter={LuxonAdapter}>
       <div className="comp-wrapper">
         <Paper elevation={8} className="app-col">
           <div className="p-2 ms-lg-3 title-row d-flex flex-wrap align-items-center justify-content-between">
             <div className="d-flex align-items-center justify-content-between flex-wrap">
-              <div className="d-flex align-items-center">
-                <h1>Author: {state.author?.firstname} {state.author?.lastname}</h1>
-              </div>
+              <h1>
+                {!state.author.id && !state.loading && "New Author"}
+                {state.author.id && "Author: " + state.author?.firstname + " " + state.author?.lastname}
+              </h1>
             </div>
             <button className="btn btn-danger btn-lg me-4">delete</button>
           </div>
@@ -249,6 +261,7 @@ const AuthorEdit = () => {
           </LoadingIndicatorWrapper>
         </Paper>
       </div>
+      <UploadImageDialog show={state.showImageUploadDialog} closeImageUploadDialog={(image) => handleImageAcceptedInDialog(image)}/>
     </LocalizationProvider>
   )
 }
