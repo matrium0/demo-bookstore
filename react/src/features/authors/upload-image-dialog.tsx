@@ -17,6 +17,7 @@ interface UploadImageDialogState {
 const UploadImageDialog = (props: UploadImageDialogProps) => {
   const [state, setState] = useState<UploadImageDialogState>({});
   const cropperRef = useRef<HTMLImageElement>(null);
+
   const onCrop = () => {
     const imageElement: any = cropperRef?.current;
     const cropper: any = imageElement?.cropper;
@@ -26,13 +27,6 @@ const UploadImageDialog = (props: UploadImageDialogProps) => {
       setState({...state, blob});
     })
   };
-  // cropperHiddenElement.cropper.getCroppedCanvas().toBlob(
-  //   (blob: Blob) => {
-  //     this.imageBlob = blob;
-
-  function acceptFileAndCloseDialog() {
-    return undefined;
-  }
 
   function handleFileUpload(event: ChangeEvent) {
     console.log("handleFileUpload")
@@ -54,9 +48,7 @@ const UploadImageDialog = (props: UploadImageDialogProps) => {
             return;
           }
           setState({imageUrl: ev.target.result})
-
-          // this.imageUrl = ev.target.result;
-          // setTimeout(() => this.createCropper(), 0);
+          setTimeout(() => onCrop(), 100);
         };
       }
     }
