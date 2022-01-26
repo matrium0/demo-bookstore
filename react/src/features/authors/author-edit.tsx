@@ -35,7 +35,7 @@ const defaultState: AuthorEditState = {
     placeOfDeath: undefined,
   },
   errors: {},
-  showImageUploadDialog: false //TODO change back to false
+  showImageUploadDialog: true //TODO change back to false as default
 }
 
 const AuthorEdit = () => {
@@ -149,9 +149,11 @@ const AuthorEdit = () => {
     }
   }
 
-  function handleImageAcceptedInDialog(image: Blob | null) {
+  function handleImageAcceptedInDialog(image?: Blob) {
     console.log("handleImageAcceptedInDialog", image);
-    setState({...state, showImageUploadDialog: false});
+    if (image) {
+      setState({...state, showImageUploadDialog: false, author: {...state.author, foto: image}, imageUrl: URL.createObjectURL(image)});
+    }
   }
 
   return (
