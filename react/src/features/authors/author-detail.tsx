@@ -1,6 +1,6 @@
 import 'react-quill/dist/quill.snow.css';
 import "./author-detail.scss";
-import React, {memo, useContext, useEffect, useState} from 'react';
+import React, {memo, useContext, useEffect, useRef, useState} from 'react';
 import {Author} from '@local/mock-backend/author/Author';
 import {EnrichedAuthor} from '@local/mock-backend/author/EnrichedAuthor';
 import {Book} from '@local/mock-backend/book/Book';
@@ -27,8 +27,10 @@ const AuthorDetail = () => {
   console.log("AuthorDetail");
   const [state, setState] = useState<AuthorDetailState>({author: {}, loading: true, booksLoading: true});
   const {id} = useParams();
-  const globalMessageContext = useContext(GlobalMessageContext);
   const navigate = useNavigate();
+  const globalMessageContext = useContext(GlobalMessageContext);
+  const globalMessageContextRef = useRef(globalMessageContext);
+
   useEffect(() => {
     const authorId = Number(id);
     loadAuthor();
@@ -55,7 +57,7 @@ const AuthorDetail = () => {
           },
           error: (error: any) => {
             console.log("findAuthorById ERROR", error);
-            globalMessageContext.setMessage({message: "Error loading author", severity: "danger"});
+            globalMessageContextRef.current.setMessage({message: "Error loading author", severity: "danger"});
           }
         });
     }
@@ -70,11 +72,11 @@ const AuthorDetail = () => {
         },
         error: (error: any) => {
           console.log("loadBooksOfAuthor ERROR", error);
-          globalMessageContext.setMessage({message: "Error loading books", severity: "danger"});
+          globalMessageContextRef.current.setMessage({message: "Error loading books", severity: "danger"});
         }
       });
     }
-  }, []);
+  }, [id, globalMessageContextRef]);
 
   function navigateBackToList() {
     console.log("navigateBackToList");
@@ -83,7 +85,7 @@ const AuthorDetail = () => {
 
   function navigateToEditPage() {
     console.log("navigateToEditPage");
-    navigate(id!.toString());
+    navigate("/author/edit/" + id!.toString());
   }
 
   return (
@@ -99,15 +101,18 @@ const AuthorDetail = () => {
             <div className="row mx-1 mx-lg-2" style={{minHeight: 400}}>
               <div className="col-md-8">
                 {state.author?.penName &&
-                  <div className="author-detail__label mt-3"><strong>{state.author?.firstname + " " + state.author?.lastname}</strong> is a pen name
+                  <div className="author-detail__label mt-3"><strong>{state.author?.firstname + " " + state.author?.lastname}</strong> is a
+                    pen name
                     of <strong>{state.author?.fullRealName}</strong></div>}
                 <div className="mt-3">
-                  <span className="author-detail__label">Born {state.author?.birthdate?.toFormat("dd.LL.yyyy")} in {state.author?.placeOfBirth}</span>
+                  <span
+                    className="author-detail__label">Born {state.author?.birthdate?.toFormat("dd.LL.yyyy")} in {state.author?.placeOfBirth}</span>
                   {<span className="author-detail__label">&nbsp;&nbsp;(Age {state.author?.age})</span>}
                   {state.author?.dateOfDeath && <span className="author-detail__label">&nbsp;&nbsp;(Age {state.author?.age})</span>}
                 </div>
                 {state.author?.dateOfDeath && <div>
-                  <span className="author-detail__label">Died {state.author?.dateOfDeath?.toFormat("dd.LL.yyyy")} in {state.author?.placeOfBirth}</span>
+                  <span
+                    className="author-detail__label">Died {state.author?.dateOfDeath?.toFormat("dd.LL.yyyy")} in {state.author?.placeOfBirth}</span>
                   {<span className="author-detail__label">&nbsp;&nbsp;(Age {state.author?.age})</span>}
                 </div>}
                 {state.author?.website &&

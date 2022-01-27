@@ -80,7 +80,7 @@ const AuthorList = () => {
               </div>
             </div>
           </div>
-          <button onClick={() => navigateToNewAuthor()} className="btn btn-success btn-lg me-4">add Author</button>
+          <button onClick={() => navigateToNewAuthor()} className="btn btn-success btn-lg me-2 me-lg-4 mt-2 mt-lg-0">add Author</button>
         </div>
         <LoadingIndicatorWrapper loading={authorListState.authorsLoading}>
           <div className="pb-3" style={{borderTop: "2px solid gray"}}>
