@@ -1,13 +1,4 @@
-.fullname-label {
-  font-size: 1.8rem;
-  font-weight: bold;
-
-  @media (max-width: 991px) {
-    font-size: 1.6rem;
-  }
-}
-
-.label {
+.author-detail__label {
   font-size: 1.5rem;
 
   @media (max-width: 991px) {
@@ -15,7 +6,7 @@
   }
 }
 
-.note {
+.author-detail__note {
   font-size: 1.2rem;
 
   @media (max-width: 991px) {

@@ -99,22 +99,22 @@ const AuthorDetail = () => {
             <div className="row mx-1 mx-lg-2" style={{minHeight: 400}}>
               <div className="col-md-8">
                 {state.author?.penName &&
-                  <div className="label mt-3"><strong>{state.author?.firstname + " " + state.author?.lastname}</strong> is a pen name
+                  <div className="author-detail__label mt-3"><strong>{state.author?.firstname + " " + state.author?.lastname}</strong> is a pen name
                     of <strong>{state.author?.fullRealName}</strong></div>}
                 <div className="mt-3">
-                  <span className="label">Born {state.author?.birthdate?.toFormat("dd.LL.yyyy")} in {state.author?.placeOfBirth}</span>
-                  {<span className="label">&nbsp;&nbsp;(Age {state.author?.age})</span>}
-                  {state.author?.dateOfDeath && <span className="label">&nbsp;&nbsp;(Age {state.author?.age})</span>}
+                  <span className="author-detail__label">Born {state.author?.birthdate?.toFormat("dd.LL.yyyy")} in {state.author?.placeOfBirth}</span>
+                  {<span className="author-detail__label">&nbsp;&nbsp;(Age {state.author?.age})</span>}
+                  {state.author?.dateOfDeath && <span className="author-detail__label">&nbsp;&nbsp;(Age {state.author?.age})</span>}
                 </div>
                 {state.author?.dateOfDeath && <div>
-                  <span className="label">Died {state.author?.dateOfDeath?.toFormat("dd.LL.yyyy")} in {state.author?.placeOfBirth}</span>
-                  {<span className="label">&nbsp;&nbsp;(Age {state.author?.age})</span>}
+                  <span className="author-detail__label">Died {state.author?.dateOfDeath?.toFormat("dd.LL.yyyy")} in {state.author?.placeOfBirth}</span>
+                  {<span className="author-detail__label">&nbsp;&nbsp;(Age {state.author?.age})</span>}
                 </div>}
                 {state.author?.website &&
-                  <div className="mt-3 label">Homepage: <a href={state.author?.website}>{state.author?.website}</a></div>
+                  <div className="mt-3 author-detail__label">Homepage: <a href={state.author?.website}>{state.author?.website}</a></div>
                 }
-                <div className="label">Genre: {state.author?.genre}</div>
-                <div className="mt-3 note" dangerouslySetInnerHTML={{__html: (state.author?.note || "")}}/>
+                <div className="author-detail__label">Genre: {state.author?.genre}</div>
+                <div className="mt-3 author-detail__note" dangerouslySetInnerHTML={{__html: (state.author?.note || "")}}/>
               </div>
               <div className="col-md-4 d-flex flex-column align-items-center justify-content-start">
                 <div className="foto-wrapper">
