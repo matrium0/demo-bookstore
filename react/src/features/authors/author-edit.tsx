@@ -21,6 +21,7 @@ interface AuthorEditState {
     [key: string]: string | null
   }
   imageUrl?: string,
+  fotoChanged: boolean
   showImageUploadDialog: boolean
 }
 
@@ -36,7 +37,8 @@ const defaultState: AuthorEditState = {
     placeOfDeath: undefined,
   },
   errors: {},
-  showImageUploadDialog: false
+  showImageUploadDialog: false,
+  fotoChanged: false
 }
 
 const AuthorEdit = () => {
@@ -63,7 +65,7 @@ const AuthorEdit = () => {
           next: (a: Author) => {
             console.log("findAuthorById SUCCESS", a);
             const imageUrl = URL.createObjectURL(a.foto!);
-            setState({loading: false, author: a, errors: {}, showImageUploadDialog: false, imageUrl});
+            setState({loading: false, author: a, errors: {}, showImageUploadDialog: false, fotoChanged: false, imageUrl});
           },
           error: (error: any) => {
             console.log("findAuthorById ERROR", error);
@@ -155,7 +157,13 @@ const AuthorEdit = () => {
   function handleImageAcceptedInDialog(image?: Blob) {
     console.log("handleImageAcceptedInDialog", image);
     if (image) {
-      setState({...state, showImageUploadDialog: false, author: {...state.author, foto: image}, imageUrl: URL.createObjectURL(image)});
+      setState({
+        ...state,
+        showImageUploadDialog: false,
+        fotoChanged: true,
+        author: {...state.author, foto: image},
+        imageUrl: URL.createObjectURL(image)
+      });
     }
   }
 
@@ -243,16 +251,16 @@ const AuthorEdit = () => {
 
                   <div className="d-flex align-items-center mt-4 mt-lg-3">
                     <h2 className="me-3">Foto</h2>
-                    {/*//TODO conditional show this  message*/}
-                    <div className="text-danger fw-bold">You changed the foto - don't forget to save!</div>
-                    {/*TODO error handling*/}
-                    {/*<app-reactive-validation-display [control]="formGroup?.get('foto')"></app-reactive-validation-display>*/}
+                    {state.author.id && state.fotoChanged &&
+                      <div className="text-danger fw-bold">You changed the foto - don't forget to save!</div>
+                    }
                   </div>
                   <div
                     className="foto-wrapper col-sm-7 col-md-6 col-lg-5 col-xl-4 position-relative d-flex flex-column justify-content-center align-items-center">
                     {state.imageUrl && <img src={state?.imageUrl} className="author-foto-img" alt="Foto of the Author"/>}
-                    <a onClick={openFotoUploadDialog} className="author-foto-change-link"
-                       role="button">{state.author.id ? 'change foto' : 'upload foto'}</a>
+                    <button type="button" onClick={openFotoUploadDialog} className="author-foto-change-link btn btn-link">
+                      {state.author.id ? 'change foto' : 'upload foto'}
+                    </button>
                   </div>
                 </div>
               </div>
