@@ -88,13 +88,11 @@ const UploadImageDialog = (props: UploadImageDialogProps) => {
           checkOrientation={false}
         />
 
-        <div className="mt-3">
-          <div className="col d-flex justify-content-between">
-            <button onClick={() => dismissDialog()} className="btn btn-secondary btn-lg">Cancel</button>
-            <button onClick={() => closeDialogAndReturnImageUrl()} className="btn btn-primary btn-lg">
-              &nbsp;OK&nbsp;
-            </button>
-          </div>
+        <div className="my-2 d-flex justify-content-between">
+          <button onClick={() => dismissDialog()} className="btn btn-secondary btn-lg">Cancel</button>
+          <button onClick={() => closeDialogAndReturnImageUrl()} className="btn btn-primary btn-lg">
+            &nbsp;OK&nbsp;
+          </button>
         </div>
       </div>
     </Dialog>

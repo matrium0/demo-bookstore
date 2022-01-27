@@ -2,14 +2,14 @@ import 'react-quill/dist/quill.snow.css';
 import {useNavigate, useParams} from 'react-router-dom';
 import {Checkbox, Paper, TextField, ToggleButton, ToggleButtonGroup} from '@mui/material';
 import LoadingIndicatorWrapper from '../../shared/loading-indicator-wrapper';
-import React, {SyntheticEvent, useEffect, useState} from 'react';
+import React, {SyntheticEvent, useContext, useEffect, useState} from 'react';
 import {Author} from '@local/mock-backend/author/Author';
 import {createOrUpdateAuthor, findAuthorById} from '@local/mock-backend/author/author-mock-data';
 import {DatePicker, DesktopDatePicker, LocalizationProvider} from '@mui/lab';
 import LuxonAdapter from "@date-io/luxon";
 import GenderDisplay from '../../shared/GenderDisplay';
-import ReactQuill from 'react-quill';
-import {GlobalMessage} from '../../shared/GlobalMessageContext';
+import ReactQuill, {UnprivilegedEditor} from 'react-quill';
+import {GlobalMessageContext} from '../../shared/GlobalMessageContext';
 import UploadImageDialog from './upload-image-dialog';
 
 
@@ -35,14 +35,14 @@ const defaultState: AuthorEditState = {
     placeOfDeath: undefined,
   },
   errors: {},
-  showImageUploadDialog: true //TODO change back to false as default
+  showImageUploadDialog: false
 }
 
 const AuthorEdit = () => {
   const [state, setState] = useState<AuthorEditState>(defaultState);
   const {id} = useParams();
   const navigate = useNavigate();
-  const [globalMessage_, setGlobalMessage] = useState<GlobalMessage>({message: "", severity: "info"});
+  const globalMessageContext = useContext(GlobalMessageContext);
 
   useEffect(() => {
     console.log("useEffect");
@@ -74,7 +74,6 @@ const AuthorEdit = () => {
   }, [id]);
 
   function handleInputChange(event: SyntheticEvent) {
-    //TODO fix textarea bug (input jumps to start on type)
     const target = event.target as HTMLInputElement;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
@@ -138,12 +137,12 @@ const AuthorEdit = () => {
         {
           next: (a: Author) => {
             console.log("createOrUpdateAuthor SUCCESS", a);
-            setGlobalMessage({message: "Author saved", severity: "success"});
+            globalMessageContext.setMessage({message: "Author saved", severity: "success"});
             navigate("/author");
           },
           error: (error: any) => {
             console.log("createOrUpdateAuthor ERROR", error);
-            setGlobalMessage({message: "Error saving Author", severity: "danger"});
+            globalMessageContext.setMessage({message: "Error saving Author", severity: "danger"});
           }
         });
     }
@@ -154,6 +153,10 @@ const AuthorEdit = () => {
     if (image) {
       setState({...state, showImageUploadDialog: false, author: {...state.author, foto: image}, imageUrl: URL.createObjectURL(image)});
     }
+  }
+
+  function onNoteBlur(range: ReactQuill.Range, value: any, editor: UnprivilegedEditor) {
+    setState({...state, author: {...state.author, note: editor.getHTML()}});
   }
 
   return (
@@ -225,7 +228,7 @@ const AuthorEdit = () => {
 
                 <div className="col-lg-6 pt-2">
                   <h2 className="mt-lg-0 mb-2">Notes</h2>
-                  <ReactQuill value={state.author?.note} onChange={(value) => changeStateField(true, "note", value)}
+                  <ReactQuill value={state.author?.note} onBlur={(range, value, editor) => onNoteBlur(range, value, editor)}
                               theme="snow" modules={{
                     toolbar: [
                       ['bold', 'italic', 'underline'],
