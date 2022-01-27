@@ -11,6 +11,7 @@ import GenderDisplay from '../../shared/GenderDisplay';
 import ReactQuill, {UnprivilegedEditor} from 'react-quill';
 import {GlobalMessageContext} from '../../shared/GlobalMessageContext';
 import UploadImageDialog from './upload-image-dialog';
+import {DateTime} from 'luxon';
 
 
 interface AuthorEditState {
@@ -78,10 +79,10 @@ const AuthorEdit = () => {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
-    changeStateField(target.required, name, value);
+    changeStateField(target.required, name as keyof Author, value);
   }
 
-  function changeStateField(required: boolean, name: string, value: any) {
+  function changeStateField(required: boolean, name: keyof Author, value: any) {
     console.log("changeStateField", required, name, value);
 
     validateFieldAndSetErrorIfNecessary(required, name, value);
@@ -98,14 +99,17 @@ const AuthorEdit = () => {
       console.log(state), 1000);
   }
 
-  function validateFieldAndSetErrorIfNecessary(required: boolean, name: string, value: any) {
-    //TODO vdalidate dates and display error message
+  function validateFieldAndSetErrorIfNecessary(required: boolean, name: keyof Author, value: any) {
+    console.log("validateFieldAndSetErrorIfNecessary", name, value, state.author[name]);
+
     if ((required || name === "birthdate") && !value) {
       state.errors[name] = "Cannot be empty";
-      console.log("setting required error message");
+    } else if ((name === "birthdate" || name === "dateOfDeath") && !(value as DateTime).isValid) {
+      state.errors[name] = "Date is invalid";
     } else {
       state.errors[name] = null;
     }
+
     setState({
       ...state
     });
@@ -127,7 +131,7 @@ const AuthorEdit = () => {
     const requiredFields = ["firstname", "lastname", "gender", "birthdate", "placeOfBirth", "foto"];
     for (const key of requiredFields) {
       const isRequiredField = requiredFields.includes(key);
-      validateFieldAndSetErrorIfNecessary(isRequiredField, key, state.author[key as keyof Author]);
+      validateFieldAndSetErrorIfNecessary(isRequiredField, key as keyof Author, state.author[key as keyof Author]);
     }
 
     const errorPresent = Object.values(state.errors).some(v => v);
@@ -201,7 +205,7 @@ const AuthorEdit = () => {
                                      onChange={(e) => changeStateField(false, "dateOfDeath", e)}
                                      mask="dd.LL.yyyy" inputFormat="dd.LL.yyyy"
                                      renderInput={(props) => (
-                                       <TextField {...props}
+                                       <TextField {...props} error={!!state.errors["dateOfDeath"]} helperText={state.errors["dateOfDeath"]}
                                                   label="Date of death" variant="outlined" className="w-100 mt-4"/>
                                      )}>
                   </DesktopDatePicker>
