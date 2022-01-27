@@ -1,16 +1,19 @@
 import 'react-quill/dist/quill.snow.css';
+import "./author-detail.scss";
 import React, {memo, useContext, useEffect, useState} from 'react';
 import {Author} from '@local/mock-backend/author/Author';
 import {EnrichedAuthor} from '@local/mock-backend/author/EnrichedAuthor';
 import {Book} from '@local/mock-backend/book/Book';
 import {Paper} from '@mui/material';
 import LoadingIndicatorWrapper from '../../shared/loading-indicator-wrapper';
-import {useParams} from 'react-router-dom';
+import {NavLink, useNavigate, useParams} from 'react-router-dom';
 import {findAuthorById} from '@local/mock-backend/author/author-mock-data';
 import sanitize from 'sanitize-html';
 import {findBooksOfAuthor} from '@local/mock-backend/book/book-mock-data';
 import {GlobalMessageContext} from '../../shared/GlobalMessageContext';
 import {enrichWithCalculatedFields} from '@local/mock-backend/author/author-util';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faSpinner} from '@fortawesome/free-solid-svg-icons/faSpinner';
 
 interface AuthorDetailState {
   author?: EnrichedAuthor,
@@ -25,6 +28,7 @@ const AuthorDetail = () => {
   const [state, setState] = useState<AuthorDetailState>({author: {}, loading: true, booksLoading: true});
   const {id} = useParams();
   const globalMessageContext = useContext(GlobalMessageContext);
+  const navigate = useNavigate();
   useEffect(() => {
     const authorId = Number(id);
     loadAuthor();
@@ -72,6 +76,16 @@ const AuthorDetail = () => {
     }
   }, []);
 
+  function navigateBackToList() {
+    console.log("navigateBackToList");
+    navigate("/author");
+  }
+
+  function navigateToEditPage() {
+    console.log("navigateToEditPage");
+    navigate(id!.toString());
+  }
+
   return (
     <div className="comp-wrapper">
       <Paper elevation={8} className="app-col">
@@ -81,7 +95,7 @@ const AuthorDetail = () => {
           </div>
         </div>
         <LoadingIndicatorWrapper loading={state.loading}>
-          <div className="pb-3" style={{borderTop: "2px solid gray"}}>
+          <div style={{borderTop: "2px solid gray"}}>
             <div className="row mx-1 mx-lg-2" style={{minHeight: 400}}>
               <div className="col-md-8">
                 {state.author?.penName &&
@@ -108,22 +122,29 @@ const AuthorDetail = () => {
                 </div>
                 <div className="mt-4">
                   <h2>Books written by {state.author?.firstname + " " + state.author?.lastname}</h2>
-                  {/*<div*/}
-                  {/**ngIf="isBooksLoading" className="ms-5 mt-3">*/}
-                  {/*<fa-icon icon="spinner" size="3x" [classes]="['fa-spin']">*/}
-                  {/*</fa-icon>*/}
+                  {state.booksLoading && <div className="ms-5 mt-3">
+                    <FontAwesomeIcon icon={faSpinner} size={'3x'} className="fa-spin"/>
+                  </div>}
+                  {!state.booksLoading && state.books?.length === 0 && <div className="ms-4">
+                    No books from {state.author?.firstname + " " + state.author?.lastname} saved - you can add some in the&nbsp;
+                    <NavLink to="/library">Library</NavLink>
+                  </div>}
+                  {(!state.booksLoading) && <ul>
+                    {state.books?.map(b => <li key={b.id}><NavLink to={"/library/edit/" + b.id}>{b.title}</NavLink></li>)}
+                  </ul>}
                 </div>
-                {/*// <div *ngIf="!isBooksLoading && books?.length === 0" className="ms-4">*/}
-                {/*// No books from {fullname} saved - you can add some in the <a routerLink="/library"> Library</a>*/}
-                {/*//*/}
               </div>
-              {/*  // <ul *ngIf="!isBooksLoading">*/}
-              {/*  // <li *ngFor="let book of books"><a routerLink="/library/edit/{book.id}">{book.title}</a></li>*/}
-              {/*//*/}
-              {/*</ul>*/}
             </div>
-            {/*</div>*/}
-            {/*</div>*/}
+          </div>
+          <div className="row mt-3">
+            <div className="col-12 px-4 px-lg-5 mb-3 d-flex align-items-center justify-content-between ">
+              <button onClick={() => navigateBackToList()} className="btn btn-secondary btn-lg">
+                &nbsp;back&nbsp;
+              </button>
+              <button onClick={() => navigateToEditPage()} className="btn btn-warning btn-lg px-4">
+                &nbsp;edit&nbsp;
+              </button>
+            </div>
           </div>
         </LoadingIndicatorWrapper>
       </Paper>

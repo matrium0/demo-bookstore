@@ -1,0 +1,28 @@
+.fullname-label {
+  font-size: 1.8rem;
+  font-weight: bold;
+
+  @media (max-width: 991px) {
+    font-size: 1.6rem;
+  }
+}
+
+.label {
+  font-size: 1.5rem;
+
+  @media (max-width: 991px) {
+    font-size: 1.1em;
+  }
+}
+
+.note {
+  font-size: 1.2rem;
+
+  @media (max-width: 991px) {
+    font-size: 0.9rem;
+  }
+}
+
+li, a {
+  font-size: 1.2rem;
+}
