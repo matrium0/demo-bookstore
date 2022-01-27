@@ -69,7 +69,7 @@ export class AuthorTableComponent implements OnInit {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'age':
-          return compare(a.age, b.age, isAsc);
+          return compare(a.age!, b.age!, isAsc);
         case 'firstname':
           return compare(a.firstname!, b.firstname!, isAsc);
         case 'lastname':

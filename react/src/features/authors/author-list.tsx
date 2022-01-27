@@ -43,7 +43,7 @@ const AuthorList = () => {
   }
 
   function handleAuthorSelected(author: EnrichedAuthor) {
-    navigate("edit/" + author.id);
+    navigate("" + author.id);
   }
 
   function navigateToNewAuthor() {

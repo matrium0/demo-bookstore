@@ -5,7 +5,7 @@ function compare(a: EnrichedAuthor, b: EnrichedAuthor, sortDirection: "asc" | "d
   const isAsc = sortDirection === "asc";
   switch (key) {
     case 'age':
-      return compareFields(a.age, b.age, isAsc);
+      return compareFields(a.age!, b.age!, isAsc);
     case 'firstname':
       return compareFields(a.firstname!, b.firstname!, isAsc);
     case 'lastname':
