@@ -46,6 +46,7 @@ h3, .h3 {
 }
 
 .title-row {
+  @extend .p-2;
   @extend .ps-lg-4;
   display: flex;
   flex-wrap: wrap;

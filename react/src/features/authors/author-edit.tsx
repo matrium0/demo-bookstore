@@ -4,7 +4,7 @@ import {Checkbox, Paper, TextField, ToggleButton, ToggleButtonGroup} from '@mui/
 import LoadingIndicatorWrapper from '../../shared/loading-indicator-wrapper';
 import React, {SyntheticEvent, useContext, useEffect, useState} from 'react';
 import {Author} from '@local/mock-backend/author/Author';
-import {createOrUpdateAuthor, findAuthorById} from '@local/mock-backend/author/author-mock-data';
+import {createOrUpdateAuthor, deleteAuthor, findAuthorById} from '@local/mock-backend/author/author-mock-data';
 import {DatePicker, DesktopDatePicker, LocalizationProvider} from '@mui/lab';
 import LuxonAdapter from "@date-io/luxon";
 import GenderDisplay from '../../shared/GenderDisplay';
@@ -12,6 +12,7 @@ import ReactQuill, {UnprivilegedEditor} from 'react-quill';
 import {GlobalMessageContext} from '../../shared/GlobalMessageContext';
 import UploadImageDialog from './upload-image-dialog';
 import {DateTime} from 'luxon';
+import ConfirmationDialog from '../../shared/confirmation-dialog';
 
 
 interface AuthorEditState {  // could be split up into multiple states - recommendation is to group things if they tend to change together
@@ -22,7 +23,8 @@ interface AuthorEditState {  // could be split up into multiple states - recomme
   }
   imageUrl?: string,
   fotoChanged: boolean
-  showImageUploadDialog: boolean
+  showImageUploadDialog: boolean,
+  showDeleteConfirmationDialog: boolean
 }
 
 const defaultState: AuthorEditState = {
@@ -38,7 +40,8 @@ const defaultState: AuthorEditState = {
   },
   errors: {},
   showImageUploadDialog: false,
-  fotoChanged: false
+  fotoChanged: false,
+  showDeleteConfirmationDialog: false
 }
 
 const AuthorEdit = () => {
@@ -65,7 +68,10 @@ const AuthorEdit = () => {
           next: (a: Author) => {
             console.log("findAuthorById SUCCESS", a);
             const imageUrl = URL.createObjectURL(a.foto!);
-            setState({loading: false, author: a, errors: {}, showImageUploadDialog: false, fotoChanged: false, imageUrl});
+            setState({
+              loading: false, author: a, errors: {}, showImageUploadDialog: false,
+              showDeleteConfirmationDialog: false, fotoChanged: false, imageUrl
+            });
           },
           error: (error: any) => {
             console.log("findAuthorById ERROR", error);
@@ -171,6 +177,37 @@ const AuthorEdit = () => {
     setState({...state, author: {...state.author, note: editor.getHTML()}});
   }
 
+  function openDeleteDialog() {
+    setState({
+      ...state, showDeleteConfirmationDialog: true
+    });
+  }
+
+  function handleDismissDialog() {
+    setState({
+      ...state, showDeleteConfirmationDialog: false
+    });
+  }
+
+  function deleteAuth() {
+    console.log("deleteAuth");
+    deleteAuthor(Number(id)).subscribe(
+      {
+        next: () => {
+          console.log("deleteAuth SUCCESS");
+          globalMessageContext.setMessage({
+            message: "Successfully deleted " + state.author.firstname + " " + state.author.lastname,
+            severity: "info"
+          });
+          navigate("/author");
+        },
+        error: (error: any) => {
+          console.log("deleteAuth ERROR", error);
+          globalMessageContext.setMessage({message: "Error deleting Author", severity: "danger"});
+        }
+      });
+  }
+
   return (
     <LocalizationProvider dateAdapter={LuxonAdapter}>
       <div className="comp-wrapper">
@@ -179,13 +216,13 @@ const AuthorEdit = () => {
             <div className="d-flex align-items-center justify-content-between flex-wrap">
               <h1>
                 {!state.author.id && !state.loading && "New Author"}
-                {state.author.id && "Author: " + state.author?.firstname + " " + state.author?.lastname}
+                {state.author.id && state.author?.firstname + " " + state.author?.lastname}
               </h1>
             </div>
-            <button className="btn btn-danger btn-lg me-4">delete</button>
+            <button onClick={() => openDeleteDialog()} className="btn btn-danger btn-lg me-4">delete</button>
           </div>
           <LoadingIndicatorWrapper loading={state.loading}>
-            <div className="pb-3" style={{borderTop: "2px solid gray"}}>
+            <div className="pb-3">
               <div className="row mx-3 gx-0 gx-lg-5">
                 <div className="col-lg-6 pt-2">
                   <h2 className="mb-2">Personal Data</h2>
@@ -279,6 +316,10 @@ const AuthorEdit = () => {
         </Paper>
       </div>
       <UploadImageDialog show={state.showImageUploadDialog} closeImageUploadDialog={(image) => handleImageAcceptedInDialog(image)}/>
+      <ConfirmationDialog show={state.showDeleteConfirmationDialog} title="Delete Author" confirmButtonType="danger"
+                          message="Are you sure that you want to delete the author?" confirmButtonText="Delete" cancelButtonText="Cancel"
+                          dismissDialog={() => handleDismissDialog()} actionAfterConfirm={() => deleteAuth()}
+      />
     </LocalizationProvider>
   )
 }
