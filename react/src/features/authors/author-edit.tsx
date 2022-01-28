@@ -175,7 +175,7 @@ const AuthorEdit = () => {
     <LocalizationProvider dateAdapter={LuxonAdapter}>
       <div className="comp-wrapper">
         <Paper elevation={8} className="app-col">
-          <div className="p-2 ms-lg-3 title-row d-flex flex-wrap align-items-center justify-content-between">
+          <div className="title-row">
             <div className="d-flex align-items-center justify-content-between flex-wrap">
               <h1>
                 {!state.author.id && !state.loading && "New Author"}

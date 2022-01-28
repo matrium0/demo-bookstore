@@ -91,13 +91,13 @@ const AuthorDetail = () => {
   return (
     <div className="comp-wrapper">
       <Paper elevation={8} className="app-col">
-        <div className="p-2 ms-lg-3 title-row d-flex flex-wrap align-items-center justify-content-between">
+        <div className="title-row">
           <div className="d-flex align-items-center flex-wrap">
             <h1>Author {state.author?.firstname} {state.author?.lastname}</h1>
           </div>
         </div>
         <LoadingIndicatorWrapper loading={state.loading}>
-          <div style={{borderTop: "2px solid gray"}}>
+          <div>
             <div className="row mx-1 mx-lg-2" style={{minHeight: 400}}>
               <div className="col-md-8">
                 {state.author?.penName &&

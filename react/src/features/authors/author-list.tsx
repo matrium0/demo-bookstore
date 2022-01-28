@@ -70,7 +70,7 @@ const AuthorList = () => {
   return (
     <div className="comp-wrapper">
       <Paper elevation={8} className="app-col">
-        <div className="p-2 ms-lg-3 title-row d-flex flex-wrap align-items-center justify-content-between">
+        <div className="title-row">
           <div className="d-flex align-items-center justify-content-between flex-wrap">
             <div className="d-flex align-items-center">
               <h1>Authors</h1>
@@ -83,7 +83,7 @@ const AuthorList = () => {
           <button onClick={() => navigateToNewAuthor()} className="btn btn-success btn-lg me-2 me-lg-4 mt-2 mt-lg-0">add Author</button>
         </div>
         <LoadingIndicatorWrapper loading={authorListState.authorsLoading}>
-          <div className="pb-3" style={{borderTop: "2px solid gray"}}>
+          <div className="pb-3">
             <AuthorTable authors={authorListState.filteredAuthors} authorSelected={(author => handleAuthorSelected(author))}/>
           </div>
         </LoadingIndicatorWrapper>
