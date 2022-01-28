@@ -7,7 +7,7 @@ import Home from './features/home';
 import Header from './header/header';
 import {GlobalMessage, GlobalMessageContext} from './shared/GlobalMessageContext';
 import GlobalMessageDisplay from './shared/GlobalMessageDisplay';
-import YourBooks from './features/yourBooks/yourBooksList';
+import YourBooksList from './features/yourBooks/yourBooksList';
 import Library from './features/library/library';
 import AuthorList from './features/authors/author-list';
 import AuthorEdit from './features/authors/author-edit';
@@ -33,7 +33,7 @@ function App() {
           <Header/>
           <Routes>
             <Route path="/" element={<Home/>}/>
-            <Route path="/your-books" element={<YourBooks/>}/>
+            <Route path="/your-books" element={<YourBooksList/>}/>
             <Route path="/library" element={<Library/>}/>
             <Route path="/author">
               <Route path="" element={<AuthorList/>}/>

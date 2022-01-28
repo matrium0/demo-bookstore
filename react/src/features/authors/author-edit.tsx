@@ -14,7 +14,7 @@ import UploadImageDialog from './upload-image-dialog';
 import {DateTime} from 'luxon';
 
 
-interface AuthorEditState {
+interface AuthorEditState {  // could be split up into multiple states - recommendation is to group things if they tend to change together
   loading: boolean,
   author: Author,
   errors: {

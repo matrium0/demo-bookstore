@@ -1,0 +1,42 @@
+.book-card {
+  border: 2px solid gray;
+  border-radius: 10px;
+
+}
+
+.book-card .title {
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-align: center;
+  line-height: 1.4rem;
+}
+
+.book-card .subtitle {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.book-card .series {
+  font-size: 0.9rem;
+}
+
+.book-card .book-image {
+  height: 100px;
+}
+
+.book-card .first-published {
+  color: #656565;
+  font-size: 0.8rem
+}
+
+.book-card .isinlibrary-button {
+  position: absolute;
+  bottom: 14px;
+}
+
+.book-card .show-details-link {
+  font-size: 1.2rem;
+  font-weight: bold;
+  position: absolute;
+  bottom: 3px;
+}
