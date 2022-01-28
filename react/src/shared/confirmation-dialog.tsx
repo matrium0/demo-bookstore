@@ -14,9 +14,9 @@ interface ConfirmationDialogProps {
   message: string,
   cancelButtonText: string,
   confirmButtonType: "success" | "danger" | "primary",
-  confirmButtonText: string,
+  confirmButtonText?: string,
 
-  actionAfterConfirm: () => void;
+  actionAfterConfirm?: () => void;
   dismissDialog: () => void
 }
 
@@ -31,7 +31,9 @@ const ConfirmationDialog = (props: ConfirmationDialogProps) => {
   }
 
   function confirmClicked() {
-    props.actionAfterConfirm();
+    if (props.actionAfterConfirm) {
+      props.actionAfterConfirm();
+    }
   }
 
   return (
@@ -46,9 +48,11 @@ const ConfirmationDialog = (props: ConfirmationDialogProps) => {
         </div>
         <div className="col d-flex align-items-center justify-content-between mt-4">
           <button className="btn btn-secondary btn-lg" onClick={() => dismissDialog()}>{props.cancelButtonText}</button>
-          <button className={"btn btn-" + props.confirmButtonType + " btn-lg"} onClick={() => confirmClicked()}>
-            {props.confirmButtonText}
-          </button>
+          {props.confirmButtonText &&
+            <button className={"btn btn-" + props.confirmButtonType + " btn-lg"} onClick={() => confirmClicked()}>
+              {props.confirmButtonText}
+            </button>
+          }
         </div>
       </div>
     </Dialog>

@@ -118,6 +118,10 @@ body {
   }
 }
 
+.fa-times {
+  cursor: pointer;
+}
+
 .fa-mars {
   color: blue;
 }
@@ -201,4 +205,9 @@ body {
 .book-card-wrap {
   width: 272px;
   height: 310px;
+}
+
+.series {
+  font-size: 0.8rem;
+  cursor: pointer;
 }

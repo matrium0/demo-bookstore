@@ -1,18 +1,30 @@
 import {NavLink} from 'react-router-dom';
 import {EnrichedBook} from '../../util/book-utils';
-import {memo} from 'react';
+import React, {memo, useState} from 'react';
 import "./book-card.scss";
+import ConfirmationDialog from '../../shared/confirmation-dialog';
+import {Link} from '@mui/material';
 
 interface BookCardProps {
   book: EnrichedBook;
 }
 
 const BookCard = (props: BookCardProps) => {
-
+  const [state, setState] = useState({
+    showSeriesDialog: false
+  })
   const imageUrl = URL.createObjectURL(props.book.image);
 
   function openDetails() {
     throw new Error('Function not implemented.');
+  }
+
+  function openSeriesDialog() {
+    setState({showSeriesDialog: true});
+  }
+
+  function dismissSeriesDialog() {
+    setState({showSeriesDialog: false});
   }
 
   return (
@@ -20,12 +32,8 @@ const BookCard = (props: BookCardProps) => {
       <div className="book-foto-wrapper">
         <img src={imageUrl} className="book-image" alt="Foto of the Author"/>
       </div>
-      {props.book.series && <div className="series">Book {props.book.numberWithinSeries} of
-        {/*TODO app confirmation dialog*/}
-        {/*<span appConfirmation confirmTitle="{book.series}" cancelButtonText="go back" [hideConfirmButton]="true"*/}
-        {/*confirmMessage="Got me :)<br /><br />In a <u>real application</u> this could display the series with all it's books.<br/>This feature is not part of the demo though and therefore <strong>not implemented</strong> - sorry!"*/}
-        {/*className="btn-link cursor-pointer"*/}
-        {/*>{book.series}</span>*/}
+      {props.book.series && <div>Book {props.book.numberWithinSeries} of
+        <Link className="ms-1 series" onClick={() => openSeriesDialog()}>{props.book.series}</Link>
       </div>
       }
       <div className="title">{props.book.title}</div>
@@ -36,9 +44,12 @@ const BookCard = (props: BookCardProps) => {
       {/*TODO is in library marker*/}
       {/*<app-is-in-library-marker [status]="book.assignmentStatus" (statusChange)="statusChange($event)" className="isinlibrary-button"></app-is-in-library-marker>*/}
       <div onClick={() => openDetails()} className="show-details-link btn-link cursor-pointer">open details</div>
+
+      <ConfirmationDialog show={state.showSeriesDialog} title={props.book.series!} confirmButtonType="danger"
+                          dismissDialog={() => dismissSeriesDialog()} cancelButtonText="go back"
+                          message="Got me :)<br /><br />In a <u>real application</u> this could display the series with all it's books.<br/>This feature is not part of the demo though and therefore <strong>not implemented</strong> - sorry!"
+      />
     </div>
-
-
   )
 }
 
