@@ -1,15 +1,16 @@
-import React, {memo, SyntheticEvent, useEffect, useState} from 'react';
+import React, {memo, SyntheticEvent, useContext, useEffect, useState} from 'react';
 import LuxonAdapter from '@date-io/luxon';
-import {DatePicker, LocalizationProvider} from '@mui/lab';
+import {Autocomplete, DatePicker, LocalizationProvider} from '@mui/lab';
 import {Paper, TextField} from '@mui/material';
 import LoadingIndicatorWrapper from '../../shared/loading-indicator-wrapper';
 import {EnrichedBook} from '../../mock-backend/util/book-utils';
 import {useNavigate, useParams} from 'react-router-dom';
-import {findBookById} from '../../mock-backend/book/book-mock-data';
+import {createOrUpdateBook, findBookById} from '../../mock-backend/book/book-mock-data';
 import {Book} from '../../mock-backend/book/Book';
 import ReactQuill, {UnprivilegedEditor} from 'react-quill';
 import {DateTime} from 'luxon';
 import UploadImageDialog from '../authors/upload-image-dialog';
+import {GlobalMessageContext} from '../../shared/GlobalMessageContext';
 
 interface BookEditState {
   loading: boolean;
@@ -26,6 +27,7 @@ interface BookEditState {
 }
 
 const BookEdit = () => {
+  const globalMessageContext = useContext(GlobalMessageContext);
   const [state, setState] = useState<BookEditState>({
     loading: true,
     book: {},
@@ -123,7 +125,30 @@ const BookEdit = () => {
   }
 
   function saveAndNavigateToDetail() {
-    console.log("saveAndNavigateToDetail"); //TODO impl
+    console.log("saveAndNavigateToDetail", state.book);
+
+    const requiredFields = ["title", "author", "firstPublished", "genre", "image"];
+    for (const key of requiredFields) {
+      const isRequiredField = requiredFields.includes(key);
+      validateFieldAndSetErrorIfNecessary(isRequiredField, key as keyof Book, state.book[key as keyof Book]);
+    }
+
+    const errorPresent = Object.values(state.errors).some(v => v);
+    if (!errorPresent) {
+
+      createOrUpdateBook(state.book).subscribe(
+        {
+          next: (a: Book) => {
+            console.log("createOrUpdateAuthor SUCCESS", a);
+            globalMessageContext.setMessage({message: "Author saved", severity: "success"});
+            navigate("/author");
+          },
+          error: (error: any) => {
+            console.log("createOrUpdateAuthor ERROR", error);
+            globalMessageContext.setMessage({message: "Error saving Author", severity: "danger"});
+          }
+        });
+    }
   }
 
   function handleImageAcceptedInDialog(image: Blob | undefined) {
@@ -137,6 +162,11 @@ const BookEdit = () => {
       }));
     }
   }
+
+  const top100Films = [
+    {label: 'The Shawshank Redemption', year: 1994},
+    {label: 'The Godfather', year: 1972},
+    {label: 'The Godfather: Part II', year: 1974}];
 
   return (
     <LocalizationProvider dateAdapter={LuxonAdapter}>
@@ -163,6 +193,15 @@ const BookEdit = () => {
                              required error={!!state.errors["subtitle"]} helperText={state.errors["subtitle"]}
                              variant="outlined" className="w-100 mt-4"/>
 
+                  <Autocomplete
+                    disablePortal
+                    options={top100Films}
+                    id="combo-box-demo"
+                    sx={{width: 300}}
+                    className="w-100"
+                    renderInput={(params) => <TextField {...params} label="Author" className="w-100 mt-4"/>}
+                  />
+
                   <DatePicker value={state.book.firstPublished ? state.book.firstPublished.toJSDate() : null}
                               onChange={(e) => changeStateField(true, "firstPublished", e)}
                               mask="dd.LL.yyyy" inputFormat="dd.LL.yyyy"
@@ -172,19 +211,16 @@ const BookEdit = () => {
                                            variant="outlined" className="w-100 mt-4"/>
                               )}>
                   </DatePicker>
-                  <TextField name="firstPublished" label="First published" value={state.book.firstPublished} onChange={handleInputChange}
-                             required error={!!state.errors["firstPublished"]} helperText={state.errors["firstPublished"]}
-                             variant="outlined" className="w-100 mt-4"/>
 
-                  <TextField name="series" label="Series" value={state.book.series || ""} onChange={handleInputChange}
+                  <TextField name="series" label="Series" value={state.book.series} onChange={handleInputChange}
                              error={!!state.errors["series"]} helperText={state.errors["series"]}
                              variant="outlined" className="w-100 mt-4"/>
-
-                  <TextField name="numberWithinSeries" label="Book in Series" value={state.book.series || ""} onChange={handleInputChange}
+                  <TextField name="numberWithinSeries" label="Book in Series" value={state.book.numberWithinSeries}
+                             onChange={handleInputChange}
                              error={!!state.errors["numberWithinSeries"]} helperText={state.errors["numberWithinSeries"]}
                              variant="outlined" className="w-100 mt-4"/>
 
-                  <TextField name="genre" label="Genre" value={state.book.series || ""} onChange={handleInputChange}
+                  <TextField name="genre" label="Genre" value={state.book.genre} onChange={handleInputChange}
                              error={!!state.errors["genre"]} helperText={state.errors["genre"]}
                              variant="outlined" className="w-100 mt-4"/>
                 </div>
