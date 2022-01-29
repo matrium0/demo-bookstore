@@ -228,3 +228,12 @@ body {
 .book-detail-image {
   height: 100px;
 }
+
+.MuiDialog-paper {
+  margin-left: 14px !important;
+  margin-right: 14px !important;
+  @media (max-width: 991px) {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
