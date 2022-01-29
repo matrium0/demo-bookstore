@@ -11,6 +11,7 @@ import Library from './features/library/library';
 import AuthorList from './features/authors/author-list';
 import AuthorEdit from './features/authors/author-edit';
 import AuthorDetail from './features/authors/author-detail';
+import BookEdit from './features/library/book-edit';
 
 function App() {
   console.log("App");
@@ -34,6 +35,7 @@ function App() {
             <Route path="/" element={<Home/>}/>
             <Route path="/your-books" element={<YourBooksList/>}/>
             <Route path="/library" element={<Library/>}/>
+            <Route path="/library/edit/:id" element={<BookEdit/>}/>
             <Route path="/author">
               <Route path="" element={<AuthorList/>}/>
               <Route path="edit/:id" element={<AuthorEdit/>}/>

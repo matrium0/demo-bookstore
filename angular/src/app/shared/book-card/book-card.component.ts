@@ -30,7 +30,7 @@ export class BookCardComponent implements OnInit {
     if (!this.book) {
       throw new Error("BookCardComponent requires book as Input to work");
     }
-    this.imageUrl = this.imageService.createImageUrlFromBlob(this.book?.image);
+    this.imageUrl = this.imageService.createImageUrlFromBlob(this.book.image!);
   }
 
   openDetails() {

@@ -75,10 +75,10 @@ const Library = () => {
     let allBooks = books;
     console.log("filter", searchTerm, showAllSelectFilter);
     if (showAllSelectFilter === 'exclude your books') {
-      allBooks = allBooks.filter((book: EnrichedBook) => !(findUserBookAssignmentsForUser(applicationContextRef.current.user!).map(b => b.bookId).includes(book.id)))
+      allBooks = allBooks.filter((book: EnrichedBook) => !(findUserBookAssignmentsForUser(applicationContextRef.current.user!).map(b => b.bookId).includes(book.id!)))
     }
 
-    return allBooks.filter((b: EnrichedBook) => b.title.toLocaleLowerCase().includes(searchTerm));
+    return allBooks.filter((b: EnrichedBook) => b.title?.toLocaleLowerCase().includes(searchTerm));
   }
 
   return (

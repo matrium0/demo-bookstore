@@ -14,7 +14,7 @@ interface BookDetailDialogProps {
 
 const BookDetailDialog = (props: BookDetailDialogProps) => {
   const [state, setState] = useState({showSeriesDialog: false})
-  const imageUrl = URL.createObjectURL(props.book.image);
+  const imageUrl = URL.createObjectURL(props.book.image!);
   const navigate = useNavigate();
 
   function dismissDialog() {

@@ -15,7 +15,7 @@ const BookCard = (props: BookCardProps) => {
     showSeriesDialog: false,
     showBookDetailDialog: false
   })
-  const imageUrl = URL.createObjectURL(props.book.image);
+  const imageUrl = URL.createObjectURL(props.book.image!);
 
   function openSeriesDialog() {
     setState({showSeriesDialog: true, showBookDetailDialog: false});

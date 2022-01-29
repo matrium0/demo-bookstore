@@ -44,7 +44,7 @@ const YourBooksList = () => {
 
   function handleFilterKeyup(event: ChangeEvent<HTMLInputElement>) {
     const searchTerm = (event.target as HTMLInputElement).value.toLowerCase();
-    const filteredBooks = state.books.filter((b: EnrichedBook) => b.title.toLocaleLowerCase().includes(searchTerm));
+    const filteredBooks = state.books.filter((b: EnrichedBook) => b.title?.toLocaleLowerCase().includes(searchTerm));
     setState({...state, filteredBooks, searchTerm})
   }
 

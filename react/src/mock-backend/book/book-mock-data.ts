@@ -19,7 +19,7 @@ export function createOrUpdateBook(newElement: Book): Observable<Book> {
     let foundIndex = data.indexOf(existingElement[0]);
     data[foundIndex] = newElement;
   } else {
-    newElement.id = Math.max(...data.map(e => e.id)) + 1;
+    newElement.id = Math.max(...data.map(e => e.id!)) + 1;
     data.push(newElement);
   }
   return of(newElement);
@@ -27,7 +27,7 @@ export function createOrUpdateBook(newElement: Book): Observable<Book> {
 
 export function findBooksForUser(username: string): Observable<Book[]> {
   let assignments = findUserBookAssignmentsForUser(username).map(ass => ass.bookId);
-  return of(data.filter(b => assignments.indexOf(b.id) !== -1)).pipe(delay(300));
+  return of(data.filter(b => assignments.indexOf(b.id!) !== -1)).pipe(delay(300));
 }
 
 export function findAllBooks(): Observable<Book[]> {

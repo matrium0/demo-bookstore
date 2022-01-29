@@ -78,8 +78,8 @@ export class BookEditComponent implements OnInit {
         book = enrichBookWithUserAssignments(book, this.userService.authentication$.getValue())
         this.formGroup.patchValue(book);
         //TODO come back and check for fixes - this is just a workaround for a framework bug
-        this.formGroup.patchValue({firstPublished: DateTime.fromJSDate(book.firstPublished.toJSDate())});
-        this.imageUrl = this.imageService.createImageUrlFromBlob(book.image);
+        this.formGroup.patchValue({firstPublished: DateTime.fromJSDate(book.firstPublished!.toJSDate())});
+        this.imageUrl = this.imageService.createImageUrlFromBlob(book.image!);
 
       },
       error: (error: HttpErrorResponse) => {

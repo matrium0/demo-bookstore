@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {BehaviorSubject, combineLatest, map, Observable} from 'rxjs';
-import {Book} from'@mock-backend/book/Book';
-import {findBooksForUser} from'@mock-backend/book/book-mock-data';
+import {Book} from '@mock-backend/book/Book';
+import {findBooksForUser} from '@mock-backend/book/book-mock-data';
 import {MatDialog} from '@angular/material/dialog';
 import {BookDetailDialogWrapperComponent} from '@shared/book-detail-dialog-wrapper/book-detail-dialog-wrapper.component';
 import {Router} from '@angular/router';
 import {UserService} from '@core/user.service';
-import {UserBookAssignmentStatus} from'@mock-backend/user/user-book-assignment-status';
-import {updateStatus} from'@mock-backend/user/user-book-assignment-mockservice';
+import {UserBookAssignmentStatus} from '@mock-backend/user/user-book-assignment-status';
+import {updateStatus} from '@mock-backend/user/user-book-assignment-mockservice';
 import {enrichBookWithUserAssignments, EnrichedBook} from '@mock-backend/util/book-utils';
 
 @Component({
@@ -29,7 +29,7 @@ export class YourBooksListComponent implements OnInit {
         const books = combination[1].map((b: Book) => enrichBookWithUserAssignments(b, this.userService.authentication$.getValue()));
 
         console.log(books);
-        return books.filter((b: EnrichedBook) => b.title.toLocaleLowerCase().includes(filterTerm) && b.assignmentStatus !== 'default');
+        return books.filter((b: EnrichedBook) => b.title?.toLocaleLowerCase().includes(filterTerm) && b.assignmentStatus !== 'default');
       }),
     );
   }
@@ -51,6 +51,6 @@ export class YourBooksListComponent implements OnInit {
   }
 
   handleStatusChanged(event: { book: Book, status: UserBookAssignmentStatus }) {
-    updateStatus(this.userService.authentication$.getValue(), event.book.id, event.status);
+    updateStatus(this.userService.authentication$.getValue(), event.book.id!, event.status);
   }
 }

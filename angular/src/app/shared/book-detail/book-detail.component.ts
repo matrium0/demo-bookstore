@@ -24,7 +24,7 @@ export class BookDetailComponent implements OnInit {
     if (!this.book) {
       throw new Error("BookDetailComponent requires Input() parameter \"book\" to be set");
     }
-    this.imageUrl = this.imageService.createImageUrlFromBlob(this.book.image);
+    this.imageUrl = this.imageService.createImageUrlFromBlob(this.book.image!);
   }
 
 

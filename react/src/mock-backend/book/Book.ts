@@ -1,16 +1,16 @@
 import {DateTime} from 'luxon';
 
 export interface Book {
-  id: number,
-  title: string,
+  id?: number,
+  title?: string,
   subtitle?: string,
-  firstPublished: DateTime,
+  firstPublished?: DateTime,
   series?: string,
   numberWithinSeries?: number,
-  genre: string,
+  genre?: string,
 
-  authorId: number,
+  authorId?: number,
 
-  description: string,
-  image: Blob
+  description?: string,
+  image?: Blob
 }

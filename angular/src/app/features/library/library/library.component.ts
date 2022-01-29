@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {findAllBooks} from'@mock-backend/book/book-mock-data';
-import {Book} from'@mock-backend/book/Book';
+import {findAllBooks} from '@mock-backend/book/book-mock-data';
+import {Book} from '@mock-backend/book/Book';
 import {GlobalMessageService} from '@core/global-message.service';
 import {BehaviorSubject, combineLatest, map, Observable} from 'rxjs';
 import {BookDetailDialogWrapperComponent} from '@shared/book-detail-dialog-wrapper/book-detail-dialog-wrapper.component';
 import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {UserService} from '@core/user.service';
-import {UserBookAssignmentStatus} from'@mock-backend/user/user-book-assignment-status';
-import {findUserBookAssignmentsForUser, updateStatus} from'@mock-backend/user/user-book-assignment-mockservice';
+import {UserBookAssignmentStatus} from '@mock-backend/user/user-book-assignment-status';
+import {findUserBookAssignmentsForUser, updateStatus} from '@mock-backend/user/user-book-assignment-mockservice';
 import {enrichBookWithUserAssignments, EnrichedBook} from '@mock-backend/util/book-utils';
 
 type ShowAllSelectTypes = "HIDE_YOUR_BOOKS" | "SHOW_ALL";
@@ -39,10 +39,10 @@ export class LibraryComponent implements OnInit {
         let allBooks = combination[2].map((b: Book) => enrichBookWithUserAssignments(b, this.userService.authentication$.getValue()));
         console.log("filtering by \"" + filterTerm + "\"", showAllSelectFilter, allBooks.length);
         if (showAllSelectFilter === 'HIDE_YOUR_BOOKS') {
-          allBooks = allBooks.filter((book: EnrichedBook) => !(findUserBookAssignmentsForUser(this.userService.authentication$.getValue()).map(b => b.bookId).includes(book.id)))
+          allBooks = allBooks.filter((book: EnrichedBook) => !(findUserBookAssignmentsForUser(this.userService.authentication$.getValue()).map(b => b.bookId).includes(book.id!)))
         }
 
-        return allBooks.filter((b: EnrichedBook) => b.title.toLocaleLowerCase().includes(filterTerm));
+        return allBooks.filter((b: EnrichedBook) => b.title?.toLocaleLowerCase().includes(filterTerm));
       }),
     );
   }
@@ -69,7 +69,7 @@ export class LibraryComponent implements OnInit {
 
   handleStatusChanged(event: { book: Book, status: UserBookAssignmentStatus }) {
     console.log("LibraryComponent: statusChanged received", event);
-    updateStatus(this.userService.authentication$.getValue(), event.book.id, event.status);
+    updateStatus(this.userService.authentication$.getValue(), event.book.id!, event.status);
   }
 
   handleSelectAllChange(value: string) {
