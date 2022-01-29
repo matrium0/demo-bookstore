@@ -7,7 +7,7 @@ import BookCard from '../yourBooks/book-card';
 import ApplicationContext from '../../shared/ApplicationContext';
 import {enrichBookWithUserAssignments, EnrichedBook} from '../../mock-backend/util/book-utils';
 import {Book} from '../../mock-backend/book/Book';
-import {findBooksForUser} from '../../mock-backend/book/book-mock-data';
+import {findAllBooks} from '../../mock-backend/book/book-mock-data';
 import {findUserBookAssignmentsForUser} from '../../mock-backend/user/user-book-assignment-mockservice';
 
 interface LibraryState {
@@ -30,16 +30,17 @@ const Library = () => {
 
   useEffect(() => {
     console.log("useEffect running - should never rerun, since the dependencies-array is empty - loading books");
-    findBooksForUser(applicationContextRef.current.user!).subscribe(
+    findAllBooks().subscribe(
       {
         next: (results: Book[]) => {
           console.log("findBooksForUser SUCCESS", results);
           const books = results.map(b => enrichBookWithUserAssignments(b, applicationContextRef.current.user!));
+          const filteredBooks = filter(books, "", "exclude your books");
           setState({
             ...state,
             loading: false,
             books,
-            filteredBooks: [...books]
+            filteredBooks
           });
         },
         error: (error: any) => {
@@ -57,15 +58,16 @@ const Library = () => {
   }
 
   function handleSelectAllChange(e: any) {
-    const filter = e.target.value;
-    console.log("handleFilterKeyup", filter);
+    const selectedOption = e.target.value;
+    console.log("handleFilterKeyup", selectedOption);
     const filteredBooks = filter(state.books, state.searchTerm, e.target.value);
-    setState({...state, selectAllFilter: filter, filteredBooks});
+    setState({...state, selectAllFilter: selectedOption, filteredBooks});
   }
 
 
   function filter(books: EnrichedBook[], searchTerm: string, showAllSelectFilter: "exclude your books" | "show all books"): EnrichedBook[] {
     let allBooks = books;
+    console.log("filter", searchTerm, showAllSelectFilter);
     if (showAllSelectFilter === 'exclude your books') {
       allBooks = allBooks.filter((book: EnrichedBook) => !(findUserBookAssignmentsForUser(applicationContextRef.current.user!).map(b => b.bookId).includes(book.id)))
     }
@@ -87,7 +89,7 @@ const Library = () => {
               <span className="input-group-text"><FontAwesomeIcon icon={faFilter} size={'lg'}/></span>
             </div>
             <div className="input-group" style={{width: 260}}>
-              <select onChange={(e) => handleSelectAllChange(e)} className="form-select" aria-label="exclude your
+              <select value={state.selectAllFilter} onChange={(e) => handleSelectAllChange(e)} className="form-select" aria-label="exclude your
               books or show all">
                 <option>exclude your books</option>
                 <option>show all books</option>
