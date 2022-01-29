@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import './App.scss';
 import ApplicationContext from './shared/ApplicationContext';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import TicTacToe from './ticTacToe/ticTacToe';
 import Home from './features/home';
 import Header from './header/header';
 import {GlobalMessage, GlobalMessageContext} from './shared/GlobalMessageContext';
@@ -40,7 +39,6 @@ function App() {
               <Route path="edit/:id" element={<AuthorEdit/>}/>
               <Route path=":id" element={<AuthorDetail/>}/>
             </Route>
-            <Route path="/ticTacToe" element={<TicTacToe/>}/>
           </Routes>
         </BrowserRouter>
         <GlobalMessageDisplay/>

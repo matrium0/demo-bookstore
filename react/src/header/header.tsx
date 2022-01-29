@@ -47,11 +47,6 @@ const Header = () => {
               Authors
             </NavLink>
           </li>
-          <li className="nav-item">
-            <NavLink to="/ticTacToe" className="nav-link">
-              Tic Tac Toe
-            </NavLink>
-          </li>
           {applicationContext.user &&
             <>
               <li className="d-md-none mb-2 logout-link-mobile">
