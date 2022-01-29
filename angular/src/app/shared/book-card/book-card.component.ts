@@ -2,8 +2,8 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output}
 import {ImageService} from '@app/features/authors/image.service';
 import {SafeUrl} from '@angular/platform-browser';
 import {EnrichedBook} from '@core/book-utils';
-import {UserBookAssignmentStatus} from '@mock-backend/user/user-book-assignment-status';
-import {Book} from '@mock-backend/book/Book';
+import {UserBookAssignmentStatus} from '@mock-backend/../../../../../react/src/mock-backend/user/user-book-assignment-status';
+import {Book} from '@mock-backend/../../../../../react/src/mock-backend/book/Book';
 import {GlobalMessageService} from '@core/global-message.service';
 
 @Component({

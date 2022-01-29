@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {BehaviorSubject, combineLatest, map, Observable} from 'rxjs';
-import {Book} from '@mock-backend/book/Book';
-import {findBooksForUser} from '@mock-backend/book/book-mock-data';
+import {Book} from '@mock-backend/../../../../../../react/src/mock-backend/book/Book';
+import {findBooksForUser} from '@mock-backend/../../../../../../react/src/mock-backend/book/book-mock-data';
 import {MatDialog} from '@angular/material/dialog';
 import {BookDetailDialogWrapperComponent} from '@shared/book-detail-dialog-wrapper/book-detail-dialog-wrapper.component';
 import {Router} from '@angular/router';
 import {enrichBookWithUserAssignments, EnrichedBook} from '@core/book-utils';
 import {UserService} from '@core/user.service';
-import {UserBookAssignmentStatus} from '@mock-backend/user/user-book-assignment-status';
-import {updateStatus} from '@mock-backend/user/user-book-assignment-mockservice';
+import {UserBookAssignmentStatus} from '@mock-backend/../../../../../../react/src/mock-backend/user/user-book-assignment-status';
+import {updateStatus} from '@mock-backend/../../../../../../react/src/mock-backend/user/user-book-assignment-mockservice';
 
 @Component({
   selector: 'app-your-books-list',

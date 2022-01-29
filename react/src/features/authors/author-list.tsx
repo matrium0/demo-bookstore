@@ -1,14 +1,14 @@
 import React, {SyntheticEvent, useEffect, useState} from 'react';
-import {findAllAuthors} from '@local/mock-backend/author/author-mock-data';
-import {Author}from '@local/mock-backend/author/Author';
-import {EnrichedAuthor} from '@local/mock-backend/author/EnrichedAuthor';
 import AuthorTable from './author-table';
-import {enrichWithCalculatedFields} from '@local/mock-backend/author/author-util';
 import LoadingIndicatorWrapper from '../../shared/loading-indicator-wrapper';
 import {Paper} from '@mui/material';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faFilter} from '@fortawesome/free-solid-svg-icons';
 import {useNavigate} from 'react-router-dom';
+import {EnrichedAuthor} from '../../mock-backend/author/EnrichedAuthor';
+import {enrichWithCalculatedFields} from '../../mock-backend/author/author-util';
+import {Author} from '../../mock-backend/author/Author';
+import {findAllAuthors} from '../../mock-backend/author/author-mock-data';
 
 interface AuthorListState {
   authors: EnrichedAuthor[],

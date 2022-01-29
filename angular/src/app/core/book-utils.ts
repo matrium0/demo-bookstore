@@ -1,7 +1,7 @@
-import {Book} from '@mock-backend/book/Book';
-import {findUserBookAssignmentsForUser} from '@mock-backend/user/user-book-assignment-mockservice';
-import {UserBookAssignmentStatus} from '@mock-backend/user/user-book-assignment-status';
-import {getAuthorFullName} from '@mock-backend/author/author-mock-data';
+import {Book} from '@mock-backend/../../../../react/src/mock-backend/book/Book';
+import {findUserBookAssignmentsForUser} from '@mock-backend/../../../../react/src/mock-backend/user/user-book-assignment-mockservice';
+import {UserBookAssignmentStatus} from '@mock-backend/../../../../react/src/mock-backend/user/user-book-assignment-status';
+import {getAuthorFullName} from '@mock-backend/../../../../react/src/mock-backend/author/author-mock-data';
 
 export function enrichBookWithUserAssignments(original: Book, username: string): EnrichedBook {
   const assignments = findUserBookAssignmentsForUser(username);

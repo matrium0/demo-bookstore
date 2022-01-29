@@ -1,10 +1,10 @@
 import React, {memo} from 'react';
-import {EnrichedAuthor} from '@local/mock-backend/author/EnrichedAuthor';
 import {Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel} from '@mui/material';
 import {faCheck} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import GenderDisplay from '../../shared/GenderDisplay';
 import {useWindowSize} from '../../util/window-resize.hook';
+import {EnrichedAuthor} from '../../mock-backend/author/EnrichedAuthor';
 
 interface AuthorTableProps {
   authors: EnrichedAuthor[];

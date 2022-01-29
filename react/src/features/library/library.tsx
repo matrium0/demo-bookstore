@@ -4,17 +4,18 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faFilter} from '@fortawesome/free-solid-svg-icons';
 import LoadingIndicatorWrapper from '../../shared/loading-indicator-wrapper';
 import BookCard from '../yourBooks/book-card';
-import {Book} from '@local/mock-backend/book/Book';
 import ApplicationContext from '../../shared/ApplicationContext';
-import {enrichBookWithUserAssignments, EnrichedBook} from '../../util/book-utils';
-import {findBooksForUser} from '@local/mock-backend/book/book-mock-data';
+import {enrichBookWithUserAssignments, EnrichedBook} from '../../mock-backend/util/book-utils';
+import {Book} from '../../mock-backend/book/Book';
+import {findBooksForUser} from '../../mock-backend/book/book-mock-data';
+import {findUserBookAssignmentsForUser} from '../../mock-backend/user/user-book-assignment-mockservice';
 
 interface LibraryState {
   loading: boolean,
   books: EnrichedBook[],
   filteredBooks: EnrichedBook[],
   searchTerm: string
-  handleSelectAll: "exclude your books" | "show all books";
+  selectAllFilter: "exclude your books" | "show all books";
 }
 
 const Library = () => {
@@ -24,7 +25,7 @@ const Library = () => {
     books: [],
     filteredBooks: [],
     searchTerm: "",
-    handleSelectAll: "exclude your books"
+    selectAllFilter: "exclude your books"
   })
 
   useEffect(() => {
@@ -50,14 +51,29 @@ const Library = () => {
 
   function handleFilterKeyup(event: ChangeEvent<HTMLInputElement>) {
     const searchTerm = (event.target as HTMLInputElement).value.toLowerCase();
-    const filteredBooks = state.books.filter((b: EnrichedBook) => b.title.toLocaleLowerCase().includes(searchTerm));
-    setState({...state, filteredBooks, searchTerm})
+    console.log("handleFilterKeyup", searchTerm);
+    const filteredBooks = filter(state.books, searchTerm, state.selectAllFilter);
+    setState({...state, searchTerm, filteredBooks});
   }
 
   function handleSelectAllChange(e: any) {
-    console.log("handleselectallchange", e);
-    console.log("handleselectallchange", e.target.value);
+    const filter = e.target.value;
+    console.log("handleFilterKeyup", filter);
+    const filteredBooks = filter(state.books, state.searchTerm, e.target.value);
+    setState({...state, selectAllFilter: filter, filteredBooks});
   }
+
+
+  function filter(books: EnrichedBook[], searchTerm: string, showAllSelectFilter: "exclude your books" | "show all books"): EnrichedBook[] {
+    let allBooks = books;
+    if (showAllSelectFilter === 'exclude your books') {
+      allBooks = allBooks.filter((book: EnrichedBook) => !(findUserBookAssignmentsForUser(applicationContextRef.current.user!).map(b => b.bookId).includes(book.id)))
+    }
+
+    return allBooks.filter((b: EnrichedBook) => b.title.toLocaleLowerCase().includes(searchTerm));
+  }
+
+  //TODO check out route guarding
 
   return (
     <div className="comp-wrapper">

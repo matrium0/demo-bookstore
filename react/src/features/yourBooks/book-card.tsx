@@ -1,5 +1,5 @@
 import {NavLink} from 'react-router-dom';
-import {EnrichedBook} from '../../util/book-utils';
+import {EnrichedBook} from '../../mock-backend/util/book-utils';
 import React, {memo, useState} from 'react';
 import "./book-card.scss";
 import {Link} from '@mui/material';

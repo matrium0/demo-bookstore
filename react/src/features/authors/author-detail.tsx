@@ -1,19 +1,19 @@
 import 'react-quill/dist/quill.snow.css';
 import "./author-detail.scss";
 import React, {memo, useContext, useEffect, useRef, useState} from 'react';
-import {Author} from '@local/mock-backend/author/Author';
-import {EnrichedAuthor} from '@local/mock-backend/author/EnrichedAuthor';
-import {Book} from '@local/mock-backend/book/Book';
 import {Paper} from '@mui/material';
 import LoadingIndicatorWrapper from '../../shared/loading-indicator-wrapper';
 import {NavLink, useNavigate, useParams} from 'react-router-dom';
-import {findAuthorById} from '@local/mock-backend/author/author-mock-data';
 import sanitize from 'sanitize-html';
-import {findBooksOfAuthor} from '@local/mock-backend/book/book-mock-data';
 import {GlobalMessageContext} from '../../shared/GlobalMessageContext';
-import {enrichWithCalculatedFields} from '@local/mock-backend/author/author-util';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSpinner} from '@fortawesome/free-solid-svg-icons/faSpinner';
+import {enrichWithCalculatedFields} from '../../mock-backend/author/author-util';
+import {findAuthorById} from '../../mock-backend/author/author-mock-data';
+import {Book} from '../../mock-backend/book/Book';
+import {EnrichedAuthor} from '../../mock-backend/author/EnrichedAuthor';
+import {Author} from '../../mock-backend/author/Author';
+import {findBooksOfAuthor} from '../../mock-backend/book/book-mock-data';
 
 interface AuthorDetailState {
   author?: EnrichedAuthor,

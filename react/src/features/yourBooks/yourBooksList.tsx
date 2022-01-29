@@ -3,12 +3,12 @@ import {Paper} from '@mui/material';
 import {faFilter, faInfo} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {NavLink} from 'react-router-dom';
-import {findBooksForUser} from '@local/mock-backend/book/book-mock-data';
 import ApplicationContext from '../../shared/ApplicationContext';
 import BookCard from './book-card';
-import {Book} from '@local/mock-backend/book/Book';
-import {enrichBookWithUserAssignments, EnrichedBook} from '../../util/book-utils';
+import {enrichBookWithUserAssignments, EnrichedBook} from '../../mock-backend/util/book-utils';
 import LoadingIndicatorWrapper from '../../shared/loading-indicator-wrapper';
+import {findBooksForUser} from '../../mock-backend/book/book-mock-data';
+import {Book} from '../../mock-backend/book/Book';
 
 interface YourBooksListState {
   loading: boolean,

@@ -1,5 +1,5 @@
 import React, {memo, useState} from 'react';
-import {EnrichedBook} from '../../util/book-utils';
+import {EnrichedBook} from '../../mock-backend/util/book-utils';
 import {Dialog, Link} from '@mui/material';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTimes} from '@fortawesome/free-solid-svg-icons/faTimes';

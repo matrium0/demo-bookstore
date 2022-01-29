@@ -3,8 +3,6 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {Checkbox, Paper, TextField, ToggleButton, ToggleButtonGroup} from '@mui/material';
 import LoadingIndicatorWrapper from '../../shared/loading-indicator-wrapper';
 import React, {SyntheticEvent, useContext, useEffect, useState} from 'react';
-import {Author} from '@local/mock-backend/author/Author';
-import {createOrUpdateAuthor, deleteAuthor, findAuthorById} from '@local/mock-backend/author/author-mock-data';
 import {DatePicker, DesktopDatePicker, LocalizationProvider} from '@mui/lab';
 import LuxonAdapter from "@date-io/luxon";
 import GenderDisplay from '../../shared/GenderDisplay';
@@ -13,6 +11,8 @@ import {GlobalMessageContext} from '../../shared/GlobalMessageContext';
 import UploadImageDialog from './upload-image-dialog';
 import {DateTime} from 'luxon';
 import ConfirmationDialog from '../../shared/confirmation-dialog';
+import {Author} from '../../mock-backend/author/Author';
+import {createOrUpdateAuthor, deleteAuthor, findAuthorById} from '../../mock-backend/author/author-mock-data';
 
 
 interface AuthorEditState {  // could be split up into multiple states - recommendation is to group things if they tend to change together

@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {Book} from '@mock-backend/book/Book';
+import {Book} from '@mock-backend/../../../../../react/src/mock-backend/book/Book';
 import {EnrichedBook} from '@core/book-utils';
 
 @Component({
