@@ -1,22 +1,141 @@
-import React, {memo, useState} from 'react';
+import React, {memo, SyntheticEvent, useEffect, useState} from 'react';
 import LuxonAdapter from '@date-io/luxon';
-import {LocalizationProvider} from '@mui/lab';
-import {Paper} from '@mui/material';
+import {DatePicker, LocalizationProvider} from '@mui/lab';
+import {Paper, TextField} from '@mui/material';
 import LoadingIndicatorWrapper from '../../shared/loading-indicator-wrapper';
 import {EnrichedBook} from '../../mock-backend/util/book-utils';
+import {useNavigate, useParams} from 'react-router-dom';
+import {findBookById} from '../../mock-backend/book/book-mock-data';
+import {Book} from '../../mock-backend/book/Book';
+import ReactQuill, {UnprivilegedEditor} from 'react-quill';
+import {DateTime} from 'luxon';
+import UploadImageDialog from '../authors/upload-image-dialog';
 
 interface BookEditState {
   loading: boolean;
   book: EnrichedBook,
+  imageUrl?: string,
+  showImageUploadDialog: boolean
 
-  showDeleteDialog: boolean
+  fotoChanged: boolean;
+
+  showDeleteDialog: boolean,
+  errors: {
+    [key: string]: string | null
+  }
 }
 
 const BookEdit = () => {
-  const [state, setState] = useState<BookEditState>({loading: true, book: {}, showDeleteDialog: true});
+  const [state, setState] = useState<BookEditState>({
+    loading: true,
+    book: {},
+    showImageUploadDialog: false,
+    fotoChanged: false,
+    showDeleteDialog: true,
+    errors: {}
+  });
+  const {id} = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log("useEffect");
+
+    function loadBook() {
+      if (id === "new") {
+        setState((st => ({...st, loading: true})));
+        return;
+      }
+
+      const bookId = Number(id);
+      console.log("loadBook", bookId);
+
+      findBookById(bookId).subscribe(
+        {
+          next: (book: Book) => {
+            console.log("findBookById SUCCESS", book);
+            const imageUrl = URL.createObjectURL(book.image!);
+
+            setState((st => ({...st, loading: false, book, imageUrl})));
+          },
+          error: (error: any) => {
+            console.log("findBookById ERROR", error);
+            setState((st => ({...st, loading: false, book: {}, imageUrl: undefined})));
+          }
+        });
+    }
+
+    return loadBook();
+  }, [id]);
 
   function openDeleteDialog() {
     //TODO open delete dialog
+  }
+
+  function handleInputChange(event: SyntheticEvent) {
+    const target = event.target as HTMLInputElement;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    changeStateField(target.required, name as keyof Book, value);
+  }
+
+  function changeStateField(required: boolean, name: keyof Book, value: any) {
+    console.log("changeStateField", required, name, value);
+
+    validateFieldAndSetErrorIfNecessary(required, name, value);
+
+    setState({
+      ...state, book: {...state.book, [name]: value},
+    });
+
+    setTimeout(() =>
+      console.log(state), 1000);
+  }
+
+  function validateFieldAndSetErrorIfNecessary(required: boolean, name: keyof Book, value: any) {
+    console.log("validateFieldAndSetErrorIfNecessary", name, value, state.book[name]);
+
+    if ((required || name === "firstPublished") && !value) {
+      state.errors[name] = "Cannot be empty";
+    } else if ((name === "firstPublished") && !(value as DateTime).isValid) {
+      state.errors[name] = "Date is invalid";
+    } else {
+      state.errors[name] = null;
+    }
+
+    setState({
+      ...state
+    });
+  }
+
+  function onNoteBlur(range: ReactQuill.Range, value: any, editor: UnprivilegedEditor) {
+    setState({...state, book: {...state.book, description: editor.getHTML()}});
+  }
+
+  function openFotoUploadDialog() {
+    console.log("openfotouploadialog");
+    setState({...state, showImageUploadDialog: true});
+  }
+
+  function navigateBackToBookList() {
+    console.log("navigateBackToBookList");
+    navigate("/book");
+  }
+
+  function saveAndNavigateToDetail() {
+    console.log("saveAndNavigateToDetail"); //TODO impl
+  }
+
+  function handleImageAcceptedInDialog(image: Blob | undefined) {
+    console.log("handleImageAcceptedInDialog", image);
+    if (image) {
+      setState((st) => ({
+        ...st,
+        showImageUploadDialog: false,
+        book: {...state.book, foto: image},
+        imageUrl: URL.createObjectURL(image)
+      }));
+    }
   }
 
   return (
@@ -26,8 +145,8 @@ const BookEdit = () => {
           <div className="title-row">
             <div className="d-flex align-items-center justify-content-between flex-wrap">
               <h1>
-                {/*{!state.author.id && !state.loading && "New Author"}*/}
-                {/*{state.author.id && state.author?.firstname + " " + state.author?.lastname}*/}
+                {!state.book.id && !state.loading && "New Book"}
+                {state.book.id && "Book: " + state.book?.title}
               </h1>
             </div>
             <button onClick={() => openDeleteDialog()} className="btn btn-danger btn-lg me-4">delete</button>
@@ -37,12 +156,80 @@ const BookEdit = () => {
               <div className="row mx-3 gx-0 gx-lg-5">
                 <div className="col-lg-6 pt-2">
                   <h2 className="mb-2">Personal Data</h2>
+                  <TextField name="title" label="Title" value={state.book.title} onChange={handleInputChange}
+                             required error={!!state.errors["title"]} helperText={state.errors["title"]}
+                             variant="outlined" className="w-100"/>
+                  <TextField name="subtitle" label="Subtitle" value={state.book.subtitle} onChange={handleInputChange}
+                             required error={!!state.errors["subtitle"]} helperText={state.errors["subtitle"]}
+                             variant="outlined" className="w-100 mt-4"/>
+
+                  <DatePicker value={state.book.firstPublished ? state.book.firstPublished.toJSDate() : null}
+                              onChange={(e) => changeStateField(true, "firstPublished", e)}
+                              mask="dd.LL.yyyy" inputFormat="dd.LL.yyyy"
+                              renderInput={(props) => (
+                                <TextField {...props} required label="First published"
+                                           error={!!state.errors["firstPublished"]} helperText={state.errors["firstPublished"]}
+                                           variant="outlined" className="w-100 mt-4"/>
+                              )}>
+                  </DatePicker>
+                  <TextField name="firstPublished" label="First published" value={state.book.firstPublished} onChange={handleInputChange}
+                             required error={!!state.errors["firstPublished"]} helperText={state.errors["firstPublished"]}
+                             variant="outlined" className="w-100 mt-4"/>
+
+                  <TextField name="series" label="Series" value={state.book.series || ""} onChange={handleInputChange}
+                             error={!!state.errors["series"]} helperText={state.errors["series"]}
+                             variant="outlined" className="w-100 mt-4"/>
+
+                  <TextField name="numberWithinSeries" label="Book in Series" value={state.book.series || ""} onChange={handleInputChange}
+                             error={!!state.errors["numberWithinSeries"]} helperText={state.errors["numberWithinSeries"]}
+                             variant="outlined" className="w-100 mt-4"/>
+
+                  <TextField name="genre" label="Genre" value={state.book.series || ""} onChange={handleInputChange}
+                             error={!!state.errors["genre"]} helperText={state.errors["genre"]}
+                             variant="outlined" className="w-100 mt-4"/>
                 </div>
+
+                <div className="col-lg-6 pt-2">
+                  <h2 className="mt-lg-0 mb-2">Description</h2>
+                  <ReactQuill value={state.book?.description} onBlur={(range, value, editor) => onNoteBlur(range, value, editor)}
+                              theme="snow" modules={{
+                    toolbar: [
+                      ['bold', 'italic', 'underline'],
+                      [{'header': [1, 2, 3, 4, false]}],
+                    ]
+                  }}
+                  />
+
+                  <div className="d-flex align-items-center mt-4 mt-lg-3">
+                    <h2 className="me-3">Foto</h2>
+                    {state.book.id && state.fotoChanged &&
+                      <div className="text-danger fw-bold">You changed the foto - don't forget to save!</div>
+                    }
+                  </div>
+                  <div
+                    className="foto-wrapper col-sm-7 col-md-6 col-lg-5 col-xl-4 position-relative d-flex flex-column justify-content-center align-items-center">
+                    {state.imageUrl && <img src={state?.imageUrl} className="author-foto-img" alt="Foto of the Author"/>}
+                    <button type="button" onClick={openFotoUploadDialog} className="author-foto-change-link btn btn-link">
+                      {state.book.id ? 'change foto' : 'upload foto'}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="row mt-3">
+              <div className="col-12 px-4 px-lg-5 mb-3 d-flex align-items-center justify-content-between ">
+                <button onClick={() => navigateBackToBookList()} className="btn btn-secondary btn-lg">
+                  cancel
+                </button>
+                <button onClick={() => saveAndNavigateToDetail()} className="btn btn-success btn-lg px-4">
+                  save
+                </button>
               </div>
             </div>
           </LoadingIndicatorWrapper>
         </Paper>
       </div>
+      <UploadImageDialog show={state.showImageUploadDialog} closeImageUploadDialog={(image) => handleImageAcceptedInDialog(image)}/>
     </LocalizationProvider>
   )
 }

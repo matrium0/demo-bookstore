@@ -225,7 +225,7 @@ const AuthorEdit = () => {
             <div className="pb-3">
               <div className="row mx-3 gx-0 gx-lg-5">
                 <div className="col-lg-6 pt-2">
-                  <h2 className="mb-2">Personal Data</h2>
+                  <h2 className="mb-2">General Data</h2>
                   <TextField name="firstname" label="Firstname" value={state.author.firstname} onChange={handleInputChange}
                              required error={!!state.errors["firstname"]} helperText={state.errors["firstname"]}
                              variant="outlined" className="w-100"/>
