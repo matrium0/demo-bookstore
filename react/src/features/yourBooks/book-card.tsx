@@ -2,8 +2,8 @@ import {NavLink} from 'react-router-dom';
 import {EnrichedBook} from '../../util/book-utils';
 import React, {memo, useState} from 'react';
 import "./book-card.scss";
-import ConfirmationDialog from '../../shared/confirmation-dialog';
 import {Link} from '@mui/material';
+import ConfirmationDialog from '../../shared/confirmation-dialog';
 import BookDetailDialog from './book-detail-dialog';
 
 interface BookCardProps {
@@ -44,7 +44,7 @@ const BookCard = (props: BookCardProps) => {
       }
       <div className="title">{props.book.title}</div>
       <div className="subtitle">{props.book.subtitle}</div>
-      <div className="author">by <NavLink to="/author/{book.authorId}">{props.book.authorFullName}</NavLink></div>
+      <div className="author">by <NavLink to={"/author/" + props.book.authorId}>{props.book.authorFullName}</NavLink></div>
       <div className="first-published">first published {props.book.firstPublished?.toFormat("dd.LL.yyyy")}</div>
 
       {/*TODO is in library marker*/}
