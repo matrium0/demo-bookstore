@@ -47,7 +47,7 @@ const BookCard = (props: BookCardProps) => {
       <div className="author">by <NavLink to={"/author/" + props.book.authorId}>{props.book.authorFullName}</NavLink></div>
       <div className="first-published">first published {props.book.firstPublished?.toFormat("dd.LL.yyyy")}</div>
 
-      {/*TODO is in library marker*/}
+      {/*TODO add library marker feature here*/}
       {/*<app-is-in-library-marker [status]="book.assignmentStatus" (statusChange)="statusChange($event)" className="isinlibrary-button"></app-is-in-library-marker>*/}
       <div onClick={() => openBookDetailDialog()} className="show-details-link btn-link cursor-pointer">open details</div>
 

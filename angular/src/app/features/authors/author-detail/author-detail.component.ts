@@ -41,7 +41,6 @@ export class AuthorDetailComponent implements OnInit {
     return this.author?.firstname + " " + this.author?.lastname;
   }
 
-  //TODO extract past of it to shared service
   loadAuthor(id: number) {
     this.authorId = id;
     this.isLoading = true;

@@ -30,8 +30,7 @@ const BookDetailDialog = (props: BookDetailDialogProps) => {
   }
 
   function navigateToAuthorDetail() {
-    //TODO need to load author
-    // navigate("/author/" + props.book.id);
+    navigate("/library/edit/" + props.book.authorId);
   }
 
   function dismissSeriesDialog() {

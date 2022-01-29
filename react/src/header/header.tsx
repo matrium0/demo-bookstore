@@ -10,7 +10,6 @@ import {NavDropdown} from 'react-bootstrap';
 
 const Header = () => {
   const applicationContext = React.useContext(ApplicationContext);
-
   const [menuCollapsed, setMenuCollapsed] = useState(true);
 
   console.log("Header rendering");
@@ -71,9 +70,6 @@ const Header = () => {
 };
 
 function handleLogoutClick() {
-  //TODO add gloabel message hand
-  //TODO display message: login/logout functionality is not supported in this demo
-
 }
 
 export default Header;

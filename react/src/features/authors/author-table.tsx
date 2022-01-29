@@ -39,7 +39,6 @@ const AuthorTable = (props: AuthorTableProps) => {
     {field: 'dateOfDeath', headerName: 'DATE OF DEATH', alwaysShow: false}
   ];
 
-  //TODO show spinner
   function descendingComparator(a: any, b: any, field: string) {
     if (!b[field] || b[field] < a[field]) {
       return -1;

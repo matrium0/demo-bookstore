@@ -81,8 +81,6 @@ const Library = () => {
     return allBooks.filter((b: EnrichedBook) => b.title.toLocaleLowerCase().includes(searchTerm));
   }
 
-  //TODO check out route guarding
-
   return (
     <div className="comp-wrapper">
       <Paper elevation={8} className="app-col">
