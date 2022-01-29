@@ -36,16 +36,16 @@ const Library = () => {
           console.log("findBooksForUser SUCCESS", results);
           const books = results.map(b => enrichBookWithUserAssignments(b, applicationContextRef.current.user!));
           const filteredBooks = filter(books, "", "exclude your books");
-          setState({
-            ...state,
+          setState(st => ({
+            ...st,
             loading: false,
             books,
             filteredBooks
-          });
+          }));
         },
         error: (error: any) => {
           console.log("findBooksForUser ERROR", error);
-          setState({...state, loading: false})
+          setState(st => ({...st, loading: false}));
         }
       });
   }, []); // runs exactly once, because the deps array is empty, therefor it will never be re-evaluated#
