@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {UserBookAssignmentStatus} from '@mock-backend/../../../../../react/src/mock-backend/user/user-book-assignment-status';
+import {UserBookAssignmentStatus} from '@mock-backend/user/user-book-assignment-status';
 import {faBookmark, faBookReader, faCheck} from '@fortawesome/free-solid-svg-icons';
 
 

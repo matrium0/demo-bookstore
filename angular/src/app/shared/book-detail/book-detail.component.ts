@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ImageService} from '@app/features/authors/image.service';
 import {SafeUrl} from '@angular/platform-browser';
-import {EnrichedBook} from '@core/book-utils';
+import {EnrichedBook} from '@mock-backend/util/book-utils';
 
 @Component({
   selector: 'app-book-detail',

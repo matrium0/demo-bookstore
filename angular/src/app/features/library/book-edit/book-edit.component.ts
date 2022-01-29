@@ -1,20 +1,20 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {createOrUpdateBook, deleteBook, findBookById} from '@mock-backend/../../../../../../react/src/mock-backend/book/book-mock-data';
+import {createOrUpdateBook, deleteBook, findBookById} from'@mock-backend/book/book-mock-data';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GlobalMessageService} from '@core/global-message.service';
 import {DateTime} from 'luxon';
-import {Book} from '@mock-backend/../../../../../../react/src/mock-backend/book/Book';
+import {Book} from'@mock-backend/book/Book';
 import {ImageService} from '@app/features/authors/image.service';
 import {SafeUrl} from '@angular/platform-browser';
 import {ImageCropperDialogComponent} from '@app/features/authors/image-cropper-dialog/image-cropper-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
-import {Author}from '@mock-backend/../../../../../../react/src/mock-backend/author/Author';
-import {findAllAuthors} from '@mock-backend/../../../../../../react/src/mock-backend/author/author-mock-data';
+import {Author}from'@mock-backend/author/Author';
+import {findAllAuthors} from'@mock-backend/author/author-mock-data';
 import {Observable} from 'rxjs';
-import {enrichBookWithUserAssignments} from '@core/book-utils';
 import {UserService} from '@core/user.service';
 import {HttpErrorResponse} from '@angular/common/http';
+import {enrichBookWithUserAssignments} from '@mock-backend/util/book-utils';
 
 @Component({
   selector: 'app-book-edit',

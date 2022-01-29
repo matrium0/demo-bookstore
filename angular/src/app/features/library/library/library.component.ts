@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {findAllBooks} from '@mock-backend/../../../../../../react/src/mock-backend/book/book-mock-data';
-import {Book} from '@mock-backend/../../../../../../react/src/mock-backend/book/Book';
+import {findAllBooks} from'@mock-backend/book/book-mock-data';
+import {Book} from'@mock-backend/book/Book';
 import {GlobalMessageService} from '@core/global-message.service';
 import {BehaviorSubject, combineLatest, map, Observable} from 'rxjs';
 import {BookDetailDialogWrapperComponent} from '@shared/book-detail-dialog-wrapper/book-detail-dialog-wrapper.component';
 import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
-import {enrichBookWithUserAssignments, EnrichedBook} from '@core/book-utils';
 import {UserService} from '@core/user.service';
-import {UserBookAssignmentStatus} from '@mock-backend/../../../../../../react/src/mock-backend/user/user-book-assignment-status';
-import {findUserBookAssignmentsForUser, updateStatus} from '@mock-backend/../../../../../../react/src/mock-backend/user/user-book-assignment-mockservice';
+import {UserBookAssignmentStatus} from'@mock-backend/user/user-book-assignment-status';
+import {findUserBookAssignmentsForUser, updateStatus} from'@mock-backend/user/user-book-assignment-mockservice';
+import {enrichBookWithUserAssignments, EnrichedBook} from '@mock-backend/util/book-utils';
 
 type ShowAllSelectTypes = "HIDE_YOUR_BOOKS" | "SHOW_ALL";
 
