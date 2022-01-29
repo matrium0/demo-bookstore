@@ -11,7 +11,7 @@ const Home = () => {
             <h1>Home</h1>
           </div>
         </div>
-        <div className="pb-3" style={{borderTop: '2px solid gray'}}>
+        <div className="pb-3">
           <p className="mx-2 mx-lg-5 mt-0 mt-3 fs-5">
             Welcome to our <strong>Demo Bookstore</strong>. This is a just a frontend demonstration with no backend or persistent
             database.

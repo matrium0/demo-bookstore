@@ -28,6 +28,12 @@ const Library = () => {
     selectAllFilter: "exclude your books"
   })
 
+  const filterRef = React.useRef<HTMLInputElement>(null);
+
+  React.useEffect(() => {
+    filterRef.current?.focus();
+  }, []);
+
   useEffect(() => {
     console.log("useEffect running - should never rerun, since the dependencies-array is empty - loading books");
     findAllBooks().subscribe(
@@ -84,8 +90,8 @@ const Library = () => {
           <div className="d-flex align-items-center justify-content-start flex-wrap">
             <h1 className="me-2 me-lg-5">Library</h1>
             <div className="input-group me-2 me-lg-5 my-2 my-lg-0" style={{width: 260}}>
-              <input value={state.searchTerm} onChange={(e) => handleFilterKeyup(e)} className="form-control" placeholder="type to filter"
-                     aria-label="Filter"/>
+              <input value={state.searchTerm} onChange={(e) => handleFilterKeyup(e)} className="form-control"
+                     ref={filterRef} placeholder="type to filter by name" aria-label="Filter"/>
               <span className="input-group-text"><FontAwesomeIcon icon={faFilter} size={'lg'}/></span>
             </div>
             <div className="input-group" style={{width: 260}}>
