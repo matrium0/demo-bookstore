@@ -10,6 +10,7 @@ import {UserBookAssignmentStatus} from '../../mock-backend/user/user-book-assign
 
 interface BookCardProps {
   book: EnrichedBook;
+  changeStatus: (book: EnrichedBook, stat: UserBookAssignmentStatus) => void
 }
 
 const BookCard = (props: BookCardProps) => {
@@ -36,8 +37,8 @@ const BookCard = (props: BookCardProps) => {
   }
 
   function handleAssignmentStatusChange(stat: UserBookAssignmentStatus) {
-    //TODO handle status change
-    console.log("handleAssignmentStatusChange", stat);
+    props.changeStatus(props.book, stat);
+    props.book.assignmentStatus = stat;
   }
 
   return (

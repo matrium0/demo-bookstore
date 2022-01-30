@@ -1,9 +1,10 @@
-import React, {memo, useEffect, useState} from 'react';
+import React, {memo, useContext, useEffect, useState} from 'react';
 import {UserBookAssignmentStatus} from '../../mock-backend/user/user-book-assignment-status';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faBookmark, faBookReader, faCheck} from '@fortawesome/free-solid-svg-icons';
 import {ButtonGroup, ClickAwayListener, Grow, MenuItem, MenuList, Paper, Popper} from '@mui/material';
 import {faCaretDown} from '@fortawesome/free-solid-svg-icons/faCaretDown';
+import {GlobalMessageContext} from '../../shared/GlobalMessageContext';
 
 interface BookCardLibraryMarkerProps {
   assignmentStatus: UserBookAssignmentStatus
@@ -15,6 +16,7 @@ interface BookCardLibraryMarkerState {
 }
 
 const BookCardLibraryMarker = (props: BookCardLibraryMarkerProps) => {
+  const globalMessageContext = useContext(GlobalMessageContext);
   const [state, setState] = useState<BookCardLibraryMarkerState>({isMenuCollapsed: true})
   const anchorRef = React.useRef(null);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -23,9 +25,12 @@ const BookCardLibraryMarker = (props: BookCardLibraryMarkerProps) => {
     setAnchorEl(anchorRef.current);
   }, [anchorRef]);
 
-  function changeStatus(wantToRead: UserBookAssignmentStatus) {
-    props.changeStatus(wantToRead);
-    toggleMenuCollapsed();
+  function changeStatus(status: UserBookAssignmentStatus) {
+    props.changeStatus(status);
+    setState({isMenuCollapsed: true});
+    if (status === 'want to read') {
+      globalMessageContext.setMessage({message: "Book was added to \"Your Books\"", severity: "success"});
+    }
   }
 
   function toggleMenuCollapsed() {

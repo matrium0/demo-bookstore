@@ -9,6 +9,8 @@ import {enrichBookWithUserAssignments, EnrichedBook} from '../../mock-backend/ut
 import LoadingIndicatorWrapper from '../../shared/loading-indicator-wrapper';
 import {findBooksForUser} from '../../mock-backend/book/book-mock-data';
 import {Book} from '../../mock-backend/book/Book';
+import {UserBookAssignmentStatus} from '../../mock-backend/user/user-book-assignment-status';
+import {updateStatus} from '../../mock-backend/user/user-book-assignment-mockservice';
 
 interface YourBooksListState {
   loading: boolean,
@@ -48,6 +50,11 @@ const YourBooksList = () => {
     setState({...state, filteredBooks, searchTerm})
   }
 
+  function handleAssignmentStatusChange(book: EnrichedBook, stat: UserBookAssignmentStatus) {
+    console.log("LibraryComponent: statusChanged received", book, stat);
+    updateStatus(applicationContextRef.current.user!, book.id!, stat);
+  }
+
   return (
     <div className="comp-wrapper">
       <Paper elevation={8} className="app-col">
@@ -58,7 +65,7 @@ const YourBooksList = () => {
               <div className="input-group ms-2 ms-lg-5">
                 <input value={state.searchTerm} onChange={(e) => handleFilterKeyup(e)} className="form-control" placeholder="filter"
                        aria-label="Filter"/>
-                <span className="input-group-text"><FontAwesomeIcon icon={faFilter} /></span>
+                <span className="input-group-text"><FontAwesomeIcon icon={faFilter}/></span>
               </div>
             </div>
           </div>
@@ -72,7 +79,7 @@ const YourBooksList = () => {
             <div className="row mx-1 mx-lg-2 justify-content-around pb-4" style={{minHeight: 400}}>
               {state.filteredBooks.map((b) => (
                 <div key={b.id} className="col-auto g-4 book-card-wrap">
-                  <BookCard key={b.id} book={b}/>
+                  <BookCard key={b.id} book={b} changeStatus={handleAssignmentStatusChange}/>
                 </div>
               ))}
             </div>

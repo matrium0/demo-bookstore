@@ -8,8 +8,9 @@ import ApplicationContext from '../../shared/ApplicationContext';
 import {enrichBookWithUserAssignments, EnrichedBook} from '../../mock-backend/util/book-utils';
 import {Book} from '../../mock-backend/book/Book';
 import {findAllBooks} from '../../mock-backend/book/book-mock-data';
-import {findUserBookAssignmentsForUser} from '../../mock-backend/user/user-book-assignment-mockservice';
+import {findUserBookAssignmentsForUser, updateStatus} from '../../mock-backend/user/user-book-assignment-mockservice';
 import {useNavigate} from 'react-router-dom';
+import {UserBookAssignmentStatus} from '../../mock-backend/user/user-book-assignment-status';
 
 interface LibraryState {
   loading: boolean,
@@ -87,6 +88,12 @@ const Library = () => {
     navigate("/library/edit/new");
   }
 
+  function handleAssignmentStatusChange(book: EnrichedBook, stat: UserBookAssignmentStatus) {
+    console.log("LibraryComponent: statusChanged received", book, stat);
+    updateStatus(applicationContextRef.current.user!, book.id!, stat);
+
+  }
+
   return (
     <div className="comp-wrapper">
       <Paper elevation={8} className="app-col">
@@ -117,7 +124,7 @@ const Library = () => {
             <div className="row mx-1 mx-lg-2 justify-content-around pb-4" style={{minHeight: 400}}>
               {state.filteredBooks.map((b) => (
                 <div key={b.id} className="col-auto g-4 book-card-wrap">
-                  <BookCard key={b.id} book={b}/>
+                  <BookCard key={b.id} book={b} changeStatus={handleAssignmentStatusChange}/>
                 </div>
               ))}
             </div>
