@@ -87,7 +87,7 @@ export function createOrUpdateAuthor(newElement: Author): Observable<Author> {
 }
 
 export function findAllAuthors(): Observable<Author[]> {
-  return of(data).pipe(delay(1500));
+  return of(data).pipe(delay(600));
 }
 
 export function findAuthorById(id: number): Observable<Author> {

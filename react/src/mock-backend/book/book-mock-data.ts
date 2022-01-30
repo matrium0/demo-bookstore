@@ -31,11 +31,11 @@ export function findBooksForUser(username: string): Observable<Book[]> {
 }
 
 export function findAllBooks(): Observable<Book[]> {
-  return of(data).pipe(delay(300));
+  return of(data).pipe(delay(600));
 }
 
 export function findBooksOfAuthor(id: number): Observable<Book[]> {
-  return of(data.filter(a => a.authorId === id)).pipe(delay(2000));
+  return of(data.filter(a => a.authorId === id)).pipe(delay(300));
 }
 
 export function findBookById(id: number): Observable<Book> {
