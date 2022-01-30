@@ -38,7 +38,7 @@ const BookDetailDialog = (props: BookDetailDialogProps) => {
   }
 
   return (
-    <Dialog onClose={() => dismissDialog()} open={props.show}>
+    <Dialog onClose={() => dismissDialog()} open={props.show} className="book-detail-dialog">
       <div className="p-4">
         <div className="d-flex align-items-center justify-content-between">
           <div className="d-flex align-items-center">

@@ -56,14 +56,14 @@ const YourBooksList = () => {
             <div className="d-flex align-items-center">
               <h1>Your&nbsp;Books</h1>
               <div className="input-group ms-2 ms-lg-5">
-                <input value={state.searchTerm} onChange={(e) => handleFilterKeyup(e)} className="form-control" placeholder="type to filter"
+                <input value={state.searchTerm} onChange={(e) => handleFilterKeyup(e)} className="form-control" placeholder="filter"
                        aria-label="Filter"/>
                 <span className="input-group-text"><FontAwesomeIcon icon={faFilter} size={'lg'}/></span>
               </div>
             </div>
           </div>
           <div className="ms-2 me-4 add-more-books-label">
-            <FontAwesomeIcon icon={faInfo}/>
+            <FontAwesomeIcon icon={faInfo} className="me-1"/>
             You can find more books in our <NavLink to="/library">Library</NavLink>
           </div>
         </div>

@@ -1,49 +1,6 @@
-$enable-gradients: true;
-$enable-shadows: true;
-$enable-button-pointers: true;
-
-$warning: #c39007;
 @import "~bootstrap/scss/bootstrap";
 @import "../node_modules/cropperjs/dist/cropper.css";
-
-h1, h2, h3, h4, h5, .h1, .h2, .h3, .h5, .h5 {
-  font-family: Verdana, sans-serif;
-  font-weight: bold;
-  margin: 0;
-}
-
-h1, .h1 {
-  font-size: 1.75rem;
-
-  @media (max-width: 991px) {
-    font-size: 1.4rem;
-  }
-}
-
-h2, .h2 {
-  font-size: 1.4rem;
-
-  @media (max-width: 991px) {
-    font-size: 1.2rem;
-  }
-}
-
-h3, .h3 {
-  font-size: 1.2rem;
-
-  @media (max-width: 991px) {
-    font-size: 1.1rem;
-  }
-}
-
-.app-col {
-  @extend .col;
-  @extend .m-2;
-  @extend .mx-lg-4;
-  @extend .mt-lg-4;
-  @extend .mb-lg-4;
-  border-radius: 10px !important;
-}
+@import "../react/src/mock-backend/shared";
 
 .title-row {
   @extend .p-2;
@@ -56,89 +13,14 @@ h3, .h3 {
   border-bottom: 2px solid gray;
 }
 
-body {
-  margin: 0;
-}
-
-.btn {
-  font-weight: bold;
-  font-family: Verdana, sans-serif;
-}
-
-.btn-warning {
-  color: white;
-}
-
 .comp-wrapper {
   margin-left: 12px;
   margin-right: 12px;
 }
 
-.square {
-  background: #fff;
-  border: 1px solid #999;
-  float: left;
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 34px;
-  height: 50px;
-  margin-right: -1px;
-  margin-top: -1px;
-  padding: 0;
-  text-align: center;
-  width: 50px;
-}
-
-.square:focus {
-  outline: none;
-}
-
-.kbd-navigation .square:focus {
-  background: #ddd;
-}
-
-.game {
-  display: flex;
-  flex-direction: row;
-}
-
-.game-info {
-  margin-left: 20px;
-}
-
-.cursor-pointer {
-  cursor: pointer;
-}
-
-.add-more-books-label {
-  font-size: 1rem;
-
-  @media (min-width: 768px) {
-    font-size: 1.2rem;
-  }
-}
-
 .fa-times {
   cursor: pointer;
 }
-
-.fa-mars {
-  color: blue;
-}
-
-.fa-venus {
-  color: deeppink;
-}
-
-.fa-transgender-alt {
-  color: #a500ff;
-}
-
-.fa-info, .fa-question-circle {
-  color: #2b95e0;
-  margin-right: 4px;
-}
-
 .overlay-base {
   background: transparent;
   transition: background 0.4s linear;
@@ -189,24 +71,6 @@ body {
   width: 272px;
 }
 
-.author-foto-change-link {
-  position: absolute;
-  bottom: 5%;
-  font-weight: bold;
-  font-size: 1.2rem;
-}
-
-.foto-wrapper {
-  min-height: 50px;
-  overflow: hidden;
-  height: 312px;
-}
-
-.book-card-wrap {
-  width: 272px;
-  height: 310px;
-}
-
 .series {
   font-size: 0.8rem;
   cursor: pointer;
@@ -236,6 +100,10 @@ body {
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
+}
+
+.book-detail-dialog .MuiDialog-paper {
+  max-width: 1000px !important;
 }
 
 .mat-elevation-z8 {
