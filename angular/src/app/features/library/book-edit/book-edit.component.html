@@ -1,9 +1,8 @@
 <div class="app-col mat-elevation-z8">
   <div class="p-2 ms-lg-3">
     <div class="d-flex align-items-center justify-content-between flex-wrap" style="min-height: 48px;">
-      <h1 *ngIf="!isLoading && !formGroup.get('id')?.value">New Author</h1>
+      <h1 *ngIf="!isLoading && !formGroup.get('id')?.value">New Book</h1>
       <h1 *ngIf="!isLoading && formGroup.get('id')?.value">
-        <span class="d-none d-lg-inline h1">Book: </span>
         <span class="h1">{{title}}</span>
       </h1>
       <button *ngIf="formGroup.get('id')?.value" (confirm)="deleteBook()" class="btn btn-danger btn-lg me-2 me-lg-4"
