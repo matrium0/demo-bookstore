@@ -130,3 +130,13 @@
   position: absolute;
   bottom: 30px;
 }
+
+.btn-split-left {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.btn-split-right {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}

@@ -2,7 +2,7 @@ import React, {memo, useState} from 'react';
 import {UserBookAssignmentStatus} from '../../mock-backend/user/user-book-assignment-status';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faBookmark, faBookReader, faCheck} from '@fortawesome/free-solid-svg-icons';
-import {Button, ButtonGroup, ClickAwayListener, Grow, MenuItem, MenuList, Paper, Popper} from '@mui/material';
+import {ButtonGroup, ClickAwayListener, Grow, MenuItem, MenuList, Paper, Popper} from '@mui/material';
 import {faCaretDown} from '@fortawesome/free-solid-svg-icons/faCaretDown';
 
 interface BookCardLibraryMarkerProps {
@@ -32,13 +32,12 @@ const BookCardLibraryMarker = (props: BookCardLibraryMarkerProps) => {
     <>
       <ButtonGroup ref={anchorRef} variant="contained" aria-label="split button" className="library-marker-button-group">
         {props.assignmentStatus === "default" &&
-          <button onClick={() => changeStatus('want to read')} type="button" className="btn btn-secondary btn-sm btn-main">
+          <button onClick={() => changeStatus('want to read')} type="button" className="btn btn-secondary btn-sm btn-main btn-split-left">
             want to read
           </button>
         }
-
         {props.assignmentStatus !== "default" &&
-          <div className="already-chosen-button d-flex align-items-center justify-content-center">
+          <div className="already-chosen-button btn-split-left d-flex align-items-center justify-content-center">
             <span className="ms-2">{props.assignmentStatus}</span>
             {props.assignmentStatus === 'want to read' && <FontAwesomeIcon icon={faBookmark} className="mx-2 icon-want-to-read"/>}
             {props.assignmentStatus === 'currently reading' &&
@@ -46,17 +45,10 @@ const BookCardLibraryMarker = (props: BookCardLibraryMarkerProps) => {
             {props.assignmentStatus === 'read' && <FontAwesomeIcon icon={faCheck} className="mx-2 icon-read"/>}
           </div>
         }
-        {/*<Button onClick={handleClick}>{options[selectedIndex]}</Button>*/}
-        <Button
-          size="small"
-          aria-controls={state.isMenuCollapsed ? undefined : 'split-button-menu'}
-          aria-expanded={state.isMenuCollapsed ? undefined : 'true'}
-          aria-label="select merge strategy"
-          aria-haspopup="menu"
-          onClick={toggleMenuCollapsed}
-        >
+        <button onClick={toggleMenuCollapsed} type="button" className="btn btn-secondary btn-sm btn-split-right"
+                data-bs-toggle="dropdown" aria-expanded="false">
           <FontAwesomeIcon icon={faCaretDown} className=""/>
-        </Button>
+        </button>
       </ButtonGroup>
       <Popper
         open={state.isMenuCollapsed} anchorEl={anchorRef.current} role={undefined} transition disablePortal
@@ -65,19 +57,19 @@ const BookCardLibraryMarker = (props: BookCardLibraryMarkerProps) => {
         {({TransitionProps, placement}) => (
           <Grow {...TransitionProps} style={{transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom'}}>
             <Paper>
-              <ClickAwayListener onClickAway={() => toggleMenuCollapsed()}>
+              <ClickAwayListener onClickAway={() => setState({isMenuCollapsed: true})}>
                 <MenuList id="split-button-menu">
                   {props.assignmentStatus !== 'want to read' &&
                     <MenuItem key={1} onClick={() => changeStatus('want to read')}>want to read</MenuItem>
                   }
                   {props.assignmentStatus !== 'read' &&
-                    <MenuItem key={1} onClick={() => changeStatus('read')}>read</MenuItem>
+                    <MenuItem key={2} onClick={() => changeStatus('read')}>read</MenuItem>
                   }
                   {props.assignmentStatus !== 'currently reading' &&
-                    <MenuItem key={1} onClick={() => changeStatus('currently reading')}>currently reading</MenuItem>
+                    <MenuItem key={3} onClick={() => changeStatus('currently reading')}>currently reading</MenuItem>
                   }
                   {props.assignmentStatus !== 'default' &&
-                    <MenuItem key={1} onClick={() => changeStatus('default')}>not interested</MenuItem>
+                    <MenuItem key={4} onClick={() => changeStatus('default')}>not interested</MenuItem>
                   }
                 </MenuList>
               </ClickAwayListener>
@@ -85,47 +77,6 @@ const BookCardLibraryMarker = (props: BookCardLibraryMarkerProps) => {
           </Grow>
         )}
       </Popper>
-
-      {/*<div className="btn-group mb-3 position-relative">*/}
-      {/*  {props.assignmentStatus === "default" &&*/}
-      {/*    <button onClick={() => changeStatus('want to read')} type="button" className="btn btn-secondary btn-sm btn-main">*/}
-      {/*      want to read*/}
-      {/*    </button>*/}
-      {/*  }*/}
-
-      {/*  {props.assignmentStatus !== "default" &&*/}
-      {/*    <div className="already-chosen-button d-flex align-items-center justify-content-center">*/}
-      {/*      <span className="ms-2">{props.assignmentStatus}</span>*/}
-      {/*      {props.assignmentStatus === 'want to read' && <FontAwesomeIcon icon={faBookmark} className="mx-2 icon-want-to-read"/>}*/}
-      {/*      {props.assignmentStatus === 'currently reading' &&*/}
-      {/*        <FontAwesomeIcon icon={faBookReader} className="mx-2 icon-currently-reading"/>}*/}
-      {/*      {props.assignmentStatus === 'read' && <FontAwesomeIcon icon={faCheck} className="mx-2 icon-read"/>}*/}
-      {/*    </div>*/}
-      {/*  }*/}
-
-      {/*  <button onClick={toggleMenuCollapsed} type="button" className="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle-split"*/}
-      {/*          data-bs-toggle="dropdown" aria-expanded="false">*/}
-      {/*    <span className="visually-hidden">Toggle Dropdown</span>*/}
-      {/*  </button>*/}
-
-      {/*x{!!state.isMenuCollapsed}x*/}
-
-      {/*{state.isMenuCollapsed &&*/}
-      {/*<ul className={"lib-marker-dropdown-menu cursor-pointer " + state.isMenuCollapsed ? 'd-none' : 'd-block'}>*/}
-      {/*<div className="lib-marker-dropdown-menu">*/}
-      {/*  <ul className={"cursor-pointer "}>*/}
-      {/*    {props.assignmentStatus === 'want to read' &&*/}
-      {/*      <li>< a className="dropdown-item" onClick={() => changeStatus('want to read')}>want to read</a></li>*/}
-      {/*    }*/}
-      {/*    {props.assignmentStatus === 'currently reading' &&*/}
-      {/*      <li>< a className="dropdown-item" onClick={() => changeStatus('currently reading')}>currently reading</a></li>*/}
-      {/*    }*/}
-      {/*    {props.assignmentStatus === 'default' &&*/}
-      {/*      <li>< a className="dropdown-item" onClick={() => changeStatus('default')}>not interested</a></li>*/}
-      {/*    }*/}
-      {/*  </ul>*/}
-      {/*</div>*/}
-      {/*</div>*/}
     </>
   );
 }
