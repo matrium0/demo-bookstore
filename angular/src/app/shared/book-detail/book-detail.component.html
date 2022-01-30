@@ -14,7 +14,7 @@
     <div class="mt-2 author">by <a routerLink="/author/{{book?.authorId}}">{{book?.authorFullName}}</a></div>
     <div class="mt-2 first-published">first published {{book?.firstPublished?.toFormat("dd.LL.yyyy")}}</div>
 
-    <div class="description">{{book?.description}}</div>
+    <div class="description" [innerHTML]="book?.description"></div>
   </div>
   <div class="book-foto-wrapper ms-0 ms-md-4">
     <img [src]="imageUrl" class="book-image" alt="Foto of the Author">

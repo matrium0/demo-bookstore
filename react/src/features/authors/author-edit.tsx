@@ -290,6 +290,7 @@ const AuthorEdit = () => {
 
                   <div className="d-flex align-items-center mt-4 mt-lg-3">
                     <h2 className="me-3">Foto</h2>
+                    {state.errors["foto"] && <div className="error-label">Please upload a foto!</div>}
                     {state.author.id && state.fotoChanged &&
                       <div className="text-danger fw-bold">You changed the foto - don't forget to save!</div>
                     }

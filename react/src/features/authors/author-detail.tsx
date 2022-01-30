@@ -47,10 +47,11 @@ const AuthorDetail = () => {
       findAuthorById(authorId).subscribe(
         {
           next: (a: Author) => {
-            console.log("findAuthorById SUCCESS", a);
-            const valid = sanitize(a.note || "", defaultOptions);
-            if (!valid) {
-              throw new Error("invalid html");
+            if (a?.note) {
+              const valid = sanitize(a.note || "", defaultOptions);
+              if (!valid) {
+                throw new Error("invalid html");
+              }
             }
             const imageUrl = URL.createObjectURL(a.foto!);
             setState(oldState => ({...oldState, loading: false, author: enrichWithCalculatedFields(a), imageUrl}));
