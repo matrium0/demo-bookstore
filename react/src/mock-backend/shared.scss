@@ -16,10 +16,6 @@ html, body {
   margin: 0;
 }
 
-.header-row {
-  height: 56px;
-}
-
 .app-col {
   @extend .col;
   @extend .m-2;
