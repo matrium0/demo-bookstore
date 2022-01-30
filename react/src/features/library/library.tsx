@@ -91,7 +91,7 @@ const Library = () => {
     <div className="comp-wrapper">
       <Paper elevation={8} className="app-col">
         <div className="title-row">
-          <div className="d-flex align-items-center justify-content-between">
+          <div className="d-flex align-items-center justify-content-between w-100">
             <div className="d-flex align-items-center justify-content-start flex-wrap">
               <h1 className="me-2 me-lg-5">Library</h1>
               <div className="input-group me-2 me-lg-5 my-2 my-lg-0" style={{width: 260}}>
@@ -106,10 +106,10 @@ const Library = () => {
                   <option>show all books</option>
                 </select>
               </div>
-              <button onClick={() => navigateToNewBook()} className="btn btn-success btn-lg me-2 me-lg-4 mt-2 mt-lg-0">
-                add book
-              </button>
             </div>
+            <button onClick={() => navigateToNewBook()} className="btn btn-success btn-lg me-2 me-lg-4 mt-2 mt-lg-0">
+              add book
+            </button>
           </div>
         </div>
         <div>
