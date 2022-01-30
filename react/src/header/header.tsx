@@ -14,6 +14,15 @@ const Header = () => {
 
   console.log("Header rendering");
 
+  function collapseMenu() {
+    setMenuCollapsed(true);
+  }
+
+  function handleLogoutClick() {
+    collapseMenu();
+  }
+
+
   return (
     <header className="navbar fixed-top navbar-expand-md navbar-light shadow p-0">
       <NavLink to="/" className="navbar-brand d-flex align-items-center ms-0 ms-md-3 me-0">
@@ -27,22 +36,22 @@ const Header = () => {
       <div id="navbarNav" className={"navbar-collapse justify-content-between align-items-center mt-2 " + (menuCollapsed ? "d-none" : "")}>
         <ul className="navbar-nav w-100 ms-0 ms-lg-2">
           <li className="nav-item">
-            <NavLink to="/" className="nav-link">
+            <NavLink to="/" className="nav-link" onClick={collapseMenu}>
               Home
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to="/your-books" className="nav-link">
+            <NavLink to="/your-books" className="nav-link" onClick={() => collapseMenu()}>
               Your Books
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to="/library" className="nav-link">
+            <NavLink to="/library" className="nav-link" onClick={collapseMenu}>
               Library
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to="/author" className="nav-link">
+            <NavLink to="/author" className="nav-link" onClick={collapseMenu}>
               Authors
             </NavLink>
           </li>
@@ -68,8 +77,5 @@ const Header = () => {
     </header>
   );
 };
-
-function handleLogoutClick() {
-}
 
 export default Header;

@@ -128,9 +128,9 @@ const AuthorEdit = () => {
     setState({...state, showImageUploadDialog: true});
   }
 
-  function navigateBackToAuthorList() {
-    console.log("navigateBackToAuthorList");
-    navigate("/author");
+  function navigateBackToDetail() {
+    console.log("navigateBackToDetail");
+    navigate("/author/" + state.author.id);
   }
 
   function saveAndNavigateToDetail() {
@@ -162,15 +162,13 @@ const AuthorEdit = () => {
 
   function handleImageAcceptedInDialog(image?: Blob) {
     console.log("handleImageAcceptedInDialog", image);
-    if (image) {
-      setState({
-        ...state,
-        showImageUploadDialog: false,
-        fotoChanged: true,
-        author: {...state.author, foto: image},
-        imageUrl: URL.createObjectURL(image)
-      });
-    }
+    setState({
+      ...state,
+      showImageUploadDialog: false,
+      fotoChanged: true,
+      author: {...state.author, foto: image},
+      imageUrl: image ? URL.createObjectURL(image) : undefined
+    });
   }
 
   function onNoteBlur(range: ReactQuill.Range, value: any, editor: UnprivilegedEditor) {
@@ -304,7 +302,7 @@ const AuthorEdit = () => {
             </div>
             <div className="row mt-3">
               <div className="col-12 px-4 px-lg-5 mb-3 d-flex align-items-center justify-content-between ">
-                <button onClick={() => navigateBackToAuthorList()} className="btn btn-secondary btn-lg">
+                <button onClick={() => navigateBackToDetail()} className="btn btn-secondary btn-lg">
                   cancel
                 </button>
                 <button onClick={() => saveAndNavigateToDetail()} className="btn btn-success btn-lg px-4">

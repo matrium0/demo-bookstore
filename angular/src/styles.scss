@@ -4,6 +4,10 @@
 @import '~cropperjs/dist/cropper.css';
 @import "../react/src/mock-backend/shared";
 
+.mat-dialog-container {
+  margin-top: 55px;
+  height: fit-content !important;
+}
 
 .standalone-form-field .mat-form-field-infix {
   width: auto;

@@ -66,17 +66,17 @@ const UploadImageDialog = (props: UploadImageDialogProps) => {
 
   return (
     <Dialog onClose={() => dismissDialog()} open={props.show}>
-      <div className="mx-4 my-3" style={{minWidth: 300, minHeight: 300}}>
+      <div className="mx-4 my-3">
         <div className="d-flex align-items-center justify-content-between">
           <h2>Upload foto</h2>
           <FontAwesomeIcon icon={faTimes} size={'2x'}/>
         </div>
 
-        <input type="file" name="file" onChange={(event) => handleFileUpload(event)} className="mt-4"/>
+        <input type="file" name="file" onChange={(event) => handleFileUpload(event)} className="mt-4 w-100"/>
 
         <Cropper
           src={state.imageUrl}
-          style={{height: 400, width: "100%"}}
+          style={{height: 250, width: "100%"}}
           cropend={onCrop}
           ref={cropperRef}
           // Cropper.js options
