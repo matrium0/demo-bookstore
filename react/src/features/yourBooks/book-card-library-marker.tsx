@@ -1,4 +1,4 @@
-import React, {memo, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import {UserBookAssignmentStatus} from '../../mock-backend/user/user-book-assignment-status';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faBookmark, faBookReader, faCheck} from '@fortawesome/free-solid-svg-icons';
@@ -17,6 +17,11 @@ interface BookCardLibraryMarkerState {
 const BookCardLibraryMarker = (props: BookCardLibraryMarkerProps) => {
   const [state, setState] = useState<BookCardLibraryMarkerState>({isMenuCollapsed: true})
   const anchorRef = React.useRef(null);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  useEffect(() => {
+    setAnchorEl(anchorRef.current);
+  }, [anchorRef]);
 
   function changeStatus(wantToRead: UserBookAssignmentStatus) {
     props.changeStatus(wantToRead);
@@ -24,7 +29,6 @@ const BookCardLibraryMarker = (props: BookCardLibraryMarkerProps) => {
   }
 
   function toggleMenuCollapsed() {
-    console.log("toggle menu", !state.isMenuCollapsed);
     setState({isMenuCollapsed: !state.isMenuCollapsed});
   }
 
@@ -51,7 +55,7 @@ const BookCardLibraryMarker = (props: BookCardLibraryMarkerProps) => {
         </button>
       </ButtonGroup>
       <Popper
-        open={state.isMenuCollapsed} anchorEl={anchorRef.current} role={undefined} transition disablePortal
+        open={!state.isMenuCollapsed} anchorEl={anchorEl} role={undefined} transition disablePortal
         style={{zIndex: 100}}
       >
         {({TransitionProps, placement}) => (
