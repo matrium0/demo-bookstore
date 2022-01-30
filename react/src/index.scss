@@ -51,6 +51,13 @@
   z-index: 10000;
 }
 
+.MuiTableBody-root {
+  tr td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
+
 .MuiTableSortLabel-root {
   font-weight: bold;
   font-size: 0.9rem;

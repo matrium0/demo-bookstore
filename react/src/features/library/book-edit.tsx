@@ -176,7 +176,7 @@ const BookEdit = () => {
             <div className="d-flex align-items-center justify-content-between flex-wrap">
               <h1>
                 {!state.book.id && !state.loading && "New Book"}
-                {state.book.id && "Book: " + state.book?.title}
+                {state.book.id && state.book?.title}
               </h1>
             </div>
             <button onClick={() => openDeleteDialog()} className="btn btn-danger btn-lg me-4">delete</button>

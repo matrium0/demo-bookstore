@@ -41,9 +41,11 @@ const BookDetailDialog = (props: BookDetailDialogProps) => {
     <Dialog onClose={() => dismissDialog()} open={props.show} className="book-detail-dialog">
       <div className="p-4">
         <div className="d-flex align-items-center justify-content-between">
-          <div className="d-flex align-items-center">
+          <div className="d-flex align-items-center flex-column flex-md-row">
             <h1>{props.book.title}</h1>
-            <button onClick={() => navigateToBookEditPage()} className="btn btn-warning btn-lg ms-2 ms-lg-4 me-5">edit</button>
+            <button onClick={() => navigateToBookEditPage()}
+                    className="btn btn-warning btn-lg ms-2 ms-lg-4 me-5 ">edit
+            </button>
           </div>
           <FontAwesomeIcon onClick={() => dismissDialog()} icon={faTimes} size={'2x'}/>
         </div>

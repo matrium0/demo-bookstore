@@ -62,7 +62,7 @@ const AuthorTable = (props: AuthorTableProps) => {
   return (
     <>
       <TableContainer component={Paper}>
-        <Table size="small" aria-label="simple table">
+        <Table aria-label="simple table">
           <TableHead>
             <TableRow>
               {columns.map(h =>
@@ -82,19 +82,19 @@ const AuthorTable = (props: AuthorTableProps) => {
               <TableRow
                 onClick={() => handleRowSelected(a)}
                 key={a.id}
-                sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                sx={{'td , th': {fontSize: 12}, '&:last-child td, &:last-child th': {border: 0}}}
                 className="selectable-table-row"
               >
-                <TableCell component="th" scope="row">{a.firstname}</TableCell>
-                <TableCell component="th" scope="row">{a.lastname}</TableCell>
-                <TableCell component="th" scope="row" sx={{display: ((width <= 800) ? "none" : "table-cell")}}><GenderDisplay
+                <TableCell component="td" scope="row">{a.firstname}</TableCell>
+                <TableCell component="td" scope="row">{a.lastname}</TableCell>
+                <TableCell component="td" scope="row" sx={{display: ((width <= 800) ? "none" : "table-cell")}}><GenderDisplay
                   gender={a.gender!}/></TableCell>
-                <TableCell component="th" scope="row" sx={{display: ((width <= 800) ? "none" : "table-cell")}}>{a.penName ?
+                <TableCell component="td" scope="row" sx={{display: ((width <= 800) ? "none" : "table-cell")}}>{a.penName ?
                   <FontAwesomeIcon icon={faCheck} size={'lg'}/> : ""}</TableCell>
-                <TableCell component="th" scope="row"
+                <TableCell component="td" scope="row"
                            sx={{display: ((width <= 800) ? "none" : "table-cell")}}>{a.birthdate?.toFormat("dd.LL.yyyy")} in {a.placeOfBirth}</TableCell>
-                <TableCell component="th" scope="row" sx={{display: ((width <= 800) ? "none" : "table-cell")}}>{a.age}</TableCell>
-                <TableCell component="th" scope="row" sx={{display: ((width <= 800) ? "none" : "table-cell")}}>
+                <TableCell component="td" scope="row" sx={{display: ((width <= 800) ? "none" : "table-cell")}}>{a.age}</TableCell>
+                <TableCell component="td" scope="row" sx={{display: ((width <= 800) ? "none" : "table-cell")}}>
                   {a.dateOfDeath ? (a.dateOfDeath?.toFormat("dd.LL.yyyy") + " in " + a.placeOfDeath) : ""}
                 </TableCell>
               </TableRow>
