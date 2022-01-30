@@ -256,6 +256,10 @@ const AuthorEdit = () => {
                              error={!!state.errors["placeOfDeath"]} helperText={state.errors["placeOfDeath"]}
                              variant="outlined" className="w-100 mt-4"/>
 
+                  <TextField name="genre" label="Genre" value={state.author.genre} onChange={handleInputChange}
+                             error={!!state.errors["genre"]} helperText={state.errors["genre"]}
+                             variant="outlined" className="w-100 mt-4"/>
+
                   <div className="d-flex align-items-center mt-4">
                     <label className="me-3">Gender</label>
                     <ToggleButtonGroup value={state.author.gender} exclusive

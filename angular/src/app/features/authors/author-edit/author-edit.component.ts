@@ -31,6 +31,7 @@ export class AuthorEditComponent implements OnInit {
     placeOfDeath: new FormControl(null),
     website: new FormControl(null),
     note: new FormControl(null),
+    genre: new FormControl(null),
     foto: new FormControl(null, Validators.required),
   });
   imageUrl?: SafeUrl;
