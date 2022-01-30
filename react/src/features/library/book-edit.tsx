@@ -105,6 +105,20 @@ const BookEdit = () => {
     changeStateField(target.required, name as keyof Book, value);
   }
 
+  function handleAuthorSelect(author: Author) {
+    console.log("handleAuthorSelect", author);
+
+    if (author) {
+      state.errors["author"] = null;
+      setState({
+        ...state, book: {...state.book, authorId: author.id, authorFullName: author.firstname + " " + author.lastname},
+      });
+    } else {
+      state.errors["author"] = "cannot be empty";
+    }
+  }
+
+
   function changeStateField(required: boolean, name: keyof Book, value: any) {
     console.log("changeStateField", required, name, value);
 
@@ -113,9 +127,6 @@ const BookEdit = () => {
     setState({
       ...state, book: {...state.book, [name]: value},
     });
-
-    setTimeout(() =>
-      console.log(state), 1000);
   }
 
   function validateFieldAndSetErrorIfNecessary(required: boolean, name: keyof Book, value: any) {
@@ -213,14 +224,15 @@ const BookEdit = () => {
                              error={!!state.errors["subtitle"]} helperText={state.errors["subtitle"]}
                              variant="outlined" className="w-100 mt-4"/>
 
-                  TODO fix autocomplete
+                  <h1 className="text-danger">TODO fix autocomplete</h1>
+                  <h3>{JSON.stringify(state.errors)}</h3>
                   {/*TODO fix autocomplete*/}
                   <Autocomplete
-                    disablePortal
-                    options={state.authors}
-                    getOptionLabel={(option) => option.firstname! + " " + option.lastname!}
-                    id="combo-box-demo"
-                    className="w-100"
+                    options={state.authors} getOptionLabel={(option) => option.firstname! + " " + option.lastname!}
+                    id="combo-box-demo" className="w-100"
+                    onChange={(event, newValue) => {
+                      handleAuthorSelect(newValue!);
+                    }}
                     renderInput={(params) =>
                       <TextField {...params} label="Author" className="w-100 mt-4" required
                                  error={!!state.errors["author"]} helperText={state.errors["author"]}
@@ -294,7 +306,7 @@ const BookEdit = () => {
       </div>
       <UploadImageDialog show={state.showImageUploadDialog} closeImageUploadDialog={(image) => handleImageAcceptedInDialog(image)}/>
     </LocalizationProvider>
-  )
+  );
 }
 
 export default memo(BookEdit);
