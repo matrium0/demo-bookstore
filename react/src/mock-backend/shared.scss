@@ -16,13 +16,17 @@ html, body {
   margin: 0;
 }
 
+.header-row {
+  height: 56px;
+}
+
 .app-col {
   @extend .col;
   @extend .m-2;
   @extend .mx-lg-4;
   @extend .mt-lg-4;
   @extend .mb-lg-4;
-  border-radius: 10px;
+  border-radius: 10px !important;
 }
 
 h1, h2, h3, h4, h5, .h1, .h2, .h3, .h5, .h5 {

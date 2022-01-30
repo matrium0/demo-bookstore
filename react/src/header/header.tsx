@@ -15,12 +15,12 @@ const Header = () => {
   console.log("Header rendering");
 
   return (
-    <header className="navbar navbar-expand-md navbar-light shadow p-0">
+    <header className="header-row navbar navbar-expand-md navbar-light shadow p-0">
       <NavLink to="/" className="navbar-brand d-flex align-items-center ms-0 ms-md-3 me-0">
         <img src={logo} className="logo-image" alt="logo"/>
         <img src={logoAppendixSmall} className="logo-image-appendix-small" alt="logo appendix"/>
       </NavLink>
-      <button onClick={() => setMenuCollapsed(!menuCollapsed)} className="navbar-toggler m-2" type="button" aria-expanded="false"
+      <button onClick={() => setMenuCollapsed(!menuCollapsed)} className="navbar-toggler me-2" type="button" aria-expanded="false"
               aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"/>
       </button>
