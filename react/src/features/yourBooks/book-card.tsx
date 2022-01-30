@@ -5,6 +5,8 @@ import "./book-card.scss";
 import {Link} from '@mui/material';
 import ConfirmationDialog from '../../shared/confirmation-dialog';
 import BookDetailDialog from './book-detail-dialog';
+import BookCardLibraryMarker from './book-card-library-marker';
+import {UserBookAssignmentStatus} from '../../mock-backend/user/user-book-assignment-status';
 
 interface BookCardProps {
   book: EnrichedBook;
@@ -33,6 +35,11 @@ const BookCard = (props: BookCardProps) => {
     setState({showSeriesDialog: false, showBookDetailDialog: false});
   }
 
+  function handleAssignmentStatusChange(stat: UserBookAssignmentStatus) {
+    //TODO handle status change
+    console.log("handleAssignmentStatusChange", stat);
+  }
+
   return (
     <div className="book-card mat-elevation-z8 h-100 d-flex flex-column align-items-center position-relative py-1">
       <div className="book-foto-wrapper">
@@ -48,8 +55,7 @@ const BookCard = (props: BookCardProps) => {
       <div className="author">by <NavLink to={"/author/" + props.book.authorId}>{props.book.authorFullName}</NavLink></div>
       <div className="first-published">first published {props.book.firstPublished?.toFormat("dd.LL.yyyy")}</div>
 
-      {/*TODO add library marker feature here*/}
-      {/*<app-is-in-library-marker [status]="book.assignmentStatus" (statusChange)="statusChange($event)" className="isinlibrary-button"></app-is-in-library-marker>*/}
+      <BookCardLibraryMarker assignmentStatus={props.book.assignmentStatus!} changeStatus={stat => handleAssignmentStatusChange(stat)}/>
       <div onClick={() => openBookDetailDialog()} className="show-details-link btn-link cursor-pointer">open details</div>
 
       <ConfirmationDialog show={state.showSeriesDialog} title={props.book.series!} confirmButtonType="danger"

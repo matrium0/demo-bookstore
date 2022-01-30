@@ -116,6 +116,14 @@ mat-button-toggle-group {
   margin-left: 4px;
 }
 
+.icon-currently-reading {
+  color: #c39007;
+}
+
+.icon-read {
+  color: green;
+}
+
 mat-error {
   font-weight: bold;
 }
@@ -229,4 +237,20 @@ mat-checkbox .mat-checkbox-inner-container {
 
 .author-foto-img {
   width: 272px;
+}
+
+.icon-want-to-read {
+  color: gray;
+}
+
+.btn-main {
+  width: 140px;
+}
+
+.already-chosen-button {
+  border: 2px solid gray;
+  border-radius: 4px;
+  min-width: 145px;
+  text-align: center;
+  cursor: default;
 }
