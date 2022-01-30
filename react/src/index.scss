@@ -16,11 +16,13 @@
 .comp-wrapper {
   margin-left: 12px;
   margin-right: 12px;
+  margin-top: 63px;
 }
 
 .fa-times {
   cursor: pointer;
 }
+
 .overlay-base {
   background: transparent;
   transition: background 0.4s linear;
@@ -69,11 +71,6 @@
 
 .author-foto-img {
   width: 272px;
-}
-
-.series {
-  font-size: 0.8rem;
-  cursor: pointer;
 }
 
 .book-image {

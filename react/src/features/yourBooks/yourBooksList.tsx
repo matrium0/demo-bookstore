@@ -58,7 +58,7 @@ const YourBooksList = () => {
               <div className="input-group ms-2 ms-lg-5">
                 <input value={state.searchTerm} onChange={(e) => handleFilterKeyup(e)} className="form-control" placeholder="filter"
                        aria-label="Filter"/>
-                <span className="input-group-text"><FontAwesomeIcon icon={faFilter} size={'lg'}/></span>
+                <span className="input-group-text"><FontAwesomeIcon icon={faFilter} /></span>
               </div>
             </div>
           </div>

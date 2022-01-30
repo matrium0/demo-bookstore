@@ -90,7 +90,7 @@ const Library = () => {
             <div className="input-group me-2 me-lg-5 my-2 my-lg-0" style={{width: 260}}>
               <input value={state.searchTerm} onChange={(e) => handleFilterKeyup(e)} className="form-control"
                      ref={filterRef} placeholder="type to filter by name" aria-label="Filter"/>
-              <span className="input-group-text"><FontAwesomeIcon icon={faFilter} size={'lg'}/></span>
+              <span className="input-group-text"><FontAwesomeIcon icon={faFilter} /></span>
             </div>
             <div className="input-group" style={{width: 260}}>
               <select value={state.selectAllFilter} onChange={(e) => handleSelectAllChange(e)} className="form-select" aria-label="exclude your

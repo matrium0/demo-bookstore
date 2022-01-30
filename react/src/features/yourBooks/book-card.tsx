@@ -38,8 +38,9 @@ const BookCard = (props: BookCardProps) => {
       <div className="book-foto-wrapper">
         <img src={imageUrl} className="book-detail-image" alt="Foto of the Author"/>
       </div>
-      {props.book.series && <div>Book {props.book.numberWithinSeries} of
-        <Link className="ms-1 series" onClick={() => openSeriesDialog()}>{props.book.series}</Link>
+
+      {props.book.series && <div className="series">Book {props.book.numberWithinSeries} of
+        <Link className="ms-1 series series-link" onClick={() => openSeriesDialog()}>{props.book.series}</Link>
       </div>
       }
       <div className="title">{props.book.title}</div>

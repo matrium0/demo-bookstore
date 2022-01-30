@@ -76,7 +76,7 @@ const AuthorList = () => {
               <h1>Authors</h1>
               <div className="input-group ms-2 ms-lg-5">
                 <input onKeyUp={(e) => handleFilterKeyup(e)} className="form-control" placeholder="filter" aria-label="Filter"/>
-                <span className="input-group-text"><FontAwesomeIcon icon={faFilter} size={'lg'}/></span>
+                <span className="input-group-text"><FontAwesomeIcon icon={faFilter} /></span>
               </div>
             </div>
           </div>
