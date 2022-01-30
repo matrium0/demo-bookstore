@@ -1,7 +1,7 @@
 import React, {memo, SyntheticEvent, useContext, useEffect, useState} from 'react';
 import LuxonAdapter from '@date-io/luxon';
-import {Autocomplete, DatePicker, LocalizationProvider} from '@mui/lab';
-import {Paper, TextField} from '@mui/material';
+import {DatePicker, LocalizationProvider} from '@mui/lab';
+import {Autocomplete, Paper, TextField} from '@mui/material';
 import LoadingIndicatorWrapper from '../../shared/loading-indicator-wrapper';
 import {EnrichedBook} from '../../mock-backend/util/book-utils';
 import {useNavigate, useParams} from 'react-router-dom';
@@ -11,6 +11,8 @@ import ReactQuill, {UnprivilegedEditor} from 'react-quill';
 import {DateTime} from 'luxon';
 import UploadImageDialog from '../authors/upload-image-dialog';
 import {GlobalMessageContext} from '../../shared/GlobalMessageContext';
+import {findAllAuthors} from '../../mock-backend/author/author-mock-data';
+import {Author} from '../../mock-backend/author/Author';
 
 interface BookEditState {
   loading: boolean;
@@ -24,6 +26,7 @@ interface BookEditState {
   errors: {
     [key: string]: string | null
   }
+  authors: Author[]
 }
 
 const BookEdit = () => {
@@ -34,7 +37,8 @@ const BookEdit = () => {
     showImageUploadDialog: false,
     fotoChanged: false,
     showDeleteDialog: true,
-    errors: {}
+    errors: {},
+    authors: []
   });
   const {id} = useParams();
   const navigate = useNavigate();
@@ -44,7 +48,7 @@ const BookEdit = () => {
 
     function loadBook() {
       if (id === "new") {
-        setState((st => ({...st, loading: true})));
+        setState((st => ({...st, loading: false})));
         return;
       }
 
@@ -68,6 +72,26 @@ const BookEdit = () => {
 
     return loadBook();
   }, [id]);
+
+
+  useEffect(() => {
+    console.log("useEffect");
+
+    function loadAuthors() {
+      findAllAuthors().subscribe(
+        {
+          next: (authors: Author[]) => {
+            console.log("findAllAuthors SUCCESS", authors);
+            setState((st => ({...st, authors})));
+          },
+          error: (error: any) => {
+            console.log("findAllAuthors ERROR", error);
+          }
+        });
+    }
+
+    return loadAuthors();
+  }, []);
 
   function openDeleteDialog() {
     //TODO open delete dialog
@@ -156,17 +180,13 @@ const BookEdit = () => {
     if (image) {
       setState((st) => ({
         ...st,
+        errors: {...state.errors, "image": null},
         showImageUploadDialog: false,
-        book: {...state.book, foto: image},
+        book: {...state.book, image: image},
         imageUrl: URL.createObjectURL(image)
       }));
     }
   }
-
-  const top100Films = [
-    {label: 'The Shawshank Redemption', year: 1994},
-    {label: 'The Godfather', year: 1972},
-    {label: 'The Godfather: Part II', year: 1974}];
 
   return (
     <LocalizationProvider dateAdapter={LuxonAdapter}>
@@ -186,20 +206,26 @@ const BookEdit = () => {
               <div className="row mx-3 gx-0 gx-lg-5">
                 <div className="col-lg-6 pt-2">
                   <h2 className="mb-2">Personal Data</h2>
-                  <TextField name="title" label="Title" value={state.book.title} onChange={handleInputChange}
+                  <TextField name="title" label="Title" value={state.book.title || ''} onChange={handleInputChange}
                              required error={!!state.errors["title"]} helperText={state.errors["title"]}
                              variant="outlined" className="w-100"/>
-                  <TextField name="subtitle" label="Subtitle" value={state.book.subtitle} onChange={handleInputChange}
-                             required error={!!state.errors["subtitle"]} helperText={state.errors["subtitle"]}
+                  <TextField name="subtitle" label="Subtitle" value={state.book.subtitle || ''} onChange={handleInputChange}
+                             error={!!state.errors["subtitle"]} helperText={state.errors["subtitle"]}
                              variant="outlined" className="w-100 mt-4"/>
 
+                  TODO fix autocomplete
+                  {/*TODO fix autocomplete*/}
                   <Autocomplete
                     disablePortal
-                    options={top100Films}
+                    options={state.authors}
+                    getOptionLabel={(option) => option.firstname! + " " + option.lastname!}
                     id="combo-box-demo"
-                    sx={{width: 300}}
                     className="w-100"
-                    renderInput={(params) => <TextField {...params} label="Author" className="w-100 mt-4"/>}
+                    renderInput={(params) =>
+                      <TextField {...params} label="Author" className="w-100 mt-4" required
+                                 error={!!state.errors["author"]} helperText={state.errors["author"]}
+                      />
+                    }
                   />
 
                   <DatePicker value={state.book.firstPublished ? state.book.firstPublished.toJSDate() : null}
@@ -212,22 +238,22 @@ const BookEdit = () => {
                               )}>
                   </DatePicker>
 
-                  <TextField name="series" label="Series" value={state.book.series} onChange={handleInputChange}
+                  <TextField name="series" label="Series" value={state.book.series || ''} onChange={handleInputChange}
                              error={!!state.errors["series"]} helperText={state.errors["series"]}
                              variant="outlined" className="w-100 mt-4"/>
-                  <TextField name="numberWithinSeries" label="Book in Series" value={state.book.numberWithinSeries}
+                  <TextField name="numberWithinSeries" label="Book in Series" value={state.book.numberWithinSeries || ''}
                              onChange={handleInputChange}
                              error={!!state.errors["numberWithinSeries"]} helperText={state.errors["numberWithinSeries"]}
                              variant="outlined" className="w-100 mt-4"/>
 
-                  <TextField name="genre" label="Genre" value={state.book.genre} onChange={handleInputChange}
+                  <TextField name="genre" label="Genre" value={state.book.genre || ''} onChange={handleInputChange}
                              error={!!state.errors["genre"]} helperText={state.errors["genre"]}
                              variant="outlined" className="w-100 mt-4"/>
                 </div>
 
                 <div className="col-lg-6 pt-2">
                   <h2 className="mt-lg-0 mb-2">Description</h2>
-                  <ReactQuill value={state.book?.description} onBlur={(range, value, editor) => onNoteBlur(range, value, editor)}
+                  <ReactQuill value={state.book?.description || ''} onBlur={(range, value, editor) => onNoteBlur(range, value, editor)}
                               theme="snow" modules={{
                     toolbar: [
                       ['bold', 'italic', 'underline'],
@@ -237,9 +263,10 @@ const BookEdit = () => {
                   />
 
                   <div className="d-flex align-items-center mt-4 mt-lg-3">
-                    <h2 className="me-3">Foto</h2>
+                    <h2 className="me-3">Cover</h2>
+                    {state.errors["image"] && <div className="error-label">Please upload a foto!</div>}
                     {state.book.id && state.fotoChanged &&
-                      <div className="text-danger fw-bold">You changed the foto - don't forget to save!</div>
+                      <div className="text-danger fw-bold">You changed the cover - don't forget to save!</div>
                     }
                   </div>
                   <div
