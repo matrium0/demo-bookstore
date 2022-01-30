@@ -41,7 +41,7 @@ const AuthorDetail = () => {
       setState(oldState => ({...oldState, author: {}, loading: true}));
 
       const defaultOptions = {
-        allowedTags: ['b', 'i', 'em', 'strong', 'h1', 'h2', 'h3', 'h4', 'h5'],
+        allowedTags: ['p', 'b', 'i', 'em', 'strong', 'h1', 'h2', 'h3', 'h4', 'h5'],
       };
 
       findAuthorById(authorId).subscribe(
