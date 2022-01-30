@@ -31,17 +31,19 @@ function App() {
       <GlobalMessageContext.Provider value={{...globalMessage, setMessage: handleSetGlobalMessage}}>
         <BrowserRouter>
           <Header/>
-          <Routes>
-            <Route path="/" element={<Home/>}/>
-            <Route path="/your-books" element={<YourBooksList/>}/>
-            <Route path="/library" element={<Library/>}/>
-            <Route path="/library/edit/:id" element={<BookEdit/>}/>
-            <Route path="/author">
-              <Route path="" element={<AuthorList/>}/>
-              <Route path="edit/:id" element={<AuthorEdit/>}/>
-              <Route path=":id" element={<AuthorDetail/>}/>
-            </Route>
-          </Routes>
+          <div style={{marginTop: 55}}>
+            <Routes>
+              <Route path="/" element={<Home/>}/>
+              <Route path="/your-books" element={<YourBooksList/>}/>
+              <Route path="/library" element={<Library/>}/>
+              <Route path="/library/edit/:id" element={<BookEdit/>}/>
+              <Route path="/author">
+                <Route path="" element={<AuthorList/>}/>
+                <Route path="edit/:id" element={<AuthorEdit/>}/>
+                <Route path=":id" element={<AuthorDetail/>}/>
+              </Route>
+            </Routes>
+          </div>
         </BrowserRouter>
         <GlobalMessageDisplay/>
       </GlobalMessageContext.Provider>

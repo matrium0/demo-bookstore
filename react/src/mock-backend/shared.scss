@@ -20,8 +20,8 @@ html, body {
   @extend .col;
   @extend .m-2;
   @extend .mx-lg-4;
-  @extend .mt-lg-4;
-  @extend .mb-lg-4;
+  @extend .mt-lg-3;
+  @extend .mb-lg-3;
   border-radius: 10px !important;
 }
 
@@ -87,7 +87,7 @@ mat-button-toggle-group {
 }
 
 .table-row {
-  height: 40px !important;
+  height: 45px !important;
 }
 
 .btn-warning {

@@ -14,9 +14,10 @@
 }
 
 .comp-wrapper {
+  @extend .pt-1;
+  @extend .pb-1;
   margin-left: 12px;
   margin-right: 12px;
-  margin-top: 63px;
 }
 
 .fa-times {
