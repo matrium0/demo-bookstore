@@ -39,7 +39,7 @@ export class LibraryComponent implements OnInit {
         let allBooks = combination[2].map((b: Book) => enrichBookWithUserAssignments(b, this.userService.authentication$.getValue()));
         console.log("filtering by \"" + filterTerm + "\"", showAllSelectFilter, allBooks.length);
         if (showAllSelectFilter === 'HIDE_YOUR_BOOKS') {
-          allBooks = allBooks.filter((book: EnrichedBook) => !(findUserBookAssignmentsForUser(this.userService.authentication$.getValue()).map(b => b.bookId).includes(book.id!)))
+          allBooks = allBooks.filter((book: EnrichedBook) => book.assignmentStatus === "default");
         }
 
         return allBooks.filter((b: EnrichedBook) => b.title?.toLocaleLowerCase().includes(filterTerm));

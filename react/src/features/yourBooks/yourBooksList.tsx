@@ -29,8 +29,9 @@ const YourBooksList = () => {
     findBooksForUser(applicationContextRef.current.user!).subscribe(
       {
         next: (results: Book[]) => {
-          console.log("findBooksForUser SUCCESS", results);
-          const books = results.map(b => enrichBookWithUserAssignments(b, applicationContextRef.current.user!));
+          let books = results.map(b => enrichBookWithUserAssignments(b, applicationContextRef.current.user!));
+          books = books.filter(b => b.assignmentStatus !== "default");
+          console.log("findBooksForUser SUCCESS", books);
           setState({
             loading: false,
             searchTerm: "",

@@ -8,7 +8,7 @@ import ApplicationContext from '../../shared/ApplicationContext';
 import {enrichBookWithUserAssignments, EnrichedBook} from '../../mock-backend/util/book-utils';
 import {Book} from '../../mock-backend/book/Book';
 import {findAllBooks} from '../../mock-backend/book/book-mock-data';
-import {findUserBookAssignmentsForUser, updateStatus} from '../../mock-backend/user/user-book-assignment-mockservice';
+import {updateStatus} from '../../mock-backend/user/user-book-assignment-mockservice';
 import {useNavigate} from 'react-router-dom';
 import {UserBookAssignmentStatus} from '../../mock-backend/user/user-book-assignment-status';
 
@@ -42,8 +42,8 @@ const Library = () => {
     findAllBooks().subscribe(
       {
         next: (results: Book[]) => {
-          console.log("findBooksForUser SUCCESS", results);
           const books = results.map(b => enrichBookWithUserAssignments(b, applicationContextRef.current.user!));
+          console.log("findBooksForUser SUCCESS", books);
           const filteredBooks = filter(books, "", "exclude your books");
           setState(st => ({
             ...st,
@@ -77,7 +77,7 @@ const Library = () => {
     let allBooks = books;
     console.log("filter", searchTerm, showAllSelectFilter);
     if (showAllSelectFilter === 'exclude your books') {
-      allBooks = allBooks.filter((book: EnrichedBook) => !(findUserBookAssignmentsForUser(applicationContextRef.current.user!).map(b => b.bookId).includes(book.id!)))
+      allBooks = allBooks.filter((book: EnrichedBook) => book.assignmentStatus === "default")
     }
 
     return allBooks.filter((b: EnrichedBook) => b.title?.toLocaleLowerCase().includes(searchTerm));
