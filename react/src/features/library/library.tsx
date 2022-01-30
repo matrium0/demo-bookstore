@@ -9,6 +9,7 @@ import {enrichBookWithUserAssignments, EnrichedBook} from '../../mock-backend/ut
 import {Book} from '../../mock-backend/book/Book';
 import {findAllBooks} from '../../mock-backend/book/book-mock-data';
 import {findUserBookAssignmentsForUser} from '../../mock-backend/user/user-book-assignment-mockservice';
+import {useNavigate} from 'react-router-dom';
 
 interface LibraryState {
   loading: boolean,
@@ -27,6 +28,7 @@ const Library = () => {
     searchTerm: "",
     selectAllFilter: "exclude your books"
   })
+  const navigate = useNavigate();
 
   const filterRef = React.useRef<HTMLInputElement>(null);
 
@@ -81,23 +83,32 @@ const Library = () => {
     return allBooks.filter((b: EnrichedBook) => b.title?.toLocaleLowerCase().includes(searchTerm));
   }
 
+  function navigateToNewBook() {
+    navigate("/library/edit/new");
+  }
+
   return (
     <div className="comp-wrapper">
       <Paper elevation={8} className="app-col">
         <div className="title-row">
-          <div className="d-flex align-items-center justify-content-start flex-wrap">
-            <h1 className="me-2 me-lg-5">Library</h1>
-            <div className="input-group me-2 me-lg-5 my-2 my-lg-0" style={{width: 260}}>
-              <input value={state.searchTerm} onChange={(e) => handleFilterKeyup(e)} className="form-control"
-                     ref={filterRef} placeholder="type to filter by name" aria-label="Filter"/>
-              <span className="input-group-text"><FontAwesomeIcon icon={faFilter} /></span>
-            </div>
-            <div className="input-group" style={{width: 260}}>
-              <select value={state.selectAllFilter} onChange={(e) => handleSelectAllChange(e)} className="form-select" aria-label="exclude your
+          <div className="d-flex align-items-center justify-content-between">
+            <div className="d-flex align-items-center justify-content-start flex-wrap">
+              <h1 className="me-2 me-lg-5">Library</h1>
+              <div className="input-group me-2 me-lg-5 my-2 my-lg-0" style={{width: 260}}>
+                <input value={state.searchTerm} onChange={(e) => handleFilterKeyup(e)} className="form-control"
+                       ref={filterRef} placeholder="filter by name" aria-label="Filter"/>
+                <span className="input-group-text"><FontAwesomeIcon icon={faFilter}/></span>
+              </div>
+              <div className="input-group" style={{width: 260}}>
+                <select value={state.selectAllFilter} onChange={(e) => handleSelectAllChange(e)} className="form-select" aria-label="exclude your
               books or show all">
-                <option>exclude your books</option>
-                <option>show all books</option>
-              </select>
+                  <option>exclude your books</option>
+                  <option>show all books</option>
+                </select>
+              </div>
+              <button onClick={() => navigateToNewBook()} className="btn btn-success btn-lg me-2 me-lg-4 mt-2 mt-lg-0">
+                add book
+              </button>
             </div>
           </div>
         </div>
