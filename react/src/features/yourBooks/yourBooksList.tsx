@@ -20,6 +20,7 @@ interface YourBooksListState {
 }
 
 const YourBooksList = () => {
+  console.log("Library");
   const applicationContextRef = useRef(useContext(ApplicationContext));
   const [state, setState] = useState<YourBooksListState>({loading: true, books: [], filteredBooks: [], searchTerm: ""})
 
@@ -51,7 +52,7 @@ const YourBooksList = () => {
   }
 
   function handleAssignmentStatusChange(book: EnrichedBook, stat: UserBookAssignmentStatus) {
-    console.log("LibraryComponent: statusChanged received", book, stat);
+    console.log("YourBookList: statusChanged received", book, stat);
     updateStatus(applicationContextRef.current.user!, book.id!, stat);
   }
 

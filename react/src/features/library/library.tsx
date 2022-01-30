@@ -21,6 +21,7 @@ interface LibraryState {
 }
 
 const Library = () => {
+  console.log("Library");
   const applicationContextRef = useRef(useContext(ApplicationContext));
   const [state, setState] = useState<LibraryState>({
     loading: true,
@@ -30,7 +31,6 @@ const Library = () => {
     selectAllFilter: "exclude your books"
   })
   const navigate = useNavigate();
-
   const filterRef = React.useRef<HTMLInputElement>(null);
 
   React.useEffect(() => {
@@ -72,7 +72,6 @@ const Library = () => {
     const filteredBooks = filter(state.books, state.searchTerm, e.target.value);
     setState({...state, selectAllFilter: selectedOption, filteredBooks});
   }
-
 
   function filter(books: EnrichedBook[], searchTerm: string, showAllSelectFilter: "exclude your books" | "show all books"): EnrichedBook[] {
     let allBooks = books;

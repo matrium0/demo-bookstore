@@ -16,29 +16,31 @@ interface BookCardProps {
 const BookCard = (props: BookCardProps) => {
   const [state, setState] = useState({
     showSeriesDialog: false,
-    showBookDetailDialog: false
+    showBookDetailDialog: false,
+    book: props.book
   })
   const imageUrl = URL.createObjectURL(props.book.image!);
 
   function openSeriesDialog() {
-    setState({showSeriesDialog: true, showBookDetailDialog: false});
+    setState({...state, showSeriesDialog: true, showBookDetailDialog: false});
   }
 
   function dismissSeriesDialog() {
-    setState({showSeriesDialog: false, showBookDetailDialog: false});
+    setState({...state, showSeriesDialog: false, showBookDetailDialog: false});
   }
 
   function openBookDetailDialog() {
-    setState({showSeriesDialog: false, showBookDetailDialog: true});
+    setState({...state, showSeriesDialog: false, showBookDetailDialog: true});
   }
 
   function dismissBookDetailDialog() {
-    setState({showSeriesDialog: false, showBookDetailDialog: false});
+    setState({...state, showSeriesDialog: false, showBookDetailDialog: false});
   }
 
   function handleAssignmentStatusChange(stat: UserBookAssignmentStatus) {
+    console.log("handleAssignmentStatusChange", props.book, stat);
     props.changeStatus(props.book, stat);
-    props.book.assignmentStatus = stat;
+    setState({...state, book: {...state.book, assignmentStatus: stat}});
   }
 
   return (
@@ -47,23 +49,23 @@ const BookCard = (props: BookCardProps) => {
         <img src={imageUrl} className="book-detail-image" alt="Foto of the Author"/>
       </div>
 
-      {props.book.series && <div className="series">Book {props.book.numberWithinSeries} of
-        <Link className="ms-1 series series-link" onClick={() => openSeriesDialog()}>{props.book.series}</Link>
+      {state.book.series && <div className="series">Book {state.book.numberWithinSeries} of
+        <Link className="ms-1 series series-link" onClick={() => openSeriesDialog()}>{state.book.series}</Link>
       </div>
       }
-      <div className="title">{props.book.title}</div>
-      <div className="subtitle">{props.book.subtitle}</div>
-      <div className="author">by <NavLink to={"/author/" + props.book.authorId}>{props.book.authorFullName}</NavLink></div>
-      <div className="first-published">first published {props.book.firstPublished?.toFormat("dd.LL.yyyy")}</div>
+      <div className="title">{state.book.title}</div>
+      <div className="subtitle">{state.book.subtitle}</div>
+      <div className="author">by <NavLink to={"/author/" + state.book.authorId}>{state.book.authorFullName}</NavLink></div>
+      <div className="first-published">first published {state.book.firstPublished?.toFormat("dd.LL.yyyy")}</div>
 
-      <BookCardLibraryMarker assignmentStatus={props.book.assignmentStatus!} changeStatus={stat => handleAssignmentStatusChange(stat)}/>
+      <BookCardLibraryMarker assignmentStatus={state.book.assignmentStatus!} changeStatus={stat => handleAssignmentStatusChange(stat)}/>
       <div onClick={() => openBookDetailDialog()} className="show-details-link btn-link cursor-pointer">open details</div>
 
-      <ConfirmationDialog show={state.showSeriesDialog} title={props.book.series!} confirmButtonType="danger"
+      <ConfirmationDialog show={state.showSeriesDialog} title={state.book.series!} confirmButtonType="danger"
                           dismissDialog={() => dismissSeriesDialog()} cancelButtonText="go back"
                           message="Got me :)<br /><br />In a <u>real application</u> this could display the series with all it's books.<br/>This feature is not part of the demo though and therefore <strong>not implemented</strong> - sorry!"
       />
-      <BookDetailDialog book={props.book} show={state.showBookDetailDialog} dismissDialog={() => dismissBookDetailDialog()}/>
+      <BookDetailDialog book={state.book} show={state.showBookDetailDialog} dismissDialog={() => dismissBookDetailDialog()}/>
     </div>
   )
 }
