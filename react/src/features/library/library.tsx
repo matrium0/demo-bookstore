@@ -42,6 +42,7 @@ const Library = () => {
     findAllBooks().subscribe(
       {
         next: (results: Book[]) => {
+          console.log("library effect", results, applicationContextRef.current.user);
           const books = results.map(b => enrichBookWithUserAssignments(b, applicationContextRef.current.user!));
           console.log("findBooksForUser SUCCESS", books);
           const filteredBooks = filter(books, "", "exclude your books");

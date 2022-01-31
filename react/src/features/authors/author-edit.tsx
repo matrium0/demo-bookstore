@@ -176,9 +176,7 @@ const AuthorEdit = () => {
   }
 
   function openDeleteDialog() {
-    setState({
-      ...state, showDeleteConfirmationDialog: true
-    });
+    globalMessageContext.setMessage({message: "Sorry, this operation is not supported yet", severity: "info"});
   }
 
   function handleDismissDialog() {

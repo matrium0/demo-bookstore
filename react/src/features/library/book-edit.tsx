@@ -5,7 +5,7 @@ import {Autocomplete, Paper, TextField} from '@mui/material';
 import LoadingIndicatorWrapper from '../../shared/loading-indicator-wrapper';
 import {EnrichedBook} from '../../mock-backend/util/book-utils';
 import {useNavigate, useParams} from 'react-router-dom';
-import {createOrUpdateBook, findBookById} from '../../mock-backend/book/book-mock-data';
+import {createOrUpdateBook, deleteBook, findBookById} from '../../mock-backend/book/book-mock-data';
 import {Book} from '../../mock-backend/book/Book';
 import ReactQuill, {UnprivilegedEditor} from 'react-quill';
 import {DateTime} from 'luxon';
@@ -13,6 +13,7 @@ import UploadImageDialog from '../authors/upload-image-dialog';
 import {GlobalMessageContext} from '../../shared/GlobalMessageContext';
 import {findAllAuthors} from '../../mock-backend/author/author-mock-data';
 import {Author} from '../../mock-backend/author/Author';
+import ConfirmationDialog from '../../shared/confirmation-dialog';
 
 interface BookEditState {
   loading: boolean;
@@ -27,7 +28,7 @@ interface BookEditState {
     [key: string]: string | null
   }
   authors: Author[],
-  currentAuthor: Author
+  currentAuthor: Author | null;
 }
 
 const BookEdit = () => {
@@ -37,10 +38,10 @@ const BookEdit = () => {
     book: {},
     showImageUploadDialog: false,
     fotoChanged: false,
-    showDeleteDialog: true,
+    showDeleteDialog: false,
     errors: {},
     authors: [],
-    currentAuthor: {}
+    currentAuthor: null
   });
   const {id} = useParams();
   const navigate = useNavigate();
@@ -96,17 +97,19 @@ const BookEdit = () => {
 
 
   useEffect(() => {
-    console.log("set currenatuhor in effect");
+    console.log("effect running - trying to set currentauthor", state.book?.id, state.authors);
 
-    if (state.book?.id && state.authors) {
-      const currentAuthor = state.authors.find(a => a.id = state.book.authorId);
-      console.log("SETTING SELECTED AUTHOR", currentAuthor);
+    if (state.book?.id && state.authors?.length > 0) {
+      const currentAuthor = state.authors.find(a => a.id === state.book.authorId);
+      console.log("currentAuthor found - setting it", currentAuthor);
       setState((st => ({...st, currentAuthor: currentAuthor!})));
     }
   }, [state.book, state.authors]);
 
   function openDeleteDialog() {
-    //TODO open delete dialog
+    setState({
+      ...state, showDeleteDialog: true
+    });
   }
 
   function handleInputChange(event: SyntheticEvent) {
@@ -123,7 +126,9 @@ const BookEdit = () => {
     if (author) {
       state.errors["author"] = null;
       setState({
-        ...state, book: {...state.book, authorId: author.id, authorFullName: author.firstname + " " + author.lastname},
+        ...state,
+        currentAuthor: author,
+        book: {...state.book, authorId: author.id, authorFullName: author.firstname + " " + author.lastname},
       });
     } else {
       state.errors["author"] = "cannot be empty";
@@ -211,6 +216,25 @@ const BookEdit = () => {
     }
   }
 
+  function deleteBookAndReturnToLibrary() {
+    console.log("deleteBookAndReturnToLibrary");
+    deleteBook(Number(id)).subscribe(
+      {
+        next: () => {
+          console.log("deleteBook SUCCESS");
+          globalMessageContext.setMessage({
+            message: "Successfully deleted \"" + state.book.title + "\"",
+            severity: "info"
+          });
+          navigate("/library");
+        },
+        error: (error: any) => {
+          console.log("deleteBook ERROR", error);
+          globalMessageContext.setMessage({message: "Error deleting Author", severity: "danger"});
+        }
+      });
+  }
+
   return (
     <LocalizationProvider dateAdapter={LuxonAdapter}>
       <div className="comp-wrapper">
@@ -236,9 +260,6 @@ const BookEdit = () => {
                              error={!!state.errors["subtitle"]} helperText={state.errors["subtitle"]}
                              variant="outlined" className="w-100 mt-4"/>
 
-                  <h1 className="text-danger">TODO fix autocomplete</h1>
-                  <h3>{JSON.stringify(state.errors)}</h3>
-                  {/*TODO fix autocomplete*/}
                   <Autocomplete
                     options={state.authors} getOptionLabel={(option) => option.firstname! + " " + option.lastname!}
                     id="combo-box-demo" className="w-100"
@@ -318,6 +339,11 @@ const BookEdit = () => {
         </Paper>
       </div>
       <UploadImageDialog show={state.showImageUploadDialog} closeImageUploadDialog={(image) => handleImageAcceptedInDialog(image)}/>
+      <ConfirmationDialog show={state.showDeleteDialog} title="Delete Book" confirmButtonType="danger"
+                          message="Are you sure that you want to delete the book?" confirmButtonText="Delete" cancelButtonText="Cancel"
+                          dismissDialog={() => setState({...state, showDeleteDialog: false})}
+                          actionAfterConfirm={() => deleteBookAndReturnToLibrary()}
+      />
     </LocalizationProvider>
   );
 }

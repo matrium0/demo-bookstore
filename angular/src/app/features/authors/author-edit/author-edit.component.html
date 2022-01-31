@@ -6,11 +6,15 @@
         <span class="d-none d-lg-inline h1"></span>
         <span class="h1">{{fullname}}</span>
       </h1>
-      <button *ngIf="formGroup.get('id')?.value" (confirm)="deleteAuthor()" class="btn btn-danger btn-lg me-2 me-lg-4"
-              appConfirmation confirmTitle="Delete Author" confirmButtonText="delete" confirmButtonType="danger"
-              confirmMessage="Are you sure that you want to delete <strong>{{fullname}}</strong>?<br />This action cannot be undone!"
-      >delete
+      <button *ngIf="formGroup.get('id')?.value" (click)="showUnsupportedOperationMessage()"
+              class="btn btn-danger btn-lg me-2 me-lg-4">
+        delete
       </button>
+      <!--      <button *ngIf="formGroup.get('id')?.value" (confirm)="deleteAuthor()" class="btn btn-danger btn-lg me-2 me-lg-4"-->
+      <!--              appConfirmation confirmTitle="Delete Author" confirmButtonText="delete" confirmButtonType="danger"-->
+      <!--              confirmMessage="Are you sure that you want to delete <strong>{{fullname}}</strong>?<br />This action cannot be undone!"-->
+      <!--      >delete-->
+      <!--      </button>-->
     </div>
   </div>
 

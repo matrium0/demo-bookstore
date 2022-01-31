@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Author}from'@mock-backend/author/Author';
-import {createOrUpdateAuthor, deleteAuthor, findAuthorById} from'@mock-backend/author/author-mock-data';
+import {Author} from '@mock-backend/author/Author';
+import {createOrUpdateAuthor, deleteAuthor, findAuthorById} from '@mock-backend/author/author-mock-data';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GlobalMessageService} from '@core/global-message.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -137,5 +137,9 @@ export class AuthorEditComponent implements OnInit {
       }
     );
 
+  }
+
+  showUnsupportedOperationMessage() {
+    this.globalMessageService.setAlertMessage("info", "Sorry, this operation is not supported yet");
   }
 }

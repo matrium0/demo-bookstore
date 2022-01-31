@@ -1,6 +1,6 @@
 import {DateTime} from 'luxon';
 import {delay, Observable, of} from 'rxjs';
-import {Author}from './Author';
+import {Author} from './Author';
 import {getDefaultAuthorFoto} from './default-fotos';
 
 const initialData: Author[] = [
@@ -100,6 +100,6 @@ export function deleteAuthor(id: number): Observable<void> {
 }
 
 export function getAuthorFullName(id: number): string {
-  const author = data.filter(a => a.id === id)[0];
+  const author = data.find(a => a.id === id)!;
   return author.firstname + " " + author.lastname;
 }
