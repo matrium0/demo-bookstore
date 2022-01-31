@@ -55,7 +55,7 @@ export class AuthorTableComponent implements OnInit {
 
   sortData(sort: Sort) {
     this.sort = sort;
-    const data = this.authors.slice();
+    const data = this._authors.slice();
     if (!sort.active || sort.direction === '') {
       this.sortedAuthors = data;
       return;
