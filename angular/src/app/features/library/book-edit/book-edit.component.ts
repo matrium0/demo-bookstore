@@ -113,7 +113,7 @@ export class BookEditComponent implements OnInit {
         (book: Book) => {
           console.log('createOrUpdateBook SUCCESS', book);
           history.back();
-          this.globalMessageService.setAlertMessage("info", "Book added to Library!");
+          this.globalMessageService.setAlertMessage("info", "Book saved!");
         }, (error: any) => {
           console.log("createOrUpdateBook ERROR", error);
           this.globalMessageService.setAlertMessage("danger", "Book saving failed", error);
