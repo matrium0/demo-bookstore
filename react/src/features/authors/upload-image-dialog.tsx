@@ -43,8 +43,6 @@ const UploadImageDialog = (props: UploadImageDialogProps) => {
         reader.onload = (ev: any) => {
           if (ev.target.result.length > 5000000) {
             console.log('file is to big, cancelling');
-            //TODO feedback
-            // this.feedback = 'Fehler! Die Datei darf nicht über 4MB haben';C
             return;
           }
           setState({imageUrl: ev.target.result})

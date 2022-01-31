@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {GlobalMessageService} from '../../core/global-message.service';
+import {GlobalMessageService} from '@core/global-message.service';
 
 @Component({
   selector: 'app-global-message',

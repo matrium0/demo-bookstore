@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UserBookAssignmentStatus} from '@mock-backend/user/user-book-assignment-status';
 import {faBookmark, faBookReader, faCheck} from '@fortawesome/free-solid-svg-icons';
 
@@ -6,7 +6,8 @@ import {faBookmark, faBookReader, faCheck} from '@fortawesome/free-solid-svg-ico
 @Component({
   selector: 'app-is-in-library-marker',
   templateUrl: './is-in-library-marker.component.html',
-  styleUrls: ['./is-in-library-marker.component.scss']
+  styleUrls: ['./is-in-library-marker.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class IsInLibraryMarkerComponent implements OnInit {
   isMenuCollapsed = false;
