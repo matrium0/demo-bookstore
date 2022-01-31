@@ -240,7 +240,7 @@ const BookEdit = () => {
       <div className="comp-wrapper">
         <Paper elevation={8} className="app-col">
           <div className="title-row">
-            <div className="d-flex align-items-center justify-content-between flex-wrap">
+            <div className="title-row">
               <h1>
                 {!state.book.id && !state.loading && "New Book"}
                 {state.book.id && state.book?.title}

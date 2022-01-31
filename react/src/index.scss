@@ -1,4 +1,3 @@
-@import "~bootstrap/scss/bootstrap";
 @import "../node_modules/cropperjs/dist/cropper.css";
 @import "../react/src/mock-backend/shared";
 
@@ -10,7 +9,6 @@
   align-items: center;
   justify-content: space-between;
   min-height: 64px;
-  border-bottom: 2px solid gray;
 }
 
 .comp-wrapper {

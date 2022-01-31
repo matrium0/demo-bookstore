@@ -61,7 +61,7 @@ const YourBooksList = () => {
     <div className="comp-wrapper">
       <Paper elevation={8} className="app-col">
         <div className="title-row">
-          <div className="d-flex align-items-center justify-content-between flex-wrap">
+          <div className="title-row">
             <div className="d-flex align-items-center">
               <h1>Your&nbsp;Books</h1>
               <div className="input-group ms-2 ms-lg-5">

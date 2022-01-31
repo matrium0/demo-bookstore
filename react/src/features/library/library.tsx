@@ -97,8 +97,8 @@ const Library = () => {
   return (
     <div className="comp-wrapper">
       <Paper elevation={8} className="app-col">
-        <div className="title-row">
-          <div className="d-flex align-items-center justify-content-between w-100">
+        <div className="title-row-wrapper">
+          <div className="title-row w-100">
             <div className="d-flex align-items-center justify-content-start flex-wrap">
               <h1 className="me-2 me-lg-5">Library</h1>
               <div className="input-group me-2 me-lg-5 my-2 my-lg-0" style={{width: 260}}>

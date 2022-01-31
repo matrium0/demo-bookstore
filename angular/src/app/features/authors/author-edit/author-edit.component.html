@@ -1,24 +1,18 @@
-<div class="app-col mat-elevation-z8">
-  <div class="p-2 ms-lg-3">
-    <div class="d-flex align-items-center justify-content-between flex-wrap" style="min-height: 48px;">
+<div class="app-col">
+  <div class="title-row-wrapper">
+    <div class="title-row">
       <h1 *ngIf="!isLoading && !formGroup.get('id')?.value">New Author</h1>
       <h1 *ngIf="!isLoading && formGroup.get('id')?.value">
-        <span class="d-none d-lg-inline h1"></span>
-        <span class="h1">{{fullname}}</span>
+        {{fullname}}
       </h1>
       <button *ngIf="formGroup.get('id')?.value" (click)="showUnsupportedOperationMessage()"
               class="btn btn-danger btn-lg me-2 me-lg-4">
         delete
       </button>
-      <!--      <button *ngIf="formGroup.get('id')?.value" (confirm)="deleteAuthor()" class="btn btn-danger btn-lg me-2 me-lg-4"-->
-      <!--              appConfirmation confirmTitle="Delete Author" confirmButtonText="delete" confirmButtonType="danger"-->
-      <!--              confirmMessage="Are you sure that you want to delete <strong>{{fullname}}</strong>?<br />This action cannot be undone!"-->
-      <!--      >delete-->
-      <!--      </button>-->
     </div>
   </div>
 
-  <div [formGroup]="formGroup" style="border-top: 2px solid gray;">
+  <div [formGroup]="formGroup">
     <app-loading-indicator-overlay-wrapper [showOverlay]="isLoading" spinnerSize="6x">
       <div class="row mx-3 gx-0 gx-lg-5">
         <div class="col-lg-6 pt-2">

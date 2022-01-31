@@ -1,11 +1,11 @@
-<div class="app-col mat-elevation-z8">
-  <div class="p-2 ms-lg-3">
-    <div class="d-flex align-items-center justify-content-between flex-wrap" style="min-height: 48px;">
-      <h1>Author <span *ngIf="!isLoading" class="h1">{{fullname}}</span></h1>
+<div class="app-col">
+  <div class="title-row-wrapper">
+    <div class="title-row">
+      <h1 *ngIf="!isLoading">{{fullname}}</h1>
     </div>
   </div>
 
-  <div style="border-top: 2px solid gray;">
+  <div>
     <app-loading-indicator-overlay-wrapper [showOverlay]="isLoading" spinnerSize="6x">
       <div class="row mx-1 mx-lg-2" style="min-height: 400px;">
         <div class="col-md-8">

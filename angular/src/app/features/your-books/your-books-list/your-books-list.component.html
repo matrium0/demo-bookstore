@@ -1,6 +1,6 @@
-<div class="app-col mat-elevation-z8">
-  <div class="p-2 ms-lg-3 title-row d-flex flex-wrap align-items-center justify-content-between">
-    <div class="d-flex align-items-center justify-content-between flex-wrap">
+<div class="app-col">
+  <div class="title-row-wrapper">
+    <div class="title-row">
       <div class="d-flex align-items-center">
         <h1>Your&nbsp;Books</h1>
         <div class="input-group ms-2 ms-lg-5">
@@ -8,17 +8,17 @@
           <span class="input-group-text"><mat-icon>filter_alt</mat-icon></span>
         </div>
       </div>
-    </div>
-    <div class="ms-2 me-4 add-more-books-label">
-      <fa-icon icon="info"></fa-icon>
-      You can find more books in our <a routerLink="/library"> Library</a>
+      <div class="ms-2 me-4 add-more-books-label">
+        <fa-icon icon="info"></fa-icon>
+        You can find more books in our <a routerLink="/library"> Library</a>
+      </div>
     </div>
   </div>
   <!--  // This little trick ensures that the *ngIf always returns true and therefore the content inside is rendered-->
   <!--  // see https://medium.com/@yurykatkov/how-to-avoid-multiple-async-pipes-in-angular-ff0d51a8d368-->
   <!--  // NGRX has ngrxLet for that - unfortunately there is no equivalent for vanilla Angular-->
   <!--  // I created a feature request for this: https://github.com/angular/angular/issues/44667-->
-  <div *ngIf="{filteredBooks: (filteredBooks$ | async)} as obs" style="border-top: 2px solid gray;">
+  <div *ngIf="{filteredBooks: (filteredBooks$ | async)} as obs">
     <app-loading-indicator-overlay-wrapper [showOverlay]="!obs.filteredBooks" spinnerSize="6x">
 
       <div class="row mx-1 mx-lg-2 justify-content-around pb-4" style="min-height: 300px;">

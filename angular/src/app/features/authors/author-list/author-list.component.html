@@ -1,6 +1,6 @@
-<div class="app-col mat-elevation-z8">
-  <div class="p-2 ms-lg-3">
-    <div class="d-flex align-items-center justify-content-between flex-wrap">
+<div class="app-col">
+  <div class="title-row-wrapper">
+    <div class="title-row">
       <div class="d-flex align-items-center">
         <h1>Authors</h1>
         <div class="input-group ms-2 ms-lg-5">
@@ -14,7 +14,7 @@
       </button>
     </div>
   </div>
-  <div style="border-top: 2px solid gray;">
+  <div>
     <app-loading-indicator-overlay-wrapper [showOverlay]="!filteredAuthors" spinnerSize="6x">
       <div class="table-wrapper">
         <app-author-table *ngIf="filteredAuthors" [authors]="filteredAuthors" (selectAuthor)="onAuthorSelected($event)"></app-author-table>

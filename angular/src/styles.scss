@@ -1,8 +1,7 @@
-@import '../node_modules/bootstrap/scss/bootstrap';
 @import '~quill/dist/quill.core.css';
 @import '~quill/dist/quill.snow.css';
 @import '~cropperjs/dist/cropper.css';
-@import "../react/src/mock-backend/shared";
+@import "../../react/src/mock-backend/shared";
 
 .mat-dialog-container {
   margin: 55px 20px 20px;

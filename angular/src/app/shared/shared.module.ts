@@ -30,7 +30,7 @@ import {IsInLibraryMarkerComponent} from './is-in-library-marker/is-in-library-m
     BookCardComponent,
     BookDetailComponent,
     BookDetailDialogWrapperComponent,
-    IsInLibraryMarkerComponent
+    IsInLibraryMarkerComponent,
   ],
   exports: [
     HeaderComponent,

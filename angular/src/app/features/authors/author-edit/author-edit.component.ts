@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Author} from '@mock-backend/author/Author';
-import {createOrUpdateAuthor, deleteAuthor, findAuthorById} from '@mock-backend/author/author-mock-data';
+import {createOrUpdateAuthor, findAuthorById} from '@mock-backend/author/author-mock-data';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GlobalMessageService} from '@core/global-message.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -119,24 +119,6 @@ export class AuthorEditComponent implements OnInit {
 
   get fullname() {
     return this.formGroup.get("firstname")?.value + " " + this.formGroup.get("lastname")?.value;
-  }
-
-  deleteAuthor() {
-    console.log("deleteAuthor");
-    deleteAuthor(Number(this.formGroup.get("id")?.value)).subscribe({
-        next: () => {
-          console.log("deleteAuthor SUCCESS");
-          this.router.navigate(["/author"])
-          this.globalMessageService.setAlertMessage("info", "Successfully deleted " + this.fullname);
-        },
-        error: (error: HttpErrorResponse) => {
-          console.log("deleteAuthor ERROR", error);
-          this.globalMessageService.setAlertMessage("danger", "Unable to delete Author: ", error);
-        }
-
-      }
-    );
-
   }
 
   showUnsupportedOperationMessage() {
