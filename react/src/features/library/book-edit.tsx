@@ -26,7 +26,8 @@ interface BookEditState {
   errors: {
     [key: string]: string | null
   }
-  authors: Author[]
+  authors: Author[],
+  currentAuthor: Author
 }
 
 const BookEdit = () => {
@@ -38,7 +39,8 @@ const BookEdit = () => {
     fotoChanged: false,
     showDeleteDialog: true,
     errors: {},
-    authors: []
+    authors: [],
+    currentAuthor: {}
   });
   const {id} = useParams();
   const navigate = useNavigate();
@@ -60,7 +62,6 @@ const BookEdit = () => {
           next: (book: Book) => {
             console.log("findBookById SUCCESS", book);
             const imageUrl = URL.createObjectURL(book.image!);
-
             setState((st => ({...st, loading: false, book, imageUrl})));
           },
           error: (error: any) => {
@@ -92,6 +93,17 @@ const BookEdit = () => {
 
     return loadAuthors();
   }, []);
+
+
+  useEffect(() => {
+    console.log("set currenatuhor in effect");
+
+    if (state.book?.id && state.authors) {
+      const currentAuthor = state.authors.find(a => a.id = state.book.authorId);
+      console.log("SETTING SELECTED AUTHOR", currentAuthor);
+      setState((st => ({...st, currentAuthor: currentAuthor!})));
+    }
+  }, [state.book, state.authors]);
 
   function openDeleteDialog() {
     //TODO open delete dialog
@@ -230,6 +242,7 @@ const BookEdit = () => {
                   <Autocomplete
                     options={state.authors} getOptionLabel={(option) => option.firstname! + " " + option.lastname!}
                     id="combo-box-demo" className="w-100"
+                    value={state.currentAuthor}
                     onChange={(event, newValue) => {
                       handleAuthorSelect(newValue!);
                     }}
