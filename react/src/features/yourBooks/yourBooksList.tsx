@@ -60,7 +60,7 @@ const YourBooksList = () => {
   return (
     <div className="comp-wrapper">
       <Paper elevation={8} className="app-col">
-        <div className="title-row">
+        <div className="title-row-wrapper">
           <div className="title-row">
             <div className="d-flex align-items-center">
               <h1>Your&nbsp;Books</h1>
@@ -70,10 +70,10 @@ const YourBooksList = () => {
                 <span className="input-group-text"><FontAwesomeIcon icon={faFilter}/></span>
               </div>
             </div>
-          </div>
-          <div className="ms-2 me-4 add-more-books-label">
-            <FontAwesomeIcon icon={faInfo} className="me-1"/>
-            You can find more books in our <NavLink to="/library">Library</NavLink>
+            <div className="ms-2 me-4 add-more-books-label">
+              <FontAwesomeIcon icon={faInfo} className="me-1"/>
+              You can find more books in our <NavLink to="/library">Library</NavLink>
+            </div>
           </div>
         </div>
         <div>

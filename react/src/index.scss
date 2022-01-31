@@ -1,16 +1,6 @@
 @import "../node_modules/cropperjs/dist/cropper.css";
 @import "../react/src/mock-backend/shared";
 
-.title-row {
-  @extend .p-2;
-  @extend .ps-lg-4;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 64px;
-}
-
 .comp-wrapper {
   @extend .pt-1;
   @extend .pb-1;

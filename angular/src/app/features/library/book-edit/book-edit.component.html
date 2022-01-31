@@ -5,12 +5,12 @@
       <h1 *ngIf="!isLoading && formGroup.get('id')?.value">
         <span class="h1">{{title}}</span>
       </h1>
-      <button *ngIf="formGroup.get('id')?.value" (confirm)="deleteBook()" class="btn btn-danger btn-lg me-2 me-lg-4"
-              appConfirmation confirmTitle="Delete Book" confirmButtonText="delete" confirmButtonType="danger"
-              confirmMessage="Are you sure that you want to delete <strong>{{title}}</strong>?<br />This action cannot be undone!"
-      >delete
-      </button>
     </div>
+    <button *ngIf="formGroup.get('id')?.value" (confirm)="deleteBook()" class="btn btn-danger btn-lg me-2 me-lg-4"
+            appConfirmation confirmTitle="Delete Book" confirmButtonText="delete" confirmButtonType="danger"
+            confirmMessage="Are you sure that you want to delete <strong>{{title}}</strong>?<br />This action cannot be undone!"
+    >delete
+    </button>
   </div>
 
   <div [formGroup]="formGroup">

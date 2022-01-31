@@ -208,12 +208,14 @@ const AuthorEdit = () => {
     <LocalizationProvider dateAdapter={LuxonAdapter}>
       <div className="comp-wrapper">
         <Paper elevation={8} className="app-col">
-          <div className="title-row">
-            <h1>
-              {!state.author.id && !state.loading && "New Author"}
-              {state.author.id && state.author?.firstname + " " + state.author?.lastname}
-            </h1>
-            <button onClick={() => openDeleteDialog()} className="btn btn-danger btn-lg me-4">delete</button>
+          <div className="title-row-wrapper">
+            <div className="title-row">
+              <h1>
+                {!state.author.id && !state.loading && "New Author"}
+                {state.author.id && state.author?.firstname + " " + state.author?.lastname}
+              </h1>
+              <button onClick={() => openDeleteDialog()} className="btn btn-danger btn-lg me-4">delete</button>
+            </div>
           </div>
           <LoadingIndicatorWrapper loading={state.loading}>
             <div className="pb-3">

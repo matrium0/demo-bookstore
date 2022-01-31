@@ -92,9 +92,11 @@ const AuthorDetail = () => {
   return (
     <div className="comp-wrapper">
       <Paper elevation={8} className="app-col">
-        <div className="title-row">
-          <div className="d-flex align-items-center flex-wrap">
-            <h1>Author {state.author?.firstname} {state.author?.lastname}</h1>
+        <div className="title-row-wrapper">
+          <div className="title-row">
+            <div className="d-flex align-items-center flex-wrap">
+              <h1>{state.author?.firstname} {state.author?.lastname}</h1>
+            </div>
           </div>
         </div>
         <LoadingIndicatorWrapper loading={state.loading}>

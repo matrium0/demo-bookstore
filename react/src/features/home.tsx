@@ -6,9 +6,11 @@ const Home = () => {
   return (
     <div className="comp-wrapper">
       <Paper elevation={8} className="app-col">
-        <div className="title-row">
-          <div className="d-flex align-items-center justify-content-start flex-wrap">
-            <h1 className="me-2 me-lg-5">Home</h1>
+        <div className="title-row-wrapper">
+          <div className="title-row">
+            <div className="d-flex align-items-center justify-content-start flex-wrap">
+              <h1 className="me-2 me-lg-5">Home</h1>
+            </div>
           </div>
         </div>
         <div className="pb-3">
