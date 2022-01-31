@@ -162,7 +162,7 @@ const BookEdit = () => {
   function saveAndNavigateToDetail() {
     console.log("saveAndNavigateToDetail", state.book);
 
-    const requiredFields = ["title", "author", "firstPublished", "genre", "image"];
+    const requiredFields = ["title", "firstPublished", "genre", "image"];
     for (const key of requiredFields) {
       const isRequiredField = requiredFields.includes(key);
       validateFieldAndSetErrorIfNecessary(isRequiredField, key as keyof Book, state.book[key as keyof Book]);
@@ -176,7 +176,7 @@ const BookEdit = () => {
           next: (a: Book) => {
             console.log("createOrUpdateAuthor SUCCESS", a);
             globalMessageContext.setMessage({message: "Author saved", severity: "success"});
-            navigate("/author");
+            navigate("/library");
           },
           error: (error: any) => {
             console.log("createOrUpdateAuthor ERROR", error);
