@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {Sort} from '@angular/material/sort';
-import {EnrichedAuthor} from'@mock-backend/author/EnrichedAuthor';
+import {EnrichedAuthor} from '@mock-backend/author/EnrichedAuthor';
 import {booleanCompare, compare, dateCompare} from '@shared/util/sort-utility';
 
 @Component({
@@ -39,10 +39,6 @@ export class AuthorTableComponent implements OnInit {
   set authors(authors: EnrichedAuthor[]) {
     this._authors = authors;
     this.sortData(this.sort);
-  }
-
-  get authors() {
-    return this._authors;
   }
 
   constructor() {

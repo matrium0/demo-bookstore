@@ -37,11 +37,7 @@ export class AuthorDetailComponent implements OnInit {
     });
   }
 
-  get fullname() {
-    return this.author?.firstname + " " + this.author?.lastname;
-  }
-
-  loadAuthor(id: number) {
+  private loadAuthor(id: number) {
     this.authorId = id;
     this.isLoading = true;
     findAuthorById(id).subscribe({
@@ -59,7 +55,7 @@ export class AuthorDetailComponent implements OnInit {
     });
   }
 
-  loadBooksForAuthor(id: number) {
+  private loadBooksForAuthor(id: number) {
     this.isBooksLoading = true;
     findBooksOfAuthor(id).subscribe({
       next: (books: Book[]) => {
@@ -83,4 +79,7 @@ export class AuthorDetailComponent implements OnInit {
     this.router.navigate(["/author/edit/" + this.authorId]);
   }
 
+  get fullname() {
+    return this.author?.firstname + " " + this.author?.lastname;
+  }
 }

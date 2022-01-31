@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {BehaviorSubject, combineLatest, map, Observable} from 'rxjs';
 import {Book} from '@mock-backend/book/Book';
 import {findBooksForUser} from '@mock-backend/book/book-mock-data';
@@ -15,7 +15,9 @@ import {enrichBookWithUserAssignments, EnrichedBook} from '@mock-backend/util/bo
   templateUrl: './your-books-list.component.html',
   styleUrls: ['./your-books-list.component.scss']
 })
-export class YourBooksListComponent implements OnInit {
+export class YourBooksListComponent implements OnInit, AfterViewInit {
+  @ViewChild('filterInput') filterElement?: ElementRef;
+
   filterByName$ = new BehaviorSubject("");
   filteredBooks$?: Observable<EnrichedBook[]>
 
@@ -32,6 +34,10 @@ export class YourBooksListComponent implements OnInit {
         return books.filter((b: EnrichedBook) => b.title?.toLocaleLowerCase().includes(filterTerm) && b.assignmentStatus !== 'default');
       }),
     );
+  }
+
+  ngAfterViewInit(): void {
+    this.filterElement?.nativeElement.focus;
   }
 
   filter(term: string) {

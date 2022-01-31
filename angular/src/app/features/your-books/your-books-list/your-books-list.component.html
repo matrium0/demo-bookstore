@@ -4,7 +4,7 @@
       <div class="d-flex align-items-center">
         <h1>Your&nbsp;Books</h1>
         <div class="input-group ms-2 ms-lg-5">
-          <input #searchTerm (keyup)="filter(searchTerm.value)" autofocus class="form-control" placeholder="filter" aria-label="Filter">
+          <input #filterInput (keyup)="filter(filterInput.value)" autofocus class="form-control" placeholder="filter" aria-label="Filter">
           <span class="input-group-text"><mat-icon>filter_alt</mat-icon></span>
         </div>
       </div>

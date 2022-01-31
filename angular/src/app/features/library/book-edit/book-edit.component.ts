@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {createOrUpdateBook, deleteBook, findBookById} from'@mock-backend/book/book-mock-data';
+import {createOrUpdateBook, deleteBook, findBookById} from '@mock-backend/book/book-mock-data';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GlobalMessageService} from '@core/global-message.service';
 import {DateTime} from 'luxon';
-import {Book} from'@mock-backend/book/Book';
+import {Book} from '@mock-backend/book/Book';
 import {ImageService} from '@app/features/authors/image.service';
 import {SafeUrl} from '@angular/platform-browser';
 import {ImageCropperDialogComponent} from '@app/features/authors/image-cropper-dialog/image-cropper-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
-import {Author}from'@mock-backend/author/Author';
-import {findAllAuthors} from'@mock-backend/author/author-mock-data';
+import {Author} from '@mock-backend/author/Author';
+import {findAllAuthors} from '@mock-backend/author/author-mock-data';
 import {Observable} from 'rxjs';
 import {UserService} from '@core/user.service';
 import {HttpErrorResponse} from '@angular/common/http';
@@ -61,13 +61,6 @@ export class BookEditComponent implements OnInit {
     this.authors$ = findAllAuthors();
   }
 
-  get id() {
-    return this.formGroup.get("id")?.value;
-  }
-
-  get title() {
-    return this.formGroup.get("title")?.value;
-  }
 
   private loadBook(id: number) {
     this.isLoading = true;
@@ -137,10 +130,8 @@ export class BookEditComponent implements OnInit {
       .afterClosed()
       .subscribe((imageBlob: Blob) => {
         if (imageBlob) {
-          console.log("image chosen", imageBlob);
           this.imageUrl = this.imageService.createImageUrlFromBlob(imageBlob);
           this.formGroup.patchValue({image: imageBlob})
-          console.log("this.imageUrl ", this.imageUrl);
           if (this.formGroup.get("id")?.value) {
             this.displaySaveReminder = true;
           }
@@ -162,4 +153,11 @@ export class BookEditComponent implements OnInit {
     }
   }
 
+  get id() {
+    return this.formGroup.get("id")?.value;
+  }
+
+  get title() {
+    return this.formGroup.get("title")?.value;
+  }
 }

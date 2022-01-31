@@ -18,6 +18,8 @@ import {HttpErrorResponse} from '@angular/common/http';
 })
 export class AuthorEditComponent implements OnInit {
   isLoading = false;
+  displaySaveReminder = false;
+  imageUrl?: SafeUrl;
 
   formGroup = new FormGroup({
     id: new FormControl(null),
@@ -34,8 +36,6 @@ export class AuthorEditComponent implements OnInit {
     genre: new FormControl(null),
     foto: new FormControl(null, Validators.required),
   });
-  imageUrl?: SafeUrl;
-  displaySaveReminder = false;
 
   constructor(private activatedRoute: ActivatedRoute, private globalMessageService: GlobalMessageService, private router: Router,
               private matDialog: MatDialog, private domSanitizer: DomSanitizer, private imageService: ImageService) {
@@ -76,10 +76,6 @@ export class AuthorEditComponent implements OnInit {
     });
   }
 
-  navigateBack() {
-    history.back();
-  }
-
   saveAndNavigateToDetailPage() {
     console.log("saveAndNavigateToDetailPage");
 
@@ -117,11 +113,15 @@ export class AuthorEditComponent implements OnInit {
       });
   }
 
-  get fullname() {
-    return this.formGroup.get("firstname")?.value + " " + this.formGroup.get("lastname")?.value;
-  }
-
   showUnsupportedOperationMessage() {
     this.globalMessageService.setAlertMessage("info", "Sorry, this operation is not supported yet");
+  }
+
+  navigateBack() {
+    history.back();
+  }
+
+  get fullname() {
+    return this.formGroup.get("firstname")?.value + " " + this.formGroup.get("lastname")?.value;
   }
 }
