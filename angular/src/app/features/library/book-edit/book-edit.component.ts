@@ -89,7 +89,7 @@ export class BookEditComponent implements OnInit {
     deleteBook(Number(this.id)).subscribe({
         next: () => {
           console.log("deleteBook SUCCESS");
-          this.router.navigate(["/library"])
+          this.router.navigate(["/library"]).then()
           this.globalMessageService.setAlertMessage("info", "Successfully deleted " + this.title);
         },
         error: (error: HttpErrorResponse) => {
@@ -109,22 +109,24 @@ export class BookEditComponent implements OnInit {
 
     if (this.formGroup.valid) {
       console.log('save', this.formGroup.value);
-      createOrUpdateBook(this.formGroup.getRawValue()).subscribe(
-        (book: Book) => {
+      createOrUpdateBook(this.formGroup.getRawValue()).subscribe({
+        next: (book: Book) => {
           console.log('createOrUpdateBook SUCCESS', book);
           history.back();
           this.globalMessageService.setAlertMessage("info", "Book saved!");
-        }, (error: any) => {
+        },
+        error: (error: any) => {
           console.log("createOrUpdateBook ERROR", error);
           this.globalMessageService.setAlertMessage("danger", "Book saving failed", error);
-        });
+        }
+      });
     } else {
-      console.log('formgroup is not valid', this.formGroup);
+      console.log('form-group is not valid', this.formGroup);
       this.formGroup.markAllAsTouched();
     }
   }
 
-  openFotoUploadDialog() {
+  openPhotoUploadDialog() {
     this.matDialog
       .open(ImageCropperDialogComponent, {height: "550px"})
       .afterClosed()

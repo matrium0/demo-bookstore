@@ -8,7 +8,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {UserService} from '@core/user.service';
 import {UserBookAssignmentStatus} from '@mock-backend/user/user-book-assignment-status';
-import {findUserBookAssignmentsForUser, updateStatus} from '@mock-backend/user/user-book-assignment-mockservice';
+import {updateStatus} from '@mock-backend/user/user-book-assignment-mockservice';
 import {enrichBookWithUserAssignments, EnrichedBook} from '@mock-backend/util/book-utils';
 
 type ShowAllSelectTypes = "HIDE_YOUR_BOOKS" | "SHOW_ALL";

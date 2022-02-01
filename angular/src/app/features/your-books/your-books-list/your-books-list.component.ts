@@ -51,7 +51,7 @@ export class YourBooksListComponent implements OnInit, AfterViewInit {
       maxWidth: "900px"
     }).afterClosed().subscribe((result) => {
       if (result?.openEditPage) {
-        this.router.navigate(["/library/edit", book.id]);
+        this.router.navigate(["/library/edit", book.id]).then();
       }
     });
   }
