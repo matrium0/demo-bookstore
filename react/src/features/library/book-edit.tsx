@@ -173,7 +173,7 @@ const BookEdit = () => {
 
   function navigateBackToBookList() {
     console.log("navigateBackToBookList");
-    navigate("/book");
+    navigate("/library");
   }
 
   function saveAndNavigateToDetail() {
@@ -205,15 +205,15 @@ const BookEdit = () => {
 
   function handleImageAcceptedInDialog(image: Blob | undefined) {
     console.log("handleImageAcceptedInDialog", image);
-    if (image) {
-      setState((st) => ({
-        ...st,
-        errors: {...state.errors, "image": null},
-        showImageUploadDialog: false,
-        book: {...state.book, image: image},
-        imageUrl: URL.createObjectURL(image)
-      }));
-    }
+    const imageUrl = image ? URL.createObjectURL(image) : undefined
+
+    setState((st) => ({
+      ...st,
+      errors: {...state.errors, "image": null},
+      showImageUploadDialog: false,
+      book: {...state.book, image: image},
+      imageUrl
+    }));
   }
 
   function deleteBookAndReturnToLibrary() {
