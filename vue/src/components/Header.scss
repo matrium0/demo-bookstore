@@ -1,0 +1,64 @@
+@import "node_modules/bootstrap/scss/mixins";
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+
+header {
+  $enable-gradients: false;
+  background: rgb(238, 242, 243);
+  background: linear-gradient(175deg, rgba(238, 242, 243, 1) 0%, rgba(142, 158, 171, 1) 100%) !important;
+  border-bottom: 2px solid rgb(62, 70, 76);
+}
+
+.nav-link {
+  font-family: Verdana, sans-serif;
+  margin-left: 10px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding-bottom: 0;
+}
+
+@include media-breakpoint-up(md) {
+  .nav-link {
+    margin-left: 10px;
+  }
+  .navbar-expand-md .navbar-nav .nav-link {
+    margin-right: 0;
+    margin-left: 1.5rem;
+    padding-right: 0.5rem !important;
+    padding-left: 0.5rem !important;
+  }
+
+  .nav-link.active {
+    border-bottom: 4px #C99200 solid;
+    border-bottom-left-radius: 25px 3px;
+    border-bottom-right-radius: 20px 3px;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .navbar-expand-md .navbar-nav .nav-link {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+}
+
+.logo-image {
+  height: 45px;
+}
+
+.logo-image-appendix-small {
+  position: absolute;
+  left: 200px;
+  top: 33px;
+}
+
+.logout-link-mobile {
+  width: 100%;
+  border-top: 3px solid gray;
+  margin-top: 5px;
+  padding-top: 5px;
+}
+
+.dropdown-menu {
+  width: 250px;
+}
