@@ -2,7 +2,6 @@
 import './Header.scss';
 import {applicationContext} from "@/ApplicationContext";
 
-
 const handleLogoutClick = () => {
   console.log("handleLogoutClick()");
 };
@@ -59,10 +58,7 @@ export default {
     </div>
     <div class="btn-group me-3 d-none d-lg-block" data-bs-dropdown>
       <div id="button-basic" data-bs-dropdownToggle class="cursor-pointer" type="button" aria-controls="dropdown-basic">
-        TODO ICON AND DROPDOWN
-
-        <!--        <fa-icon [icon]="iconUserCircle"></fa-icon>-->
-        <!--        TODO DROPDOWN MENU VUE-->
+        <font-awesome-icon icon="user-circle" style="font-size: 2.5rem"/>
       </div>
       <div id="dropdown-basic" class="dropdown-menu dropdown-menu-right"
            role="menu" aria-labelledby="button-basic">
