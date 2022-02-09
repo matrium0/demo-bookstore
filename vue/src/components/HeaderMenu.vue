@@ -11,6 +11,7 @@ export default {
   data() {
     return {
       isMenuCollapsed: true,
+      isLogoutDialogOpened: false,
       applicationContext,
       handleLogoutClick
     }
@@ -57,11 +58,12 @@ export default {
       </ul>
     </div>
     <div class="btn-group me-3 d-none d-lg-block" data-bs-dropdown>
-      <div id="button-basic" data-bs-dropdownToggle class="cursor-pointer" type="button" aria-controls="dropdown-basic">
+      <div @click="isLogoutDialogOpened = !isLogoutDialogOpened" id="button-basic" data-bs-dropdownToggle class="cursor-pointer"
+           type="button" aria-controls="dropdown-basic">
         <font-awesome-icon icon="user-circle" style="font-size: 2.5rem"/>
       </div>
-      <div id="dropdown-basic" class="dropdown-menu dropdown-menu-right"
-           role="menu" aria-labelledby="button-basic">
+      <div id="dropdown-basic" data-bs-dropdownMenu class="dropdown-menu dropdown-menu-right"
+           role="menu" aria-labelledby="button-basic" v-bind:class="{ show: isLogoutDialogOpened }">
         <div class="d-flex flex-column align-items-center fs-4 mx-3">
           <div>logged in as</div>
           <div class="fw-bold">"{{ applicationContext.user }}"</div>
@@ -71,3 +73,8 @@ export default {
     </div>
   </header>
 </template>
+<style>
+.dropdown-menu {
+  inset: 100% 0 auto auto;
+}
+</style>
