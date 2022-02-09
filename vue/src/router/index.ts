@@ -5,13 +5,13 @@ import AuthorList from '../components/authors/AuthorList.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {path: '/', name: 'home', component: HomeView},
+    {path: '/home', name: 'home', component: HomeView},
     {
-      path: '/authors', name: 'authors', component: () => import('../components/authors/AuthorsPage.vue'), children: [
+      path: '/author', name: 'author', component: () => import('../components/authors/AuthorsPage.vue'), children: [
         {path: ":id", component: AuthorList}
       ]
     },
-    {path: '/books', name: 'books', component: () => import('../components/books/BooksPage.vue')},
+    {path: '/your-books', name: 'your-books', component: () => import('../components/books/BooksPage.vue')},
     {path: '/library', name: 'library', component: () => import('../components/library/LibraryPage.vue')},
   ]
 })

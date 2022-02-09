@@ -1,9 +1,7 @@
+import './assets/global.scss';
 import {createApp} from 'vue'
 import App from './App.vue'
 import router from './router'
-import './assets/global.scss';
-import "bootstrap/dist/css/bootstrap.min.css"
-import "bootstrap"
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {faUserCircle} from '@fortawesome/free-solid-svg-icons/faUserCircle';
