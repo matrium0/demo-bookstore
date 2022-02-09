@@ -7,7 +7,6 @@ const handleLogoutClick = () => {
 };
 export default {
 
-
   data() {
     return {
       isMenuCollapsed: true,
@@ -20,7 +19,7 @@ export default {
 </script>
 <template>
   <header class="navbar fixed-top navbar-expand-md navbar-light shadow p-0">
-    <router-link to="/home" class="navbar-brand d-flex align-items-center ms-0 ms-md-3 me-0">
+    <router-link to="/home" active-class="no-active-class-needed"  class="navbar-brand d-flex align-items-center ms-0 ms-md-3 me-0">
       <img src="../assets/demo-bookstore-gold-48px.png" class="logo-image" alt="logo">
       <img src="../assets/vuejs-gold-18px.png" class="logo-image-appendix-small" alt="logo appendix">
     </router-link>
