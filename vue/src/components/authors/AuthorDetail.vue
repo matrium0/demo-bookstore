@@ -1,10 +1,11 @@
 <template>
-  authors page
-  <RouterView/>
+  author detail
+
 </template>
 
 <script>
 export default {
+  name: "AuthorList"
 }
 </script>
 
