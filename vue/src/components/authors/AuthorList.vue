@@ -20,7 +20,10 @@
     <div>
       //TODO loading indicator
       <br />
-      author table
+      {{welcomeText}}
+
+      {{filteredAuthors.length}} / {{loadedAuthors.length}}
+      <AuthorTable :authors="filteredAuthors"></AuthorTable>
       <!--      <app-loading-indicator-overlay-wrapper [showOverlay]="!filteredAuthors" spinnerSize="6x">-->
       <!--        <div class="table-wrapper">-->
       <!--          <app-author-table *ngIf="filteredAuthors" [authors]="filteredAuthors"-->
@@ -38,17 +41,25 @@ import type {EnrichedAuthor} from '../../../../react/src/mock-backend/author/Enr
 import {findAllAuthors} from '../../../../react/src/mock-backend/author/author-mock-data';
 import router from '@/router';
 import {enrichWithCalculatedFields} from '../../../../react/src/mock-backend/author/author-util';
+import AuthorTable from '@/components/authors/AuthorTable.vue';
+import {onMounted, ref} from "vue";
 
-let author: Author | null = null;
-let authors: Author[] = [];
-let filteredAuthors: Author[] = [];
+let loadedAuthors: Author[] = [];
+let welcomeText = "Hello World";
+
+
+onMounted(() => {
+  console.log(`onMounted`);
+  loadAllAuthors();
+})
 
 const loadAllAuthors = () => {
   findAllAuthors().subscribe({
     next: (authors: Author[]) => {
-      console.log("findAll", authors);
-      authors = authors.map(a => enrichWithCalculatedFields(a));
-      filteredAuthors = authors;
+      console.log("findAll SUCCESS", authors);
+      loadedAuthors = authors.map(a => enrichWithCalculatedFields(a));
+      console.log("findAll SUCCESS", loadedAuthors);
+      const filteredAuthors = ref(authors);
     },
     //TODO error handling?
     // error: (error: HttpErrorResponse) => {
@@ -60,7 +71,7 @@ const loadAllAuthors = () => {
 
 const filter = (term: string) => {
   console.log("filter", term);
-  filteredAuthors = authors?.filter(a =>
+  filteredAuthors = loadedAuthors?.filter(a =>
     (a.firstname + " " + a.lastname).toLocaleLowerCase().includes(term) ||
     (a.lastname + " " + a.firstname).toLocaleLowerCase().includes(term)
   );
