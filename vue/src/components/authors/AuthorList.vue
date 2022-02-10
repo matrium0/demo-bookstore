@@ -42,9 +42,11 @@ import {findAllAuthors} from '../../../../react/src/mock-backend/author/author-m
 import router from '@/router';
 import {enrichWithCalculatedFields} from '../../../../react/src/mock-backend/author/author-util';
 import AuthorTable from '@/components/authors/AuthorTable.vue';
-import {onMounted, ref} from "vue";
+import type {Ref} from 'vue';
+import {onMounted,  ref} from "vue";
 
-let loadedAuthors: Author[] = [];
+let loadedAuthors: Ref<Author[]> =  ref([]);
+let filteredAuthors: Ref<Author[]> =  ref([]);
 let welcomeText = "Hello World";
 
 
@@ -57,9 +59,9 @@ const loadAllAuthors = () => {
   findAllAuthors().subscribe({
     next: (authors: Author[]) => {
       console.log("findAll SUCCESS", authors);
-      loadedAuthors = authors.map(a => enrichWithCalculatedFields(a));
+      loadedAuthors.value = [...authors];
+      filteredAuthors.value =[...authors];
       console.log("findAll SUCCESS", loadedAuthors);
-      const filteredAuthors = ref(authors);
     },
     //TODO error handling?
     // error: (error: HttpErrorResponse) => {
@@ -71,7 +73,7 @@ const loadAllAuthors = () => {
 
 const filter = (term: string) => {
   console.log("filter", term);
-  filteredAuthors = loadedAuthors?.filter(a =>
+  filteredAuthors.value = loadedAuthors.value?.filter(a =>
     (a.firstname + " " + a.lastname).toLocaleLowerCase().includes(term) ||
     (a.lastname + " " + a.firstname).toLocaleLowerCase().includes(term)
   );

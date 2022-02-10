@@ -1,1 +1,11 @@
 @import "../react/src/mock-backend/shared";
+
+.q-table .q-icon {
+  cursor: pointer;
+}
+
+.q-table .sorted .q-icon {
+  transform: rotate(
+      180deg
+  );
+}
