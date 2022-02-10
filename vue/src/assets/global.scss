@@ -1,7 +1,18 @@
 @import "../react/src/mock-backend/shared";
 
-.q-table .q-icon {
+.q-table {
+  width: 100%;
+}
+
+tr {
+  border-bottom-width: 1px;
+  border-color: #0000008a;
+  height: 45px;
+}
+
+.q-table .sortable {
   cursor: pointer;
+  color: #0000008a;
 }
 
 .q-table .sorted .q-icon {

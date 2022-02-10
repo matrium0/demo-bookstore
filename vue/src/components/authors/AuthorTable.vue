@@ -5,7 +5,7 @@
       {{ author.firstname }} {{ author.lastname }}
     </li>
   </ul>
-  <q-table"
+  <q-table
     :rows="authors"
     :columns="columns"
     row-key="name"
@@ -25,7 +25,7 @@ const columns = [
     name: 'firstname',
     required: true,
     label: 'FIRSTNAME',
-    align: 'left',
+    align: 'center',
     field: 'lastname',
     // field: (row: any) => row.name, //TODO better typing
     // format: (val: any) => `${val}`,
