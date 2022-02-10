@@ -1,6 +1,5 @@
 <template>
   librarypage
-  <RouterView/>
 </template>
 
 <script>

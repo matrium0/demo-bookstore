@@ -16,7 +16,7 @@ const router = createRouter({
 
     {path: '/your-books', name: 'your-books', component: () => import('../components/books/BooksPage.vue')},
     {path: '/library', name: 'library', component: () => import('../components/library/LibraryPage.vue')},
-    {path: '/library/edit/id', name: 'library', component: () => import('../components/library/LibraryPage.vue')},
+    {path: '/library/edit/id', name: 'library-edit', component: () => import('../components/library/LibraryPage.vue')},
 
     // TODO LAZY LOADING?
     // {path: '/your-books', name: 'your-books', component: () => import('../components/books/BooksPage.vue')},

@@ -1,6 +1,5 @@
 <template>
   bookspage
-  <RouterView/>
 </template>
 
 <script>
