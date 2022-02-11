@@ -2,21 +2,32 @@
 
 .q-table {
   width: 100%;
+  min-height: 200px;
 }
 
 tr {
   border-bottom-width: 1px;
-  border-color: #0000008a;
+  border-color: #0000001f;
   height: 45px;
+  font-size: 0.9rem;
 }
 
 .q-table .sortable {
   cursor: pointer;
   color: #0000008a;
+  font-size: 0.9rem;
+
+  i {
+    font-weight: bold;
+  }
 }
 
 .q-table .sorted .q-icon {
   transform: rotate(
       180deg
   );
+}
+
+.q-table__bottom {
+  margin-left: 25px;
 }

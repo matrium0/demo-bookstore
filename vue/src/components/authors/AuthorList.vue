@@ -18,11 +18,7 @@
       </div>
     </div>
     <div>
-      //TODO loading indicator
-      <br />
-      {{welcomeText}}
-
-      {{filteredAuthors.length}} / {{loadedAuthors.length}}
+<!--      //TODO loading indicator-->
       <AuthorTable :authors="filteredAuthors"></AuthorTable>
       <!--      <app-loading-indicator-overlay-wrapper [showOverlay]="!filteredAuthors" spinnerSize="6x">-->
       <!--        <div class="table-wrapper">-->
@@ -59,6 +55,7 @@ const loadAllAuthors = () => {
   findAllAuthors().subscribe({
     next: (authors: Author[]) => {
       console.log("findAll SUCCESS", authors);
+      authors = authors.map(a => enrichWithCalculatedFields(a));
       loadedAuthors.value = [...authors];
       filteredAuthors.value =[...authors];
       console.log("findAll SUCCESS", loadedAuthors);
