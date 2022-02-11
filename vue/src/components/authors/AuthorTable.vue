@@ -5,6 +5,7 @@
       :columns="columns"
       row-key="id"
       no-data-label="No authors found"
+      @row-click="onRowClick"
     >
       <template v-slot:body-cell-penName="props">
         <q-td :props="props">
@@ -35,6 +36,7 @@
 import type {EnrichedAuthor} from '../../../../react/src/mock-backend/author/EnrichedAuthor';
 import type {DateTime} from 'luxon';
 import GenderIcon from '@/components/shared/GenderIcon.vue';
+import router from '@/router';
 
 defineProps<{
   authors: EnrichedAuthor[]
@@ -46,6 +48,11 @@ function getDateOfDeathIfPresent(author: EnrichedAuthor): string {
   } else {
     return "";
   }
+}
+
+function onRowClick(evt: PointerEvent, row: EnrichedAuthor) {
+  console.log('clicked on', evt, row)
+  router.push('/author/' + row.id);
 }
 
 const columns = [
