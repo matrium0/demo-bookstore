@@ -1,8 +1,16 @@
 @import "../react/src/mock-backend/shared";
 
+.table-wrapper {
+  min-height: 320px;
+}
+
 .q-table {
   width: 100%;
-  min-height: 200px;
+}
+
+.q-table .text-start {
+  padding-left: 20px;
+  padding-right: 10px;
 }
 
 tr {

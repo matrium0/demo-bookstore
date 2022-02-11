@@ -1,21 +1,23 @@
 <template>
-  <q-table
-    :rows="authors"
-    :columns="columns"
-    row-key="id"
-    no-data-label="No authors found"
-  >
-    <template v-slot:bottom-row>
-      <!-- intentionally empty-->
-    </template>
-    <template v-slot:bottom>
-      <!-- intentionally empty-->
-    </template>
-    <template v-slot:no-data>
-      <!-- intentionally empty-->
-    </template>
+  <div class="table-wrapper">
+    <q-table
+      :rows="authors"
+      :columns="columns"
+      row-key="id"
+      no-data-label="No authors found"
+    >
+      <template v-slot:bottom-row>
+        <!-- intentionally empty-->
+      </template>
+      <template v-slot:bottom>
+        <!-- intentionally empty-->
+      </template>
+      <template v-slot:no-data>
+        <!-- intentionally empty-->
+      </template>
 
-  </q-table>
+    </q-table>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -38,11 +40,11 @@ const columns = [
   {
     name: 'firstname',
     label: 'FIRSTNAME',
-    align: 'center',
+    align: 'start',
     field: 'lastname',
     sortable: true
   },
-  {name: 'lastname', align: 'center', label: 'LASTNAME', field: 'lastname', sortable: true},
+  {name: 'lastname', align: 'start', label: 'LASTNAME', field: 'lastname', sortable: true},
   {name: 'gender', label: 'GENDER', field: 'gender', sortable: true},
   {name: 'penName', label: 'PEN NAME', field: 'penName', sortable: true},
   {
