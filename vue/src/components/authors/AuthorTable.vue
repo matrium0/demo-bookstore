@@ -6,6 +6,18 @@
       row-key="id"
       no-data-label="No authors found"
     >
+      <template v-slot:body-cell-penName="props">
+        <q-td :props="props">
+          <div v-if="props.row.penName" class="my-table-details">
+            <font-awesome-icon icon="check" style="font-size: 1.5rem"/>
+          </div>
+        </q-td>
+      </template>
+      <template v-slot:body-cell-gender="props">
+        <q-td :props="props" class="gender-col">
+          <GenderIcon :gender="props.row.gender" show-label/>
+        </q-td>
+      </template>
       <template v-slot:bottom-row>
         <!-- intentionally empty-->
       </template>
@@ -15,7 +27,6 @@
       <template v-slot:no-data>
         <!-- intentionally empty-->
       </template>
-
     </q-table>
   </div>
 </template>
@@ -23,6 +34,7 @@
 <script setup lang="ts">
 import type {EnrichedAuthor} from '../../../../react/src/mock-backend/author/EnrichedAuthor';
 import type {DateTime} from 'luxon';
+import GenderIcon from '@/components/shared/GenderIcon.vue';
 
 defineProps<{
   authors: EnrichedAuthor[]
@@ -41,7 +53,7 @@ const columns = [
     name: 'firstname',
     label: 'FIRSTNAME',
     align: 'start',
-    field: 'lastname',
+    field: 'firstname',
     sortable: true
   },
   {name: 'lastname', align: 'start', label: 'LASTNAME', field: 'lastname', sortable: true},
@@ -73,3 +85,12 @@ function dateCompare(a: DateTime | undefined, b: DateTime | undefined) {
   return (a.toMillis() - b.toMillis());
 }
 </script>
+
+
+<style scoped lang="scss">
+.gender-col {
+  display: flex;
+  align-items: center;
+}
+
+</style>
