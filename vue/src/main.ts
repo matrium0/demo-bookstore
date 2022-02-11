@@ -14,6 +14,7 @@ import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
 import {faMars} from '@fortawesome/free-solid-svg-icons/faMars';
 import {faVenus} from '@fortawesome/free-solid-svg-icons/faVenus';
 import {faTransgenderAlt} from '@fortawesome/free-solid-svg-icons/faTransgenderAlt';
+import {faSpinner} from '@fortawesome/free-solid-svg-icons/faSpinner';
 
 const app = createApp(App)
 
@@ -29,5 +30,6 @@ library.add(faCheck);
 library.add(faMars);
 library.add(faVenus);
 library.add(faTransgenderAlt);
+library.add(faSpinner);
 
 app.mount('#app')

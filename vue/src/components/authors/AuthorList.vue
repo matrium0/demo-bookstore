@@ -18,14 +18,11 @@
       </div>
     </div>
     <div>
-<!--      //TODO loading indicator-->
-      <AuthorTable :authors="filteredAuthors"></AuthorTable>
-      <!--      <app-loading-indicator-overlay-wrapper [showOverlay]="!filteredAuthors" spinnerSize="6x">-->
-      <!--        <div class="table-wrapper">-->
-      <!--          <app-author-table *ngIf="filteredAuthors" [authors]="filteredAuthors"-->
-      <!--                            (selectAuthor)="onAuthorSelected($event)"></app-author-table>-->
-      <!--        </div>-->
-      <!--      </app-loading-indicator-overlay-wrapper>-->
+      <LoadingIndicatorOverlayWrapper :show-overlay="authorsLoading" spinner-size="5x">
+        <div style="height: 300px">
+          <AuthorTable :authors="filteredAuthors"></AuthorTable>
+        </div>
+      </LoadingIndicatorOverlayWrapper>
     </div>
   </div>
 
@@ -40,10 +37,11 @@ import {enrichWithCalculatedFields} from '../../../../react/src/mock-backend/aut
 import AuthorTable from '@/components/authors/AuthorTable.vue';
 import type {Ref} from 'vue';
 import {onMounted,  ref} from "vue";
+import LoadingIndicatorOverlayWrapper from '@/components/shared/LoadingIndicatorOverlayWrapper.vue';
 
-let loadedAuthors: Ref<Author[]> =  ref([]);
-let filteredAuthors: Ref<Author[]> =  ref([]);
-let welcomeText = "Hello World";
+const loadedAuthors: Ref<Author[]> =  ref([]);
+const filteredAuthors: Ref<Author[]> =  ref([]);
+const authorsLoading: Ref<boolean> =  ref(true);
 
 
 onMounted(() => {
@@ -58,6 +56,7 @@ const loadAllAuthors = () => {
       authors = authors.map(a => enrichWithCalculatedFields(a));
       loadedAuthors.value = [...authors];
       filteredAuthors.value =[...authors];
+      authorsLoading.value = false
       console.log("findAll SUCCESS", loadedAuthors);
     },
     //TODO error handling?
