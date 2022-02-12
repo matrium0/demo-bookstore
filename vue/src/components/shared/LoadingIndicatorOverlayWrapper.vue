@@ -1,8 +1,8 @@
 <template>
   <div class="rounded">
-    <div class="overlay-base" :class="{ 'overlay-backdrop': true }">
+    <div class="overlay-base" :class="{ 'overlay-backdrop': showOverlay }">
       <div class="icon-wrapper d-flex align-items-center justify-content-center">
-        <font-awesome-icon icon="spinner" :size="spinnerSize" class="fa-spin"/>
+        <font-awesome-icon v-if="showOverlay" icon="spinner" :size="spinnerSize" class="fa-spin"/>
       </div>
       <slot></slot>
     </div>

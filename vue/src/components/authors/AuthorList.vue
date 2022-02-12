@@ -20,7 +20,7 @@
     <div>
       <LoadingIndicatorOverlayWrapper :show-overlay="authorsLoading" spinner-size="5x">
         <div style="height: 300px">
-          <AuthorTable :authors="filteredAuthors"></AuthorTable>
+          <AuthorTable @authorSelect="onAuthorSelected" :authors="filteredAuthors"></AuthorTable>
         </div>
       </LoadingIndicatorOverlayWrapper>
     </div>
@@ -36,26 +36,28 @@ import router from '@/router';
 import {enrichWithCalculatedFields} from '../../../../react/src/mock-backend/author/author-util';
 import AuthorTable from '@/components/authors/AuthorTable.vue';
 import type {Ref} from 'vue';
-import {onMounted,  ref} from "vue";
+import {onMounted, ref} from "vue";
 import LoadingIndicatorOverlayWrapper from '@/components/shared/LoadingIndicatorOverlayWrapper.vue';
 
-const loadedAuthors: Ref<Author[]> =  ref([]);
-const filteredAuthors: Ref<Author[]> =  ref([]);
-const authorsLoading: Ref<boolean> =  ref(true);
+const loadedAuthors: Ref<Author[]> = ref([]);
+const filteredAuthors: Ref<Author[]> = ref([]);
+const authorsLoading: Ref<boolean> = ref(true);
 
+console.log("initializing AuthorList");
 
 onMounted(() => {
   console.log(`onMounted`);
   loadAllAuthors();
 })
 
+const filterInput: Ref<string> = ref("");
 const loadAllAuthors = () => {
   findAllAuthors().subscribe({
     next: (authors: Author[]) => {
       console.log("findAll SUCCESS", authors);
       authors = authors.map(a => enrichWithCalculatedFields(a));
       loadedAuthors.value = [...authors];
-      filteredAuthors.value =[...authors];
+      filteredAuthors.value = [...authors];
       authorsLoading.value = false
       console.log("findAll SUCCESS", loadedAuthors);
     },
@@ -77,7 +79,7 @@ const filter = (term: string) => {
 
 const onAuthorSelected = (author: EnrichedAuthor) => {
   console.log("onAuthorSelected", author);
-  router.push('"/author/" + author.id');
+  router.push("/author/" + author.id);
 }
 
 const navigateToNewAuthor = () => {
@@ -88,7 +90,4 @@ const navigateToNewAuthor = () => {
 </script>
 
 <style scoped>
-.table-wrapper {
-  min-height: calc(100vh - 190px);
-}
 </style>

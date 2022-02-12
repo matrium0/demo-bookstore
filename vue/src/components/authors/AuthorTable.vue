@@ -36,11 +36,11 @@
 import type {EnrichedAuthor} from '../../../../react/src/mock-backend/author/EnrichedAuthor';
 import type {DateTime} from 'luxon';
 import GenderIcon from '@/components/shared/GenderIcon.vue';
-import router from '@/router';
 
 defineProps<{
   authors: EnrichedAuthor[]
 }>()
+const emit = defineEmits(['authorSelect'])
 
 function getDateOfDeathIfPresent(author: EnrichedAuthor): string {
   if (author?.dateOfDeath) {
@@ -52,7 +52,7 @@ function getDateOfDeathIfPresent(author: EnrichedAuthor): string {
 
 function onRowClick(evt: PointerEvent, row: EnrichedAuthor) {
   console.log('clicked on', evt, row)
-  router.push('/author/' + row.id);
+  emit('authorSelect', row);
 }
 
 const columns = [
