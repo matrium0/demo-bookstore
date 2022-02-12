@@ -36,11 +36,33 @@
 import type {EnrichedAuthor} from '../../../../react/src/mock-backend/author/EnrichedAuthor';
 import type {DateTime} from 'luxon';
 import GenderIcon from '@/components/shared/GenderIcon.vue';
+import {onMounted, onUnmounted, ref} from 'vue';
+import {debounce} from 'debounce';
+
+onMounted(() => {
+  window.addEventListener("resize", debouncedSetShowedColumnsBasedOnScreenSize(false));
+});
+onUnmounted(() => {
+  window.removeEventListener("resize", debouncedSetShowedColumnsBasedOnScreenSize(false));
+});
 
 defineProps<{
   authors: EnrichedAuthor[]
 }>()
 const emit = defineEmits(['authorSelect'])
+
+const debouncedSetShowedColumnsBasedOnScreenSize = (immediate: boolean) => debounce(setShowedColumnsBasedOnScreenSize, 150, immediate);
+
+function setShowedColumnsBasedOnScreenSize() {
+  console.log("setShowedColumnsBasedOnScreenSize");
+  if (window.innerWidth >= 992) {
+    columns.value = allColumns.filter(col => ['firstname', 'lastname', 'gender', 'penName', 'birthdate', 'age', 'dateOfDeath'].includes(col.name));
+  } else if (window.innerWidth >= 576) {
+    columns.value = allColumns.filter(col => ['firstname', 'lastname', 'birthdate', 'gender'].includes(col.name));
+  } else {
+    columns.value = allColumns.filter(col => ['firstname', 'lastname'].includes(col.name));
+  }
+}
 
 function getDateOfDeathIfPresent(author: EnrichedAuthor): string {
   if (author?.dateOfDeath) {
@@ -55,7 +77,7 @@ function onRowClick(evt: PointerEvent, row: EnrichedAuthor) {
   emit('authorSelect', row);
 }
 
-const columns = [
+const allColumns = [
   {
     name: 'firstname',
     label: 'FIRSTNAME',
@@ -79,10 +101,12 @@ const columns = [
     sortable: true,
     sort: (a: DateTime, b: DateTime, rowA: EnrichedAuthor, rowB: EnrichedAuthor) => dateCompare(rowA.dateOfDeath, rowB.dateOfDeath)
   },
-]
+];
+
+const columns = ref(allColumns); // initially all columns are displayed
+setShowedColumnsBasedOnScreenSize();
 
 function dateCompare(a: DateTime | undefined, b: DateTime | undefined) {
-  console.log("dateCompare", a, b);
   if (!a) {
     return -1;
   }
