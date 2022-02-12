@@ -1,3 +1,4 @@
+import 'quasar/src/css/index.sass'
 import './assets/global.scss';
 import {createApp} from 'vue'
 import App from './App.vue'

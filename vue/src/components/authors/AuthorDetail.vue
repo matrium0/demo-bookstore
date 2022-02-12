@@ -93,7 +93,6 @@ onMounted(() => {
 })
 
 function loadAuthor(id: number) {
-
   findAuthorById(id).subscribe({
     next: (a: Author) => {
       console.log("loadAuthor SUCCESS", a);
@@ -101,11 +100,6 @@ function loadAuthor(id: number) {
       author.value = enrichWithCalculatedFields(a);
       imageUrl.value = createImageUrlFromBlob(author.value.foto);
     },
-    // error: (error: HttpErrorResponse) => {
-    //   this.globalMessageService.setAlertMessage("danger", "Unable to load Author: ", error);
-    //   console.log("loadAuthor ERROR", error);
-    //   this.isLoading = false;
-    // }
   });
 }
 
@@ -117,11 +111,6 @@ function loadBooksForAuthor(id: number) {
       isBooksLoading.value = false;
       books.value = b;
     },
-    // error: (error: HttpErrorResponse) => {
-    //   this.globalMessageService.setAlertMessage("danger", "Unable to load Books of Author: ", error);
-    //   console.log("loadBooksForAuthor ERROR", error);
-    //   this.isBooksLoading = false;
-    // }
   });
 }
 
