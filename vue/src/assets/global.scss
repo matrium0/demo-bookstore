@@ -54,3 +54,32 @@ tr {
   background-image: var(--bs-gradient);
   border-color: #146c43;
 }
+
+.btn-secondary {
+  color: #fff;
+  background-color: #6c757d;
+  background-image: var(--bs-gradient);
+  border-color: #6c757d;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 15%), 0 1px 1px rgb(0 0 0 / 8%);
+}
+
+.btn-secondary:hover {
+  color: #fff;
+  background-color: #5c636a;
+  background-image: var(--bs-gradient);
+  border-color: #565e64;
+}
+
+.btn-warning {
+  background-color: #c39007;
+  background-image: var(--bs-gradient);
+  border-color: #c39007;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 15%), 0 1px 1px rgb(0 0 0 / 8%);
+}
+
+.btn-warning:hover {
+  color: #000;
+  background-color: #cca12c;
+  background-image: var(--bs-gradient);
+  border-color: #c99b20;
+}
