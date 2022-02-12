@@ -39,3 +39,18 @@ tr {
 .q-table__bottom {
   margin-left: 25px;
 }
+
+.btn-success {
+  color: #fff;
+  background-color: #198754;
+  background-image: var(--bs-gradient);
+  border-color: #198754;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 15%), 0 1px 1px rgb(0 0 0 / 8%);
+}
+
+.btn-success:hover {
+  color: #fff;
+  background-color: #157347;
+  background-image: var(--bs-gradient);
+  border-color: #146c43;
+}
