@@ -22,6 +22,14 @@
             <q-input outlined v-model="author.firstname" label="Firstname"/>
             <q-input outlined v-model="author.lastname" label="Lastname" class="mt-3"/>
 
+
+            <div :class="{ error: v$.firstname?.$errors.length }">
+              <input v-model="author.firstname">
+              <div class="input-errors" v-for="error of v$.firstname?.$errors" :key="error.$uid">
+                <div class="error-msg">{{ error.$message }}</div>
+              </div>
+            </div>
+
 <!--            <q-input filled v-model="date" mask="date" :rules="['date']"  class="mt-3">-->
 <!--              <template v-slot:append>-->
 <!--                <q-icon name="event" class="cursor-pointer">-->
@@ -152,16 +160,23 @@ import type {EnrichedAuthor} from '../../../../react/src/mock-backend/author/Enr
 import type {Book} from '../../../../react/src/mock-backend/book/Book';
 import router from '@/router';
 import LoadingIndicatorOverlayWrapper from '@/components/shared/LoadingIndicatorOverlayWrapper.vue';
+import useVuelidate from '@vuelidate/core';
+import {required} from '@vuelidate/validators';
 
-const author: UnwrapNestedRefs<EnrichedAuthor | null> = reactive({});
-
+// const author: UnwrapNestedRefs<EnrichedAuthor | null> = reactive({});
+const author: any = reactive({});
 const isLoading = ref(true);
 const isBooksLoading = ref(true);
 const displaySaveReminder = ref(false);
 const books: Ref<Book[]> = ref([]);
 const imageUrl: Ref<string | undefined> = ref(undefined);
-
 const fullname: ComputedRef<string> = computed((): string => `${author.firstname} ${author.lastname}`);
+const validationRules = {
+  firstName: { required }, // Matches state.firstName
+  lastName: { required }, // Matches state.lastName
+}
+const v$ = useVuelidate(validationRules, author);
+
 
 onMounted(() => {
   const id = router.currentRoute.value.params.id
