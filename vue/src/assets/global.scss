@@ -102,3 +102,7 @@ tr {
 .q-field--labeled .q-field__native {
   padding-left: 0;
 }
+
+.mat-error .q-field--outlined .q-field__control:before {
+  border: 2px solid #f44336;
+}

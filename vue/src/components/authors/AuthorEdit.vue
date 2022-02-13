@@ -19,33 +19,34 @@
           <div class="col-lg-6 pt-2">
             <h2 class="mb-2">General Data</h2>
 
-            <q-input outlined v-model="author.firstname" label="Firstname"/>
-            <q-input outlined v-model="author.lastname" label="Lastname" class="mt-3"/>
-
-
-            <div :class="{ error: v$.firstname?.$errors.length }">
-              <input v-model="author.firstname">
-              <div class="input-errors" v-for="error of v$.firstname?.$errors" :key="error.$uid">
+            <div :class="{ 'mat-error': v$.firstname.$errors.length }">
+              <q-input outlined v-model="author.firstname" @blur="v$.firstname.$touch" label="firstname" />
+              <div class="input-errors" v-for="error of v$.firstname.$errors" :key="error.$uid">
                 <div class="error-msg">{{ error.$message }}</div>
               </div>
             </div>
 
-<!--            <q-input filled v-model="date" mask="date" :rules="['date']"  class="mt-3">-->
-<!--              <template v-slot:append>-->
-<!--                <q-icon name="event" class="cursor-pointer">-->
-<!--                  <q-popup-proxy ref="qDateProxy" cover transition-show="scale" transition-hide="scale">-->
-<!--                    <q-date v-model="author.birthdate">-->
-<!--                      <div class="row items-center justify-end">-->
-<!--                        <q-btn v-close-popup label="Close" color="primary" flat />-->
-<!--                      </div>-->
-<!--                    </q-date>-->
-<!--                  </q-popup-proxy>-->
-<!--                </q-icon>-->
-<!--              </template>-->
-<!--            </q-input>-->
+            <q-input outlined v-model="author.firstname" @blur="v$.firstname.$touch" label="firstname" />
+            <q-input outlined v-model="author.lastname" @blur="v$.lastname.$touch" label="Lastname" class="mt-3"/>
+
+
+
+            <!--            <q-input filled v-model="date" mask="date" :rules="['date']"  class="mt-3">-->
+            <!--              <template v-slot:append>-->
+            <!--                <q-icon name="event" class="cursor-pointer">-->
+            <!--                  <q-popup-proxy ref="qDateProxy" cover transition-show="scale" transition-hide="scale">-->
+            <!--                    <q-date v-model="author.birthdate">-->
+            <!--                      <div class="row items-center justify-end">-->
+            <!--                        <q-btn v-close-popup label="Close" color="primary" flat />-->
+            <!--                      </div>-->
+            <!--                    </q-date>-->
+            <!--                  </q-popup-proxy>-->
+            <!--                </q-icon>-->
+            <!--              </template>-->
+            <!--            </q-input>-->
             <!--            <mat-form-field class="w-100" appearance="outline">-->
-            <!--              <mat-label>Firstname</mat-label>-->
-            <!--              <input matInput placeholder="Firstname" formControlName="firstname" required>-->
+            <!--              <mat-label>firstname</mat-label>-->
+            <!--              <input matInput placeholder="firstname" formControlName="firstname" required>-->
             <!--              <mat-error>input required</mat-error>-->
             <!--            </mat-form-field>-->
 
@@ -133,14 +134,14 @@
           <!--          </div>-->
         </div>
         <div class="row mt-3">
-                    <div class="col-12 px-4 px-lg-5 mb-3 d-flex align-items-center justify-content-between ">
-                      <button @click="navigateBack()" class="btn btn-secondary btn-lg">
-                        cancel
-                      </button>
-                      <button @click="saveAndNavigateToDetailPage()" class="btn btn-success btn-lg px-4">
-                        save
-                      </button>
-                    </div>
+          <div class="col-12 px-4 px-lg-5 mb-3 d-flex align-items-center justify-content-between ">
+            <button @click="navigateBack()" class="btn btn-secondary btn-lg">
+              cancel
+            </button>
+            <button @click="saveAndNavigateToDetailPage()" class="btn btn-success btn-lg px-4">
+              save
+            </button>
+          </div>
         </div>
       </LoadingIndicatorOverlayWrapper>
     </div>
@@ -149,32 +150,41 @@
 </template>
 
 <script setup lang="ts">
-import type {ComputedRef, Ref, UnwrapNestedRefs} from 'vue';
+import type {ComputedRef, Ref} from 'vue';
 import {computed, onMounted, reactive, ref} from 'vue';
 import {createImageUrlFromBlob} from '@/util/ImageService';
 import {createOrUpdateAuthor, findAuthorById} from '../../../../react/src/mock-backend/author/author-mock-data';
 import {findBooksOfAuthor} from '../../../../react/src/mock-backend/book/book-mock-data';
-import {enrichWithCalculatedFields} from '../../../../react/src/mock-backend/author/author-util';
 import type {Author} from '../../../../react/src/mock-backend/author/Author';
-import type {EnrichedAuthor} from '../../../../react/src/mock-backend/author/EnrichedAuthor';
 import type {Book} from '../../../../react/src/mock-backend/book/Book';
 import router from '@/router';
 import LoadingIndicatorOverlayWrapper from '@/components/shared/LoadingIndicatorOverlayWrapper.vue';
 import useVuelidate from '@vuelidate/core';
-import {required} from '@vuelidate/validators';
+import {email, minLength, required} from '@vuelidate/validators';
 
 // const author: UnwrapNestedRefs<EnrichedAuthor | null> = reactive({});
-const author: any = reactive({});
+const author: any = reactive({firstname: "x"}); //TODo remove firstname here?
 const isLoading = ref(true);
 const isBooksLoading = ref(true);
 const displaySaveReminder = ref(false);
 const books: Ref<Book[]> = ref([]);
 const imageUrl: Ref<string | undefined> = ref(undefined);
 const fullname: ComputedRef<string> = computed((): string => `${author.firstname} ${author.lastname}`);
+
+const minLengthTwo = minLength(2);
 const validationRules = {
-  firstName: { required }, // Matches state.firstName
-  lastName: { required }, // Matches state.lastName
+  firstname: {required, minLengthTwo}, // Matches state.firstname
+  lastname: {required}, // Matches state.lastName
 }
+
+const state = reactive({
+  firstname: '',
+})
+const rules = {
+  firstname: {required, email}, // Matches state.firstname
+}
+// const v$ = useVuelidate(rules, state);
+
 const v$ = useVuelidate(validationRules, author);
 
 
@@ -190,7 +200,8 @@ function loadAuthor(id: number) {
     next: (a: Author) => {
       console.log("loadAuthor SUCCESS", a);
       isLoading.value = false;
-      Object.assign(author, enrichWithCalculatedFields(a));
+      //TODO enable loading
+      // Object.assign(author, enrichWithCalculatedFields(a));
       imageUrl.value = createImageUrlFromBlob(author?.foto);
     },
   });
@@ -225,13 +236,13 @@ function saveAndNavigateToDetailPage() {
   //TODO validation
   // if (this.formGroup.valid) {
   //   console.log('save', this.formGroup.value);
-    createOrUpdateAuthor(author).subscribe(
-      (a: Author) => {
-        console.log('createOrUpdateAuthor SUCCESS', a);
-        router.push("/author/" + a.id);
-        //TODO global message
-        // this.globalMessageService.setAlertMessage("info", "Author saved!");
-      });
+  createOrUpdateAuthor(author).subscribe(
+    (a: Author) => {
+      console.log('createOrUpdateAuthor SUCCESS', a);
+      router.push("/author/" + a.id);
+      //TODO global message
+      // this.globalMessageService.setAlertMessage("info", "Author saved!");
+    });
   // } else {
   //   console.log('formgroup is not valid', this.formGroup);
   //   this.formGroup.markAllAsTouched();

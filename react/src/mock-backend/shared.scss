@@ -152,8 +152,9 @@ mat-button-toggle-group {
   color: green;
 }
 
-mat-error {
+mat-error, .mat-error {
   font-weight: bold;
+  color: #f44336;
 }
 
 .mat-error-style, mat-error {
