@@ -102,9 +102,9 @@
             <div
               class="foto-wrapper col-sm-7 col-md-6 col-lg-5 col-xl-4 position-relative d-flex flex-column justify-content-center align-items-center">
               <img v-if="imageUrl" :src="imageUrl" class="author-foto-img" alt="Foto of the Author">
-              <!--              TODO openfotouploaddialog-->
-              <!--              <a @click="openFotoUploadDialog()" class="author-foto-change-link"-->
-              <!--                 role="button">{{ formGroup.get('id')?.value ? 'change foto' : 'upload foto' }}</a>-->
+              <a @click="openUploadImageDialog = true" class="author-foto-change-link"
+                 role="button">{{ author.id ? 'change foto' : 'upload foto' }}
+              </a>
             </div>
           </div>
         </div>
@@ -118,10 +118,10 @@
             </button>
           </div>
         </div>
-      </LoadingIndicatorOverlayWrapper>
+      </LoadingIndicatorOverlayWrapper >
     </div>
   </div>
-
+  <ImageUploadDialog :opened="openUploadImageDialog"/>
 </template>
 
 <script setup lang="ts">
@@ -138,6 +138,7 @@ import LoadingIndicatorOverlayWrapper from '@/components/shared/LoadingIndicator
 import useVuelidate from '@vuelidate/core';
 import {minLength, required} from '@vuelidate/validators';
 import {DateTime} from 'luxon';
+import ImageUploadDialog from '@/components/authors/ImageUploadDialog.vue';
 
 // const author: UnwrapNestedRefs<EnrichedAuthor | null> = reactive({});
 const author: any = reactive({firstname: "x"}); //TODo remove firstname here?
@@ -150,6 +151,7 @@ const displaySaveReminder = ref(false);
 const books: Ref<Book[]> = ref([]);
 const imageUrl: Ref<string | undefined> = ref(undefined);
 const fullname: ComputedRef<string> = computed((): string => `${author.firstname} ${author.lastname}`);
+const openUploadImageDialog = ref(false)
 
 const minLengthTwo = minLength(2);
 const validationRules = {
@@ -279,6 +281,7 @@ function saveAndNavigateToDetailPage() {
   //   this.formGroup.markAllAsTouched();
   // }
 }
+
 </script>
 
 <style scoped lang="scss">

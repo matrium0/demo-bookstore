@@ -16,6 +16,9 @@ import {faMars} from '@fortawesome/free-solid-svg-icons/faMars';
 import {faVenus} from '@fortawesome/free-solid-svg-icons/faVenus';
 import {faTransgenderAlt} from '@fortawesome/free-solid-svg-icons/faTransgenderAlt';
 import {faSpinner} from '@fortawesome/free-solid-svg-icons/faSpinner';
+import {faTimes} from '@fortawesome/free-solid-svg-icons/faTimes';
+import {VueCropper} from 'vue-cropperjs';
+import 'cropperjs/dist/cropper.css';
 
 const app = createApp(App)
 
@@ -24,6 +27,7 @@ app.use(router);
 app.use(Quasar, {
   plugins: {}, // import Quasar plugins and add here
 })
+app.component(VueCropper);
 
 library.add(faUserCircle);
 library.add(faFilter);
@@ -32,5 +36,6 @@ library.add(faMars);
 library.add(faVenus);
 library.add(faTransgenderAlt);
 library.add(faSpinner);
+library.add(faTimes);
 
 app.mount('#app')
