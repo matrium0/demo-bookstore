@@ -106,3 +106,15 @@ tr {
 .mat-error .q-field--outlined .q-field__control:before {
   border: 2px solid #f44336;
 }
+
+.q-field__append {
+  width: 80px;
+}
+
+.q-date__content .row {
+  width: auto !important;
+}
+
+q-btn-group .row {
+  width: auto !important;
+}
