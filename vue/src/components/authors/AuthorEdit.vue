@@ -82,8 +82,29 @@
 
             <div class="d-flex align-items-center">
               <span class="me-3">Pen name</span>
-              <q-checkbox v-model="author.penName" />
+              <q-checkbox v-model="author.penName"/>
+            </div>
+          </div>
 
+          <div class="col-lg-6 pt-2">
+            <h2 class="mt-lg-0 mb-2">Notes</h2>
+            <div class="text-danger">text loading is broken in vue-quill atm, sorry ;)</div>
+            <q-editor v-model="author.note" height="200px"/>
+
+            <div class="d-flex align-items-center mt-4 mt-lg-3">
+              <h2 class="me-3">Foto</h2>
+              <div v-if="displaySaveReminder" class="text-danger fw-bold">You changed the foto - don't forget to save!</div>
+
+              <div class="input-errors" v-for="error of v$.foto.$errors" :key="error.$uid">
+                <div class="error-msg">{{ error.$message }}</div>
+              </div>
+            </div>
+            <div
+              class="foto-wrapper col-sm-7 col-md-6 col-lg-5 col-xl-4 position-relative d-flex flex-column justify-content-center align-items-center">
+              <img v-if="imageUrl" :src="imageUrl" class="author-foto-img" alt="Foto of the Author">
+              <!--              TODO openfotouploaddialog-->
+              <!--              <a @click="openFotoUploadDialog()" class="author-foto-change-link"-->
+              <!--                 role="button">{{ formGroup.get('id')?.value ? 'change foto' : 'upload foto' }}</a>-->
             </div>
           </div>
         </div>
@@ -138,7 +159,7 @@ const validationRules = {
   birthdate: {required},
   placeOfBirth: {required},
   foto: {required},
-  dateOfDeath: {}
+  dateOfDeath: {},
 }
 
 const v$ = useVuelidate(validationRules, author);

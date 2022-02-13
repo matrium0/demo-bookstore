@@ -118,3 +118,7 @@ tr {
 q-btn-group .row {
   width: auto !important;
 }
+
+.q-editor .row > * {
+  width: auto;
+}
