@@ -88,7 +88,6 @@
 
           <div class="col-lg-6 pt-2">
             <h2 class="mt-lg-0 mb-2">Notes</h2>
-            <div class="text-danger">text loading is broken in vue-quill atm, sorry ;)</div>
             <q-editor v-model="author.note" height="200px"/>
 
             <div class="d-flex align-items-center mt-4 mt-lg-3">

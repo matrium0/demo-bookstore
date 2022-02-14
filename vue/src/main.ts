@@ -8,6 +8,8 @@ import {library} from '@fortawesome/fontawesome-svg-core';
 import {faUserCircle} from '@fortawesome/free-solid-svg-icons/faUserCircle';
 import {faFilter} from '@fortawesome/free-solid-svg-icons/faFilter';
 import {Quasar} from 'quasar'
+import VueCropper from 'vue-cropper';
+import 'vue-cropper/dist/index.css'
 
 // Import icon libraries
 import '@quasar/extras/material-icons/material-icons.css'
@@ -17,17 +19,15 @@ import {faVenus} from '@fortawesome/free-solid-svg-icons/faVenus';
 import {faTransgenderAlt} from '@fortawesome/free-solid-svg-icons/faTransgenderAlt';
 import {faSpinner} from '@fortawesome/free-solid-svg-icons/faSpinner';
 import {faTimes} from '@fortawesome/free-solid-svg-icons/faTimes';
-import {VueCropper} from 'vue-cropperjs';
-import 'cropperjs/dist/cropper.css';
 
 const app = createApp(App)
 
 app.component("font-awesome-icon", FontAwesomeIcon)
 app.use(router);
+app.use(VueCropper);
 app.use(Quasar, {
   plugins: {}, // import Quasar plugins and add here
-})
-app.component(VueCropper);
+});
 
 library.add(faUserCircle);
 library.add(faFilter);

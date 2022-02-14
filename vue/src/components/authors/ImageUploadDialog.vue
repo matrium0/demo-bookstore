@@ -9,13 +9,12 @@
         </div>
 
         <input type="file" name="file" class="mt-4 w-100" @change="handleFileUpload"/>
-        <vue-cropper
+        <vueCropper
           ref="cropper"
-          :src="imageUrl"
-          alt="Source Image"
-        >
-        </vue-cropper>
+          :img="imageUrl"
+        ></vueCropper>
 
+        <img :src="imageUrl">
       </div>
     </q-card>
   </q-dialog>
@@ -29,9 +28,10 @@ defineProps<{
   opened: boolean
 }>()
 const imageUrl: Ref<string | null> = ref(null)
+const cropper = ref(null);
 
 function handleFileUpload(event: any) { //TODO correct type?
-  console.log("handleFileUpload")
+  console.log("handleFileUpload", event)
 
   const element = event.currentTarget as HTMLInputElement;
   const fileList: FileList | null = element.files;
@@ -48,6 +48,7 @@ function handleFileUpload(event: any) { //TODO correct type?
           return;
         }
         imageUrl.value = ev.target.result;
+        console.log("imageUrl", imageUrl.value);
         setTimeout(() => onCrop(), 100);
       };
     }
@@ -56,14 +57,15 @@ function handleFileUpload(event: any) { //TODO correct type?
 
 const onCrop = () => {
   console.log("onCrop");
-  //TODO implement
-  const imageElement: any = cropperRef?.current;
-  const cropper: any = imageElement?.cropper;
-  console.log(cropper.getCroppedCanvas().toDataURL());
+  // //TODO implement
+  // const cr: any = cropper;
+  // // const cr: any = imageElement?.cropper;
+  // console.log(cr.getCroppedCanvas().toDataURL());
 
-  cropper.getCroppedCanvas().toBlob((blob: Blob) => {
-    setState({...state, blob});
-  })
+  //TODo return blob to authorEdit
+  // cropper.getCroppedCanvas().toBlob((blob: Blob) => {
+  //   setState({...state, blob});
+  // })
 };
 </script>
 
