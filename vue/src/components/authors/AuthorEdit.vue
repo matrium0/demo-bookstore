@@ -117,10 +117,10 @@
             </button>
           </div>
         </div>
-      </LoadingIndicatorOverlayWrapper >
+      </LoadingIndicatorOverlayWrapper>
     </div>
   </div>
-  <ImageUploadDialog :opened="openUploadImageDialog"/>
+  <ImageUploadDialog :opened="openUploadImageDialog" @closeDialog="handleCloseDialog"/>
 </template>
 
 <script setup lang="ts">
@@ -279,6 +279,16 @@ function saveAndNavigateToDetailPage() {
   //   console.log('formgroup is not valid', this.formGroup);
   //   this.formGroup.markAllAsTouched();
   // }
+}
+
+function handleCloseDialog(blob: Blob | null) {
+  openUploadImageDialog.value = false;
+
+  if (blob) {
+    author.foto = blob;
+    imageUrl.value = createImageUrlFromBlob(blob);
+  }
+
 }
 
 </script>

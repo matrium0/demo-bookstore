@@ -41,6 +41,7 @@ import Options = Cropper.Options;
 defineProps<{
   opened: boolean
 }>()
+const emit = defineEmits(['closeDialog'])
 
 const fileInput: Ref<any> = ref(null); //TODO Type?
 const imageUrl: Ref<string | null> = ref(null);
@@ -115,13 +116,11 @@ if (imageElement) {
 }
 
 function closeDialogAndReturnImageUrl(): void {
-  //TODO close
-  // this.dialogRef.close(this.imageBlob);
+  emit('closeDialog', imageBlob.value);
 }
 
 function dismissDialog(): void {
-  //TODO close / dismiss
-  // this.dialogRef.close();
+  emit('closeDialog', null);
 }
 
 </script>
