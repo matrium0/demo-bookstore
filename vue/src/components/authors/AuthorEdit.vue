@@ -95,7 +95,7 @@
               <div v-if="displaySaveReminder" class="text-danger fw-bold">You changed the foto - don't forget to save!</div>
 
               <div class="input-errors" v-for="error of v$.foto.$errors" :key="error.$uid">
-                <div class="error-msg">{{ error.$message }}</div>
+                <div class="error-msg text-danger fw-bold">{{ error.$message }}</div>
               </div>
             </div>
             <div
@@ -260,25 +260,26 @@ function navigateBack() {
   history.back();
 }
 
-function saveAndNavigateToDetailPage() {
+async function saveAndNavigateToDetailPage() {
   console.log("saveAndNavigateToDetailPage");
   if (!author) {
     return;
   }
-  //TODO validation
-  // if (this.formGroup.valid) {
-  //   console.log('save', this.formGroup.value);
-  createOrUpdateAuthor(author).subscribe(
-    (a: Author) => {
-      console.log('createOrUpdateAuthor SUCCESS', a);
-      router.push("/author/" + a.id);
-      //TODO global message
-      // this.globalMessageService.setAlertMessage("info", "Author saved!");
-    });
-  // } else {
-  //   console.log('formgroup is not valid', this.formGroup);
-  //   this.formGroup.markAllAsTouched();
-  // }
+    const isFormCorrect = await this.v$.$validate()
+  //   // you can show some extra alert to the user or just leave the each field to show it's `$errors`.
+  //   if (!isFormCorrect) return
+  // v$.validate();
+  if (!isFormCorrect) {
+    console.log('formgroup is not valid', this.formGroup);
+  } else {
+    createOrUpdateAuthor(author).subscribe(
+      (a: Author) => {
+        console.log('createOrUpdateAuthor SUCCESS', a);
+        router.push("/author/" + a.id);
+        //TODO global message
+        // this.globalMessageService.setAlertMessage("info", "Author saved!");
+      });
+  }
 }
 
 function handleCloseDialog(blob: Blob | null) {
