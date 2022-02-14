@@ -105,7 +105,7 @@
 
           <div class="col-lg-6 pt-2">
             <h2 class="mt-lg-0 mb-2">Notes</h2>
-            <q-editor v-if="author.note" v-model="author.note" height="200px"/>
+            <q-editor v-if="author" v-model="author.note" height="200px"/>
 
             <div class="d-flex align-items-center mt-4 mt-lg-3">
               <h2 class="me-3">Foto</h2>
