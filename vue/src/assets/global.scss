@@ -122,3 +122,11 @@ q-btn-group .row {
 .q-editor .row > * {
   width: auto;
 }
+
+.q-btn-group.row > * {
+  width: auto;
+}
+
+.q-btn--outline:before {
+  border: 1px solid rgba(0, 0, 0, 0.24);
+}

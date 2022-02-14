@@ -78,8 +78,20 @@
             <q-input outlined v-model="author.genre" label="Genre" class="mt-3"/>
 
             <!-- TODO gender switcher (button group) -->
+
             <div class="mt-3" :class="{ 'mat-error': v$.gender.$errors.length }">
-              <q-input outlined v-model="author.gender"  label="Gender"/>
+              <div class="d-flex align-items-center justify-content-start">
+                <div class="pe-4">Gender:</div>
+                <q-btn-toggle
+                  v-model="author.gender"
+                  toggle-color="primary"
+                  :options="[
+                  {label: 'Male', value: 'MALE'},
+                  {label: 'Female', value: 'FEMALE'},
+                  {label: 'Non-binary', value: 'NON_BINARY'}
+                ]"
+                />
+              </div>
               <div class="input-errors" v-for="error of v$.gender.$errors" :key="error.$uid">
                 <div class="error-msg">{{ error.$message }}</div>
               </div>
@@ -173,8 +185,13 @@ const v$ = useVuelidate(validationRules, author);
 onMounted(() => {
   const id = router.currentRoute.value.params.id
   console.log(`onMounted`, id);
-  loadAuthor(Number(id));
-  loadBooksForAuthor(Number(id));
+
+  if (id !== "new") {
+    loadAuthor(Number(id));
+    loadBooksForAuthor(Number(id));
+  } else {
+    isLoading.value = false;
+  }
 })
 
 function loadAuthor(id: number) {
@@ -182,7 +199,7 @@ function loadAuthor(id: number) {
     next: (a: Author) => {
       console.log("loadAuthor SUCCESS", a);
       isLoading.value = false;
-      //TODO enable loading
+
       Object.assign(author, enrichWithCalculatedFields(a));
       imageUrl.value = createImageUrlFromBlob(author?.foto);
       authorBirthdate.value = author.birthdate.toFormat("dd.LL.yyyy");
