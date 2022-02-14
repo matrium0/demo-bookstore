@@ -9,11 +9,20 @@
         </div>
 
         <input type="file" name="file" class="mt-4 w-100" @change="handleFileUpload"/>
-        <vueCropper
-          ref="cropper"
-          :img="imageUrl"
-        ></vueCropper>
 
+        <vue-cropper
+          ref="cropper"
+          :src="imageUrl"
+        />
+
+<!--        <vueCropper-->
+<!--          ref="cropper"-->
+<!--          :img="imageUrl"-->
+<!--          :outputSize="1"-->
+<!--          outputType="jpeg"-->
+<!--        ></vueCropper>-->
+
+        after cropper<br />
         <img :src="imageUrl">
       </div>
     </q-card>
@@ -23,6 +32,8 @@
 <script setup lang="ts">
 import type {Ref} from 'vue';
 import {ref} from 'vue';
+import 'cropperjs/dist/cropper.css';
+import VueCropper from 'vue-cropperjs';
 
 defineProps<{
   opened: boolean

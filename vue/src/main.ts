@@ -8,8 +8,8 @@ import {library} from '@fortawesome/fontawesome-svg-core';
 import {faUserCircle} from '@fortawesome/free-solid-svg-icons/faUserCircle';
 import {faFilter} from '@fortawesome/free-solid-svg-icons/faFilter';
 import {Quasar} from 'quasar'
-import VueCropper from 'vue-cropper';
-import 'vue-cropper/dist/index.css'
+import VueCropper from 'vue-cropperjs';
+import 'cropperjs/dist/cropper.css';
 
 // Import icon libraries
 import '@quasar/extras/material-icons/material-icons.css'
