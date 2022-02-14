@@ -192,6 +192,7 @@ onMounted(() => {
   } else {
     isLoading.value = false;
     author.penName = false;
+    author.note = "";
   }
 })
 
@@ -225,10 +226,10 @@ function changeBirthDate(e: string) {
   author.birthdate = DateTime.fromFormat(e, "dd.LL.yyyy");
 
   console.log("changeBirthDate", e, author.birthdate);
-  if (author.birthdate) {
+  if (author.birthdate.isValid) {
     console.log("clearing birthdate error");
-    authorBirthdate.value = e;
     v$.value.birthdate.$errors.splice(0, v$.value.birthdate.$errors.length);
+    authorBirthdate.value = author.birthdate.toFormat("dd.LL.yyyy");
   } else {
     console.log("setting birthdate error");
     console.log(v$.value.firstname.$errors);
@@ -245,18 +246,16 @@ function changeBirthDate(e: string) {
       $params: {},
     })
   }
-
-  console.log("after parse", author.birthdate.value);
 }
 
-//TODO date handling needs refactoring
+//TODO date handling needs refactoring (e.g. code duplication, etc.)
 function changeDateOfDeath(e: string) {
-  author.dateOfDeath = DateTime.fromFormat(e, "dd.LL.yyyy");
+  author.dateOfDeath.value = DateTime.fromFormat(e, "dd.LL.yyyy");
 
   console.log("changedateOfDeath", e, author.dateOfDeath);
   if (author.dateOfDeath.value) {
-    author.dateOfDeath.value = e;
     v$.value.dateOfDeath.$errors.splice(0, v$.value.dateOfDeath.$errors.length);
+    authorDateOfDeath.value = author.dateOfDeath.toFormat("dd.LL.yyyy");
   } else {
     console.log(v$.value.firstname.$errors);
     console.log(v$.value.dateOfDeath.$errors);
