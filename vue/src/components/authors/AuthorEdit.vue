@@ -78,7 +78,12 @@
             <q-input outlined v-model="author.genre" label="Genre" class="mt-3"/>
 
             <!-- TODO gender switcher (button group) -->
-            <q-input outlined v-model="author.gender" label="Gender" class="mt-3"/>
+            <div class="mt-3" :class="{ 'mat-error': v$.gender.$errors.length }">
+              <q-input outlined v-model="author.gender"  label="Gender"/>
+              <div class="input-errors" v-for="error of v$.gender.$errors" :key="error.$uid">
+                <div class="error-msg">{{ error.$message }}</div>
+              </div>
+            </div>
 
             <div class="d-flex align-items-center">
               <span class="me-3">Pen name</span>
@@ -88,7 +93,7 @@
 
           <div class="col-lg-6 pt-2">
             <h2 class="mt-lg-0 mb-2">Notes</h2>
-            <q-editor v-model="author.note" height="200px"/>
+            <q-editor v-if="author.note" v-model="author.note" height="200px"/>
 
             <div class="d-flex align-items-center mt-4 mt-lg-3">
               <h2 class="me-3">Foto</h2>
@@ -202,10 +207,12 @@ function changeBirthDate(e: string) {
   author.birthdate = DateTime.fromFormat(e, "dd.LL.yyyy");
 
   console.log("changeBirthDate", e, author.birthdate);
-  if (author.birthdate.value) {
+  if (author.birthdate) {
+    console.log("clearing birthdate error");
     authorBirthdate.value = e;
     v$.value.birthdate.$errors.splice(0, v$.value.birthdate.$errors.length);
   } else {
+    console.log("setting birthdate error");
     console.log(v$.value.firstname.$errors);
     console.log(v$.value.birthdate.$errors);
     v$.value.birthdate.$errors.splice(0, v$.value.birthdate.$errors.length);
@@ -265,12 +272,12 @@ async function saveAndNavigateToDetailPage() {
   if (!author) {
     return;
   }
-    const isFormCorrect = await this.v$.$validate()
+  const isFormCorrect = await this.v$.$validate()
   //   // you can show some extra alert to the user or just leave the each field to show it's `$errors`.
   //   if (!isFormCorrect) return
   // v$.validate();
   if (!isFormCorrect) {
-    console.log('formgroup is not valid', this.formGroup);
+    console.log('formgroup is not valid', this.v$);
   } else {
     createOrUpdateAuthor(author).subscribe(
       (a: Author) => {
