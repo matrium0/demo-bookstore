@@ -191,6 +191,7 @@ onMounted(() => {
     loadBooksForAuthor(Number(id));
   } else {
     isLoading.value = false;
+    author.penName = false;
   }
 })
 
