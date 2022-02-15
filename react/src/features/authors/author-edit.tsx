@@ -37,6 +37,7 @@ const defaultState: AuthorEditState = {
     placeOfBirth: "",
     birthdate: undefined,
     placeOfDeath: undefined,
+    fullRealName: undefined
   },
   errors: {},
   showImageUploadDialog: false,
@@ -81,6 +82,12 @@ const AuthorEdit = () => {
 
     return loadAuthor();
   }, [id]);
+
+  function handlePenNameChange(event: SyntheticEvent) {
+    const target = event.target as HTMLInputElement;
+    const value = target.checked;
+    changeStateField(target.required, "penName", value);
+  }
 
   function handleInputChange(event: SyntheticEvent) {
     const target = event.target as HTMLInputElement;
@@ -271,8 +278,13 @@ const AuthorEdit = () => {
 
                   <div className="d-flex align-items-center mt-2">
                     <label htmlFor="pen-name">Pen name</label>
-                    <Checkbox id="pen-name" value={state.author.penName} onChange={handleInputChange}/>
+                    <Checkbox id="pen-name" checked={state.author.penName} onChange={handlePenNameChange}/>
                   </div>
+                  {state.author.penName &&
+                    <TextField name="fullRealName" label="Real name" value={state.author.fullRealName || ""} onChange={handleInputChange}
+                               error={!!state.errors["fullRealName"]} helperText={state.errors["fullRealName"]}
+                               variant="outlined" className="w-100 mt-2"/>
+                  }
                 </div>
 
                 <div className="col-lg-6 pt-2">

@@ -27,6 +27,7 @@ export class AuthorEditComponent implements OnInit {
     lastname: new FormControl(null, Validators.required),
     gender: new FormControl(null, Validators.required),
     penName: new FormControl(false, Validators.required),
+    fullRealName: new FormControl(null),
     birthdate: new FormControl(null, Validators.required),
     placeOfBirth: new FormControl(null),
     dateOfDeath: new FormControl(null),
