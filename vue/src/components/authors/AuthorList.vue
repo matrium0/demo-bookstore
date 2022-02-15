@@ -60,12 +60,7 @@ const loadAllAuthors = () => {
       filteredAuthors.value = [...authors];
       authorsLoading.value = false
       console.log("findAll SUCCESS", loadedAuthors);
-    },
-    //TODO error handling?
-    // error: (error: HttpErrorResponse) => {
-    //   this.globalMessageService.setAlertMessage("danger", "Unable to load Authors: ", error);
-    //   console.log("error occured");
-    // }
+    }
   });
 }
 
