@@ -41,25 +41,25 @@
             </div>
             <!-- TODO use datepicker-->
 
-            <div class="mt-2 f-row v-if" :class="{ 'mat-error': v$.placeOfBirth.$errors.length }">
+            <div class="mt-2" :class="{ 'mat-error': v$.placeOfBirth.$errors.length }">
               <q-input outlined v-model="author.placeOfBirth" @blur="v$.placeOfBirth.$touch" label="Place of birth"/>
               <div class="input-errors" v-for="error of v$.placeOfBirth.$errors" :key="error.$uid">
                 <div class="error-msg">{{ error.$message }}</div>
               </div>
             </div>
 
-            <div class="mt-2 f-row v-if" :class="{ 'mat-error': v$.dateOfDeath.$errors.length }">
+            <div class="mt-2" :class="{ 'mat-error': v$.dateOfDeath.$errors.length }">
               <q-input outlined :model-value="authorDateOfDeath" @update:model-value="changeDateOfDeath" label="dateOfDeath"/>
               <div class="input-errors" v-for="error of v$.dateOfDeath.$errors" :key="error.$uid">
                 <div class="error-msg">{{ error.$message }}</div>
               </div>
             </div>
 
-            <q-input outlined v-model="author.placeOfDeath" label="Place of death" class="mt-2 f-row v-if"/>
+            <q-input outlined v-model="author.placeOfDeath" label="Place of death" class="mt-2"/>
 
-            <q-input outlined v-model="author.genre" label="Genre" class="mt-2 f-row v-if"/>
+            <q-input outlined v-model="author.genre" label="Genre" class="mt-2"/>
 
-            <div class="mt-2 f-row v-if" :class="{ 'mat-error': v$.gender.$errors.length }">
+            <div class="mt-3" :class="{ 'mat-error': v$.gender.$errors.length }">
               <div class="d-flex align-items-center justify-content-start">
                 <div class="pe-4">Gender:</div>
                 <q-btn-toggle
@@ -87,10 +87,13 @@
               </div>
             </div>
 
-            <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center mt-2">
               <span class="me-3">Pen name</span>
               <q-checkbox v-model="author.penName"/>
             </div>
+
+            <q-input v-if="author.penName" outlined v-model="author.fullRealName" label="Real name" class="mt-2"/>
+
           </div>
 
           <div class="col-lg-6 pt-2">
@@ -114,7 +117,7 @@
             </div>
           </div>
         </div>
-        <div class="mt-2 f-row v-if">
+        <div class="mt-3 pb-2">
           <div class="col-12 px-4 px-lg-5 mb-3 d-flex align-items-center justify-content-between ">
             <button @click="navigateBack()" class="btn btn-secondary btn-lg">
               cancel
