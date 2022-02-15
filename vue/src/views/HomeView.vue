@@ -1,4 +1,12 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import {setGlobalMessage} from '@/components/shared/GlobalMessageService';
+
+function setDummyMessage() {
+  console.log("setting dummy message");
+  setGlobalMessage("info", "a bright new message of medium length")
+}
+
+</script>
 
 <template>
   <div class="app-col">
@@ -17,6 +25,7 @@
         <br>
         So don't be scared - go crazy :)
       </p>
+      <button @click="setDummyMessage()" class="btn btn-secondary ms-5">create dummy message</button>
     </div>
   </div>
 </template>
