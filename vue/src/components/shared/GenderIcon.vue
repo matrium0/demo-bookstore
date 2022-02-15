@@ -8,7 +8,7 @@
     <span v-if="showLabel" class="gender-label">Female</span>
   </div>
   <div v-if="gender === 'NON_BINARY'" class="d-flex align-items-center">
-    <font-awesome-icon icon="transgenderAlt" style="font-size: 1.5rem"/>
+    <font-awesome-icon icon="transgender" style="font-size: 1.5rem"/>
     <span v-if="showLabel" class="gender-label">Non-binary</span>
   </div>
 </template>
@@ -23,6 +23,7 @@ defineProps<{
 <style scoped lang="scss">
 .gender-label {
   display: inline;
+  color: black;
 
   @media (max-width: 500px) {
     display: none;

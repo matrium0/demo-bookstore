@@ -14,9 +14,9 @@ import '@quasar/extras/material-icons/material-icons.css'
 import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
 import {faMars} from '@fortawesome/free-solid-svg-icons/faMars';
 import {faVenus} from '@fortawesome/free-solid-svg-icons/faVenus';
-import {faTransgenderAlt} from '@fortawesome/free-solid-svg-icons/faTransgenderAlt';
 import {faSpinner} from '@fortawesome/free-solid-svg-icons/faSpinner';
 import {faTimes} from '@fortawesome/free-solid-svg-icons/faTimes';
+import {faTransgenderAlt} from '@fortawesome/free-solid-svg-icons';
 
 const app = createApp(App)
 

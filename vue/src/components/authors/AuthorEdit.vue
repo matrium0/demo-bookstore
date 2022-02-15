@@ -77,20 +77,28 @@
 
             <q-input outlined v-model="author.genre" label="Genre" class="mt-3"/>
 
-            <!-- TODO gender switcher (button group) -->
-
             <div class="mt-3" :class="{ 'mat-error': v$.gender.$errors.length }">
               <div class="d-flex align-items-center justify-content-start">
                 <div class="pe-4">Gender:</div>
                 <q-btn-toggle
                   v-model="author.gender"
-                  toggle-color="primary"
+                  toggle-color="grey-4"
                   :options="[
-                  {label: 'Male', value: 'MALE'},
-                  {label: 'Female', value: 'FEMALE'},
-                  {label: 'Non-binary', value: 'NON_BINARY'}
+                  {slot: 'male', value: 'MALE'},
+                  {slot: 'female', value: 'FEMALE'},
+                  {slot: 'nb', value: 'NON_BINARY'}
                 ]"
-                />
+                >
+                  <template v-slot:male>
+                    <GenderIcon :gender="'MALE'" :show-label="true"></GenderIcon>
+                  </template>
+                  <template v-slot:female>
+                    <GenderIcon :gender="'FEMALE'" :show-label="true"></GenderIcon>
+                  </template>
+                  <template v-slot:nb>
+                    <GenderIcon :gender="'NON_BINARY'" :show-label="true"></GenderIcon>
+                  </template>
+                </q-btn-toggle>
               </div>
               <div class="input-errors" v-for="error of v$.gender.$errors" :key="error.$uid">
                 <div class="error-msg">{{ error.$message }}</div>
@@ -155,6 +163,7 @@ import useVuelidate from '@vuelidate/core';
 import {minLength, required} from '@vuelidate/validators';
 import {DateTime} from 'luxon';
 import ImageUploadDialog from '@/components/authors/ImageUploadDialog.vue';
+import GenderIcon from '@/components/shared/GenderIcon.vue';
 
 // const author: UnwrapNestedRefs<EnrichedAuthor | null> = reactive({});
 const author: any = reactive({firstname: "x"}); //TODo remove firstname here?
