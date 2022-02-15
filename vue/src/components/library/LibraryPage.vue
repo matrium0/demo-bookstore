@@ -27,8 +27,8 @@
         <div class="row mx-1 mx-lg-2 justify-content-around pb-4" style="min-height: 300px;">
           <!-- TODO BOOK CARDS-->
           <div v-for="book of filteredBooks" :key="book.id" class="col-auto g-4 book-card-wrap">
-            <div>{{book.id}}-{{book.title}}</div>
-<!--            <app-book-card [book]="book" (openDetail)="openBookDetail($event)" (statusChanged)="handleStatusChanged($event)"></app-book-card>-->
+            <div>{{ book.id }}-{{ book.title }}</div>
+            <!--            <app-book-card [book]="book" (openDetail)="openBookDetail($event)" (statusChanged)="handleStatusChanged($event)"></app-book-card>-->
           </div>
         </div>
       </LoadingIndicatorOverlayWrapper>
@@ -42,8 +42,11 @@ import {onMounted, ref} from "vue";
 import router from '@/router';
 import type {Author} from '../../../../react/src/mock-backend/author/Author';
 import type {Book} from '../../../../react/src/mock-backend/book/Book';
+import type {EnrichedBook} from '../../../../react/src/mock-backend/util/book-utils';
+import {enrichBookWithUserAssignments} from '../../../../react/src/mock-backend/util/book-utils';
 import LoadingIndicatorOverlayWrapper from '@/components/shared/LoadingIndicatorOverlayWrapper.vue';
 import {findAllBooks} from '../../../../react/src/mock-backend/book/book-mock-data';
+import {applicationContext} from "@/ApplicationContext";
 
 const filterInput: Ref<string> = ref("");
 const showAllSelectFilter: Ref<"HIDE_YOUR_BOOKS" | "SHOW_ALL"> = ref("HIDE_YOUR_BOOKS");
@@ -60,21 +63,33 @@ const loadAllAuthors = () => {
     next: (books: Book[]) => {
       console.log("findAllBooks SUCCESS", books);
       allBooks.value = books;
-      filteredBooks.value = books;
+      filterBooks("", "HIDE_YOUR_BOOKS");
       console.log("findAllBooks SUCCESS", books);
     }
   });
 }
 
 function filter(searchTerm: string) {
-  console.log("filter", searchTerm);
-  // this.filterByName$.next(searchTerm);
+  filterBooks(searchTerm.toLowerCase(), showAllSelectFilter.value);
 }
 
-function handleSelectAllChange(value: string) {
-  console.log("handleSelectAllChange", value);
-  // const selectAllChange = value as ShowAllSelectTypes;
-  // this.showAllSelectFilter$.next(selectAllChange);
+function handleSelectAllChange(value: "HIDE_YOUR_BOOKS" | "SHOW_ALL") {
+  filterBooks(filterInput.value, value);
+}
+
+function filterBooks(searchTerm: string, selectAllChange: "HIDE_YOUR_BOOKS" | "SHOW_ALL") {
+  console.log("filterBooks", searchTerm, selectAllChange);
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  let enrichedBooks = allBooks.value.map((b: Book) => enrichBookWithUserAssignments(b, applicationContext.user!));
+  if (selectAllChange === 'HIDE_YOUR_BOOKS') {
+    console.log("hide");
+    filteredBooks.value = enrichedBooks.filter((book: EnrichedBook) => book.assignmentStatus === "default");
+  } else {
+    filteredBooks.value = enrichedBooks;
+  }
+  filteredBooks.value = filteredBooks.value.filter(b => {
+    return b.title?.toLowerCase().includes(searchTerm)
+  })
 }
 
 const openBookDetail = (author: Author) => {
