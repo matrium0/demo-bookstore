@@ -4,6 +4,7 @@
       <img :src="imageUrl" class="book-image" alt="Foto of the Author">
     </div>
     <div v-if="book?.series" class="series">Book {{ book?.numberWithinSeries }} of
+      <span>{{ book?.series }}</span>
       <!--      //TODO confirmation dialog-->
       <!--      <span appConfirmation confirmTitle="{{book?.series}}" cancelButtonText="go back" [hideConfirmButton]="true"-->
       <!--            confirmMessage="Got me :)<br /><br />In a <u>real application</u> this could display the series with all it's books.<br/>This feature is not part of the demo though and therefore <strong>not implemented</strong> - sorry!"-->
@@ -15,7 +16,7 @@
 
     <div class="author">by
       <router-link to="/author/{{book?.authorId}}">
-        {{ book?.firstname }} {{ book?.lastname }}
+        {{ book?.authorFullName }}
       </router-link>
     </div>
     <div class="first-published">first published {{ book?.firstPublished?.toFormat("dd.LL.yyyy") }}</div>
@@ -29,7 +30,6 @@
 <script setup lang="ts">
 import type {Ref} from 'vue';
 import {onMounted, ref} from "vue";
-import type {Book} from '../../../../react/src/mock-backend/book/Book';
 import type {EnrichedBook} from '../../../../react/src/mock-backend/util/book-utils';
 import type {UserBookAssignmentStatus} from '../../../../react/src/mock-backend/user/user-book-assignment-status';
 import {createImageUrlFromBlob} from '@/util/ImageService';
@@ -73,6 +73,10 @@ function statusChange(status: UserBookAssignmentStatus) {
 
 }
 
+.author, .author * {
+  font-size: 1rem;
+}
+
 .title {
   font-weight: bold;
   font-size: 1.5rem;
@@ -106,4 +110,7 @@ function statusChange(status: UserBookAssignmentStatus) {
   bottom: 3px;
 }
 
+a, .btn-link {
+  color: #0d6efd;
+}
 </style>
