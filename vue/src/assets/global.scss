@@ -130,3 +130,9 @@ q-btn-group .row {
 .q-btn--outline:before {
   border: 1px solid rgba(0, 0, 0, 0.24);
 }
+
+.q-btn__content * {
+  font-family: Calibri, sans-serif;
+  font-weight: bold;
+  text-transform: lowercase;
+}

@@ -16,7 +16,9 @@ import {faMars} from '@fortawesome/free-solid-svg-icons/faMars';
 import {faVenus} from '@fortawesome/free-solid-svg-icons/faVenus';
 import {faSpinner} from '@fortawesome/free-solid-svg-icons/faSpinner';
 import {faTimes} from '@fortawesome/free-solid-svg-icons/faTimes';
-import {faTransgenderAlt} from '@fortawesome/free-solid-svg-icons';
+import {faTransgenderAlt} from '@fortawesome/free-solid-svg-icons/faTransgenderAlt';
+import {faBookmark} from '@fortawesome/free-solid-svg-icons/faBookmark';
+import {faBookReader} from '@fortawesome/free-solid-svg-icons/faBookReader';
 
 const app = createApp(App)
 
@@ -33,6 +35,9 @@ library.add(faMars);
 library.add(faVenus);
 library.add(faTransgenderAlt);
 library.add(faSpinner);
+library.add(faTimes);
+library.add(faBookmark);
+library.add(faBookReader);
 library.add(faTimes);
 
 app.mount('#app')

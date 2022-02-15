@@ -21,8 +21,7 @@
     </div>
     <div class="first-published">first published {{ book?.firstPublished?.toFormat("dd.LL.yyyy") }}</div>
 
-    //TODO library marker
-    <!--    <app-is-in-library-marker [status]="book?.assignmentStatus" (statusChange)="statusChange($event)" class="isinlibrary-button"></app-is-in-library-marker>-->
+    <IsInLibraryMarker :status="book?.assignmentStatus" @statusChange="statusChange($event)" class="isinlibrary-button"/>
     <div @click="openDetails()" class="show-details-link btn-link cursor-pointer">open details</div>
   </div>
 </template>
@@ -34,14 +33,9 @@ import type {EnrichedBook} from '../../../../react/src/mock-backend/util/book-ut
 import type {UserBookAssignmentStatus} from '../../../../react/src/mock-backend/user/user-book-assignment-status';
 import {createImageUrlFromBlob} from '@/util/ImageService';
 import {setGlobalMessage} from '@/components/shared/GlobalMessageService';
+import IsInLibraryMarker from '@/components/library/IsInLibraryMarker.vue';
 
 const imageUrl: Ref<string | undefined> = ref(undefined);
-// ngOnInit(): void {
-//   if (!this.book) {
-//   throw new Error("BookCardComponent requires book as Input to work");
-// }
-// this.imageUrl = this.imageService.createImageUrlFromBlob(this.book.image!);
-// }
 const emit = defineEmits(['openDetail', 'statusChanged'])
 
 const props = defineProps<{
