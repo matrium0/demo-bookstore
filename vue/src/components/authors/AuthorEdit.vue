@@ -19,65 +19,47 @@
           <div class="col-lg-6 pt-2">
             <h2 class="mb-2">General Data</h2>
 
-            <div :class="{ 'mat-error': v$.firstname.$errors.length }">
+            <div class="f-row" :class="{ 'mat-error': v$.firstname.$errors.length }">
               <q-input outlined v-model="author.firstname" @blur="v$.firstname.$touch" label="firstname"/>
               <div class="input-errors" v-for="error of v$.firstname.$errors" :key="error.$uid">
                 <div class="error-msg">{{ error.$message }}</div>
               </div>
             </div>
 
-            <div class="mt-3" :class="{ 'mat-error': v$.lastname.$errors.length }">
+            <div class="mt-2 f-row" :class="{ 'mat-error': v$.lastname.$errors.length }">
               <q-input outlined v-model="author.lastname" @blur="v$.lastname.$touch" label="lastname"/>
               <div class="input-errors" v-for="error of v$.lastname.$errors" :key="error.$uid">
                 <div class="error-msg">{{ error.$message }}</div>
               </div>
             </div>
 
-            <div class="mt-3" :class="{ 'mat-error': v$.birthdate.$errors.length }">
+            <div class="mt-2 f-row" :class="{ 'mat-error': v$.birthdate.$errors.length }">
               <q-input outlined :model-value="authorBirthdate" @update:model-value="changeBirthDate" label="birthdate"/>
               <div class="input-errors" v-for="error of v$.birthdate.$errors" :key="error.$uid">
                 <div class="error-msg">{{ error.$message }}</div>
               </div>
             </div>
             <!-- TODO use datepicker-->
-            <!--            <div class="mt-3" :class="{ 'mat-error': v$.birthdate.$errors.length }">-->
-            <!--              <q-input outlined :model-value="author.birthdate" @input="changeBirthDate" label="Birthdate">-->
-            <!--                <template v-slot:append>-->
-            <!--                  <q-icon name="event" class="cursor-pointer">-->
-            <!--                    <q-popup-proxy cover transition-show="scale" transition-hide="scale">-->
-            <!--                      <q-date :model-value="author.birthdate" @update:model-value="changeBirthDate" mask="YYYY/MM/DD">-->
-            <!--                        <div class="row items-center justify-end">-->
-            <!--                          <q-btn v-close-popup label="Close" color="primary" flat/>-->
-            <!--                        </div>-->
-            <!--                      </q-date>-->
-            <!--                    </q-popup-proxy>-->
-            <!--                  </q-icon>-->
-            <!--                </template>-->
-            <!--              </q-input>-->
-            <!--              <div class="input-errors" v-for="error of v$.birthdate.$errors" :key="error.$uid">-->
-            <!--                <div class="error-msg">{{ error.$message }}</div>-->
-            <!--              </div>-->
-            <!--            </div>-->
 
-            <div class="mt-3" :class="{ 'mat-error': v$.placeOfBirth.$errors.length }">
+            <div class="mt-2 f-row v-if" :class="{ 'mat-error': v$.placeOfBirth.$errors.length }">
               <q-input outlined v-model="author.placeOfBirth" @blur="v$.placeOfBirth.$touch" label="Place of birth"/>
               <div class="input-errors" v-for="error of v$.placeOfBirth.$errors" :key="error.$uid">
                 <div class="error-msg">{{ error.$message }}</div>
               </div>
             </div>
 
-            <div class="mt-3" :class="{ 'mat-error': v$.dateOfDeath.$errors.length }">
+            <div class="mt-2 f-row v-if" :class="{ 'mat-error': v$.dateOfDeath.$errors.length }">
               <q-input outlined :model-value="authorDateOfDeath" @update:model-value="changeDateOfDeath" label="dateOfDeath"/>
               <div class="input-errors" v-for="error of v$.dateOfDeath.$errors" :key="error.$uid">
                 <div class="error-msg">{{ error.$message }}</div>
               </div>
             </div>
 
-            <q-input outlined v-model="author.placeOfDeath" label="Place of death" class="mt-3"/>
+            <q-input outlined v-model="author.placeOfDeath" label="Place of death" class="mt-2 f-row v-if"/>
 
-            <q-input outlined v-model="author.genre" label="Genre" class="mt-3"/>
+            <q-input outlined v-model="author.genre" label="Genre" class="mt-2 f-row v-if"/>
 
-            <div class="mt-3" :class="{ 'mat-error': v$.gender.$errors.length }">
+            <div class="mt-2 f-row v-if" :class="{ 'mat-error': v$.gender.$errors.length }">
               <div class="d-flex align-items-center justify-content-start">
                 <div class="pe-4">Gender:</div>
                 <q-btn-toggle
@@ -132,7 +114,7 @@
             </div>
           </div>
         </div>
-        <div class="row mt-3">
+        <div class="mt-2 f-row v-if">
           <div class="col-12 px-4 px-lg-5 mb-3 d-flex align-items-center justify-content-between ">
             <button @click="navigateBack()" class="btn btn-secondary btn-lg">
               cancel
@@ -149,7 +131,7 @@
 </template>
 
 <script setup lang="ts">
-import type {ComputedRef, Ref} from 'vue';
+import type {ComputedRef, Ref, UnwrapNestedRefs} from 'vue';
 import {computed, onMounted, reactive, ref} from 'vue';
 import {createImageUrlFromBlob} from '@/util/ImageService';
 import {enrichWithCalculatedFields} from '../../../../react/src/mock-backend/author/author-util';
@@ -165,8 +147,7 @@ import {DateTime} from 'luxon';
 import ImageUploadDialog from '@/components/authors/ImageUploadDialog.vue';
 import GenderIcon from '@/components/shared/GenderIcon.vue';
 
-// const author: UnwrapNestedRefs<EnrichedAuthor | null> = reactive({});
-const author: any = reactive({firstname: "x"}); //TODo remove firstname here?
+const author: UnwrapNestedRefs<Author> = reactive({});
 const authorBirthdate: Ref<string | null> = ref(null);
 const authorDateOfDeath: Ref<string | null> = ref(null);
 
@@ -213,8 +194,8 @@ function loadAuthor(id: number) {
 
       Object.assign(author, enrichWithCalculatedFields(a));
       imageUrl.value = createImageUrlFromBlob(author?.foto);
-      authorBirthdate.value = author.birthdate.toFormat("dd.LL.yyyy");
-      authorDateOfDeath.value = author.dateOfDeath?.toFormat("dd.LL.yyyy");
+      authorBirthdate.value = author.birthdate?.toFormat("dd.LL.yyyy") || null;
+      authorDateOfDeath.value = author.dateOfDeath?.toFormat("dd.LL.yyyy") || null;
       console.log(author, authorBirthdate.value, authorDateOfDeath.value);
     },
   });
@@ -259,10 +240,10 @@ function changeBirthDate(e: string) {
 
 //TODO date handling needs refactoring (e.g. code duplication, etc.)
 function changeDateOfDeath(e: string) {
-  author.dateOfDeath.value = DateTime.fromFormat(e, "dd.LL.yyyy");
+  author.dateOfDeath = DateTime.fromFormat(e, "dd.LL.yyyy");
 
   console.log("changedateOfDeath", e, author.dateOfDeath);
-  if (author.dateOfDeath.value) {
+  if (author.dateOfDeath) {
     v$.value.dateOfDeath.$errors.splice(0, v$.value.dateOfDeath.$errors.length);
     authorDateOfDeath.value = author.dateOfDeath.toFormat("dd.LL.yyyy");
   } else {
@@ -281,7 +262,7 @@ function changeDateOfDeath(e: string) {
     })
   }
 
-  console.log("after parse", author.birthdate.value);
+  console.log("after parse", author.birthdate);
 }
 
 function showUnsupportedOperationMessage() {
@@ -299,9 +280,6 @@ async function saveAndNavigateToDetailPage() {
     return;
   }
   const isFormCorrect = await this.v$.$validate()
-  //   // you can show some extra alert to the user or just leave the each field to show it's `$errors`.
-  //   if (!isFormCorrect) return
-  // v$.validate();
   if (!isFormCorrect) {
     console.log('formgroup is not valid', this.v$);
   } else {
@@ -328,6 +306,10 @@ function handleCloseDialog(blob: Blob | null) {
 </script>
 
 <style scoped lang="scss">
+.f-row {
+  min-height: 80px;
+}
+
 .gender-error-label {
   @media (max-width: 800px) {
     padding-left: 22px;
