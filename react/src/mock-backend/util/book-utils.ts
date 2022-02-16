@@ -1,7 +1,7 @@
 import {findUserBookAssignmentsForUser} from '../user/user-book-assignment-mockservice';
-import {Book} from '../book/Book';
+import type {Book} from '../book/Book';
 import {getAuthorFullName} from '../author/author-mock-data';
-import {UserBookAssignmentStatus} from '../user/user-book-assignment-status';
+import type  {UserBookAssignmentStatus} from '../user/user-book-assignment-status';
 
 export function enrichBookWithUserAssignments(original: Book, username: string): EnrichedBook {
   const assignments = findUserBookAssignmentsForUser(username);

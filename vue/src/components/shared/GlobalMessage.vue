@@ -4,7 +4,7 @@
       <div role="alert" class="alert alert-info d-flex justify-content-between align-items-center">
         <div aria-live="polite">
           {{ globalMessage.message }}
-          <div v-if="globalMessage.message.detail" class="small-message">
+          <div v-if="globalMessage.detail" class="small-message">
             {{ globalMessage.detail }}
           </div>
         </div>

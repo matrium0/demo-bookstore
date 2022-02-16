@@ -1,5 +1,5 @@
-import {Entity} from './Entity';
-import {DateTime} from 'luxon';
+import type {Entity} from './Entity';
+import type {DateTime} from 'luxon';
 
 export class Author implements Entity {
   id?: number;

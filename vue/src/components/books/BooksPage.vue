@@ -1,11 +1,10 @@
 <template>
-  bookspage
+  <div>
+    TODO IMPLement
+  </div>
 </template>
 
-<script>
-export default {
-  name: "BooksPage"
-}
+<script setup lang="ts">
 </script>
 
 <style scoped>

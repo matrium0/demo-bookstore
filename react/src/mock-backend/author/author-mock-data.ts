@@ -1,6 +1,6 @@
 import {DateTime} from 'luxon';
 import {delay, Observable, of} from 'rxjs';
-import {Author} from './Author';
+import type {Author} from './Author';
 import {getDefaultAuthorFoto} from './default-fotos';
 
 const initialData: Author[] = [

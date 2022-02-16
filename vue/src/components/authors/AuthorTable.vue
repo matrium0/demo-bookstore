@@ -72,7 +72,7 @@ function getDateOfDeathIfPresent(author: EnrichedAuthor): string {
   }
 }
 
-function onRowClick(evt: PointerEvent, row: EnrichedAuthor) {
+function onRowClick(evt: Event, row: EnrichedAuthor) {
   console.log('clicked on', evt, row)
   emit('authorSelect', row);
 }
@@ -81,11 +81,10 @@ const allColumns = [
   {
     name: 'firstname',
     label: 'FIRSTNAME',
-    align: 'start',
     field: 'firstname',
     sortable: true
   },
-  {name: 'lastname', align: 'start', label: 'LASTNAME', field: 'lastname', sortable: true},
+  {name: 'lastname', label: 'LASTNAME', field: 'lastname', sortable: true},
   {name: 'gender', label: 'GENDER', field: 'gender', sortable: true},
   {name: 'penName', label: 'PEN NAME', field: 'penName', sortable: true},
   {

@@ -1,6 +1,6 @@
-import {DateTime} from 'luxon';
-import {Author}from './Author';
-import {EnrichedAuthor} from './EnrichedAuthor';
+import type {DateTime} from 'luxon';
+import type {Author}from './Author';
+import type {EnrichedAuthor} from './EnrichedAuthor';
 
 export function enrichWithCalculatedFields(original: Author): EnrichedAuthor {
   const age = calculateAge(original.birthdate!);

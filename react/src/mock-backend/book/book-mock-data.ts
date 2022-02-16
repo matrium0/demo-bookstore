@@ -1,6 +1,6 @@
 import {DateTime} from 'luxon';
 import {delay, Observable, of} from 'rxjs';
-import {Book} from './Book';
+import type  {Book} from './Book';
 import {
   getDefaultBookCover,
   gunslingerCover,

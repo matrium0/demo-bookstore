@@ -1,4 +1,4 @@
-import {UserBookAssignment, UserBookAssignmentStatus} from './user-book-assignment-status';
+import  type {UserBookAssignment, UserBookAssignmentStatus} from './user-book-assignment-status';
 
 export function findUserBookAssignmentsForUser(username: string): UserBookAssignment[] {
   return data.filter(d => d.username === username);

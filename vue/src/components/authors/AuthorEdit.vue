@@ -34,7 +34,7 @@
             </div>
 
             <div class="mt-2 f-row" :class="{ 'mat-error': v$.birthdate.$errors.length }">
-              <q-input outlined :model-value="authorBirthdate" @update:model-value="changeBirthDate" label="birthdate"/>
+              <q-input outlined :model-value="authorBirthdate" @update:model-value="(e) => changeBirthDate(e)" label="birthdate"/>
               <div class="input-errors" v-for="error of v$.birthdate.$errors" :key="error.$uid">
                 <div class="error-msg">{{ error.$message }}</div>
               </div>
@@ -98,7 +98,7 @@
 
           <div class="col-lg-6 pt-2">
             <h2 class="mt-lg-0 mb-2">Notes</h2>
-            <q-editor v-if="author" v-model="author.note" height="200px"/>
+            <q-editor v-if="author.note" v-model="author.note" height="200px"/>
 
             <div class="d-flex align-items-center mt-4 mt-lg-3">
               <h2 class="me-3">Foto</h2>
@@ -149,6 +149,7 @@ import {minLength, required} from '@vuelidate/validators';
 import {DateTime} from 'luxon';
 import ImageUploadDialog from '@/components/authors/ImageUploadDialog.vue';
 import GenderIcon from '@/components/shared/GenderIcon.vue';
+import {setGlobalMessage} from '@/components/shared/GlobalMessageService';
 
 const author: UnwrapNestedRefs<Author> = reactive({});
 const authorBirthdate: Ref<string | null> = ref(null);
@@ -282,16 +283,15 @@ async function saveAndNavigateToDetailPage() {
   if (!author) {
     return;
   }
-  const isFormCorrect = await this.v$.$validate()
+  const isFormCorrect = await v$.value.$validate()
   if (!isFormCorrect) {
-    console.log('formgroup is not valid', this.v$);
+    console.log('formgroup is not valid', v$);
   } else {
     createOrUpdateAuthor(author).subscribe(
       (a: Author) => {
         console.log('createOrUpdateAuthor SUCCESS', a);
         router.push("/author/" + a.id);
-        //TODO global message
-        // this.globalMessageService.setAlertMessage("info", "Author saved!");
+        setGlobalMessage("info", "Author saved!");
       });
   }
 }

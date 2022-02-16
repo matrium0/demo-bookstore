@@ -33,7 +33,6 @@ import type {Ref} from 'vue';
 import {ref} from 'vue';
 import 'cropperjs/dist/cropper.css';
 import Cropper from 'cropperjs';
-import Options = Cropper.Options;
 
 defineProps<{
   opened: boolean
@@ -50,7 +49,7 @@ const feedback: Ref<string | null> = ref(null);
 const cropper: Ref<Cropper | null> = ref(null);
 
 
-const cropperOptions: Options = {
+const cropperOptions: any = {
   aspectRatio: 0.875,
   viewMode: 2,
   minCropBoxHeight: 50,

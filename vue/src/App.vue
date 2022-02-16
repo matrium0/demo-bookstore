@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import {RouterView} from 'vue-router'
 import Header from '@/components/HeaderMenu.vue';
 import GlobalMessage from '@/components/shared/GlobalMessage.vue';</script>
 

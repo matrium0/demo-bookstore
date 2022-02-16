@@ -20,7 +20,8 @@
     </div>
     <div class="first-published">first published {{ book?.firstPublished?.toFormat("dd.LL.yyyy") }}</div>
 
-    <IsInLibraryMarker :status="book?.assignmentStatus" @statusChange="statusChange($event)" class="isinlibrary-button"/>
+    <IsInLibraryMarker v-if="book?.assignmentStatus" :status="book?.assignmentStatus" @statusChange="statusChange($event)"
+                       class="isinlibrary-button"/>
     <div @click="openDetails()" class="show-details-link btn-link cursor-pointer">open details</div>
   </div>
 </template>
