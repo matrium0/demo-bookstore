@@ -16,7 +16,7 @@
             />
           </div>
           <div class="mt-2 author">by
-            <router-link to="/author/{{book?.authorId}}">{{ book?.authorFullName }}</router-link>
+            <a @click="navigateToAuthor()"> {{ book?.authorFullName }}</a>
             <div class="mt-2 first-published">first published {{ book?.firstPublished?.toFormat("dd.LL.yyyy") }}</div>
 
             <div class="description" v-html="book?.description"></div>
@@ -34,8 +34,9 @@
 import ConfirmationDialog from '@/components/shared/ConfirmationDialog.vue';
 import type {EnrichedBook} from '../../../../react/src/mock-backend/util/book-utils';
 import type {Ref} from 'vue';
-import {onMounted, ref, toRefs, watch} from 'vue';
+import {onMounted, ref, toRefs} from 'vue';
 import {createImageUrlFromBlob} from '@/util/ImageService';
+import router from '@/router';
 
 const showSeriesDialog: Ref<boolean> = ref(false);
 
@@ -69,6 +70,11 @@ function closeSeriesDialog() {
   console.log("handle close series dialog");
   showSeriesDialog.value = false;
 }
+
+function navigateToAuthor() {
+  emit("closeDialog");
+  router.push("/author/" + props.book.authorId);
+}
 </script>
 
 <style scoped lang="scss">
@@ -97,5 +103,11 @@ function closeSeriesDialog() {
   .q-dialog__inner--minimized > div {
     max-width: 900px;
   }
+}
+
+a, .btn-link, .series-link {
+  color: #0d6efd !important;
+  cursor: pointer !important;
+  text-decoration: underline !important;
 }
 </style>

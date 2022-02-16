@@ -14,9 +14,7 @@
     <div class="subtitle">{{ book?.subtitle }}</div>
 
     <div class="author">by
-      <router-link to="/author/{{book?.authorId}}">
-        {{ book?.authorFullName }}
-      </router-link>
+      <a @click="navigateToAuthor()"> {{ book?.authorFullName }}</a>
     </div>
     <div class="first-published">first published {{ book?.firstPublished?.toFormat("dd.LL.yyyy") }}</div>
 
@@ -35,6 +33,7 @@ import {createImageUrlFromBlob} from '@/util/ImageService';
 import {setGlobalMessage} from '@/components/shared/GlobalMessageService';
 import IsInLibraryMarker from '@/components/library/IsInLibraryMarker.vue';
 import ConfirmationDialog from '@/components/shared/ConfirmationDialog.vue';
+import router from '@/router';
 
 const imageUrl: Ref<string | undefined> = ref(undefined);
 const showSeriesDialog: Ref<boolean> = ref(false);
@@ -69,6 +68,10 @@ function openSeriesDialog() {
 function closeSeriesDialog() {
   console.log("BookCard closeSeriesDialog");
   showSeriesDialog.value = false;
+}
+
+function navigateToAuthor() {
+  router.push("/author/" + props.book.authorId);
 }
 </script>
 
@@ -117,9 +120,9 @@ function closeSeriesDialog() {
 }
 
 a, .btn-link, .series-link {
-  color: #0d6efd;
-  cursor: pointer;
-  text-decoration: underline;
+  color: #0d6efd !important;
+  cursor: pointer !important;
+  text-decoration: underline !important;
 }
 
 .series {

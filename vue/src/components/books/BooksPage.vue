@@ -25,6 +25,7 @@
       </LoadingIndicatorOverlayWrapper>
     </div>
   </div>
+  <BookDetailDialog v-if="openDetailDialog" :book="openedBook" :show="openDetailDialog" @closeDialog="closeDetailDialog()"/>
 </template>
 
 <script setup lang="ts">
@@ -41,10 +42,13 @@ import LoadingIndicatorOverlayWrapper from '@/components/shared/LoadingIndicator
 import {findAllBooks} from '../../../../react/src/mock-backend/book/book-mock-data';
 import {applicationContext} from "@/ApplicationContext";
 import BookCard from '@/components/library/BookCard.vue';
+import BookDetailDialog from '@/components/library/BookDetailDialog.vue';
 
 const filterInput: Ref<string> = ref("");
 const allBooks: Ref<Book[]> = ref([]);
 const filteredBooks: Ref<Book[]> = ref([]);
+const openDetailDialog: Ref<boolean> = ref(false);
+const openedBook: Ref<Book | null> = ref(null);
 
 onMounted(() => {
   console.log(`onMounted`);
@@ -83,9 +87,10 @@ function handleStatusChanged(event: { book: EnrichedBook, status: UserBookAssign
   event.book.assignmentStatus = event.status;
 }
 
-const openBookDetail = (author: Author) => {
-  console.log("openBookDetail", author);
-  router.push("/book/" + author.id);
+const openBookDetail = (book: Book) => {
+  console.log("openBookDetail", book);
+  openedBook.value = book;
+  openDetailDialog.value = true;
 }
 
 const navigateToNewBook = () => {
@@ -93,6 +98,11 @@ const navigateToNewBook = () => {
   router.push("/book/edit/new");
 }
 
+function closeDetailDialog() {
+  console.log("closeDetailDialog");
+  openedBook.value = null;
+  openDetailDialog.value = false;
+}
 </script>
 
 <style scoped>
