@@ -48,11 +48,6 @@ const imageUrl: Ref<string | undefined> = ref(undefined);
 
 const show = toRefs(props).show;
 
-watch(() => props.show, (first, second) => {
-  console.log("watch - creating image from blob", first, second);
-
-  imageUrl.value = createImageUrlFromBlob(props.book.image);
-});
 onMounted(() => {
   console.log(`onMounted BookDetailDialog - creating image from blob`, props.book);
   imageUrl.value = createImageUrlFromBlob(props.book.image);
