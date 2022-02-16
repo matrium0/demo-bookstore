@@ -216,7 +216,7 @@ function loadBooksForAuthor(id: number) {
   });
 }
 
-function changeBirthDate(e: string) {
+function changeBirthDate(e: any) {
   author.birthdate = DateTime.fromFormat(e, "dd.LL.yyyy");
 
   console.log("changeBirthDate", e, author.birthdate);
@@ -243,7 +243,7 @@ function changeBirthDate(e: string) {
 }
 
 //TODO date handling needs refactoring (e.g. code duplication, etc.)
-function changeDateOfDeath(e: string) {
+function changeDateOfDeath(e: any) {
   author.dateOfDeath = DateTime.fromFormat(e, "dd.LL.yyyy");
 
   console.log("changedateOfDeath", e, author.dateOfDeath);

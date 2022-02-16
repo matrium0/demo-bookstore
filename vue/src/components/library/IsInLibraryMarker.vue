@@ -3,7 +3,7 @@
     split
     to="/start/pick-quasar-flavour"
     :color="status ==='default' ? 'grey-7' : 'white'"
-    text-color="black"
+    :text-color="status ==='default' ? 'white' : 'black'"
   >
     <template v-slot:label>
       <div v-if="status ==='default'" @click="changeStatus('want to read')" class="button-label">
