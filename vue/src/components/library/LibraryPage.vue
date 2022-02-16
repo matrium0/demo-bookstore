@@ -26,19 +26,19 @@
       <LoadingIndicatorOverlayWrapper :show-overlay="!allBooks?.length" spinner-size="5x">
         <div class="row mx-1 mx-lg-2 justify-content-around pb-4" style="min-height: 300px;">
           <div v-for="book of filteredBooks" :key="book.id" class="col-auto g-4 book-card-wrap">
-            <BookCard :book="book" @openDetail="openBookDetail" @statusChanged="handleStatusChanged"/>
-            <BookDetailDialog :book="book" :show="openDetailDialog"  @closeDialog="closeDetailDialog()"></BookDetailDialog>
+            <BookCard :book="book" @openDetail="openBookDetail(book)" @statusChanged="handleStatusChanged"/>
           </div>
         </div>
       </LoadingIndicatorOverlayWrapper>
     </div>
-  </div></template>
+  </div>
+  <BookDetailDialog v-if="openDetailDialog" :book="openedBook" :show="openDetailDialog" @closeDialog="closeDetailDialog()"></BookDetailDialog>
+</template>
 
 <script setup lang="ts">
 import type {Ref} from 'vue';
 import {onMounted, ref} from "vue";
 import router from '@/router';
-import type {Author} from '../../../../react/src/mock-backend/author/Author';
 import type {Book} from '../../../../react/src/mock-backend/book/Book';
 import {updateStatus,} from '../../../../react/src/mock-backend/user/user-book-assignment-mockservice';
 import type {UserBookAssignmentStatus} from '../../../../react/src/mock-backend/user/user-book-assignment-status';
@@ -55,6 +55,7 @@ const showAllSelectFilter: Ref<"HIDE_YOUR_BOOKS" | "SHOW_ALL"> = ref("HIDE_YOUR_
 const allBooks: Ref<Book[]> = ref([]);
 const filteredBooks: Ref<Book[]> = ref([]);
 const openDetailDialog: Ref<boolean> = ref(false);
+const openedBook: Ref<Book | null> = ref(null);
 
 onMounted(() => {
   console.log(`onMounted`);
@@ -102,13 +103,15 @@ function handleStatusChanged(event: { book: EnrichedBook, status: UserBookAssign
   event.book.assignmentStatus = event.status;
 }
 
-const openBookDetail = (author: Author) => {
-  console.log("openBookDetail", author);
+const openBookDetail = (book: Book) => {
+  console.log("openBookDetail", book);
+  openedBook.value = book;
   openDetailDialog.value = true;
 }
 
 function closeDetailDialog() {
   console.log("closeDetailDialog");
+  openedBook.value = null;
   openDetailDialog.value = false;
 }
 

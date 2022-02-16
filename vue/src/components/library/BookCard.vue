@@ -62,11 +62,12 @@ function statusChange(status: UserBookAssignmentStatus) {
 }
 
 function openSeriesDialog() {
+  console.log("BookCard openSeriesDialog");
   showSeriesDialog.value = true;
 }
 
 function closeSeriesDialog() {
-  console.log("handle close series dialog");
+  console.log("BookCard closeSeriesDialog");
   showSeriesDialog.value = false;
 }
 </script>

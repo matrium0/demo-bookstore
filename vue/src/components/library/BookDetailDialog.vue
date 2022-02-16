@@ -1,5 +1,5 @@
 <template>
-  <q-dialog :model-value="props.show" @hide="closeSeriesDialog">
+  <q-dialog v-if="props.book" :model-value="show" @hide="closeBookDetailDialog">
     <q-card class="my-card p-4" style="min-width: 280px">
       <div class="d-flex align-items-start align-items-lg-center justify-content-start flex-column flex-md-row">
         <h1>{{ book?.title }}</h1>
@@ -34,7 +34,7 @@
 import ConfirmationDialog from '@/components/shared/ConfirmationDialog.vue';
 import type {EnrichedBook} from '../../../../react/src/mock-backend/util/book-utils';
 import type {Ref} from 'vue';
-import {onMounted, ref} from 'vue';
+import {onMounted, ref, toRefs, watch} from 'vue';
 import {createImageUrlFromBlob} from '@/util/ImageService';
 
 const showSeriesDialog: Ref<boolean> = ref(false);
@@ -46,11 +46,21 @@ const props = defineProps<{
 const emit = defineEmits(['closeDialog']);
 const imageUrl: Ref<string | undefined> = ref(undefined);
 
+const show = toRefs(props).show;
+
+watch(() => props.show, (first, second) => {
+  console.log("watch - creating image from blob", first, second);
+
+  imageUrl.value = createImageUrlFromBlob(props.book.image);
+});
 onMounted(() => {
-  console.log(`onMounted BookCard`, props.book);
+  console.log(`onMounted BookDetailDialog - creating image from blob`, props.book);
   imageUrl.value = createImageUrlFromBlob(props.book.image);
 })
 
+function closeBookDetailDialog() {
+  emit("closeDialog");
+}
 
 function navigateToBookEditPage() {
   emit("closeDialog");
