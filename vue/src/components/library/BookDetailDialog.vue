@@ -42,7 +42,7 @@ const showSeriesDialog: Ref<boolean> = ref(false);
 
 const props = defineProps<{
   show: boolean,
-  book: EnrichedBook
+  book?: EnrichedBook | null
 }>();
 const emit = defineEmits(['closeDialog']);
 const imageUrl: Ref<string | undefined> = ref(undefined);
@@ -51,7 +51,9 @@ const show = toRefs(props).show;
 
 onMounted(() => {
   console.log(`onMounted BookDetailDialog - creating image from blob`, props.book);
-  imageUrl.value = createImageUrlFromBlob(props.book.image);
+  if (props.book) {
+    imageUrl.value = createImageUrlFromBlob(props.book.image);
+  }
 })
 
 function closeBookDetailDialog() {
@@ -60,7 +62,7 @@ function closeBookDetailDialog() {
 
 function navigateToBookEditPage() {
   emit("closeDialog");
-  router.push("/library/edit/" + props.book.id);
+  router.push("/library/edit/" + props?.book?.id);
 }
 
 function openSeriesDialog() {
@@ -74,7 +76,7 @@ function closeSeriesDialog() {
 
 function navigateToAuthor() {
   emit("closeDialog");
-  router.push("/author/" + props.book.authorId);
+  router.push("/author/" + props?.book?.authorId);
 }
 </script>
 

@@ -25,10 +25,7 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "BookEditPage.vue"
-}
+<script setup lang="ts">
 </script>
 
 <style scoped>
