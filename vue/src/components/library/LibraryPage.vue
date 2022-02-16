@@ -27,12 +27,12 @@
         <div class="row mx-1 mx-lg-2 justify-content-around pb-4" style="min-height: 300px;">
           <div v-for="book of filteredBooks" :key="book.id" class="col-auto g-4 book-card-wrap">
             <BookCard :book="book" @openDetail="openBookDetail" @statusChanged="handleStatusChanged"/>
+            <BookDetailDialog :book="book" :show="openDetailDialog"  @closeDialog="closeDetailDialog()"></BookDetailDialog>
           </div>
         </div>
       </LoadingIndicatorOverlayWrapper>
     </div>
-  </div>
-</template>
+  </div></template>
 
 <script setup lang="ts">
 import type {Ref} from 'vue';
@@ -48,11 +48,13 @@ import LoadingIndicatorOverlayWrapper from '@/components/shared/LoadingIndicator
 import {findAllBooks} from '../../../../react/src/mock-backend/book/book-mock-data';
 import {applicationContext} from "@/ApplicationContext";
 import BookCard from '@/components/library/BookCard.vue';
+import BookDetailDialog from '@/components/library/BookDetailDialog.vue';
 
 const filterInput: Ref<string> = ref("");
 const showAllSelectFilter: Ref<"HIDE_YOUR_BOOKS" | "SHOW_ALL"> = ref("HIDE_YOUR_BOOKS");
 const allBooks: Ref<Book[]> = ref([]);
 const filteredBooks: Ref<Book[]> = ref([]);
+const openDetailDialog: Ref<boolean> = ref(false);
 
 onMounted(() => {
   console.log(`onMounted`);
@@ -102,7 +104,12 @@ function handleStatusChanged(event: { book: EnrichedBook, status: UserBookAssign
 
 const openBookDetail = (author: Author) => {
   console.log("openBookDetail", author);
-  router.push("/book/" + author.id);
+  openDetailDialog.value = true;
+}
+
+function closeDetailDialog() {
+  console.log("closeDetailDialog");
+  openDetailDialog.value = false;
 }
 
 const navigateToNewBook = () => {

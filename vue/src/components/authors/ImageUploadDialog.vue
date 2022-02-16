@@ -1,5 +1,4 @@
 <template>
-  opened: {{ opened }}
   <q-dialog :model-value="opened" @hide="dismissDialog">
     <q-card class="my-card" style="min-width: 280px">
       <div class="mx-4 my-3">
