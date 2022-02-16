@@ -4,7 +4,7 @@
       <div class="d-flex align-items-center justify-content-between dialog-content">
         <h1 class="card-title">{{ props.title }}</h1>
 
-        <font-awesome-icon @click="dismissDialog()" icon="times" size="2x" class="dismiss-dialog"/>
+        <font-awesome-icon @click="dismissDialog()" icon="times" size="2x" class="dismiss-dialog cursor-pointer"/>
       </div>
       <div class="row mt-3">
         <div class="col dialog-content" v-html="props.message"></div>

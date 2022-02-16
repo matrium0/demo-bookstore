@@ -5,7 +5,6 @@
     </div>
     <div v-if="book?.series" class="series">Book {{ book?.numberWithinSeries }} of
       <a @click="openSeriesDialog" role="button" class="series-link">{{ book?.series }}</a>
-
       <ConfirmationDialog :show=showSeriesDialog :title="book.series" confirmButtonType="danger" :hide-confirm-button="true"
                           @closeDialog="closeSeriesDialog" cancelButtonText="go back"
                           message="Got me :)<br /><br />In a <u>real application</u> this could display the series with all it's books.<br/>This feature is not part of the demo though and therefore <strong>not implemented</strong> - sorry!"
@@ -105,7 +104,7 @@ function closeSeriesDialog() {
 
 .isinlibrary-button {
   position: absolute;
-  bottom: 14px;
+  bottom: 35px;
 }
 
 .show-details-link {
@@ -119,5 +118,10 @@ a, .btn-link, .series-link {
   color: #0d6efd;
   cursor: pointer;
   text-decoration: underline;
+}
+
+.series {
+  text-align: center;
+  line-height: 1.4rem;
 }
 </style>
