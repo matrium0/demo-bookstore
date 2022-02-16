@@ -117,7 +117,7 @@ function closeDetailDialog() {
 
 const navigateToNewBook = () => {
   console.log("navigateToNewBook");
-  router.push("/book/edit/new");
+  router.push("/library/edit/new");
 }
 </script>
 

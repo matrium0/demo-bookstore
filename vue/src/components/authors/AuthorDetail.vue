@@ -40,7 +40,7 @@
               </div>
               <ul v-if="!isBooksLoading">
                 <li v-for="book of books" :key="book.id">
-                  <router-link to="/library/edit/{{book.id}}">
+                  <router-link to="/library/edit/no-matter">
                     {{ book.title }}
                   </router-link>
                 </li>

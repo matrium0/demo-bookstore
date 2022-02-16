@@ -1,7 +1,6 @@
 <template>
   <q-btn-dropdown
     split
-    to="/start/pick-quasar-flavour"
     :color="status ==='default' ? 'grey-7' : 'white'"
     :text-color="status ==='default' ? 'white' : 'black'"
   >

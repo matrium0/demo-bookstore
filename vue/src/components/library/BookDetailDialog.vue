@@ -60,6 +60,7 @@ function closeBookDetailDialog() {
 
 function navigateToBookEditPage() {
   emit("closeDialog");
+  router.push("/library/edit/" + props.book.id);
 }
 
 function openSeriesDialog() {

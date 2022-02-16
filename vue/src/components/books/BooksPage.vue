@@ -95,7 +95,7 @@ const openBookDetail = (book: Book) => {
 
 const navigateToNewBook = () => {
   console.log("navigateToNewBook");
-  router.push("/book/edit/new");
+  router.push("/library/edit/new");
 }
 
 function closeDetailDialog() {
