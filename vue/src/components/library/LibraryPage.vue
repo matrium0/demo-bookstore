@@ -41,7 +41,8 @@ import {onMounted, ref} from "vue";
 import router from '@/router';
 import type {Author} from '../../../../react/src/mock-backend/author/Author';
 import type {Book} from '../../../../react/src/mock-backend/book/Book';
-import {updateStatus} from '../../../../react/src/mock-backend/user/user-book-assignment-mockservice';
+import {updateStatus, } from '../../../../react/src/mock-backend/user/user-book-assignment-mockservice';
+import {findBookById} from '../../../../react/src/mock-backend/book/book-mock-data';
 import type {UserBookAssignmentStatus} from '../../../../react/src/mock-backend/user/user-book-assignment-status';
 import type {EnrichedBook} from '../../../../react/src/mock-backend/util/book-utils';
 import {enrichBookWithUserAssignments} from '../../../../react/src/mock-backend/util/book-utils';
@@ -49,6 +50,7 @@ import LoadingIndicatorOverlayWrapper from '@/components/shared/LoadingIndicator
 import {findAllBooks} from '../../../../react/src/mock-backend/book/book-mock-data';
 import {applicationContext} from "@/ApplicationContext";
 import BookCard from '@/components/library/BookCard.vue';
+import {take} from 'rxjs/operators';
 
 const filterInput: Ref<string> = ref("");
 const showAllSelectFilter: Ref<"HIDE_YOUR_BOOKS" | "SHOW_ALL"> = ref("HIDE_YOUR_BOOKS");
@@ -61,11 +63,11 @@ onMounted(() => {
 })
 
 const loadAllAuthors = () => {
-  findAllBooks().subscribe({
+  findAllBooks().pipe(take(1)).subscribe({
     next: (books: Book[]) => {
       console.log("findAllBooks SUCCESS", books);
       allBooks.value = books;
-      filterBooks("", "HIDE_YOUR_BOOKS");
+      filterBooks(filterInput.value, showAllSelectFilter.value);
       console.log("findAllBooks SUCCESS", books);
     }
   });
@@ -94,10 +96,11 @@ function filterBooks(searchTerm: string, selectAllChange: "HIDE_YOUR_BOOKS" | "S
   })
 }
 
-function handleStatusChanged(event: { book: Book, status: UserBookAssignmentStatus }) {
+function handleStatusChanged(event: { book: EnrichedBook, status: UserBookAssignmentStatus }) {
   console.log("LibraryPage: statusChanged received", event);
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   updateStatus(applicationContext.user!, event.book.id!, event.status);
+  event.book.assignmentStatus = event.status;
 }
 
 const openBookDetail = (author: Author) => {

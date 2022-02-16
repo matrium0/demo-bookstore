@@ -2,7 +2,8 @@
   <q-btn-dropdown
     split
     to="/start/pick-quasar-flavour"
-    color="grey-7"
+    :color="status ==='default' ? 'grey-7' : 'white'"
+    text-color="black"
   >
     <template v-slot:label>
       <div v-if="status ==='default'" @click="changeStatus('want to read')" class="button-label">
@@ -10,11 +11,10 @@
       </div>
 
       <div v-if="status !=='default'" type="button" class="already-chosen-button d-flex align-items-center justify-content-center">
-
         <span class="ms-2">{{ status }}</span>
-        <font-awesome-icon v-if="status === 'want to read'" icon="bookmark" class="mx-2 icon-want-to-read"/>
-        <font-awesome-icon v-if="status === 'currently reading'" icon="bookReader" class="mx-2 icon-currently-reading"/>
-        <font-awesome-icon v-if="status === 'read'" icon="check" class="mx-2 icon-read"/>
+        <font-awesome-icon v-if="status === 'want to read'" icon="bookmark" size="lg" class="mx-2 icon-want-to-read"/>
+        <font-awesome-icon v-if="status === 'currently reading'" icon="book-reader" size="lg" class="mx-2 icon-currently-reading"/>
+        <font-awesome-icon v-if="status === 'read'" icon="check" size="lg" class="mx-2 icon-read"/>
       </div>
     </template>
     <ul class="list-group">
@@ -50,4 +50,7 @@ li {
   font-weight: 700;
 }
 
+.already-chosen-button {
+  border: none;
+}
 </style>
