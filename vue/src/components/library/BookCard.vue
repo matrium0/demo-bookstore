@@ -4,12 +4,12 @@
       <img :src="imageUrl" class="book-image" alt="Foto of the Author">
     </div>
     <div v-if="book?.series" class="series">Book {{ book?.numberWithinSeries }} of
-      <span>{{ book?.series }}</span>
-      <!--      //TODO confirmation dialog-->
-      <!--      <span appConfirmation confirmTitle="{{book?.series}}" cancelButtonText="go back" [hideConfirmButton]="true"-->
-      <!--            confirmMessage="Got me :)<br /><br />In a <u>real application</u> this could display the series with all it's books.<br/>This feature is not part of the demo though and therefore <strong>not implemented</strong> - sorry!"-->
-      <!--            class="btn-link cursor-pointer"-->
-      <!--      >{{book?.series}}</span>-->
+      <a @click="openSeriesDialog" role="button" class="series-link">{{ book?.series }}</a>
+
+      <ConfirmationDialog :show=showSeriesDialog :title="book.series" confirmButtonType="danger" :hide-confirm-button="true"
+                          @closeDialog="closeSeriesDialog" cancelButtonText="go back"
+                          message="Got me :)<br /><br />In a <u>real application</u> this could display the series with all it's books.<br/>This feature is not part of the demo though and therefore <strong>not implemented</strong> - sorry!"
+      />
     </div>
     <div class="title">{{ book?.title }}</div>
     <div class="subtitle">{{ book?.subtitle }}</div>
@@ -34,9 +34,11 @@ import type {UserBookAssignmentStatus} from '../../../../react/src/mock-backend/
 import {createImageUrlFromBlob} from '@/util/ImageService';
 import {setGlobalMessage} from '@/components/shared/GlobalMessageService';
 import IsInLibraryMarker from '@/components/library/IsInLibraryMarker.vue';
+import ConfirmationDialog from '@/components/shared/ConfirmationDialog.vue';
 
 const imageUrl: Ref<string | undefined> = ref(undefined);
-const emit = defineEmits(['openDetail', 'statusChanged'])
+const showSeriesDialog: Ref<boolean> = ref(false);
+const emit = defineEmits(['openDetail', 'statusChanged']);
 
 const props = defineProps<{
   book: EnrichedBook
@@ -57,6 +59,15 @@ function statusChange(status: UserBookAssignmentStatus) {
   if (originalStatus === "default") {
     setGlobalMessage("info", "Book is added to \"Your Books\"")
   }
+}
+
+function openSeriesDialog() {
+  showSeriesDialog.value = true;
+}
+
+function closeSeriesDialog() {
+  console.log("handle close series dialog");
+  showSeriesDialog.value = false;
 }
 </script>
 
@@ -104,7 +115,9 @@ function statusChange(status: UserBookAssignmentStatus) {
   bottom: 3px;
 }
 
-a, .btn-link {
+a, .btn-link, .series-link {
   color: #0d6efd;
+  cursor: pointer;
+  text-decoration: underline;
 }
 </style>
