@@ -40,9 +40,9 @@
               </div>
               <ul v-if="!isBooksLoading">
                 <li v-for="book of books" :key="book.id">
-                  <router-link to="/library/edit/no-matter">
+                  <a @click="navigateToBookEditPage(book)">
                     {{ book.title }}
-                  </router-link>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -123,8 +123,18 @@ function navigateToEditPage() {
   console.log("navigateToEditPage");
   router.push("/author/edit/" + author?.value?.id);
 }
+
+function navigateToBookEditPage(book: Book) {
+  console.log("navigateToBookEditPage");
+  router.push("/library/edit/" + book.id);
+}
 </script>
 
 <style scoped>
 
+a {
+  color: #0d6efd !important;
+  cursor: pointer !important;
+  text-decoration: underline !important;
+}
 </style>
