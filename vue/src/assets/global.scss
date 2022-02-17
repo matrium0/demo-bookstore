@@ -140,7 +140,12 @@ q-btn-group .row {
 .q-dialog__backdrop {
   background: rgba(0, 0, 0, 0.1);
 }
+
 .q-btn-item {
   padding-top: 0 !important;
   padding-bottom: 0 !important;;
+}
+
+.q-table__container {
+  background: transparent;
 }
