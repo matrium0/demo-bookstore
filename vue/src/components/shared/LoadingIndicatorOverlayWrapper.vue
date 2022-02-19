@@ -12,7 +12,7 @@
 <script setup lang="ts">
 defineProps<{
   showOverlay: boolean,
-  spinnerSize: string //TODO find out how to use default setting
+  spinnerSize: string //TODO find out how to use DEFAULT VALUE
   // spinnerSize: {
   //   type: string,
   //   default: '3x'
