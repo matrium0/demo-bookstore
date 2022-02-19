@@ -29,10 +29,8 @@
 </template>
 
 <script setup lang="ts">
-import type {Ref} from 'vue';
 import {onMounted, ref} from "vue";
 import router from '@/router';
-import type {Author} from '../../../../react/src/mock-backend/author/Author';
 import type {Book} from '../../../../react/src/mock-backend/book/Book';
 import {updateStatus,} from '../../../../react/src/mock-backend/user/user-book-assignment-mockservice';
 import type {UserBookAssignmentStatus} from '../../../../react/src/mock-backend/user/user-book-assignment-status';
@@ -44,11 +42,11 @@ import {applicationContext} from "@/ApplicationContext";
 import BookCard from '@/components/library/BookCard.vue';
 import BookDetailDialog from '@/components/library/BookDetailDialog.vue';
 
-const filterInput: Ref<string> = ref("");
-const allBooks: Ref<Book[]> = ref([]);
-const filteredBooks: Ref<Book[]> = ref([]);
-const openDetailDialog: Ref<boolean> = ref(false);
-const openedBook: Ref<Book | null> = ref(null);
+const filterInput = ref("");
+const allBooks = ref<Book[]>([]);
+const filteredBooks = ref<Book[]>([]);
+const openDetailDialog = ref(false);
+const openedBook = ref<Book | null>(null);
 
 onMounted(() => {
   console.log(`onMounted`);

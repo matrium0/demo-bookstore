@@ -35,13 +35,12 @@ import {findAllAuthors} from '../../../../react/src/mock-backend/author/author-m
 import router from '@/router';
 import {enrichWithCalculatedFields} from '../../../../react/src/mock-backend/author/author-util';
 import AuthorTable from '@/components/authors/AuthorTable.vue';
-import type {Ref} from 'vue';
 import {onMounted, ref} from "vue";
 import LoadingIndicatorOverlayWrapper from '@/components/shared/LoadingIndicatorOverlayWrapper.vue';
 
-const loadedAuthors: Ref<Author[]> = ref([]);
-const filteredAuthors: Ref<Author[]> = ref([]);
-const authorsLoading: Ref<boolean> = ref(true);
+const loadedAuthors = ref<Author[]>([]);
+const filteredAuthors = ref<Author[]>([]);
+const authorsLoading = ref(true);
 
 console.log("initializing AuthorList");
 
@@ -50,7 +49,7 @@ onMounted(() => {
   loadAllAuthors();
 })
 
-const filterInput: Ref<string> = ref("");
+const filterInput = ref("");
 const loadAllAuthors = () => {
   findAllAuthors().subscribe({
     next: (authors: Author[]) => {

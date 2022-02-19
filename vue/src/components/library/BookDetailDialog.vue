@@ -33,19 +33,18 @@
 <script setup lang="ts">
 import ConfirmationDialog from '@/components/shared/ConfirmationDialog.vue';
 import type {EnrichedBook} from '../../../../react/src/mock-backend/util/book-utils';
-import type {Ref} from 'vue';
 import {onMounted, ref, toRefs} from 'vue';
 import {createImageUrlFromBlob} from '@/util/ImageService';
 import router from '@/router';
 
-const showSeriesDialog: Ref<boolean> = ref(false);
+const showSeriesDialog = ref(false);
 
 const props = defineProps<{
   show: boolean,
   book?: EnrichedBook | null
 }>();
 const emit = defineEmits(['closeDialog']);
-const imageUrl: Ref<string | undefined> = ref(undefined);
+const imageUrl = ref<string | undefined>(undefined);
 
 const show = toRefs(props).show;
 

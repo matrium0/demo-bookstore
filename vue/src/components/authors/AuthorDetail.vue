@@ -65,7 +65,6 @@
 </template>
 
 <script setup lang="ts">
-import type {ComputedRef, Ref} from 'vue';
 import {computed, onMounted, ref} from 'vue';
 import type {Author} from '../../../../react/src/mock-backend/author/Author';
 import type {Book} from '../../../../react/src/mock-backend/book/Book';
@@ -80,10 +79,10 @@ import './author-detail.scss';
 
 const isLoading = ref(true);
 const isBooksLoading = ref(true);
-const imageUrl: Ref<string | undefined> = ref(undefined);
-const books: Ref<Book[]> = ref([]);
-const author: Ref<EnrichedAuthor | null> = ref(null);
-const fullname: ComputedRef<string> = computed((): string => `${author.value?.firstname} ${author.value?.lastname}`);
+const imageUrl = ref<string | undefined>(undefined);
+const books = ref<Book[]>([]);
+const author = ref<EnrichedAuthor | null>(null);
+const fullname = computed<string>((): string => `${author.value?.firstname} ${author.value?.lastname}`);
 
 onMounted(() => {
   const id = router.currentRoute.value.params.id

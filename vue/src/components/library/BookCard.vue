@@ -25,7 +25,6 @@
 </template>
 
 <script setup lang="ts">
-import type {Ref} from 'vue';
 import {onMounted, ref} from "vue";
 import type {EnrichedBook} from '../../../../react/src/mock-backend/util/book-utils';
 import type {UserBookAssignmentStatus} from '../../../../react/src/mock-backend/user/user-book-assignment-status';
@@ -35,8 +34,8 @@ import IsInLibraryMarker from '@/components/library/IsInLibraryMarker.vue';
 import ConfirmationDialog from '@/components/shared/ConfirmationDialog.vue';
 import router from '@/router';
 
-const imageUrl: Ref<string | undefined> = ref(undefined);
-const showSeriesDialog: Ref<boolean> = ref(false);
+const imageUrl = ref<string | undefined>(undefined);
+const showSeriesDialog = ref(false);
 const emit = defineEmits(['openDetail', 'statusChanged']);
 
 const props = defineProps<{

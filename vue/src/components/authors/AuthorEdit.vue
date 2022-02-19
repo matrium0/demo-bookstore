@@ -134,7 +134,7 @@
 </template>
 
 <script setup lang="ts">
-import type {ComputedRef, Ref, UnwrapNestedRefs} from 'vue';
+import type {ComputedRef, UnwrapNestedRefs} from 'vue';
 import {computed, onMounted, reactive, ref} from 'vue';
 import {createImageUrlFromBlob} from '@/util/ImageService';
 import {enrichWithCalculatedFields} from '../../../../react/src/mock-backend/author/author-util';
@@ -152,15 +152,15 @@ import GenderIcon from '@/components/shared/GenderIcon.vue';
 import {setGlobalMessage} from '@/components/shared/GlobalMessageService';
 
 const author: UnwrapNestedRefs<Author> = reactive({});
-const authorBirthdate: Ref<string | null> = ref(null);
-const authorDateOfDeath: Ref<string | null> = ref(null);
+const authorBirthdate = ref<string | null>(null);
+const authorDateOfDeath = ref<string | null>(null);
 
 const isLoading = ref(true);
 const isBooksLoading = ref(true);
 const displaySaveReminder = ref(false);
-const books: Ref<Book[]> = ref([]);
-const imageUrl: Ref<string | undefined> = ref(undefined);
-const fullname: ComputedRef<string> = computed((): string => `${author.firstname} ${author.lastname}`);
+const books = ref<Book[]>([]);
+const imageUrl = ref<string | undefined>(undefined);
+const fullname: ComputedRef = computed<string>((): string => `${author.firstname} ${author.lastname}`);
 const openUploadImageDialog = ref(false)
 
 const minLengthTwo = minLength(2);
