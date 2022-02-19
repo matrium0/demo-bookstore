@@ -38,7 +38,6 @@ defineProps<{
 }>()
 const emit = defineEmits(['closeDialog'])
 
-const fileInput: Ref<any> = ref(null); //TODO Type?
 const imageUrl: Ref<string | null> = ref(null);
 const croppedImageReady: Ref<boolean> = ref(false);
 const imageBlob: Ref<Blob | null> = ref(null);
@@ -48,7 +47,7 @@ const feedback: Ref<string | null> = ref(null);
 const cropper: Ref<Cropper | null> = ref(null);
 
 
-const cropperOptions: any = {
+const cropperOptions: Cropper.Options = {
   aspectRatio: 0.875,
   viewMode: 2,
   minCropBoxHeight: 50,
@@ -58,7 +57,7 @@ const cropperOptions: any = {
   cropend: () => cropImage(),
 };
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
+// /* eslint-disable @typescript-eslint/no-explicit-any */
 function cropImage(): void {
   croppedImageReady.value = false;
   const cropperHiddenElement: any = document.querySelector('.cropper-hidden');
@@ -67,8 +66,6 @@ function cropImage(): void {
       (blob: Blob) => {
         imageBlob.value = blob;
         croppedImageReady.value = true;
-        //TODO why?
-        // this.changeDetectorRef.detectChanges();
       },
       'image/jpeg',
       0.8
@@ -100,7 +97,7 @@ function onFileUpload(event: Event): void {
 }
 
 function createCropper(): void {
-  const imageElement: any = document.getElementById('image') as HTMLInputElement;
+  const imageElement: HTMLCanvasElement = document.getElementById('image') as HTMLCanvasElement;
   if (imageElement) {
     if (cropper.value) {
       cropper.value.destroy();

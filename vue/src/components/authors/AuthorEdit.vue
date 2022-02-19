@@ -270,8 +270,7 @@ function changeDateOfDeath(e: any) {
 }
 
 function showUnsupportedOperationMessage() {
-  // TODO create global message
-  // this.globalMessageService.setAlertMessage("info", "Sorry, this operation is not supported yet");
+  setGlobalMessage("info", "Sorry, this operation is not supported yet");
 }
 
 function navigateBack() {

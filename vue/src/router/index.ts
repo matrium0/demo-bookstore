@@ -18,14 +18,6 @@ const router = createRouter({
     {path: '/your-books', name: 'your-books', component: () => import('../components/books/BooksPage.vue')},
     {path: '/library', name: 'library', component: () => import('../components/library/LibraryPage.vue')},
     {path: '/library/edit/:id', name: 'library-edit', component: () => import('../components/books/BookEditPage.vue')},
-
-    // TODO LAZY LOADING?
-    // {path: '/your-books', name: 'your-books', component: () => import('../components/books/BooksPage.vue')},
-    // {
-    //   path: '/library', name: 'library', component: () => import('../components/library/LibraryPage.vue'), children: [
-    //     {path: "/", component: AuthorList}
-    //   ]
-    // },
   ]
 })
 

@@ -20,8 +20,6 @@ function GlobalMessageDisplay() {
     }
   });
 
-  //TODO must also be provider??? (to close the message)
-  // <GlobalMessageContext.Provider value={{message: null, messageDetail: null, severity: null}}>
   return (
     <div className="global-messages">
       {context.message?.length > 0 &&
