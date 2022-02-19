@@ -110,8 +110,7 @@ const AuthorDetail = () => {
                 <div className="mt-3">
                   <span
                     className="author-detail__label">Born {state.author?.birthdate?.toFormat("dd.LL.yyyy")} in {state.author?.placeOfBirth}</span>
-                  {<span className="author-detail__label">&nbsp;&nbsp;(Age {state.author?.age})</span>}
-                  {state.author?.dateOfDeath && <span className="author-detail__label">&nbsp;&nbsp;(Age {state.author?.age})</span>}
+                  {!state.author?.dateOfDeath && <span className="author-detail__label">&nbsp;&nbsp;(Age {state.author?.age})</span>}
                 </div>
                 {state.author?.dateOfDeath && <div>
                   <span
