@@ -1,4 +1,3 @@
-import type {Ref} from 'vue';
 import {ref} from 'vue';
 
 type MessageType = 'success' | 'info' | 'warning' | 'danger';
@@ -9,8 +8,8 @@ interface AlertMessage {
   detail: string;
 }
 
-export const globalMessage: Ref<AlertMessage | null> = ref(null);
-const timeout: Ref<number | null> = ref(null);
+export const globalMessage = ref<AlertMessage | null>(null);
+const timeout = ref<number | null>(null);
 
 
 export function clearAlertMessage(): void {

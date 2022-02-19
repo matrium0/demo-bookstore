@@ -28,7 +28,6 @@
 </template>
 
 <script setup lang="ts">
-import type {Ref} from 'vue';
 import {ref} from 'vue';
 import 'cropperjs/dist/cropper.css';
 import Cropper from 'cropperjs';
@@ -38,13 +37,11 @@ defineProps<{
 }>()
 const emit = defineEmits(['closeDialog'])
 
-const imageUrl: Ref<string | null> = ref(null);
-const croppedImageReady: Ref<boolean> = ref(false);
-const imageBlob: Ref<Blob | null> = ref(null);
-
-const feedback: Ref<string | null> = ref(null);
-
-const cropper: Ref<Cropper | null> = ref(null);
+const imageUrl = ref<string | null>(null);
+const croppedImageReady = ref(false);
+const imageBlob = ref<Blob | null>(null);
+const feedback = ref<string | null>(null);
+const cropper = ref<Cropper | null>(null);
 
 
 const cropperOptions: Cropper.Options = {

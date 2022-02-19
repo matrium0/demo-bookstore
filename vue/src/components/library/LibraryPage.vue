@@ -32,11 +32,11 @@
       </LoadingIndicatorOverlayWrapper>
     </div>
   </div>
-  <BookDetailDialog v-if="openDetailDialog" :book="openedBook" :show="openDetailDialog" @closeDialog="closeDetailDialog()"></BookDetailDialog>
+  <BookDetailDialog v-if="openDetailDialog" :book="openedBook" :show="openDetailDialog"
+                    @closeDialog="closeDetailDialog()"></BookDetailDialog>
 </template>
 
 <script setup lang="ts">
-import type {Ref} from 'vue';
 import {onMounted, ref} from "vue";
 import router from '@/router';
 import type {Book} from '../../../../react/src/mock-backend/book/Book';
@@ -50,12 +50,12 @@ import {applicationContext} from "@/ApplicationContext";
 import BookCard from '@/components/library/BookCard.vue';
 import BookDetailDialog from '@/components/library/BookDetailDialog.vue';
 
-const filterInput: Ref<string> = ref("");
-const showAllSelectFilter: Ref<"HIDE_YOUR_BOOKS" | "SHOW_ALL"> = ref("HIDE_YOUR_BOOKS");
-const allBooks: Ref<Book[]> = ref([]);
-const filteredBooks: Ref<Book[]> = ref([]);
-const openDetailDialog: Ref<boolean> = ref(false);
-const openedBook: Ref<Book | null> = ref(null);
+const filterInput = ref("");
+const showAllSelectFilter = ref<"HIDE_YOUR_BOOKS" | "SHOW_ALL">("HIDE_YOUR_BOOKS");
+const allBooks = ref<Book[]>([]);
+const filteredBooks = ref<Book[]>([]);
+const openDetailDialog = ref(false);
+const openedBook = ref<Book | null>(null);
 
 onMounted(() => {
   console.log(`onMounted`);
