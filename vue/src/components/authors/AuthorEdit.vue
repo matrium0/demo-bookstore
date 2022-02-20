@@ -34,30 +34,30 @@
             </div>
 
             <!-- TODO use datepicker-->
-            <div class="mt-2" :class="{ 'mat-error': v$.birthdate.$errors.length }">
+            <div class="mt-2 f-row" :class="{ 'mat-error': v$.birthdate.$errors.length }">
               <q-input outlined :model-value="authorBirthdate" @update:model-value="(e) => changeBirthDate(e)" label="birthdate"/>
               <div class="input-errors" v-for="error of v$.birthdate.$errors" :key="error.$uid">
                 <div class="error-msg">{{ error.$message }}</div>
               </div>
             </div>
 
-            <div class="mt-2" :class="{ 'mat-error': v$.placeOfBirth.$errors.length }">
+            <div class="mt-2 f-row" :class="{ 'mat-error': v$.placeOfBirth.$errors.length }">
               <q-input outlined v-model="author.placeOfBirth" @blur="v$.placeOfBirth.$touch" label="Place of birth"/>
               <div class="input-errors" v-for="error of v$.placeOfBirth.$errors" :key="error.$uid">
                 <div class="error-msg">{{ error.$message }}</div>
               </div>
             </div>
 
-            <div class="mt-2" :class="{ 'mat-error': v$.dateOfDeath.$errors.length }">
+            <div class="mt-2 f-row" :class="{ 'mat-error': v$.dateOfDeath.$errors.length }">
               <q-input outlined :model-value="authorDateOfDeath" @update:model-value="(e) => changeDateOfDeath(e)" label="dateOfDeath"/>
               <div class="input-errors" v-for="error of v$.dateOfDeath.$errors" :key="error.$uid">
                 <div class="error-msg">{{ error.$message }}</div>
               </div>
             </div>
 
-            <q-input outlined v-model="author.placeOfDeath" label="Place of death" class="mt-2"/>
+            <q-input outlined v-model="author.placeOfDeath" label="Place of death" class="mt-2 f-row"/>
 
-            <q-input outlined v-model="author.genre" label="Genre" class="mt-2"/>
+            <q-input outlined v-model="author.genre" label="Genre" class="mt-2 f-row"/>
 
             <div class="mt-3" :class="{ 'mat-error': v$.gender.$errors.length }">
               <div class="d-flex align-items-center justify-content-start">
@@ -244,7 +244,7 @@ function changeDateOfDeath(e: string) {
   author.dateOfDeath = DateTime.fromFormat(e, "dd.LL.yyyy");
 
   console.log("changedateOfDeath", e, author.dateOfDeath);
-  if (author.dateOfDeath) {
+  if (author.dateOfDeath.isValid) {
     v$.value.dateOfDeath.$errors.splice(0, v$.value.dateOfDeath.$errors.length);
     authorDateOfDeath.value = author.dateOfDeath.toFormat("dd.LL.yyyy");
   } else {
