@@ -33,13 +33,13 @@
               </div>
             </div>
 
-            <div class="mt-2 f-row" :class="{ 'mat-error': v$.birthdate.$errors.length }">
+            <!-- TODO use datepicker-->
+            <div class="mt-2" :class="{ 'mat-error': v$.birthdate.$errors.length }">
               <q-input outlined :model-value="authorBirthdate" @update:model-value="(e) => changeBirthDate(e)" label="birthdate"/>
               <div class="input-errors" v-for="error of v$.birthdate.$errors" :key="error.$uid">
                 <div class="error-msg">{{ error.$message }}</div>
               </div>
             </div>
-            <!-- TODO use datepicker-->
 
             <div class="mt-2" :class="{ 'mat-error': v$.placeOfBirth.$errors.length }">
               <q-input outlined v-model="author.placeOfBirth" @blur="v$.placeOfBirth.$touch" label="Place of birth"/>
@@ -49,7 +49,7 @@
             </div>
 
             <div class="mt-2" :class="{ 'mat-error': v$.dateOfDeath.$errors.length }">
-              <q-input outlined :model-value="authorDateOfDeath" @update:model-value="changeDateOfDeath" label="dateOfDeath"/>
+              <q-input outlined :model-value="authorDateOfDeath" @update:model-value="(e) => changeDateOfDeath(e)" label="dateOfDeath"/>
               <div class="input-errors" v-for="error of v$.dateOfDeath.$errors" :key="error.$uid">
                 <div class="error-msg">{{ error.$message }}</div>
               </div>
@@ -186,7 +186,7 @@ onMounted(() => {
   } else {
     isLoading.value = false;
     author.penName = false;
-    author.note = "";
+    author.note = "note";
   }
 })
 
@@ -216,7 +216,7 @@ function loadBooksForAuthor(id: number) {
   });
 }
 
-function changeBirthDate(e: any) {
+function changeBirthDate(e: string) {
   author.birthdate = DateTime.fromFormat(e, "dd.LL.yyyy");
 
   console.log("changeBirthDate", e, author.birthdate);
@@ -225,9 +225,6 @@ function changeBirthDate(e: any) {
     v$.value.birthdate.$errors.splice(0, v$.value.birthdate.$errors.length);
     authorBirthdate.value = author.birthdate.toFormat("dd.LL.yyyy");
   } else {
-    console.log("setting birthdate error");
-    console.log(v$.value.firstname.$errors);
-    console.log(v$.value.birthdate.$errors);
     v$.value.birthdate.$errors.splice(0, v$.value.birthdate.$errors.length);
     v$.value.birthdate.$errors.push({
       $uid: "wrong format",
@@ -242,8 +239,8 @@ function changeBirthDate(e: any) {
   }
 }
 
-//TODO date handling needs refactoring (e.g. code duplication, etc.)
-function changeDateOfDeath(e: any) {
+//TODO date handling needs refactoring (e.g. code duplication, date-handling, etc.)
+function changeDateOfDeath(e: string) {
   author.dateOfDeath = DateTime.fromFormat(e, "dd.LL.yyyy");
 
   console.log("changedateOfDeath", e, author.dateOfDeath);
@@ -251,8 +248,6 @@ function changeDateOfDeath(e: any) {
     v$.value.dateOfDeath.$errors.splice(0, v$.value.dateOfDeath.$errors.length);
     authorDateOfDeath.value = author.dateOfDeath.toFormat("dd.LL.yyyy");
   } else {
-    console.log(v$.value.firstname.$errors);
-    console.log(v$.value.dateOfDeath.$errors);
     v$.value.dateOfDeath.$errors.splice(0, v$.value.dateOfDeath.$errors.length);
     v$.value.dateOfDeath.$errors.push({
       $uid: "wrong format",
@@ -266,7 +261,7 @@ function changeDateOfDeath(e: any) {
     })
   }
 
-  console.log("after parse", author.birthdate);
+  console.log("after parse", author.dateOfDeath);
 }
 
 function showUnsupportedOperationMessage() {
