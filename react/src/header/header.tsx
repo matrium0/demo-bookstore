@@ -41,6 +41,11 @@ const Header = () => {
             </NavLink>
           </li>
           <li className="nav-item">
+            <NavLink to="/author" className="nav-link" onClick={collapseMenu}>
+              Authors
+            </NavLink>
+          </li>
+          <li className="nav-item">
             <NavLink to="/your-books" className="nav-link" onClick={() => collapseMenu()}>
               Your Books
             </NavLink>
@@ -48,11 +53,6 @@ const Header = () => {
           <li className="nav-item">
             <NavLink to="/library" className="nav-link" onClick={collapseMenu}>
               Library
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink to="/author" className="nav-link" onClick={collapseMenu}>
-              Authors
             </NavLink>
           </li>
           {applicationContext.user &&

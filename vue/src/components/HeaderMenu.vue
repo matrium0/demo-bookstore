@@ -28,6 +28,11 @@ const isLogoutDialogOpened = ref(false);
           </router-link>
         </li>
         <li class="nav-item">
+          <router-link to="/author" routerLinkActive="active" class="nav-link">
+            Authors
+          </router-link>
+        </li>
+        <li class="nav-item">
           <router-link to="/your-books" routerLinkActive="active" class="nav-link">
             Your Books
           </router-link>
@@ -35,11 +40,6 @@ const isLogoutDialogOpened = ref(false);
         <li class="nav-item">
           <router-link to="/library" routerLinkActive="active" class="nav-link">
             Library
-          </router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/author" routerLinkActive="active" class="nav-link">
-            Authors
           </router-link>
         </li>
         <li class="d-md-none mb-2 logout-link-mobile">
