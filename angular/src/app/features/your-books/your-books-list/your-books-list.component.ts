@@ -9,6 +9,7 @@ import {UserService} from '@core/user.service';
 import {UserBookAssignmentStatus} from '@mock-backend/user/user-book-assignment-status';
 import {updateStatus} from '@mock-backend/user/user-book-assignment-mockservice';
 import {enrichBookWithUserAssignments, EnrichedBook} from '@mock-backend/util/book-utils';
+import {YourBooksStateService} from '@app/features/your-books/your-books-state.service';
 
 @Component({
   selector: 'app-your-books-list',
@@ -21,7 +22,7 @@ export class YourBooksListComponent implements OnInit, AfterViewInit {
   filterByName$ = new BehaviorSubject("");
   filteredBooks$?: Observable<EnrichedBook[]>
 
-  constructor(private matDialog: MatDialog, private router: Router, private userService: UserService) {
+  constructor(private matDialog: MatDialog, private router: Router, private userService: UserService, public yourBooksStateService: YourBooksStateService) {
   }
 
   ngOnInit(): void {
@@ -58,5 +59,9 @@ export class YourBooksListComponent implements OnInit, AfterViewInit {
 
   handleStatusChanged(event: { book: Book, status: UserBookAssignmentStatus }) {
     updateStatus(this.userService.authentication$.getValue(), event.book.id!, event.status);
+  }
+
+  dismissIntroduction() {
+    this.yourBooksStateService.showIntroductionMessage.next(false);
   }
 }

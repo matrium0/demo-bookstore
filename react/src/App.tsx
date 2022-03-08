@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './App.scss';
-import ApplicationContext from './shared/ApplicationContext';
+import ApplicationContext, {ApplicationContextType} from './shared/ApplicationContext';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import Home from './features/home';
 import Header from './header/header';
@@ -12,6 +12,23 @@ import AuthorList from './features/authors/author-list';
 import AuthorEdit from './features/authors/author-edit';
 import AuthorDetail from './features/authors/author-detail';
 import BookEdit from './features/library/book-edit';
+
+
+// @ts-ignore
+function ApplicationContextProvider({children}) {
+  const defaultApplicationContext = {
+    user: "your-username",
+    setUser: (newUser: string) => setState({...state, user: newUser}),
+    showIntroductionMessage: true,
+    disableIntroductionMessage: () => {
+      console.log("disableIntroductionMessage called");
+      setState({...state, showIntroductionMessage: false})
+    }
+  };
+  const [state, setState] = React.useState<ApplicationContextType>(defaultApplicationContext)
+  return <ApplicationContext.Provider value={state}>{children}</ApplicationContext.Provider>
+}
+
 
 function App() {
   console.log("App");
@@ -27,7 +44,7 @@ function App() {
   }
 
   return (
-    <ApplicationContext.Provider value={{user: "your-username", setUser: (newUser: string) => newUser}}>
+    <ApplicationContextProvider>
       <GlobalMessageContext.Provider value={{...globalMessage, setMessage: handleSetGlobalMessage}}>
         <BrowserRouter>
           <Header/>
@@ -47,7 +64,7 @@ function App() {
         </BrowserRouter>
         <GlobalMessageDisplay/>
       </GlobalMessageContext.Provider>
-    </ApplicationContext.Provider>
+    </ApplicationContextProvider>
   );
 }
 

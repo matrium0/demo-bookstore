@@ -20,7 +20,10 @@
   <!--  // I created a feature request for this: https://github.com/angular/angular/issues/44667-->
   <div *ngIf="{filteredBooks: (filteredBooks$ | async)} as obs">
     <app-loading-indicator-overlay-wrapper [showOverlay]="!obs.filteredBooks" spinnerSize="6x">
-
+      <div *ngIf="yourBooksStateService.showIntroductionMessage | async" class="alert alert-info mx-3">
+        <span class="me-3">This is a collection of all books that you showed interest in (because you marked them as either "want to read", "currently reading" or "read")</span>
+        <button (click)="dismissIntroduction()" class="btn btn-secondary">got it</button>
+      </div>
       <div class="row mx-1 mx-lg-2 justify-content-around pb-4" style="min-height: 300px;">
         <div *ngFor="let book of obs.filteredBooks" class="col-auto g-4 book-card-wrap">
           <app-book-card [book]="book" (openDetail)="openBookDetail($event)" (statusChanged)="handleStatusChanged($event)"></app-book-card>

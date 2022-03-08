@@ -21,15 +21,15 @@ interface YourBooksListState {
 
 const YourBooksList = () => {
   console.log("Library");
-  const applicationContextRef = useRef(useContext(ApplicationContext));
+  const applicationContextRef = useContext(ApplicationContext);
   const [state, setState] = useState<YourBooksListState>({loading: true, books: [], filteredBooks: [], searchTerm: ""})
 
   useEffect(() => {
     console.log("useEffect running - should never rerun, since the dependencies-array is empty - loading books");
-    findBooksForUser(applicationContextRef.current.user!).subscribe(
+    findBooksForUser(applicationContextRef.user!).subscribe(
       {
         next: (results: Book[]) => {
-          let books = results.map(b => enrichBookWithUserAssignments(b, applicationContextRef.current.user!));
+          let books = results.map(b => enrichBookWithUserAssignments(b, applicationContextRef.user!));
           books = books.filter(b => b.assignmentStatus !== "default");
           console.log("findBooksForUser SUCCESS", books);
           setState({
@@ -54,12 +54,17 @@ const YourBooksList = () => {
 
   function handleAssignmentStatusChange(book: EnrichedBook, stat: UserBookAssignmentStatus) {
     console.log("YourBookList: statusChanged received", book, stat);
-    updateStatus(applicationContextRef.current.user!, book.id!, stat);
+    updateStatus(applicationContextRef.user!, book.id!, stat);
+  }
+
+  function dismissIntroduction() {
+    applicationContextRef.disableIntroductionMessage();
   }
 
   return (
     <div className="comp-wrapper">
       <Paper elevation={8} className="app-col">
+        xxxxxxxxxx{applicationContextRef.user}{" "+applicationContextRef.showIntroductionMessage}yyyyyyyyyyyyy
         <div className="title-row-wrapper">
           <div className="title-row">
             <div className="d-flex align-items-center">
@@ -78,6 +83,13 @@ const YourBooksList = () => {
         </div>
         <div>
           <LoadingIndicatorWrapper loading={state.loading}>
+            {applicationContextRef.showIntroductionMessage &&
+              <div className="alert alert-info mx-3">
+                <span className="me-3">This is a collection of all books that you showed interest in (because you marked them as either "want to read", "currently reading" or "read")</span>
+                <button onClick={dismissIntroduction} className="btn btn-secondary">got it</button>
+             </div>
+            }
+
             <div className="row mx-1 mx-lg-2 justify-content-around pb-4" style={{minHeight: 400}}>
               {state.filteredBooks.map((b) => (
                 <div key={b.id} className="col-auto g-4 book-card-wrap">
