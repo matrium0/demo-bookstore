@@ -64,7 +64,6 @@ const YourBooksList = () => {
   return (
     <div className="comp-wrapper">
       <Paper elevation={8} className="app-col">
-        xxxxxxxxxx{applicationContextRef.user}{" "+applicationContextRef.showIntroductionMessage}yyyyyyyyyyyyy
         <div className="title-row-wrapper">
           <div className="title-row">
             <div className="d-flex align-items-center">

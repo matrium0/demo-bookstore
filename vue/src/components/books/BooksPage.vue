@@ -17,6 +17,10 @@
     </div>
     <div v-if="filteredBooks">
       <LoadingIndicatorOverlayWrapper :show-overlay="!allBooks?.length" spinner-size="5x">
+        <div v-if="showIntroductionMessage" class="alert alert-info mx-3">
+          <span class="me-3">This is a collection of all books that you showed interest in (because you marked them as either "want to read", "currently reading" or "read")</span>
+          <button @click="dismissIntroduction()" class="btn btn-secondary">got it</button>
+        </div>
         <div class="row mx-1 mx-lg-2 justify-content-around pb-4" style="min-height: 300px;">
           <div v-for="book of filteredBooks" :key="book.id" class="col-auto g-4 book-card-wrap">
             <BookCard :book="book" @openDetail="openBookDetail" @statusChanged="handleStatusChanged"/>
@@ -41,6 +45,7 @@ import {findAllBooks} from '../../../../react/src/mock-backend/book/book-mock-da
 import {applicationContext} from "@/ApplicationContext";
 import BookCard from '@/components/library/BookCard.vue';
 import BookDetailDialog from '@/components/library/BookDetailDialog.vue';
+import {showIntroductionMessage} from '@/components/books/YourBookStateService';
 
 const filterInput = ref("");
 const allBooks = ref<Book[]>([]);
@@ -100,6 +105,10 @@ function closeDetailDialog() {
   console.log("closeDetailDialog");
   openedBook.value = null;
   openDetailDialog.value = false;
+}
+
+const dismissIntroduction = () => {
+  showIntroductionMessage.value = false;
 }
 </script>
 
