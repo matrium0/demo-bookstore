@@ -3,8 +3,32 @@
 // with Intellisense and code completion in your
 // IDE or Text Editor.
 // ***********************************************
+
+declare namespace Cypress {
+  interface Chainable {
+    findByDataId: (id: string) => void;
+  }
+}
+
+Cypress.Commands.add('findByDataId', (id: string) => {
+  return cy.find("[data-cy='" + id + "']");
+})
+// import findByDataId = Cypress.findByDataId;
+// Cypress.Commands.add('login', (email, pw) => {})
 // declare namespace Cypress {
 //   interface Chainable<Subject = any> {
+//     findById(id: string): typeof customCommand;
+//   }
+//
+//   function findByDataId(id: string) {
+//     cy.find("[data-cy='" + id + "']");
+//   }
+// }
+// Cypress.Commands.add('customCommand', findByDataId);
+// Cypress.Commands.add("findById", (id: string) => {
+//   cy.find("[data-cy='" + id + "']");
+// });
+// interface Chainable<Subject = any> {
 //     customCommand(param: any): typeof customCommand;
 //   }
 // }
@@ -14,7 +38,6 @@
 // }
 //
 // NOTE: You can use it like so:
-// Cypress.Commands.add('customCommand', customCommand);
 //
 // ***********************************************
 // This example commands.js shows you how to
