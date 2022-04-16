@@ -11,7 +11,7 @@ declare namespace Cypress {
 }
 
 Cypress.Commands.add('findByDataId', (id: string) => {
-  return cy.find("[data-cy='" + id + "']");
+  return cy.find(`[data-cy='§{id}']`);
 })
 // import findByDataId = Cypress.findByDataId;
 // Cypress.Commands.add('login', (email, pw) => {})
