@@ -45,6 +45,7 @@ export class AuthorListComponent implements OnInit, AfterViewInit {
 
   filter(term: string) {
     console.log("filter", term);
+    term = term.toLowerCase();
     this.filteredAuthors = this.authors?.filter(a =>
       (a.firstname + " " + a.lastname).toLocaleLowerCase().includes(term) ||
       (a.lastname + " " + a.firstname).toLocaleLowerCase().includes(term)

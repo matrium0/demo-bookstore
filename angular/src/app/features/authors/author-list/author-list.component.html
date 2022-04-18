@@ -5,7 +5,7 @@
         <h1>Authors</h1>
         <div class="input-group ms-2 ms-lg-5">
           <!-- TODO fix autofocus when navigating later-->
-          <input #filterInput (keyup)="filter(filterInput.value)" autofocus class="form-control" placeholder="filter" aria-label="Filter">
+          <input id="filterInput" #filterInput (keyup)="filter(filterInput.value)" autofocus class="form-control" placeholder="filter" aria-label="Filter">
           <span class="input-group-text"><mat-icon>filter_alt</mat-icon></span>
         </div>
       </div>
@@ -16,7 +16,7 @@
   </div>
   <div>
     <app-loading-indicator-overlay-wrapper [showOverlay]="!filteredAuthors" spinnerSize="6x">
-      <div class="table-wrapper">
+      <div id="author-table-wrapper" class="table-wrapper">
         <app-author-table *ngIf="filteredAuthors" [authors]="filteredAuthors" (selectAuthor)="onAuthorSelected($event)"></app-author-table>
       </div>
     </app-loading-indicator-overlay-wrapper>
