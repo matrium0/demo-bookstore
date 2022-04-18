@@ -28,7 +28,7 @@ describe('My First Test', () => {
     cy.get("#filterInput").should("be.focused");
 
     // search for Brandon Sanderson
-    cy.focused().type("Brandon Sanderson", {delay: 100})
+    cy.focused().type("Brandon Sanderson", {delay: 150})
 
     // verify that only a single Author is found and click on him
     cy.get("#author-table-wrapper").find("tbody").find("tr").should('have.length', 1).click();
