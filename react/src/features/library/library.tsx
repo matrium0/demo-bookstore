@@ -121,9 +121,9 @@ const Library = () => {
         </div>
         <div>
           <LoadingIndicatorWrapper loading={state.loading}>
-            <div className="row mx-1 mx-lg-2 justify-content-around pb-4" style={{minHeight: 400}}>
+            <div className="pt-3 book-list pb-4 mx-3" style={{minHeight: 400}}>
               {state.filteredBooks.map((b) => (
-                <div key={b.id} className="col-auto g-4 book-card-wrap">
+                <div key={b.id} className="book-card-wrap">
                   <BookCard key={b.id} book={b} changeStatus={handleAssignmentStatusChange}/>
                 </div>
               ))}

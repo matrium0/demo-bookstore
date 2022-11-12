@@ -21,9 +21,8 @@
   </div>
   <div *ngIf="{filteredBooks: (filteredBooks$ | async)} as obs">
     <app-loading-indicator-overlay-wrapper [showOverlay]="!obs.filteredBooks" spinnerSize="6x">
-
-      <div class="row mx-1 mx-lg-2 justify-content-around pb-4" style="min-height: 300px;">
-        <div *ngFor="let book of obs.filteredBooks" class="col-auto g-4 book-card-wrap">
+      <div class="book-list pb-4 mx-3 mt-3" style="min-height: 300px;">
+        <div *ngFor="let book of obs.filteredBooks" class="book-card-wrap">
           <app-book-card [book]="book" (openDetail)="openBookDetail($event)" (statusChanged)="handleStatusChanged($event)"></app-book-card>
         </div>
       </div>

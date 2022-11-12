@@ -21,8 +21,8 @@
           <span class="me-3">This is a collection of all books that you showed interest in (because you marked them as either "want to read", "currently reading" or "read")</span>
           <button @click="dismissIntroduction()" class="btn btn-secondary">got it</button>
         </div>
-        <div class="row mx-1 mx-lg-2 justify-content-around pb-4" style="min-height: 300px;">
-          <div v-for="book of filteredBooks" :key="book.id" class="col-auto g-4 book-card-wrap">
+        <div class="book-list pb-4 mx-3 mt-3" style="min-height: 300px;">
+          <div v-for="book of filteredBooks" :key="book.id" class="book-card-wrap">
             <BookCard :book="book" @openDetail="openBookDetail" @statusChanged="handleStatusChanged"/>
           </div>
         </div>

@@ -24,8 +24,8 @@
     </div>
     <div v-if="filteredBooks">
       <LoadingIndicatorOverlayWrapper :show-overlay="!allBooks?.length" spinner-size="5x">
-        <div class="row mx-1 mx-lg-2 justify-content-around pb-4" style="min-height: 300px;">
-          <div v-for="book of filteredBooks" :key="book.id" class="col-auto g-4 book-card-wrap">
+        <div class="book-list pb-4 mx-3 mt-3" style="min-height: 300px;">
+          <div v-for="book of filteredBooks" :key="book.id" class="book-card-wrap">
             <BookCard :book="book" @openDetail="openBookDetail(book)" @statusChanged="handleStatusChanged"/>
           </div>
         </div>

@@ -228,11 +228,6 @@ mat-checkbox .mat-checkbox-inner-container {
   font-size: 1.2rem;
 }
 
-.book-card-wrap {
-  width: 272px !important;
-  height: 310px !important;
-}
-
 .foto-wrapper {
   min-height: 50px;
   overflow: hidden;
@@ -279,3 +274,26 @@ mat-checkbox .mat-checkbox-inner-container {
   text-align: center;
   cursor: default;
 }
+
+.book-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (max-width: 500px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.book-card-wrap {
+  height: 310px !important;
+}
+
