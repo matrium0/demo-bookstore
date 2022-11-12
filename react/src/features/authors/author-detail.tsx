@@ -148,7 +148,7 @@ const AuthorDetail = () => {
               <button onClick={() => navigateBackToList()} className="btn btn-secondary btn-lg">
                 &nbsp;back&nbsp;
               </button>
-              <button onClick={() => navigateToEditPage()} className="btn btn-warning btn-lg px-4">
+              <button onClick={() => navigateToEditPage()} className="btn btn-warning px-4">
                 &nbsp;edit&nbsp;
               </button>
             </div>

@@ -1,9 +1,9 @@
 <template>
   <q-dialog v-if="props.book" :model-value="show" @hide="closeBookDetailDialog">
     <q-card class="my-card p-4" style="min-width: 280px">
-      <div class="d-flex align-items-start align-items-lg-center justify-content-start flex-column flex-md-row">
-        <h1>{{ book?.title }}</h1>
-        <button @click="navigateToBookEditPage()" class="btn btn-warning btn-lg ms-2 ms-lg-4 me-5">edit</button>
+      <div class="d-flex align-items-start align-items-md-center justify-content-start flex-column flex-md-row">
+        <h1 class="book-detail-header">{{ book?.title }}</h1>
+        <button @click="navigateToBookEditPage()" class="btn btn-warning ms-0 ms-md-4 me-4">edit</button>
       </div>
       <div class="d-flex flex-column flex-md-row">
         <div>

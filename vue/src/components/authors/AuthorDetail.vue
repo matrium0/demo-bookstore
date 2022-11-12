@@ -53,7 +53,7 @@
             <button @click="navigateBackToList()" class="btn btn-secondary btn-lg">
               &nbsp;back&nbsp;
             </button>
-            <button @click="navigateToEditPage()" class="btn btn-warning btn-lg px-4">
+            <button @click="navigateToEditPage()" class="btn btn-warning px-4">
               &nbsp;edit&nbsp;
             </button>
           </div>
